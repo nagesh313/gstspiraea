@@ -19,6 +19,7 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { failureToast } from "../util/util";
+import { CustomizedTimeline } from "./TimeLine";
 const SignInSchema = Yup.object().shape({
   loginUserName: Yup.string()
     .min(2, "Too Short!")
@@ -77,111 +78,124 @@ export function SignInComponent(props: any) {
       });
   };
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main">
       <CssBaseline />
-      <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
+      <Grid container>
+        <Grid xs={12} sm={6}>
+          <div className={classes.paper}>
+            {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar> */}
-        <img
-          alt=""
-          src="/spiraea-logo-bw-web-1.png"
-          style={{ height: "50px", backgroundColor: "#3F51B5" }}
-        />
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Formik
-          initialValues={{
-            loginUserName: "",
-            loginPassword: "",
-            role: "",
-          }}
-          validationSchema={SignInSchema}
-          onSubmit={(values: any) => {
-            signInSubmit(values);
-          }}
-        >
-          {({ errors, touched, values, handleChange, setFieldValue }) => (
-            // obj: any
-            <Form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="loginUserName"
-                label="Username"
-                name="loginUserName"
-                autoComplete="loginUserName"
-                autoFocus
-                onChange={handleChange}
-                value={values.loginUserName}
-                error={
-                  errors.loginUserName && touched.loginUserName ? true : false
-                }
-                helperText={touched.loginUserName && errors.loginUserName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                type="password"
-                name="loginPassword"
-                label="Password"
-                id="loginPassword"
-                autoComplete="loginPassword"
-                onChange={handleChange}
-                value={values.loginPassword}
-                error={
-                  errors.loginPassword && touched.loginPassword ? true : false
-                }
-                helperText={touched.loginPassword && errors.loginPassword}
-              />
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                <Select
-                  style={{ marginTop: "16px" }}
-                  id="demo-simple-select-helper"
-                  value={values.role}
-                  error={errors.role && touched.role ? true : false}
-                  onChange={(event: any, data: any) => {
-                    setFieldValue("role", data?.props?.children);
-                  }}
-                  // value={age}
-                >
-                  <MenuItem value={"Customer"}>Customer</MenuItem>
-                  <MenuItem value={"Agent"}>Agent</MenuItem>
-                  <MenuItem value={"Admin"}>Admin</MenuItem>
-                </Select>
-              </FormControl>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#/forgot-loginPassword" variant="body2">
-                    Forgot loginPassword?
-                  </Link>
-                  {/* TODO feature */}
-                </Grid>
-                <Grid item>
-                  <Link href="/#/signUp" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </div>
+            <img
+              alt=""
+              src="/spiraea-logo-bw-web-1.png"
+              style={{ height: "50px", backgroundColor: "#3F51B5" }}
+            />
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Formik
+              initialValues={{
+                loginUserName: "",
+                loginPassword: "",
+                role: "",
+              }}
+              validationSchema={SignInSchema}
+              onSubmit={(values: any) => {
+                signInSubmit(values);
+              }}
+            >
+              {({ errors, touched, values, handleChange, setFieldValue }) => (
+                // obj: any
+                <Form className={classes.form} noValidate>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="loginUserName"
+                    label="Username"
+                    name="loginUserName"
+                    autoComplete="loginUserName"
+                    autoFocus
+                    onChange={handleChange}
+                    value={values.loginUserName}
+                    error={
+                      errors.loginUserName && touched.loginUserName
+                        ? true
+                        : false
+                    }
+                    helperText={touched.loginUserName && errors.loginUserName}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    type="password"
+                    name="loginPassword"
+                    label="Password"
+                    id="loginPassword"
+                    autoComplete="loginPassword"
+                    onChange={handleChange}
+                    value={values.loginPassword}
+                    error={
+                      errors.loginPassword && touched.loginPassword
+                        ? true
+                        : false
+                    }
+                    helperText={touched.loginPassword && errors.loginPassword}
+                  />
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                    <Select
+                      style={{ marginTop: "16px" }}
+                      id="demo-simple-select-helper"
+                      value={values.role}
+                      error={errors.role && touched.role ? true : false}
+                      onChange={(event: any, data: any) => {
+                        setFieldValue("role", data?.props?.children);
+                      }}
+                      // value={age}
+                    >
+                      <MenuItem value={"Customer"}>Customer</MenuItem>
+                      <MenuItem value={"Agent"}>Agent</MenuItem>
+                      <MenuItem value={"Admin"}>Admin</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                  >
+                    Sign In
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link href="#/forgot-loginPassword" variant="body2">
+                        Forgot loginPassword?
+                      </Link>
+                      {/* TODO feature */}
+                    </Grid>
+                    <Grid item>
+                      <Link href="/#/signUp" variant="body2">
+                        {"Don't have an account? Sign Up"}
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        </Grid>
+        <Grid xs={12} sm={6}>
+          <div className={classes.paper}>
+            <CustomizedTimeline></CustomizedTimeline>
+          </div>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
