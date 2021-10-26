@@ -9,36 +9,37 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import AccessibilityIcon from "@material-ui/icons/Accessibility";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+
 import ContactsIcon from "@material-ui/icons/Contacts";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
-import LayersIcon from "@material-ui/icons/Layers";
-import LocalOfferIcon from "@material-ui/icons/LocalOffer";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+// import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+// import LayersIcon from "@material-ui/icons/Layers";
+// import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+// import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import React from "react";
 
 export const MainListItems = () => {
-  const user = sessionStorage.getItem("user");
-  const admin = user === "Admin";
+  const role = sessionStorage.getItem("role");
+  const admin = role === "Admin";
   return admin ? (
     <div>
-      <ListItem button component="a" href="/#/dashboard/orders">
+      <ListItem button component="a" href="/#/dashboard/order-list">
         <ListItemIcon>
           <FormatListBulletedIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <ListItemText primary="Applications" />
       </ListItem>
     </div>
   ) : (
     <div>
-      <ListItem button component="a" href="/#/dashboard/orders">
+      <ListItem button component="a" href="/#/dashboard/order-list">
         <ListItemIcon>
           <FormatListBulletedIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <ListItemText primary="Applications" />
       </ListItem>
       <ListItem button component="a" href="/#/dashboard/apply-for-gst">
         <ListItemIcon>
@@ -64,7 +65,7 @@ export const MainListItems = () => {
         </ListItemIcon>
         <ListItemText primary="LLP" />
       </ListItem> */}
-      <ListItem button component="a" href="/#/dashboard/checkout">
+      {/* <ListItem button component="a" href="/#/dashboard/checkout">
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
@@ -87,7 +88,7 @@ export const MainListItems = () => {
           <AccountBalanceWalletIcon />
         </ListItemIcon>
         <ListItemText primary="Deposits" />
-      </ListItem>
+      </ListItem> */}
     </div>
   );
 };
@@ -109,8 +110,8 @@ export const SecondaryListItems = () => {
     setOpen(!open);
   };
   const classes = useStyles();
-  const user = sessionStorage.getItem("user");
-  const admin = user === "Admin";
+  const role = sessionStorage.getItem("role");
+  const admin = role === "Admin";
   return (
     <>
       {admin && (

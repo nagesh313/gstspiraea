@@ -10,8 +10,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Form, Formik } from "formik";
 import React from "react";
+import { Company } from "./Company";
+import { LLP } from "./LLP";
+import { Partnership } from "./Partnership";
+import { SoleProprietor } from "./SoleProprietor";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -52,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
 
 export const ApplyForGstComponent = () => {
   const classes = useStyles();
+  const [name, setName] = React.useState("");
+  const [dropdown, setDropdown] = React.useState("");
+
+  // const initialValues = { name: "", dropdown: "" };
   return (
     <React.Fragment>
       <CssBaseline />
@@ -60,81 +67,51 @@ export const ApplyForGstComponent = () => {
           <Typography component="h1" variant="h4" align="center">
             Apply For GST
           </Typography>
-          <React.Fragment>
-            <Formik
-              initialValues={{
-                name: "",
-                dropdown: "",
-              }}
-              //   validationSchema={SignInSchema}
-              onSubmit={(values: any) => {
-                // signInSubmit(values);
-              }}
-            >
-              {({ errors, touched, values, handleChange, setFieldValue }) => (
-                // obj: any
-                <Form noValidate>
-                  <Grid container spacing={5}>
-                    <Grid xs={6} item>
-                      <TextField
-                        size="small"
-                        variant="outlined"
-                        margin="dense"
-                        required
-                        fullWidth
-                        id="name"
-                        label="Name of Person"
-                        name="name"
-                        autoComplete="name"
-                        autoFocus
-                        onChange={handleChange}
-                        value={values.name}
-                        error={errors.name && touched.name ? true : false}
-                        helperText={touched.name && errors.name}
-                      />
-                    </Grid>
-                    <Grid xs={6} item>
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">
-                          Constitution of Business
-                        </InputLabel>
-                        <Select
-                          margin="dense"
-                          style={{ marginTop: "16px" }}
-                          id="demo-simple-select-helper"
-                          value={values.dropdown}
-                          error={
-                            errors.dropdown && touched.dropdown ? true : false
-                          }
-                          onChange={(event: any, data: any) => {
-                            setFieldValue("dropdown", data?.props?.children);
-                          }}
-                          // value={age}
-                        >
-                          <MenuItem value={"Proprietorship"}>
-                            Proprietorship
-                          </MenuItem>
-                          <MenuItem value={"Partnership"}>Partnership</MenuItem>
-                          <MenuItem value={"LLP"}>LLP</MenuItem>
-                          <MenuItem value={"Company"}>Company</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Grid>
-                  </Grid>
-                  {/* <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    // className={classes.submit}
-                  >
-                    Sign In
-                  </Button> */}
-                </Form>
-              )}
-            </Formik>
-          </React.Fragment>
+          <Grid container spacing={5}>
+            <Grid xs={6} item>
+              <TextField
+                size="small"
+                variant="outlined"
+                margin="dense"
+                required
+                fullWidth
+                id="name"
+                label="Name of Person"
+                name="name"
+                autoComplete="name"
+                autoFocus
+                onChange={(event: any) => {
+                  setName(event.target.value);
+                }}
+              />
+            </Grid>
+            <Grid xs={6} item>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Constitution of Business
+                </InputLabel>
+                <Select
+                  margin="dense"
+                  style={{ marginTop: "16px" }}
+                  id="demo-simple-select-helper"
+                  onChange={(event: any, data: any) => {
+                    setDropdown(data?.props?.children);
+                  }}
+                >
+                  <MenuItem value={"Proprietorship"}>Proprietorship</MenuItem>
+                  <MenuItem value={"Partnership"}>Partnership</MenuItem>
+                  <MenuItem value={"LLP"}>LLP</MenuItem>
+                  <MenuItem value={"Company"}>Company</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
         </Paper>
+
+        {name !== "" && dropdown === "Proprietorship" && <SoleProprietor />}
+        {name !== "" && dropdown === "Partnership" && <Partnership />}
+        {name !== "" && dropdown === "LLP" && <LLP />}
+        {name !== "" && dropdown === "Company" && <Company />}
       </main>
     </React.Fragment>
   );

@@ -32,19 +32,47 @@ public class LoginControllerRest {
 
     @PostConstruct
     public void createAdminUser() {
+        UserDetails admin = new UserDetails();
+        admin.setFirstName("admin");
+        admin.setLastName("admin");
+        admin.setUserEmail("nagesh3.13@gmail.com");
+        admin.setMobile(1234567489D);
+        admin.setGender("Male");
+        admin.setRole("Admin");
+        admin.setLoginUserName("admin");
+        admin.setLoginPassword("admin");
+        admin.setModifiedOn(LocalDateTime.now());
+        admin.setCreatedBy("admin");
+        admin.setCreatedOn(LocalDateTime.now());
+        userDetailsRepository.save(admin);
+
         UserDetails user = new UserDetails();
-        user.setFirstName("admin");
-        user.setLastName("admin");
+        user.setFirstName("user");
+        user.setLastName("user");
         user.setUserEmail("nagesh3.13@gmail.com");
         user.setMobile(1234567489D);
         user.setGender("Male");
-        user.setRole("Admin");
-        user.setLoginUserName("admin");
-        user.setLoginPassword("admin");
+        user.setRole("Customer");
+        user.setLoginUserName("user");
+        user.setLoginPassword("user");
         user.setModifiedOn(LocalDateTime.now());
         user.setCreatedBy("admin");
         user.setCreatedOn(LocalDateTime.now());
         userDetailsRepository.save(user);
+
+        UserDetails agent = new UserDetails();
+        agent.setFirstName("agent");
+        agent.setLastName("agent");
+        agent.setUserEmail("nagesh3.13@gmail.com");
+        agent.setMobile(1234567489D);
+        agent.setGender("Male");
+        agent.setRole("Agent");
+        agent.setLoginUserName("agent");
+        agent.setLoginPassword("agent");
+        agent.setModifiedOn(LocalDateTime.now());
+        agent.setCreatedBy("admin");
+        agent.setCreatedOn(LocalDateTime.now());
+        userDetailsRepository.save(agent);
     }
 
     @PostMapping("/login")

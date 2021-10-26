@@ -9,7 +9,7 @@ import {
   List,
   Menu,
   MenuItem,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -219,8 +219,8 @@ export default function Dashboard() {
       </MenuItem>
     </Menu>
   );
-  const user = sessionStorage.getItem("user");
-  const admin = user === "Admin";
+  // const role = sessionStorage.getItem("role");
+  // const admin = role === "Admin";
   const navigate = (url: string) => {
     history.push(url);
   };
@@ -232,20 +232,18 @@ export default function Dashboard() {
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>
-          {admin && (
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(
-                classes.menuButton,
-                open && classes.menuButtonHidden
-              )}
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            className={clsx(
+              classes.menuButton,
+              open && classes.menuButtonHidden
+            )}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             component="h1"
             variant="h6"

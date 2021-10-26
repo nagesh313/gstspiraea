@@ -15,9 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
-import React, { useEffect } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
-import { failureToast, successToast } from "../../util/util";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -56,76 +54,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SoleProprietorComponent = (props: any) => {
+const CompanyComponent = (props: any) => {
   const classes = useStyles();
-  const { params }: any = useRouteMatch();
-  const history = useHistory();
-  const [orderDetails, setOrderDetails] = React.useState<any>();
-  // const viewDocument = (name: any) => {
-  //   // window.open("/api/document/downloadFile/", "_blank");
-  //   axios
-  //     .get("/api/document/downloadFile/" + name)
-  //     .then((response: any) => {
-  //       console.log(name);
-  //       // setOrderList(response.data);
-  //       const url = window.URL.createObjectURL(new Blob([response.data]));
-  //       const link = document.createElement("a");
-  //       link.href = url;
-  //       link.setAttribute("download", name);
-  //       document.body.appendChild(link);
-  //       link.click();
-  //     })
-  //     .catch((reponse: any) => {
-  //       props.enqueueSnackbar(reponse.error, failureToast);
-  //     });
-  // };
-  const fetchOrderDetails = (id: any) => {
-    axios
-      .get("/api/get-order/get/Proprietorship/" + id)
-      .then((response: any) => {
-        // props.enqueueSnackbar("Order Rejected Successfull", successToast);
-        setOrderDetails(response.data);
-      })
-      .catch((reponse: any) => {
-        // props.enqueueSnackbar(reponse.error, failureToast);
-      });
-  };
-  const approve = () => {
-    axios
-      .get("/api/get-order/Proprietorship/" + params.id + "/APPROVED/")
-      .then((response: any) => {
-        props.enqueueSnackbar(
-          "Application Approved Successfully",
-          successToast
-        );
-        history.push("/dashboard/order-list");
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar(
-          "Unable To Approve the Application",
-          failureToast
-        );
-      });
-  };
-  const reject = () => {
-    axios
-      .get("/api/get-order/Proprietorship/" + params.id + "/REJECTED/")
-      .then((response: any) => {
-        props.enqueueSnackbar(
-          "Application Rejected Successfully",
-          successToast
-        );
-        history.push("/dashboard/order-list");
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar("Unable To Reject the Application", failureToast);
-      });
-  };
-  useEffect(() => {
-    if (params.id) {
-      fetchOrderDetails(params.id);
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const upload = (event: any, setFieldValue: any, field: any) => {
     let formData = new FormData();
     formData.append("file", event.currentTarget.files[0]);
@@ -136,6 +66,8 @@ const SoleProprietorComponent = (props: any) => {
         },
       })
       .then((response: any) => {
+        console.log(response);
+        console.log(response.data);
         setFieldValue(field, response.data);
         // setTaskList(response.data);
       })
@@ -147,17 +79,18 @@ const SoleProprietorComponent = (props: any) => {
     axios
       .post("/api/submit-proprietorship", { ...values })
       .then((response: any) => {
-        props.enqueueSnackbar(
-          "Application Submitted Successfully",
-          successToast
-        );
-        history.push("/dashboard/order-list");
+        console.log(response);
+        console.log(response.data);
+        // setTaskList(response.data);
       })
       .catch((reponse: any) => {
-        props.enqueueSnackbar("Error while submitting", failureToast);
+        // props.enqueueSnackbar("Failed to upload the CSV", failureToast);
       });
   };
 
+  // getFiles() {
+  //   return http.get("/files");
+  // }
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
@@ -167,66 +100,61 @@ const SoleProprietorComponent = (props: any) => {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Sole Proprietor
+            Company
           </Typography>
           <React.Fragment>
             <Formik
-              enableReinitialize
-              initialValues={
-                orderDetails
-                  ? orderDetails
-                  : {
-                      personName: "2110271219431043.png",
-                      legalbusinessName: "2110271219431043.png",
-                      tradeName: "2110271219431043.png",
-                      mobile: "2110271219431043.png",
-                      email: "2110271219431043.png",
-                      pannumber: "2110271219431043.png",
-                      panphoto: "2110271219431043.png",
-                      composition: "Yes",
-                      commencementDate: date,
-                      principleplace: "2110271219431043.png",
-                      pricipleelectricityphoto: "2110271219431043.png",
-                      priciplerentphoto: "2110271219431043.png",
-                      priciplenocphoto: "2110271219431043.png",
-                      additionalplace: "2110271219431043.png",
-                      additionalelectricityphoto: "2110271219431043.png",
-                      additionalrentphoto: "2110271219431043.png",
-                      additionalnocphoto: "2110271219431043.png",
-                      propfatherName: "2110271219431043.png",
-                      propadharnumber: "2110271219431043.png",
-                      propadharphoto: "2110271219431043.png",
-                      resident_address: "2110271219431043.png",
-                      photo: "2110271219431043.png",
-                      authsignname: "2110271219431043.png",
-                      signfathername: "2110271219431043.png",
-                      signadharnumber: "2110271219431043.png",
-                      signadharphoto: "2110271219431043.png",
-                      residentsignaddress: "2110271219431043.png",
-                      signphoto: "2110271219431043.png",
-                      businessactivity: "2110271219431043.png",
-                      hsn1: "2110271219431043.png",
-                      hsn2: "2110271219431043.png",
-                      hsn3: "2110271219431043.png",
-                      hsn4: "2110271219431043.png",
-                      hsn5: "2110271219431043.png",
-                      accountname: "2110271219431043.png",
-                      accountnumber: "2110271219431043.png",
-                      ifsc: "2110271219431043.png",
-                      branchname: "2110271219431043.png",
-                      branchcode: "2110271219431043.png",
-                      cancelcheqphoto: "2110271219431043.png",
-                      tradelicensenumber: "2110271219431043.png",
-                      tradelicensephoto: "2110271219431043.png",
-                      isActive: true,
-                      createdBy: sessionStorage.getItem("user"),
-                      status: "CREATED",
-                      remark: "2110271219431043.png",
-                      trading: false,
-                      manufacture: false,
-                      service: false,
-                    }
-              }
+              initialValues={{
+                personName: "2110260840371037.png",
+                legalbusinessName: "2110260840371037.png",
+                tradeName: "2110260840371037.png",
+                mobile: "2110260840371037.png",
+                email: "2110260840371037.png",
+                pannumber: "2110260840371037.png",
+                panphoto: "2110260840371037.png",
+                composition: "Yes",
+                commencementDate: date,
+                principleplace: "2110260840371037.png",
+                pricipleelectricityphoto: "2110260840371037.png",
+                priciplerentphoto: "2110260840371037.png",
+                priciplenocphoto: "2110260840371037.png",
+                additionalplace: "2110260840371037.png",
+                additionalelectricityphoto: "2110260840371037.png",
+                additionalrentphoto: "2110260840371037.png",
+                additionalnocphoto: "2110260840371037.png",
+                propfatherName: "2110260840371037.png",
+                propadharnumber: "2110260840371037.png",
+                propadharphoto: "2110260840371037.png",
+                resident_address: "2110260840371037.png",
+                photo: "2110260840371037.png",
+                authsignname: "2110260840371037.png",
+                signfathername: "2110260840371037.png",
+                signadharnumber: "2110260840371037.png",
+                signadharphoto: "2110260840371037.png",
+                residentsignaddress: "2110260840371037.png",
+                signphoto: "2110260840371037.png",
+                businessactivity: "2110260840371037.png",
+                hsn1: "2110260840371037.png",
+                hsn2: "2110260840371037.png",
+                hsn3: "2110260840371037.png",
+                hsn4: "2110260840371037.png",
+                hsn5: "2110260840371037.png",
+                accountname: "2110260840371037.png",
+                accountnumber: "2110260840371037.png",
+                ifsc: "2110260840371037.png",
+                branchname: "2110260840371037.png",
+                branchcode: "2110260840371037.png",
+                cancelcheqphoto: "2110260840371037.png",
+                tradelicensenumber: "2110260840371037.png",
+                tradelicensephoto: "2110260840371037.png",
+                isActive: true,
+                createdBy: "2110260840371037.png",
+                status: "CREATED",
+                remark: "2110260840371037.png",
+                trading: false,
+                manufacture: false,
+                service: false,
+              }}
               //   validationSchema={SignInSchema}
               onSubmit={(values: any) => {
                 submitForm(values);
@@ -376,14 +304,6 @@ const SoleProprietorComponent = (props: any) => {
                         }
                         helperText={touched.panphoto && errors.panphoto}
                       />
-                      {/* {values.panphoto && (
-                        <Visibility
-                          onClick={() => {
-                            viewDocument(values.panphoto);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )} */}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -498,14 +418,6 @@ const SoleProprietorComponent = (props: any) => {
                           errors.pricipleelectricityphoto
                         }
                       />
-                      {/* {values.pricipleelectricityphoto && (
-                        <Visibility
-                          onClick={() => {
-                            viewDocument(values.pricipleelectricityphoto);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )} */}
                       <TextField
                         margin="dense"
                         type="file"
@@ -530,14 +442,6 @@ const SoleProprietorComponent = (props: any) => {
                           touched.priciplerentphoto && errors.priciplerentphoto
                         }
                       />
-                      {/* {values.priciplerentphoto && (
-                        <Visibility
-                          onClick={() => {
-                            viewDocument(values.priciplerentphoto);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )} */}
                       <TextField
                         margin="dense"
                         type="file"
@@ -560,14 +464,6 @@ const SoleProprietorComponent = (props: any) => {
                         }
                         helperText={touched.panphoto && errors.priciplenocphoto}
                       />
-                      {/* {values.priciplenocphoto && (
-                        <Visibility
-                          onClick={() => {
-                            viewDocument(values.priciplenocphoto);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )} */}
                     </Grid>
                   </Grid>
 
@@ -1147,72 +1043,15 @@ const SoleProprietorComponent = (props: any) => {
                       />
                     </Grid>
                   </Grid>
-                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
-                    <Grid container spacing={4}>
-                      <Grid item xs={12}>
-                        <TextField
-                          margin="dense"
-                          size="small"
-                          required
-                          fullWidth
-                          id="remark"
-                          label="Remark"
-                          name="remark"
-                          autoComplete="remark"
-                          onChange={handleChange}
-                          value={values.remark}
-                          InputLabelProps={{ shrink: true }}
-                          error={errors.remark && touched.remark ? true : false}
-                          helperText={touched.remark && errors.remark}
-                        />
-                      </Grid>
-                    </Grid>
-                  )}
-                  {params.id === undefined && (
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      style={{ marginTop: "10px" }}
-                      // className={classes.submit}
-                    >
-                      Submit
-                    </Button>
-                  )}
-                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
-                    <>
-                      <Grid
-                        container
-                        spacing={3}
-                        style={{ textAlign: "center" }}
-                      >
-                        <Grid item xs={12}>
-                          <Button
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              approve();
-                            }}
-                          >
-                            Approve
-                          </Button>
-                          <Button
-                            style={{ marginLeft: "10px" }}
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              reject();
-                            }}
-                          >
-                            Reject
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    </>
-                  )}
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    // className={classes.submit}
+                  >
+                    Submit
+                  </Button>
                 </Form>
               )}
             </Formik>
@@ -1222,4 +1061,4 @@ const SoleProprietorComponent = (props: any) => {
     </React.Fragment>
   );
 };
-export const SoleProprietor = withSnackbar(SoleProprietorComponent);
+export const Company = withSnackbar(CompanyComponent);

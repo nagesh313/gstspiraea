@@ -62,7 +62,7 @@ export function SignInComponent(props: any) {
     sessionActive();
   }, []);
   function navigateToDashboard() {
-    history.push("/dashboard/home");
+    history.push("/dashboard/order-list");
   }
   const signInSubmit = (values: any) => {
     // navigateToDashboard();
@@ -71,7 +71,8 @@ export function SignInComponent(props: any) {
       .post("/api/login", { ...values })
 
       .then((response: any) => {
-        sessionStorage.setItem("user", values.role);
+        sessionStorage.setItem("role", values.role);
+        sessionStorage.setItem("user", values.loginUserName);
         navigateToDashboard();
       })
       .catch((reponse: any) => {
@@ -179,7 +180,7 @@ export function SignInComponent(props: any) {
                     <Grid container>
                       <Grid item xs>
                         <Link href="#/forgot-loginPassword" variant="body2">
-                          Forgot loginPassword?
+                          Forgot Password?
                         </Link>
                         {/* TODO feature */}
                       </Grid>

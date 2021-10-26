@@ -13,12 +13,13 @@ import Pricing from "../component/pricing";
 import { SignIn } from "../component/SignIn";
 import { SignUp } from "../component/SignUp";
 import { UserList } from "../component/UserList";
-import SolePropreietor from "../component/forms/SoleProprietor";
-import { LLP } from "../component/forms/LLP";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import { ForgotPassword } from "../component/ForgotPassword";
 import { ApplyForGstComponent } from "../component/forms/ApplyForGST";
-
+import { OrderList } from "../component/OrderList";
+import { Company } from "../component/forms/Company";
+import { LLP } from "../component/forms/LLP";
+import { SoleProprietor } from "../component/forms/SoleProprietor";
+import { Partnership } from "../component/forms/Partnership";
 export const dashboardRoutes = [
   {
     path: "/signin",
@@ -56,27 +57,27 @@ export const dashboardRoutes = [
     component: <Dashboard></Dashboard>,
     layout: "/admin",
   },
-  {
-    path: "/dashboard/sole-proprietor",
-    name: "/dashboard/sole-proprietor",
-    icon: <AssignmentIndIcon></AssignmentIndIcon>,
-    component: <SolePropreietor></SolePropreietor>,
-    layout: "/admin",
-  },
-  {
-    path: "/dashboard/partnership",
-    name: "/dashboard/partnership",
-    icon: <AllOutIcon></AllOutIcon>,
-    component: <Checkout></Checkout>,
-    layout: "/admin",
-  },
-  {
-    path: "/dashboard/llp",
-    name: "/dashboard/llp",
-    icon: <LLP></LLP>,
-    component: <Checkout></Checkout>,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/dashboard/sole-proprietor",
+  //   name: "/dashboard/sole-proprietor",
+  //   icon: <AssignmentIndIcon></AssignmentIndIcon>,
+  //   component: <SolePropreietor></SolePropreietor>,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/dashboard/partnership",
+  //   name: "/dashboard/partnership",
+  //   icon: <AllOutIcon></AllOutIcon>,
+  //   component: <Checkout></Checkout>,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/dashboard/llp",
+  //   name: "/dashboard/llp",
+  //   icon: <LLP></LLP>,
+  //   component: <Checkout></Checkout>,
+  //   layout: "/admin",
+  // },
 
   {
     path: "/dashboard/checkout",
@@ -102,34 +103,36 @@ export const secondaryRoutes = [
   //   layout: "/dashboard/home",
   // },
   {
+    path: "/dashboard/order-list",
+    name: "Application List",
+    icon: <AllOutIcon></AllOutIcon>,
+    component: <OrderList></OrderList>,
+    layout: "/dashboard/order-list",
+  },
+  {
     path: "/dashboard/apply-for-gst",
     name: "/dashboard/apply-for-gst",
     icon: <ApplyForGstComponent></ApplyForGstComponent>,
     component: <ApplyForGstComponent></ApplyForGstComponent>,
     layout: "/apply-for-gst",
   },
-  {
-    path: "/dashboard/sole-proprietor",
-    name: "/dashboard/sole-proprietor",
-    icon: <AssignmentIndIcon></AssignmentIndIcon>,
-    component: <SolePropreietor></SolePropreietor>,
-    layout: "/admin",
-  },
-  {
-    path: "/dashboard/partnership",
-    name: "/dashboard/partnership",
-    icon: <AllOutIcon></AllOutIcon>,
-    component: <Checkout></Checkout>,
-    layout: "/admin",
-  },
-  {
-    path: "/dashboard/llp",
-    name: "/dashboard/llp",
-    icon: <LLP></LLP>,
-    component: <Checkout></Checkout>,
-    layout: "/admin",
-  },
 
+  {
+    path: "/dashboard/sole-proprietor/:id",
+    component: <SoleProprietor></SoleProprietor>,
+  },
+  {
+    path: "/dashboard/partnership/:id",
+    component: <Partnership></Partnership>,
+  },
+  {
+    path: "/dashboard/llp/:id",
+    component: <LLP></LLP>,
+  },
+  {
+    path: "/dashboard/company/:id",
+    component: <Company></Company>,
+  },
   {
     path: "/dashboard/checkout",
     name: "/dashboard/checkout",
