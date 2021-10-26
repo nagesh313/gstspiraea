@@ -16,7 +16,8 @@ before_script:
   - npm run build
   - cd ..
   - cp -avr react-frontend/build/. src/main/resources/static
-
+install: true
+script: mvn clean package -DskipTests=true
 notifications:
   email:
     on_success: "never"
