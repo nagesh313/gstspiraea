@@ -76,8 +76,8 @@ export function ForgotPasswordComponent(props: any) {
         </Typography>
         <Formik
           initialValues={{
-            userEmail: "nagesh3.13@gmail.com",
-            mobile: "8308283800",
+            userEmail: "",
+            mobile: "",
           }}
           validationSchema={SignupSchema}
           onSubmit={(values: any) => {

@@ -93,12 +93,12 @@ export function SignUpComponent(props: any) {
         </Typography>
         <Formik
           initialValues={{
-            lastName: "test",
-            firstName: "test",
-            middleName: "test",
-            gender: "Male",
-            userEmail: "nagesh3.13@gmail.com",
-            mobile: "8308283800",
+            lastName: "",
+            firstName: "",
+            middleName: "",
+            gender: "",
+            userEmail: "",
+            mobile: "",
           }}
           validationSchema={SignupSchema}
           onSubmit={(values: any) => {
