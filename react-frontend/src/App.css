@@ -15,3 +15,7 @@
 .top-predicted .highcharts-tick {
   display: none;
 }
+.footer {
+  margin-top:calc(5% + 60px);
+  bottom: 0;
+}

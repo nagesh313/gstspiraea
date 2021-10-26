@@ -1,15 +1,13 @@
-import React from "react";
+import { Grid } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "100vh",
   },
   main: {
     marginTop: theme.spacing(8),
@@ -25,19 +23,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function StickyFooter() {
+export const StickyFooter = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={"footer"}>
       <CssBaseline />
       <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Typography variant="body1">
-            My sticky footer can be found here.
-          </Typography>
-        </Container>
+        <Grid container>
+          <Grid item xs={6} style={{ textAlign: "center" }}>
+            <Typography variant="body1">
+              Copyright © 2021 Spiraea. All Rights Reserved (A){" "}
+            </Typography>
+          </Grid>
+          <Grid item xs={6} style={{ textAlign: "center" }}>
+            <Typography variant="body1">
+              <img
+                src="/NextSAA-Logo1.png"
+                alt=""
+                style={{ height: "70px" }}
+              ></img>
+            </Typography>
+          </Grid>
+        </Grid>
       </footer>
     </div>
   );
-}
+};
