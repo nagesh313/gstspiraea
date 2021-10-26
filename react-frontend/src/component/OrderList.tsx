@@ -165,6 +165,46 @@ function OrderListComponent(props: any) {
           </TableBody>
         </Table>
       )}
+      {orderType === "LLP" && (
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>LLP ID</TableCell>
+              <TableCell>Firm Name</TableCell>
+              <TableCell>Partner Name</TableCell>
+              <TableCell>Legal Business Name</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell align="center"></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orderList.map((row: any) => (
+              <TableRow key={row.llpid}>
+                <TableCell>{row.llpid}</TableCell>
+                <TableCell>{row.firmName}</TableCell>
+                <TableCell>{row.partnerName}</TableCell>
+                <TableCell>{row.legalbusinessName}</TableCell>
+                <TableCell>{row.status}</TableCell>
+                <TableCell align="center">
+                  {sessionStorage.getItem("role") !== "Customer" && (
+                    <>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => {
+                          view(row);
+                        }}
+                      >
+                        View
+                      </Button>
+                    </>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </React.Fragment>
   );
 }

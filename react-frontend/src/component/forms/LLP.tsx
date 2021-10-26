@@ -15,8 +15,9 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useHistory, useRouteMatch } from "react-router-dom";
+import { failureToast, successToast } from "../../util/util";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -56,6 +57,75 @@ const useStyles = makeStyles((theme) => ({
 
 const LLPComponent = (props: any) => {
   const classes = useStyles();
+  const { params }: any = useRouteMatch();
+  const history = useHistory();
+  const [orderDetails, setOrderDetails] = React.useState<any>();
+  // const viewDocument = (name: any) => {
+  //   // window.open("/api/document/downloadFile/", "_blank");
+  //   axios
+  //     .get("/api/document/downloadFile/" + name)
+  //     .then((response: any) => {
+  //       console.log(name);
+  //       // setOrderList(response.data);
+  //       const url = window.URL.createObjectURL(new Blob([response.data]));
+  //       const link = document.createElement("a");
+  //       link.href = url;
+  //       link.setAttribute("download", name);
+  //       document.body.appendChild(link);
+  //       link.click();
+  //     })
+  //     .catch((reponse: any) => {
+  //       props.enqueueSnackbar(reponse.error, failureToast);
+  //     });
+  // };
+  const fetchOrderDetails = (id: any) => {
+    axios
+      .get("/api/get-order/get/LLP/" + id)
+      .then((response: any) => {
+        // props.enqueueSnackbar("Order Rejected Successfull", successToast);
+        setOrderDetails(response.data);
+      })
+      .catch((reponse: any) => {
+        // props.enqueueSnackbar(reponse.error, failureToast);
+      });
+  };
+  const approve = () => {
+    axios
+      .get("/api/get-order/LLP/" + params.id + "/APPROVED/")
+      .then((response: any) => {
+        props.enqueueSnackbar(
+          "Application Approved Successfully",
+          successToast
+        );
+        history.push("/dashboard/order-list");
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar(
+          "Unable To Approve the Application",
+          failureToast
+        );
+      });
+  };
+  const reject = () => {
+    axios
+      .get("/api/get-order/LLP/" + params.id + "/REJECTED/")
+      .then((response: any) => {
+        props.enqueueSnackbar(
+          "Application Rejected Successfully",
+          successToast
+        );
+        history.push("/dashboard/order-list");
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable To Reject the Application", failureToast);
+      });
+  };
+  useEffect(() => {
+    if (params.id) {
+      fetchOrderDetails(params.id);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const upload = (event: any, setFieldValue: any, field: any) => {
     let formData = new FormData();
     formData.append("file", event.currentTarget.files[0]);
@@ -66,8 +136,6 @@ const LLPComponent = (props: any) => {
         },
       })
       .then((response: any) => {
-        console.log(response);
-        console.log(response.data);
         setFieldValue(field, response.data);
         // setTaskList(response.data);
       })
@@ -77,14 +145,13 @@ const LLPComponent = (props: any) => {
   };
   const submitForm = (values: any) => {
     axios
-      .post("/api/submit-proprietorship", { ...values })
+      .post("/api/submit-llp", { ...values })
       .then((response: any) => {
-        console.log(response);
-        console.log(response.data);
-        // setTaskList(response.data);
+        history.push("/dashboard/order-list");
+        props.enqueueSnackbar("Application Saved SuccessFully", successToast);
       })
       .catch((reponse: any) => {
-        // props.enqueueSnackbar("Failed to upload the CSV", failureToast);
+        props.enqueueSnackbar("Not able to save the Application", failureToast);
       });
   };
 
@@ -104,57 +171,57 @@ const LLPComponent = (props: any) => {
           </Typography>
           <React.Fragment>
             <Formik
-              initialValues={{
-                personName: "",
-                legalbusinessName: "",
-                tradeName: "",
-                mobile: "",
-                email: "",
-                pannumber: "",
-                panphoto: "",
-                composition: "Yes",
-                commencementDate: date,
-                principleplace: "",
-                pricipleelectricityphoto: "",
-                priciplerentphoto: "",
-                priciplenocphoto: "",
-                additionalplace: "",
-                additionalelectricityphoto: "",
-                additionalrentphoto: "",
-                additionalnocphoto: "",
-                propfatherName: "",
-                propadharnumber: "",
-                propadharphoto: "",
-                resident_address: "",
-                photo: "",
-                authsignname: "",
-                signfathername: "",
-                signadharnumber: "",
-                signadharphoto: "",
-                residentsignaddress: "",
-                signphoto: "",
-                businessactivity: "",
-                hsn1: "",
-                hsn2: "",
-                hsn3: "",
-                hsn4: "",
-                hsn5: "",
-                accountname: "",
-                accountnumber: "",
-                ifsc: "",
-                branchname: "",
-                branchcode: "",
-                cancelcheqphoto: "",
-                tradelicensenumber: "",
-                tradelicensephoto: "",
-                isActive: true,
-                createdBy: "",
-                status: "CREATED",
-                remark: "",
-                trading: false,
-                manufacture: false,
-                service: false,
-              }}
+              enableReinitialize
+              initialValues={
+                orderDetails
+                  ? orderDetails
+                  : {
+                      firmName: "test3",
+                      legalbusinessName: "test3",
+                      tradeName: "test3",
+                      mobile: "test3",
+                      email: "test3",
+                      pannumber: "test3",
+                      panphoto: "test3",
+                      composition: "test3",
+                      commencementDate: date,
+                      principleplace: "test3",
+                      pricipleelectricityphoto: "test3",
+                      priciplerentphoto: "test3",
+                      priciplenocphoto: "test3",
+                      additionalplace: "test3",
+                      additionalelectricityphoto: "test3",
+                      additionalrentphoto: "test3",
+                      additionalnocphoto: "test3",
+                      businessactivity: "test3",
+                      hsn1: "test3",
+                      hsn2: "test3",
+                      hsn3: "test3",
+                      hsn4: "test3",
+                      hsn5: "test3",
+                      accountname: "test3",
+                      accountnumber: "test3",
+                      ifsc: "test3",
+                      branchname: "test3",
+                      branchcode: "test3",
+                      cancelcheqphoto: "test3",
+                      tradelicensenumber: "test3",
+                      tradelicensephoto: "test3",
+                      isActive: true,
+                      status: "CREATED",
+                      createdBy: sessionStorage.getItem("user"),
+                      partnerName: "test3",
+                      partnerFatherName: "test3",
+                      partneradharnumber: "test3",
+                      partneradharphoto: "test3",
+                      residentialAddress: "test3",
+                      partnerPassportPhoto: "test3",
+                      trading: false,
+                      manufacture: false,
+                      service: false,
+                      remark: "test3",
+                    }
+              }
               //   validationSchema={SignInSchema}
               onSubmit={(values: any) => {
                 submitForm(values);
@@ -170,16 +237,17 @@ const LLPComponent = (props: any) => {
                         size="small"
                         required
                         fullWidth
-                        id="personName"
-                        label="Name of the person"
-                        name="personName"
-                        autoComplete="personName"
+                        id="firmName"
+                        label="Name of the LLP"
+                        name="firmName"
+                        autoComplete="firmName"
                         onChange={handleChange}
-                        value={values.personName}
+                        value={values.firmName}
                         error={
-                          errors.personName && touched.personName ? true : false
+                          errors.firmName && touched.firmName ? true : false
                         }
-                        helperText={touched.personName && errors.personName}
+                        helperText={touched.firmName && errors.firmName}
+                        InputLabelProps={{ shrink: true }}
                       />
                     </Grid>
                   </Grid>
@@ -583,6 +651,165 @@ const LLPComponent = (props: any) => {
                         size="small"
                         required
                         fullWidth
+                        id="partnerName"
+                        label="Partner's Name"
+                        name="partnerName"
+                        autoComplete="partnerName"
+                        onChange={handleChange}
+                        value={values.partnerName}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.partnerName && touched.partnerName
+                            ? true
+                            : false
+                        }
+                        helperText={touched.partnerName && errors.partnerName}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="partnerFatherName"
+                        label="Partner's Father name"
+                        name="partnerFatherName"
+                        autoComplete="partnerFatherName"
+                        onChange={handleChange}
+                        value={values.partnerFatherName}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.partnerFatherName && touched.partnerFatherName
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.partnerFatherName && errors.partnerFatherName
+                        }
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="partneradharnumber"
+                        label="Aadhaar No. of Partner"
+                        name="partneradharnumber"
+                        autoComplete="partneradharnumber"
+                        onChange={handleChange}
+                        value={values.partneradharnumber}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.partneradharnumber &&
+                          touched.partneradharnumber
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.partneradharnumber &&
+                          errors.partneradharnumber
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        type="file"
+                        size="small"
+                        required
+                        fullWidth
+                        id="partneradharphoto"
+                        label="Please attach Aadhar copy"
+                        name="partneradharphoto"
+                        autoComplete="partneradharphoto"
+                        onChange={(file) =>
+                          upload(file, setFieldValue, "partneradharphoto")
+                        }
+                        // value={values.partneradharphoto}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.partneradharphoto && touched.partneradharphoto
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.partneradharphoto && errors.partneradharphoto
+                        }
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="residentialAddress"
+                        label="Residential Address"
+                        name="residentialAddress"
+                        autoComplete="residentialAddress"
+                        onChange={handleChange}
+                        value={values.residentialAddress}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.residentialAddress &&
+                          touched.residentialAddress
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.residentialAddress &&
+                          errors.residentialAddress
+                        }
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        type="file"
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="partnerPassportPhoto"
+                        label="Passport Size Photo"
+                        name="partnerPassportPhoto"
+                        autoComplete="partnerPassportPhoto"
+                        onChange={(file) =>
+                          upload(file, setFieldValue, "partnerPassportPhoto")
+                        }
+                        // value={values.partnerPassportPhoto}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.partnerPassportPhoto &&
+                          touched.partnerPassportPhoto
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.partnerPassportPhoto &&
+                          errors.partnerPassportPhoto
+                        }
+                      />
+                    </Grid>
+                  </Grid>
+
+                  {/* <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
                         id="propfatherName"
                         label="Proprietor's Father name"
                         name="propfatherName"
@@ -850,6 +1077,7 @@ const LLPComponent = (props: any) => {
                       />
                     </Grid>
                   </Grid>
+                  */}
                   <Grid container spacing={4}>
                     <Grid item xs={6} sm={6}>
                       <label>
@@ -1043,15 +1271,72 @@ const LLPComponent = (props: any) => {
                       />
                     </Grid>
                   </Grid>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    // className={classes.submit}
-                  >
-                    Submit
-                  </Button>
+                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
+                    <Grid container spacing={4}>
+                      <Grid item xs={12}>
+                        <TextField
+                          margin="dense"
+                          size="small"
+                          required
+                          fullWidth
+                          id="remark"
+                          label="Remark"
+                          name="remark"
+                          autoComplete="remark"
+                          onChange={handleChange}
+                          value={values.remark}
+                          InputLabelProps={{ shrink: true }}
+                          error={errors.remark && touched.remark ? true : false}
+                          helperText={touched.remark && errors.remark}
+                        />
+                      </Grid>
+                    </Grid>
+                  )}
+                  {params.id === undefined && (
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      style={{ marginTop: "10px" }}
+                      // className={classes.submit}
+                    >
+                      Submit
+                    </Button>
+                  )}
+                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
+                    <>
+                      <Grid
+                        container
+                        spacing={3}
+                        style={{ textAlign: "center" }}
+                      >
+                        <Grid item xs={12}>
+                          <Button
+                            type="button"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                              approve();
+                            }}
+                          >
+                            Approve
+                          </Button>
+                          <Button
+                            style={{ marginLeft: "10px" }}
+                            type="button"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                              reject();
+                            }}
+                          >
+                            Reject
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </>
+                  )}
                 </Form>
               )}
             </Formik>
