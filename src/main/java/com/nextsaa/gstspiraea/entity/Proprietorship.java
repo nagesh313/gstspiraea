@@ -176,5 +176,5 @@ public class Proprietorship {
     private boolean trading;
     private boolean manufacture;
     private boolean service;
-
+    private String razorpayOrder;
 }

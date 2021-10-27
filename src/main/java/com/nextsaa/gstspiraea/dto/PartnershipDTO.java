@@ -94,5 +94,5 @@ public class PartnershipDTO {
     private String partneradharphoto;
     private String residentialAddress;
     private String partnerPassportPhoto;
-
+    private String razorpayOrder;
 }

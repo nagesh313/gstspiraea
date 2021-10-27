@@ -12,12 +12,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
+import { DialogComponent } from "../Dialog";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -60,6 +62,8 @@ const PartnershipComponent = (props: any) => {
   const { params }: any = useRouteMatch();
   const history = useHistory();
   const [orderDetails, setOrderDetails] = React.useState<any>();
+  const [imageName, setImageName] = React.useState<any>();
+
   // const viewDocument = (name: any) => {
   //   // window.open("/api/document/downloadFile/", "_blank");
   //   axios
@@ -161,9 +165,32 @@ const PartnershipComponent = (props: any) => {
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
+  const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+  const handleClickOpen = (imageName: any) => {
+    setOpen(true);
+    setImageName(imageName);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setImageName("");
+  };
   return (
     <React.Fragment>
       <CssBaseline />
+      <DialogComponent
+        name={imageName}
+        open={open}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -354,6 +381,7 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -372,6 +400,15 @@ const PartnershipComponent = (props: any) => {
                         }
                         helperText={touched.panphoto && errors.panphoto}
                       />
+                      {values.panphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.panphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -398,7 +435,6 @@ const PartnershipComponent = (props: any) => {
                           setFieldValue("composition", data?.props?.children);
                         }}
                       >
-                        <MenuItem value=""></MenuItem>
                         <MenuItem value={"Yes"}>Yes</MenuItem>
                         <MenuItem value={"No"}>No</MenuItem>
                       </Select>
@@ -459,6 +495,7 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -486,9 +523,19 @@ const PartnershipComponent = (props: any) => {
                           errors.pricipleelectricityphoto
                         }
                       />
+                      {values.pricipleelectricityphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.pricipleelectricityphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -510,9 +557,19 @@ const PartnershipComponent = (props: any) => {
                           touched.priciplerentphoto && errors.priciplerentphoto
                         }
                       />
+                      {values.priciplerentphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.priciplerentphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -530,8 +587,19 @@ const PartnershipComponent = (props: any) => {
                             ? true
                             : false
                         }
-                        helperText={touched.panphoto && errors.priciplenocphoto}
+                        helperText={
+                          touched.priciplenocphoto && errors.priciplenocphoto
+                        }
                       />
+                      {values.priciplenocphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.priciplenocphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -563,6 +631,7 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -590,9 +659,19 @@ const PartnershipComponent = (props: any) => {
                           errors.additionalelectricityphoto
                         }
                       />
+                      {values.additionalelectricityphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalelectricityphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -616,9 +695,19 @@ const PartnershipComponent = (props: any) => {
                           errors.additionalrentphoto
                         }
                       />
+                      {values.additionalrentphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalrentphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -642,6 +731,15 @@ const PartnershipComponent = (props: any) => {
                           errors.additionalnocphoto
                         }
                       />
+                      {values.additionalnocphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalnocphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -722,6 +820,7 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -743,6 +842,15 @@ const PartnershipComponent = (props: any) => {
                           touched.partneradharphoto && errors.partneradharphoto
                         }
                       />
+                      {values.partneradharphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.partneradharphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -776,6 +884,7 @@ const PartnershipComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -800,6 +909,15 @@ const PartnershipComponent = (props: any) => {
                           errors.partnerPassportPhoto
                         }
                       />
+                      {values.partnerPassportPhoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.partnerPassportPhoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -854,7 +972,7 @@ const PartnershipComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         margin="dense"
-                        type="file"
+                        type="file"  style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -907,7 +1025,7 @@ const PartnershipComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         margin="dense"
-                        type="file"
+                        type="file"  style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -1001,7 +1119,7 @@ const PartnershipComponent = (props: any) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        type="file"
+                        type="file"  style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1056,7 +1174,7 @@ const PartnershipComponent = (props: any) => {
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        type="file"
+                        type="file"  style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1193,6 +1311,7 @@ const PartnershipComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1215,6 +1334,15 @@ const PartnershipComponent = (props: any) => {
                           touched.cancelcheqphoto && errors.cancelcheqphoto
                         }
                       />
+                      {values.cancelcheqphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.cancelcheqphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -1247,6 +1375,7 @@ const PartnershipComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1269,6 +1398,15 @@ const PartnershipComponent = (props: any) => {
                           touched.tradelicensephoto && errors.tradelicensephoto
                         }
                       />
+                      {values.tradelicensephoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.tradelicensephoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   {params.id && sessionStorage.getItem("role") !== "Customer" && (

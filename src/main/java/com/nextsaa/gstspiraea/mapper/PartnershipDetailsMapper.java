@@ -56,6 +56,7 @@ public class PartnershipDetailsMapper {
         partnership.setPartneradharphoto(partnershipDTO.getPartneradharphoto());
         partnership.setResidentialAddress(partnershipDTO.getResidentialAddress());
         partnership.setPartnerPassportPhoto(partnershipDTO.getPartnerPassportPhoto());
+        partnership.setRazorpayOrder(partnershipDTO.getRazorpayOrder());
         return partnership;
     }
 
@@ -109,6 +110,7 @@ public class PartnershipDetailsMapper {
         partnershipDTO.setPartneradharphoto(partnership.getPartneradharphoto());
         partnershipDTO.setResidentialAddress(partnership.getResidentialAddress());
         partnershipDTO.setPartnerPassportPhoto(partnership.getPartnerPassportPhoto());
+        partnershipDTO.setRazorpayOrder(partnership.getRazorpayOrder());
         return partnershipDTO;
     }
 

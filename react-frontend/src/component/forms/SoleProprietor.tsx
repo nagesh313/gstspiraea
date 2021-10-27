@@ -410,7 +410,6 @@ const SoleProprietorComponent = (props: any) => {
                           setFieldValue("composition", data?.props?.children);
                         }}
                       >
-                        <MenuItem value=""></MenuItem>
                         <MenuItem value={"Yes"}>Yes</MenuItem>
                         <MenuItem value={"No"}>No</MenuItem>
                       </Select>

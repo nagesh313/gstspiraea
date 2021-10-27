@@ -109,5 +109,5 @@ public class ProprietorshipDTO {
     private boolean trading;
     private boolean manufacture;
     private boolean service;
-
+    private String razorpayOrder;
 }

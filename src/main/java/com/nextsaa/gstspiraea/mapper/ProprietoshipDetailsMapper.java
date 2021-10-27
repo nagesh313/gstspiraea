@@ -61,6 +61,7 @@ public class ProprietoshipDetailsMapper {
         llp.setTrading(llpDTO.isTrading());
         llp.setManufacture(llpDTO.isManufacture());
         llp.setService(llpDTO.isService());
+        llp.setRazorpayOrder(llpDTO.getRazorpayOrder());
         return llp;
     }
 
@@ -121,6 +122,7 @@ public class ProprietoshipDetailsMapper {
         companyDetailsDTO.setTrading(companyDetails.isTrading());
         companyDetailsDTO.setManufacture(companyDetails.isManufacture());
         companyDetailsDTO.setService(companyDetails.isService());
+        companyDetailsDTO.setRazorpayOrder(companyDetails.getRazorpayOrder());
         return companyDetailsDTO;
     }
 
