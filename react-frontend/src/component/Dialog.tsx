@@ -8,13 +8,6 @@ import React from "react";
 export const DialogComponent = (props: any) => {
   return (
     <div>
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={props.handleClickOpen}
-      >
-        Open alert dialog
-      </Button>
       <Dialog
         open={props.open}
         onClose={props.handleClose}
