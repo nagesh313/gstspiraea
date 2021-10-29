@@ -80,15 +80,7 @@ export function UserListComponent(props: any) {
         props.enqueueSnackbar(reponse.error, failureToast);
       });
   };
-  // const handleModalOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleModalClose = (refresh: any) => {
-  //   if (refresh) {
-  //     fetchUserList();
-  //   }
-  //   setOpen(false);
-  // };
+
   useEffect(() => {
     fetchUserList();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -103,15 +95,8 @@ export function UserListComponent(props: any) {
             <TableCell>Last Name</TableCell>
             <TableCell>Email</TableCell>
             <TableCell>User Name</TableCell>
+            <TableCell>Password</TableCell>
             <TableCell align="center">
-              {/* <CreateNewUserDialog
-                open={open}
-                handleClose={handleModalClose}
-                // submitNewUser={submitNewUser}
-              ></CreateNewUserDialog>
-              <IconButton>
-                <Add onClick={handleModalOpen}></Add>
-              </IconButton> */}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -122,6 +107,7 @@ export function UserListComponent(props: any) {
               <TableCell>{row.lastName}</TableCell>
               <TableCell>{row.userEmail}</TableCell>
               <TableCell>{row.loginUserName}</TableCell>
+              <TableCell>{row.loginPassword}</TableCell>
 
               <TableCell align="center">
                 <Button

@@ -94,7 +94,7 @@ export const AdminDashboard = () => {
             <Typography component="p" variant="h4">
               {dashboardData.totalCustomers}
             </Typography>
-            <Title> Total Customers</Title>
+            <Title> Total Users</Title>
           </Paper>
         </Grid>
       </Grid>
