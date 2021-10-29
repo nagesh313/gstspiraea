@@ -338,6 +338,65 @@ function OrderListComponent(props: any) {
           </TableBody>
         </Table>
       )}
+      {orderType === "Company" && (
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Company ID</TableCell>
+              <TableCell>Firm Name</TableCell>
+              <TableCell>Legal Business Name</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell align="center"></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orderList.map((row: any) => (
+              <TableRow key={row.companydetailsid}>
+                <TableCell>{row.companydetailsid}</TableCell>
+                <TableCell>{row.firmName}</TableCell>
+                <TableCell>{row.legalbusinessName}</TableCell>
+                <TableCell>{row.status}</TableCell>
+                <TableCell align="center">
+                  {sessionStorage.getItem("role") !== "Customer" && (
+                    <>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => {
+                          view(row);
+                        }}
+                      >
+                        View
+                      </Button>
+                    </>
+                  )}
+                  {sessionStorage.getItem("role") === "Customer" && (
+                    <>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => {
+                          view(row);
+                        }}
+                      >
+                        View
+                      </Button>
+                      <Button
+                        style={{ marginLeft: "10px" }}
+                        variant="outlined"
+                        size="small"
+                        onClick={() => displayRazorpay(row)}
+                      >
+                        Pay
+                      </Button>
+                    </>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </React.Fragment>
   );
 }

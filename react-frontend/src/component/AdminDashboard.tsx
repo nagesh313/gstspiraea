@@ -4,7 +4,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  Paper,
+  Paper
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -13,8 +13,9 @@ import GroupIcon from "@material-ui/icons/Group";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import WorkIcon from "@material-ui/icons/Work";
+import axios from "axios";
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import { ProgressBar } from "./admin/Progres";
 import Title from "./Title";
 // function preventDefault(event: any) {
@@ -32,14 +33,34 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   fixedHeight: {
-    height: 200,
+    height: 180,
   },
 }));
 
 export const AdminDashboard = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const [dashboardData, setDashboardData] = React.useState<any>({});
 
+  const fetchAdminDashboard = () => {
+    axios
+      .get("/api/get-admin-dashboard")
+      .then((response: any) => {
+        console.log(response);
+        setDashboardData(response.data);
+        // props.enqueueSnackbar(
+        //   "Application Rejected Successfully",
+        //   successToast
+        // );
+        // history.push("/dashboard/admin");
+      })
+      .catch((reponse: any) => {
+        // props.enqueueSnackbar("Unable To fetch Admin Dashboard", failureToast);
+      });
+  };
+  useEffect(() => {
+    fetchAdminDashboard();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <Grid container style={{ textAlign: "center" }}>
       <Grid container spacing={4} justifyContent="center">
@@ -49,19 +70,9 @@ export const AdminDashboard = () => {
               <AttachMoneyIcon style={{ fontSize: "3rem" }}></AttachMoneyIcon>
             </Typography>
             <Typography component="p" variant="h4">
-              3,024.00
+              {dashboardData.todaysBusiness}
             </Typography>
             <Title> Today's Business</Title>
-
-            {/* <Typography
-            color="textSecondary"
-            className={classes.depositContext}
-          ></Typography>
-          <div>
-            <Link color="primary" href="#" onClick={preventDefault}>
-              View balance
-            </Link>
-          </div> */}
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
@@ -70,7 +81,7 @@ export const AdminDashboard = () => {
               <WorkIcon style={{ fontSize: "3rem" }}></WorkIcon>
             </Typography>
             <Typography component="p" variant="h4">
-              1
+              {dashboardData.todaysApplication}
             </Typography>
             <Title> Today's Application</Title>
           </Paper>
@@ -81,7 +92,7 @@ export const AdminDashboard = () => {
               <GroupIcon style={{ fontSize: "3rem" }}></GroupIcon>
             </Typography>
             <Typography component="p" variant="h4">
-              1
+              {dashboardData.totalCustomers}
             </Typography>
             <Title> Total Customers</Title>
           </Paper>
@@ -92,81 +103,111 @@ export const AdminDashboard = () => {
           <Grid container item xs={12} spacing={4}>
             <Grid item xs={12} md={6} lg={6}>
               <Paper style={{ textAlign: "center" }}>
-                <Typography component="div" variant="h4">
+                <Typography
+                  component="div"
+                  variant="h4"
+                  style={{ paddingTop: "8px" }}
+                >
                   <VerifiedUserIcon
                     style={{ fontSize: "2rem" }}
                   ></VerifiedUserIcon>
                 </Typography>
                 <Typography component="p" variant="h4">
-                  1
+                  {dashboardData.applicationsManagement}
                 </Typography>
-                <Title>Applications Management</Title>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  color="primary"
+                  style={{ paddingBottom: "8px" }}
+                  gutterBottom
+                >
+                  Applications Management
+                </Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <Paper style={{ textAlign: "center" }}>
-                <Typography component="div" variant="h4">
+                <Typography
+                  component="div"
+                  variant="h4"
+                  style={{ paddingTop: "8px" }}
+                >
                   <GroupAddIcon style={{ fontSize: "2rem" }}></GroupAddIcon>
                 </Typography>
                 <Typography component="p" variant="h4">
-                  1
+                  {dashboardData.customerManagement}
                 </Typography>
-                <Title> Customer Management</Title>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  color="primary"
+                  style={{ paddingBottom: "8px" }}
+                  gutterBottom
+                >
+                  Customer Management
+                </Typography>
               </Paper>
             </Grid>
-            {/* <Grid item xs={12} md={6} lg={6}>
-              <Paper style={{ textAlign: "center" }}>
-                <Typography component="div" variant="h4">
-                  <VerifiedUserIcon
-                    style={{ fontSize: "2rem" }}
-                  ></VerifiedUserIcon>
-                </Typography>
-                <Typography component="p" variant="h4">
-                  1
-                </Typography>
-                <Title>Verify Applications</Title>
-              </Paper>
-            </Grid> */}
-            {/* <Grid item xs={12} md={6} lg={6}>
-              <Paper style={{ textAlign: "center" }}>
-                <Typography component="div" variant="h4">
-                  <GroupIcon style={{ fontSize: "2rem" }}></GroupIcon>
-                </Typography>
-                <Typography component="p" variant="h4">
-                  1
-                </Typography>
-                <Title>Complains</Title>
-              </Paper>
-            </Grid> */}
           </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
           <Paper style={{ textAlign: "center" }}>
-            <Title>This Weeks Report</Title>
+            <Typography
+              component="div"
+              variant="h5"
+              style={{ paddingTop: "8px" }}
+            >
+              This Weeks Report
+            </Typography>
             <List component="nav" aria-label="mailbox folders">
               <Divider />
               <ListItem>
-                <ListItemText primary="Review Pending Applications" />
-                <ListItemText primary="20%" style={{ textAlign: "right" }} />
+                <ListItemText
+                  primary={
+                    "Review Pending Applications - " + dashboardData.pending
+                  }
+                />
+                <ListItemText
+                  primary={dashboardData.pendingPercentage + "%"}
+                  style={{ textAlign: "right" }}
+                />
               </ListItem>
               <ListItem>
-                <ProgressBar progress="20"></ProgressBar>
+                <ProgressBar
+                  progress={dashboardData.pendingPercentage}
+                ></ProgressBar>
               </ListItem>
               <Divider />
               <ListItem>
-                <ListItemText primary="Approved Applications" />
-                <ListItemText primary="30%" style={{ textAlign: "right" }} />
+                <ListItemText
+                  primary={"Approved Applications - " + dashboardData.approved}
+                />
+                <ListItemText
+                  primary={dashboardData.approvedPercentage + "%"}
+                  style={{ textAlign: "right" }}
+                />
               </ListItem>
               <ListItem>
-                <ProgressBar progress="30"></ProgressBar>
+                <ProgressBar
+                  progress={dashboardData.approvedPercentage}
+                  style={{ background: "green" }}
+                ></ProgressBar>
               </ListItem>
               <Divider />
               <ListItem>
-                <ListItemText primary="Rejected Applications" />
-                <ListItemText primary="40%" style={{ textAlign: "right" }} />
+                <ListItemText
+                  primary={"Rejected Applications - " + dashboardData.rejected}
+                />
+                <ListItemText
+                  primary={dashboardData.rejectedPercentage + "%"}
+                  style={{ textAlign: "right" }}
+                />
               </ListItem>
               <ListItem>
-                <ProgressBar progress="40"></ProgressBar>
+                <ProgressBar
+                  progress={dashboardData.rejectedPercentage}
+                ></ProgressBar>
               </ListItem>
             </List>
           </Paper>

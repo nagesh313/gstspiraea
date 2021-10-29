@@ -12,12 +12,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
+import { DialogComponent } from "../Dialog";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -61,24 +63,17 @@ const SoleProprietorComponent = (props: any) => {
   const { params }: any = useRouteMatch();
   const history = useHistory();
   const [orderDetails, setOrderDetails] = React.useState<any>();
-  // const viewDocument = (name: any) => {
-  //   // window.open("/api/document/downloadFile/", "_blank");
-  //   axios
-  //     .get("/api/document/downloadFile/" + name)
-  //     .then((response: any) => {
-  //       console.log(name);
-  //       // setOrderList(response.data);
-  //       const url = window.URL.createObjectURL(new Blob([response.data]));
-  //       const link = document.createElement("a");
-  //       link.href = url;
-  //       link.setAttribute("download", name);
-  //       document.body.appendChild(link);
-  //       link.click();
-  //     })
-  //     .catch((reponse: any) => {
-  //       props.enqueueSnackbar(reponse.error, failureToast);
-  //     });
-  // };
+  const [imageName, setImageName] = React.useState<any>();
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = (imageName: any) => {
+    setOpen(true);
+    setImageName(imageName);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setImageName("");
+  };
   const fetchOrderDetails = (id: any) => {
     axios
       .get("/api/get-order/get/Proprietorship/" + id)
@@ -164,6 +159,12 @@ const SoleProprietorComponent = (props: any) => {
   return (
     <React.Fragment>
       <CssBaseline />
+      <DialogComponent
+        name={imageName}
+        open={open}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -358,6 +359,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -376,14 +378,15 @@ const SoleProprietorComponent = (props: any) => {
                         }
                         helperText={touched.panphoto && errors.panphoto}
                       />
-                      {/* {values.panphoto && (
+                      {values.panphoto && (
                         <Visibility
                           onClick={() => {
-                            viewDocument(values.panphoto);
+                            setImageName(values.panphoto);
+                            setOpen(true);
                           }}
                           style={{ float: "right", marginTop: "25px" }}
                         />
-                      )} */}
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -470,6 +473,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -497,17 +501,19 @@ const SoleProprietorComponent = (props: any) => {
                           errors.pricipleelectricityphoto
                         }
                       />
-                      {/* {values.pricipleelectricityphoto && (
+                      {values.pricipleelectricityphoto && (
                         <Visibility
                           onClick={() => {
-                            viewDocument(values.pricipleelectricityphoto);
+                            setImageName(values.pricipleelectricityphoto);
+                            setOpen(true);
                           }}
                           style={{ float: "right", marginTop: "25px" }}
                         />
-                      )} */}
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -529,17 +535,19 @@ const SoleProprietorComponent = (props: any) => {
                           touched.priciplerentphoto && errors.priciplerentphoto
                         }
                       />
-                      {/* {values.priciplerentphoto && (
+                      {values.priciplerentphoto && (
                         <Visibility
                           onClick={() => {
-                            viewDocument(values.priciplerentphoto);
+                            setImageName(values.priciplerentphoto);
+                            setOpen(true);
                           }}
                           style={{ float: "right", marginTop: "25px" }}
                         />
-                      )} */}
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -559,14 +567,15 @@ const SoleProprietorComponent = (props: any) => {
                         }
                         helperText={touched.panphoto && errors.priciplenocphoto}
                       />
-                      {/* {values.priciplenocphoto && (
+                      {values.priciplenocphoto && (
                         <Visibility
                           onClick={() => {
-                            viewDocument(values.priciplenocphoto);
+                            setImageName(values.priciplenocphoto);
+                            setOpen(true);
                           }}
                           style={{ float: "right", marginTop: "25px" }}
                         />
-                      )} */}
+                      )}
                     </Grid>
                   </Grid>
 
@@ -598,6 +607,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -625,9 +635,19 @@ const SoleProprietorComponent = (props: any) => {
                           errors.additionalelectricityphoto
                         }
                       />
+                      {values.additionalelectricityphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalelectricityphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -651,9 +671,19 @@ const SoleProprietorComponent = (props: any) => {
                           errors.additionalrentphoto
                         }
                       />
+                      {values.additionalrentphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalrentphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -677,6 +707,15 @@ const SoleProprietorComponent = (props: any) => {
                           errors.additionalnocphoto
                         }
                       />
+                      {values.additionalnocphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalnocphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -731,6 +770,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -752,6 +792,15 @@ const SoleProprietorComponent = (props: any) => {
                           touched.propadharphoto && errors.propadharphoto
                         }
                       />
+                      {values.propadharphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.propadharphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -784,6 +833,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -799,6 +849,15 @@ const SoleProprietorComponent = (props: any) => {
                         error={errors.photo && touched.photo ? true : false}
                         helperText={touched.photo && errors.photo}
                       />
+                      {values.photo && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.photo);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -878,6 +937,7 @@ const SoleProprietorComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -900,6 +960,15 @@ const SoleProprietorComponent = (props: any) => {
                           touched.signadharphoto && errors.signadharphoto
                         }
                       />
+                      {values.signadharphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.signadharphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -933,6 +1002,7 @@ const SoleProprietorComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -951,6 +1021,15 @@ const SoleProprietorComponent = (props: any) => {
                         }
                         helperText={touched.signphoto && errors.signphoto}
                       />
+                      {values.signphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.signphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -1068,6 +1147,7 @@ const SoleProprietorComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1122,6 +1202,7 @@ const SoleProprietorComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required

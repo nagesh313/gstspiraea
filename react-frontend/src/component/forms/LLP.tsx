@@ -12,12 +12,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
+import { DialogComponent } from "../Dialog";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -154,16 +156,29 @@ const LLPComponent = (props: any) => {
         props.enqueueSnackbar("Not able to save the Application", failureToast);
       });
   };
+  const [imageName, setImageName] = React.useState<any>();
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = (imageName: any) => {
+    setOpen(true);
+    setImageName(imageName);
+  };
 
-  // getFiles() {
-  //   return http.get("/files");
-  // }
+  const handleClose = () => {
+    setOpen(false);
+    setImageName("");
+  };
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
   return (
     <React.Fragment>
       <CssBaseline />
+      <DialogComponent
+        name={imageName}
+        open={open}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -354,6 +369,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -372,6 +388,15 @@ const LLPComponent = (props: any) => {
                         }
                         helperText={touched.panphoto && errors.panphoto}
                       />
+                      {values.panphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.panphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -398,7 +423,6 @@ const LLPComponent = (props: any) => {
                           setFieldValue("composition", data?.props?.children);
                         }}
                       >
-                        <MenuItem value=""></MenuItem>
                         <MenuItem value={"Yes"}>Yes</MenuItem>
                         <MenuItem value={"No"}>No</MenuItem>
                       </Select>
@@ -459,6 +483,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -486,9 +511,19 @@ const LLPComponent = (props: any) => {
                           errors.pricipleelectricityphoto
                         }
                       />
+                      {values.pricipleelectricityphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.pricipleelectricityphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -510,9 +545,19 @@ const LLPComponent = (props: any) => {
                           touched.priciplerentphoto && errors.priciplerentphoto
                         }
                       />
+                      {values.priciplerentphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.priciplerentphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -532,6 +577,15 @@ const LLPComponent = (props: any) => {
                         }
                         helperText={touched.panphoto && errors.priciplenocphoto}
                       />
+                      {values.priciplenocphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.priciplenocphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -563,6 +617,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -590,9 +645,19 @@ const LLPComponent = (props: any) => {
                           errors.additionalelectricityphoto
                         }
                       />
+                      {values.additionalelectricityphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalelectricityphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -616,9 +681,19 @@ const LLPComponent = (props: any) => {
                           errors.additionalrentphoto
                         }
                       />
+                      {values.additionalrentphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalrentphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -642,6 +717,15 @@ const LLPComponent = (props: any) => {
                           errors.additionalnocphoto
                         }
                       />
+                      {values.additionalnocphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalnocphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -722,6 +806,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -743,6 +828,15 @@ const LLPComponent = (props: any) => {
                           touched.partneradharphoto && errors.partneradharphoto
                         }
                       />
+                      {values.partneradharphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.partneradharphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -776,6 +870,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -800,6 +895,15 @@ const LLPComponent = (props: any) => {
                           errors.partnerPassportPhoto
                         }
                       />
+                      {values.partnerPassportPhoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.partnerPassportPhoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -854,7 +958,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         margin="dense"
-                        type="file"
+                        type="file"  style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -907,7 +1011,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         margin="dense"
-                        type="file"
+                        type="file"  style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -1001,7 +1105,7 @@ const LLPComponent = (props: any) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        type="file"
+                        type="file"  style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1056,7 +1160,7 @@ const LLPComponent = (props: any) => {
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        type="file"
+                        type="file"  style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1193,6 +1297,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1215,6 +1320,15 @@ const LLPComponent = (props: any) => {
                           touched.cancelcheqphoto && errors.cancelcheqphoto
                         }
                       />
+                      {values.cancelcheqphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.cancelcheqphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -1247,6 +1361,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1269,6 +1384,15 @@ const LLPComponent = (props: any) => {
                           touched.tradelicensephoto && errors.tradelicensephoto
                         }
                       />
+                      {values.tradelicensephoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.tradelicensephoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
                   {params.id && sessionStorage.getItem("role") !== "Customer" && (

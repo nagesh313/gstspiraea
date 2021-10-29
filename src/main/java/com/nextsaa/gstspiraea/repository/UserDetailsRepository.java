@@ -15,5 +15,6 @@ import java.util.Optional;
 public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> {
 
     UserDetails findByLoginUserName(String username);
+    Long countByLoginUserName(String username);
 
 }

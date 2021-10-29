@@ -9,7 +9,7 @@ import {
   List,
   Menu,
   MenuItem,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -123,6 +123,7 @@ export default function Dashboard() {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };

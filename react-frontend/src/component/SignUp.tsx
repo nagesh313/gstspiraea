@@ -173,7 +173,6 @@ export function SignUpComponent(props: any) {
                         setFieldValue("gender", data?.props?.children);
                       }}
                     >
-                      <MenuItem value=""></MenuItem>
                       <MenuItem value={"Male"}>Male</MenuItem>
                       <MenuItem value={"Female"}>Female</MenuItem>
                       <MenuItem value={"Dont want to specify"}>

@@ -64,24 +64,6 @@ const PartnershipComponent = (props: any) => {
   const [orderDetails, setOrderDetails] = React.useState<any>();
   const [imageName, setImageName] = React.useState<any>();
 
-  // const viewDocument = (name: any) => {
-  //   // window.open("/api/document/downloadFile/", "_blank");
-  //   axios
-  //     .get("/api/document/downloadFile/" + name)
-  //     .then((response: any) => {
-  //       console.log(name);
-  //       // setOrderList(response.data);
-  //       const url = window.URL.createObjectURL(new Blob([response.data]));
-  //       const link = document.createElement("a");
-  //       link.href = url;
-  //       link.setAttribute("download", name);
-  //       document.body.appendChild(link);
-  //       link.click();
-  //     })
-  //     .catch((reponse: any) => {
-  //       props.enqueueSnackbar(reponse.error, failureToast);
-  //     });
-  // };
   const fetchOrderDetails = (id: any) => {
     axios
       .get("/api/get-order/get/Partnership/" + id)
@@ -159,20 +141,12 @@ const PartnershipComponent = (props: any) => {
       });
   };
 
-  // getFiles() {
-  //   return http.get("/files");
-  // }
+ 
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
   const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+ 
   const handleClickOpen = (imageName: any) => {
     setOpen(true);
     setImageName(imageName);
