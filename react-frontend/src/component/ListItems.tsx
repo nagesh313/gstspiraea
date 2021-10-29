@@ -20,6 +20,8 @@ import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 // import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 // import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+
 import React from "react";
 
 export const MainListItems = () => {
@@ -27,6 +29,12 @@ export const MainListItems = () => {
   const admin = role === "Admin";
   return admin ? (
     <div>
+      <ListItem button component="a" href="/#/dashboard/home">
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
       <ListItem button component="a" href="/#/dashboard/order-list">
         <ListItemIcon>
           <FormatListBulletedIcon />

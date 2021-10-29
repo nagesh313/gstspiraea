@@ -61,9 +61,6 @@ export function SignInComponent(props: any) {
   useEffect(() => {
     sessionActive();
   }, []);
-  function navigateToDashboard() {
-    history.push("/dashboard/home");
-  }
   const signInSubmit = (values: any) => {
     // navigateToDashboard();
     axios
@@ -73,7 +70,13 @@ export function SignInComponent(props: any) {
       .then((response: any) => {
         sessionStorage.setItem("role", values.role);
         sessionStorage.setItem("user", values.loginUserName);
-        navigateToDashboard();
+        if (values.role === "Customer") {
+          history.push("/dashboard/order-list");
+        } else if (values.role === "Agent") {
+          history.push("/dashboard/order-list");
+        } else if (values.role === "Admin") {
+          history.push("/dashboard/home");
+        }
       })
       .catch((reponse: any) => {
         props.enqueueSnackbar("Invalid Credentials", failureToast);
