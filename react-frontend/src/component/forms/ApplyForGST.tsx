@@ -10,7 +10,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { Company } from "./Company";
 import { LLP } from "./LLP";
 import { Partnership } from "./Partnership";
@@ -55,10 +56,28 @@ const useStyles = makeStyles((theme) => ({
 
 export const ApplyForGstComponent = () => {
   const classes = useStyles();
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState<any>("");
+  const [planList, setPlanList] = React.useState<any>([]);
+  const [plan, setPlan] = React.useState<any>("");
+  const [planLocationList, setPlanLocationList] = React.useState<any>([]);
+  const [planLocation, setPlanLocation] = React.useState<any>("");
   const [dropdown, setDropdown] = React.useState("");
+  const fetchPlanList = () => {
+    axios
+      .get("/api/plan-list")
+      .then((response: any) => {
+        setPlanList(response.data);
+      })
+      .catch((reponse: any) => {
+        // props.enqueueSnackbar(reponse.error, failureToast);
+      });
+  };
+  useEffect(() => {
+    fetchPlanList();
+    const name = sessionStorage.getItem("user");
+    setName(name);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // const initialValues = { name: "", dropdown: "" };
   return (
     <React.Fragment>
       <CssBaseline />
@@ -79,10 +98,9 @@ export const ApplyForGstComponent = () => {
                 label="Name of Person"
                 name="name"
                 autoComplete="name"
+                value={name}
+                disabled
                 autoFocus
-                onChange={(event: any) => {
-                  setName(event.target.value);
-                }}
               />
             </Grid>
             <Grid xs={6} item>
@@ -106,12 +124,80 @@ export const ApplyForGstComponent = () => {
               </FormControl>
             </Grid>
           </Grid>
+          <Grid container spacing={5}>
+            <Grid xs={6} item>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Select A plan
+                </InputLabel>
+                <Select
+                  margin="dense"
+                  style={{ marginTop: "16px" }}
+                  id="demo-simple-select-helper"
+                  onChange={(event: any, data: any) => {
+                    setPlanLocationList(data?.props?.value?.payplanLocation);
+                    setPlan(data?.props?.value);
+                  }}
+                >
+                  {planList.map((plan: any) => {
+                    return <MenuItem value={plan}>{plan.payplanname}</MenuItem>;
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid xs={6} item>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Select A Location
+                </InputLabel>
+                <Select
+                  margin="dense"
+                  id="demo-simple-select-helper"
+                  onChange={(event: any, data: any) => {
+                    setPlanLocation(data?.props?.value);
+                  }}
+                >
+                  {planLocationList.map((plan: any) => {
+                    return (
+                      <MenuItem value={plan}>{plan.payplanLocation}</MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid container spacing={5} style={{ padding: "26px" }}>
+              <Grid xs={12} item>
+                <b>Remarks : </b>
+                {plan.remarks}
+              </Grid>
+              <Grid xs={6} item>
+                <b>Amount : </b>
+                {planLocation.payplanamount}
+              </Grid>
+              <Grid xs={6} item>
+                <b>GST : </b>
+                {planLocation.gstamount}
+              </Grid>
+            </Grid>
+          </Grid>
         </Paper>
 
-        {name !== "" && dropdown === "Proprietorship" && <SoleProprietor />}
-        {name !== "" && dropdown === "Partnership" && <Partnership />}
-        {name !== "" && dropdown === "LLP" && <LLP />}
-        {name !== "" && dropdown === "Company" && <Company />}
+        {name !== "" &&
+          plan !== "" &&
+          planLocation !== "" &&
+          dropdown === "Proprietorship" && <SoleProprietor />}
+        {name !== "" &&
+          plan !== "" &&
+          planLocation !== "" &&
+          dropdown === "Partnership" && <Partnership />}
+        {name !== "" &&
+          plan !== "" &&
+          planLocation !== "" &&
+          dropdown === "LLP" && <LLP />}
+        {name !== "" &&
+          plan !== "" &&
+          planLocation !== "" &&
+          dropdown === "Company" && <Company />}
       </main>
     </React.Fragment>
   );

@@ -62,7 +62,7 @@ export function SignInComponent(props: any) {
     sessionActive();
   }, []);
   function navigateToDashboard() {
-    history.push("/dashboard/order-list");
+    history.push("/dashboard/home");
   }
   const signInSubmit = (values: any) => {
     // navigateToDashboard();

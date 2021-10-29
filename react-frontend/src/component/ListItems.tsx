@@ -8,6 +8,7 @@ import {
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Queue } from "@material-ui/icons";
 import AccessibilityIcon from "@material-ui/icons/Accessibility";
 
 import ContactsIcon from "@material-ui/icons/Contacts";
@@ -135,6 +136,17 @@ export const SecondaryListItems = () => {
                   <ContactsIcon />
                 </ListItemIcon>
                 <ListItemText primary="User List" />
+              </ListItem>
+              <ListItem
+                button
+                className={classes.nested}
+                component="a"
+                href="/#/dashboard/planList"
+              >
+                <ListItemIcon>
+                  <Queue />
+                </ListItemIcon>
+                <ListItemText primary="Plan List" />
               </ListItem>
             </List>
           </Collapse>
