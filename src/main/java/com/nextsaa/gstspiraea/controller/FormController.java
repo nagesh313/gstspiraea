@@ -70,23 +70,23 @@ public class FormController {
 
     private void createOrderProprietorship(ProprietorshipDTO dto) throws Exception {
         dto.setRazorpayOrder(createOrder(
-                dto.getPaymentPlanLocationDetails().getPayplanamount(), dto.getPaymentPlanLocationDetails().getGstamount()
+                dto.getPaymentPlanLocationDetails().getPayplanamount()
         ));
     }
 
     private void createOrderLLP(LLPDTO dto) throws Exception {
-        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount(), dto.getPaymentPlanLocationDetails().getGstamount()));
+        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
     private void createOrderPartnership(PartnershipDTO dto) throws Exception {
-        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount(), dto.getPaymentPlanLocationDetails().getGstamount()));
+        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
     private void createOrderCompany(CompanyDetailsDTO dto) throws Exception {
-        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount(), dto.getPaymentPlanLocationDetails().getGstamount()));
+        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
-    private String createOrder(Double amount, Double gstAmount) throws Exception {
+    private String createOrder(Double amount) throws Exception {
         try {
             RazorpayClient razorpayClient = new RazorpayClient(
                     configService.getConfigByKey("payment.razorpay.key").getConfigvalue(),
@@ -94,9 +94,8 @@ public class FormController {
             JSONObject orderRequest = new JSONObject();
 
             Double feeAmountC = amount * 100;
-            Double gstAmountC = gstAmount * 100;
-            Double transactionFeesC = 2 * (feeAmountC + gstAmountC) / 100;
-            orderRequest.put("amount", gstAmountC + feeAmountC + transactionFeesC); // amount in the smallest currency unit
+            Double transactionFeesC = 2 * (feeAmountC) / 100;
+            orderRequest.put("amount", feeAmountC + transactionFeesC); // amount in the smallest currency unit
             orderRequest.put("currency", "INR");
             orderRequest.put("receipt", generatedOrder());
             Order order = razorpayClient.Orders.create(orderRequest);

@@ -98,9 +98,6 @@ function Row(props: any) {
                     <b>AMOUNT</b>
                   </TableCell>
                   <TableCell align="left">
-                    <b>GST AMOUNT</b>
-                  </TableCell>
-                  <TableCell align="left">
                     <IconButton>
                       <Add onClick={() => props.openLocationModal(row)}></Add>
                     </IconButton>
@@ -114,7 +111,6 @@ function Row(props: any) {
                       {historyRow.payplanLocation}
                     </TableCell>
                     <TableCell>{historyRow.payplanamount}</TableCell>
-                    <TableCell align="left">{historyRow.gstamount}</TableCell>
                     <TableCell align="left">
                       <IconButton>
                         <Delete

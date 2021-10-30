@@ -42,11 +42,9 @@ public class PaymentPlanDataController {
         PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
         p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
         p1.setPayplanamount(11000D);
-        p1.setGstamount(1100D);
         PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
         p2.setPayplanLocation("Kolkata");
         p2.setPayplanamount(18000D);
-        p2.setGstamount(1100D);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
         paymentPlanDetailsRepository.save(plan1);
@@ -60,11 +58,9 @@ public class PaymentPlanDataController {
         PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
         p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
         p1.setPayplanamount(10000D);
-        p1.setGstamount(1100D);
         PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
         p2.setPayplanLocation("Kolkata");
         p2.setPayplanamount(12000D);
-        p2.setGstamount(1100D);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
         paymentPlanDetailsRepository.save(plan1);
@@ -78,11 +74,9 @@ public class PaymentPlanDataController {
         PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
         p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
         p1.setPayplanamount(2500D);
-        p1.setGstamount(1100D);
         PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
         p2.setPayplanLocation("Kolkata");
         p2.setPayplanamount(5000D);
-        p2.setGstamount(1100D);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
         paymentPlanDetailsRepository.save(plan1);
@@ -96,7 +90,6 @@ public class PaymentPlanDataController {
         PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
         p1.setPayplanLocation("Kolkata");
         p1.setPayplanamount(3000D);
-        p1.setGstamount(1100D);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1));
         plan4.setPayplanLocation(Arrays.asList(p1));
         paymentPlanDetailsRepository.save(plan4);

@@ -18,7 +18,6 @@ const SignupSchema = Yup.object().shape({
     .max(10, "Too Long!")
     .required("Required"),
   payplanamount: Yup.number().required("Required"),
-  gstamount: Yup.number().required("Required"),
 });
 
 const CreateNewPlanLocationDialogComponent = (props: any) => {
@@ -44,7 +43,6 @@ const CreateNewPlanLocationDialogComponent = (props: any) => {
           initialValues={{
             payplanLocation: "",
             payplanamount: "",
-            gstamount: "",
           }}
           validationSchema={SignupSchema}
           onSubmit={(values: any) => {
@@ -95,24 +93,6 @@ const CreateNewPlanLocationDialogComponent = (props: any) => {
                           : false
                       }
                       helperText={touched.payplanamount && errors.payplanamount}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      type="number"
-                      size="small"
-                      id="gstamount"
-                      label="GST Amount"
-                      name="gstamount"
-                      onChange={handleChange}
-                      value={values.gstamount}
-                      error={
-                        errors.gstamount && touched.gstamount ? true : false
-                      }
-                      helperText={touched.gstamount && errors.gstamount}
                     />
                   </Grid>
                 </Grid>

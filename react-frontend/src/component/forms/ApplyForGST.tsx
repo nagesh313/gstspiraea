@@ -170,14 +170,6 @@ export const ApplyForGstComponent = () => {
                 <b>Remarks : </b>
                 {plan.remarks}
               </Grid>
-              <Grid xs={6} item>
-                <b>Amount : </b>
-                {planLocation.payplanamount}
-              </Grid>
-              <Grid xs={6} item>
-                <b>GST : </b>
-                {planLocation.gstamount}
-              </Grid>
             </Grid>
           </Grid>
         </Paper>

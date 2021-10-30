@@ -143,16 +143,16 @@ public class LoginControllerRest {
         List<LLP> list3 = llpRepostiory.findAllByStatusAndCreatedOnGreaterThan("PAID", LocalDate.now().atStartOfDay());
         List<CompanyDetails> list4 = companyDetailsRepository.findAllByStatusAndCreatedOnGreaterThan("PAID", LocalDate.now().atStartOfDay());
         Double sum1 = list1.stream()
-                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount() + o.getPaymentPlanLocationDetails().getGstamount())
+                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
                 .sum();
         Double sum2 = list2.stream()
-                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount() + o.getPaymentPlanLocationDetails().getGstamount())
+                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
                 .sum();
         Double sum3 = list3.stream()
-                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount() + o.getPaymentPlanLocationDetails().getGstamount())
+                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
                 .sum();
         Double sum4 = list4.stream()
-                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount() + o.getPaymentPlanLocationDetails().getGstamount())
+                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
                 .sum();
         Double todaysBusiness = sum1 + sum2 + sum3 + sum4;
         todaysBusiness.longValue();
