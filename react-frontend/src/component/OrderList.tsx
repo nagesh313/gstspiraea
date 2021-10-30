@@ -1,14 +1,16 @@
-import { Button, MenuItem, Select } from "@material-ui/core";
+import { Button, MenuItem, Select, TextField } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { failureToast } from "../util/util";
+import { failureToast, successToast } from "../util/util";
+import { DialogComponent } from "./Dialog";
 import Title from "./Title";
 
 function OrderListComponent(props: any) {
@@ -43,28 +45,6 @@ function OrderListComponent(props: any) {
       history.push("/dashboard/company/" + row.companydetailsid);
     }
   };
-  // const approve = (row: any) => {
-  //   axios
-  //     .post("/api/approve")
-  //     .then((response: any) => {
-  //       props.enqueueSnackbar("Order Approved Successfull", successToast);
-  //       fetchOrderList();
-  //     })
-  //     .catch((reponse: any) => {
-  //       props.enqueueSnackbar(reponse.error, failureToast);
-  //     });
-  // };
-  // const reject = (row: any) => {
-  //   axios
-  //     .post("/api/reject", row)
-  //     .then((response: any) => {
-  //       props.enqueueSnackbar("Order Rejected Successfull", successToast);
-  //       fetchOrderList();
-  //     })
-  //     .catch((reponse: any) => {
-  //       props.enqueueSnackbar(reponse.error, failureToast);
-  //     });
-  // };
   function loadScript(src: any) {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -88,13 +68,6 @@ function OrderListComponent(props: any) {
       alert("Razorpay SDK failed to load. Are you online?");
       return;
     }
-
-    // const result = await axios.post("http://localhost:5000/payment/orders");
-
-    // if (!result) {
-    //   alert("Server error. Are you online?");
-    //   return;
-    // }
     const razor = JSON.parse(row.razorpayOrder);
     const options = {
       key: "rzp_test_4zyGtu09Yf3TwL", // Enter the Key ID generated from the Dashboard
@@ -105,28 +78,28 @@ function OrderListComponent(props: any) {
       image: "/spiraea-logo-bw-web-1.png",
       order_id: razor.id,
       handler: async function (response: any) {
-        // const data = {
-        //   orderCreationId: "123",
-        //   razorpayPaymentId: response.razorpay_payment_id,
-        //   razorpayOrderId: response.razorpay_order_id,
-        //   razorpaySignature: response.razorpay_signature,
-        // };
-
-        // const result = await axios.post(
-        //   "http://localhost:5000/payment/success",
-        //   data
-        // );
+        let id: any = "";
+        if (orderType === "Proprietorship") {
+          id = row.proprietorshipid;
+        } else if (orderType === "Partnership") {
+          id = row.partnershipid;
+        } else if (orderType === "LLP") {
+          id = row.llpid;
+        } else if (orderType === "Company") {
+          id = row.companydetailsid;
+        }
+        axios
+          .get("/api/get-order/" + orderType + "/" + id + "/PAID/")
+          .then((response: any) => {
+            props.enqueueSnackbar("Order Successfully", successToast);
+            fetchOrderList();
+          })
+          .catch((reponse: any) => {
+            props.enqueueSnackbar("Order Was not paid", failureToast);
+          });
         console.log(response);
         // alert(result.data.msg);
       },
-      // prefill: {
-      //   name: "Soumya Dey",
-      //   email: "SoumyaDey@example.com",
-      //   contact: "9999999999",
-      // },
-      // notes: {
-      //   address: "Soumya Dey Corporate Office",
-      // },
       theme: {
         color: "#61dafb",
       },
@@ -138,9 +111,67 @@ function OrderListComponent(props: any) {
   useEffect(() => {
     fetchOrderList();
   }, [orderType]); // eslint-disable-line react-hooks/exhaustive-deps
+  const upload = (event: any, row: any) => {
+    let formData = new FormData();
 
+    formData.append("file", event.currentTarget.files[0]);
+    axios
+      .post("/api/document/uploadFile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response: any) => {
+        const documentUrl = response.data;
+        let id: any = "";
+        if (orderType === "Proprietorship") {
+          id = row.proprietorshipid;
+        } else if (orderType === "Partnership") {
+          id = row.partnershipid;
+        } else if (orderType === "LLP") {
+          id = row.llpid;
+        } else if (orderType === "Company") {
+          id = row.companydetailsid;
+        }
+        axios
+          .get("/api/get-order/gst/" + orderType + "/" + id + "/" + documentUrl)
+          .then((response: any) => {
+            props.enqueueSnackbar(
+              "Document Uploaded Successfully",
+              successToast
+            );
+          })
+          .catch((reponse: any) => {
+            props.enqueueSnackbar(
+              "Failed to upload the Document",
+              failureToast
+            );
+          });
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Failed to upload the Document", failureToast);
+      });
+  };
+  const role = sessionStorage.getItem("role");
+  const [imageName, setImageName] = React.useState<any>();
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = (imageName: any) => {
+    setOpen(true);
+    setImageName(imageName);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setImageName("");
+  };
   return (
     <React.Fragment>
+      <DialogComponent
+        name={imageName}
+        open={open}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      />
       <Title>Application List</Title>
       <Select
         style={{ marginLeft: "30px", marginBottom: "9px" }}
@@ -164,6 +195,7 @@ function OrderListComponent(props: any) {
               <TableCell>Person Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
@@ -175,6 +207,31 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.personName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                <TableCell>
+                  {role === "Admin" && (
+                    <TextField
+                      margin="dense"
+                      type="file"
+                      style={{ width: "90%" }}
+                      size="small"
+                      required
+                      fullWidth
+                      label="Attach GST Doc"
+                      onChange={(file: any) => upload(file, row)}
+                      // value={values.pricipleelectricityphoto}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  )}
+                  {row.gstDocument && row.gstDocument !== "" && (
+                    <Visibility
+                      onClick={() => {
+                        setImageName(row.gstDocument);
+                        setOpen(true);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  )}
+                </TableCell>
                 <TableCell align="center">
                   {sessionStorage.getItem("role") !== "Customer" && (
                     <>
@@ -200,14 +257,16 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      <Button
-                        style={{ marginLeft: "10px" }}
-                        variant="outlined"
-                        size="small"
-                        onClick={() => displayRazorpay(row)}
-                      >
-                        Pay
-                      </Button>
+                      {row.status === "CREATED" && (
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          variant="outlined"
+                          size="small"
+                          onClick={() => displayRazorpay(row)}
+                        >
+                          Pay
+                        </Button>
+                      )}
                     </>
                   )}
                 </TableCell>
@@ -225,6 +284,7 @@ function OrderListComponent(props: any) {
               <TableCell>Partner Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
@@ -236,6 +296,31 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.partnerName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                <TableCell>
+                  {role === "Admin" && (
+                    <TextField
+                      margin="dense"
+                      type="file"
+                      style={{ width: "90%" }}
+                      size="small"
+                      required
+                      fullWidth
+                      label="Attach GST Doc"
+                      onChange={(file: any) => upload(file, row)}
+                      // value={values.pricipleelectricityphoto}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  )}
+                  {row.gstDocument && row.gstDocument !== "" && (
+                    <Visibility
+                      onClick={() => {
+                        setImageName(row.gstDocument);
+                        setOpen(true);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  )}
+                </TableCell>
                 <TableCell align="center">
                   {sessionStorage.getItem("role") !== "Customer" && (
                     <>
@@ -261,14 +346,16 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      <Button
-                        style={{ marginLeft: "10px" }}
-                        variant="outlined"
-                        size="small"
-                        onClick={() => displayRazorpay(row)}
-                      >
-                        Pay
-                      </Button>
+                      {row.status === "CREATED" && (
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          variant="outlined"
+                          size="small"
+                          onClick={() => displayRazorpay(row)}
+                        >
+                          Pay
+                        </Button>
+                      )}
                     </>
                   )}
                 </TableCell>
@@ -286,6 +373,7 @@ function OrderListComponent(props: any) {
               <TableCell>Partner Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
@@ -297,6 +385,31 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.partnerName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                <TableCell>
+                  {role === "Admin" && (
+                    <TextField
+                      margin="dense"
+                      type="file"
+                      style={{ width: "90%" }}
+                      size="small"
+                      required
+                      fullWidth
+                      label="Attach GST Doc"
+                      onChange={(file: any) => upload(file, row)}
+                      // value={values.pricipleelectricityphoto}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  )}
+                  {row.gstDocument && row.gstDocument !== "" && (
+                    <Visibility
+                      onClick={() => {
+                        setImageName(row.gstDocument);
+                        setOpen(true);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  )}
+                </TableCell>
                 <TableCell align="center">
                   {sessionStorage.getItem("role") !== "Customer" && (
                     <>
@@ -322,14 +435,16 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      <Button
-                        style={{ marginLeft: "10px" }}
-                        variant="outlined"
-                        size="small"
-                        onClick={() => displayRazorpay(row)}
-                      >
-                        Pay
-                      </Button>
+                      {row.status === "CREATED" && (
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          variant="outlined"
+                          size="small"
+                          onClick={() => displayRazorpay(row)}
+                        >
+                          Pay
+                        </Button>
+                      )}
                     </>
                   )}
                 </TableCell>
@@ -346,6 +461,7 @@ function OrderListComponent(props: any) {
               <TableCell>Firm Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
@@ -356,6 +472,31 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.firmName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                <TableCell>
+                  {role === "Admin" && (
+                    <TextField
+                      margin="dense"
+                      type="file"
+                      style={{ width: "90%" }}
+                      size="small"
+                      required
+                      fullWidth
+                      label="Attach GST Doc"
+                      onChange={(file: any) => upload(file, row)}
+                      // value={values.pricipleelectricityphoto}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  )}
+                  {row.gstDocument && row.gstDocument !== "" && (
+                    <Visibility
+                      onClick={() => {
+                        setImageName(row.gstDocument);
+                        setOpen(true);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  )}
+                </TableCell>
                 <TableCell align="center">
                   {sessionStorage.getItem("role") !== "Customer" && (
                     <>
@@ -381,14 +522,16 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      <Button
-                        style={{ marginLeft: "10px" }}
-                        variant="outlined"
-                        size="small"
-                        onClick={() => displayRazorpay(row)}
-                      >
-                        Pay
-                      </Button>
+                      {row.status === "CREATED" && (
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          variant="outlined"
+                          size="small"
+                          onClick={() => displayRazorpay(row)}
+                        >
+                          Pay
+                        </Button>
+                      )}
                     </>
                   )}
                 </TableCell>

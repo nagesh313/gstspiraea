@@ -142,6 +142,8 @@ const PartnershipComponent = (props: any) => {
       });
   };
   const submitForm = (values: any) => {
+    values.paymentPlanLocationDetails = props.plan;
+
     axios
       .post("/api/submit-partnership", { ...values })
       .then((response: any) => {
@@ -1427,39 +1429,40 @@ const PartnershipComponent = (props: any) => {
                       Submit
                     </Button>
                   )}
-                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
-                    <>
-                      <Grid
-                        container
-                        spacing={3}
-                        style={{ textAlign: "center" }}
-                      >
-                        <Grid item xs={12}>
-                          <Button
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              approve();
-                            }}
-                          >
-                            Approve
-                          </Button>
-                          <Button
-                            style={{ marginLeft: "10px" }}
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              reject();
-                            }}
-                          >
-                            Reject
-                          </Button>
+                  {sessionStorage.getItem("role") !== "Customer" &&
+                    orderDetails?.status === "CREATED" && (
+                      <>
+                        <Grid
+                          container
+                          spacing={3}
+                          style={{ textAlign: "center" }}
+                        >
+                          <Grid item xs={12}>
+                            <Button
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                approve();
+                              }}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              style={{ marginLeft: "10px" }}
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                reject();
+                              }}
+                            >
+                              Reject
+                            </Button>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </>
-                  )}
+                      </>
+                    )}
                 </Form>
               )}
             </Formik>

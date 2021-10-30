@@ -45,47 +45,58 @@ public class FormController {
     private ConfigService configService;
 
     @PostMapping(value = "/submit-proprietorship")
-    public void submitProprietorship(@RequestBody ProprietorshipDTO dto) {
+    public void submitProprietorship(@RequestBody ProprietorshipDTO dto) throws Exception {
         createOrderProprietorship(dto);
         proprietorshipRepostiory.save(ProprietoshipDetailsMapper.mapToEntity(dto));
     }
 
     @PostMapping(value = "/submit-partnership")
-    public void submitPartnership(@RequestBody PartnershipDTO dto) {
+    public void submitPartnership(@RequestBody PartnershipDTO dto) throws Exception {
         createOrderPartnership(dto);
         partnershipRepository.save(PartnershipDetailsMapper.mapToEntity(dto));
     }
 
     @PostMapping(value = "/submit-llp")
-    public void submitLLP(@RequestBody LLPDTO dto) {
+    public void submitLLP(@RequestBody LLPDTO dto) throws Exception {
         createOrderLLP(dto);
         llpRepostiory.save(LLPDetailsMapper.mapToEntity(dto));
     }
 
     @PostMapping(value = "/submit-company-details")
-    public void submitCompanyDetails(@RequestBody CompanyDetailsDTO dto) {
+    public void submitCompanyDetails(@RequestBody CompanyDetailsDTO dto) throws Exception {
+        createOrderCompany(dto);
         companyDetailsRepository.save(CompanyDetailsMapper.mapToEntity(dto));
     }
 
-    private void createOrderProprietorship(ProprietorshipDTO dto) {
-        dto.setRazorpayOrder(createOrder());
+    private void createOrderProprietorship(ProprietorshipDTO dto) throws Exception {
+        dto.setRazorpayOrder(createOrder(
+                dto.getPaymentPlanLocationDetails().getPayplanamount(), dto.getPaymentPlanLocationDetails().getGstamount()
+        ));
     }
 
-    private void createOrderLLP(LLPDTO dto) {
-        dto.setRazorpayOrder(createOrder());
+    private void createOrderLLP(LLPDTO dto) throws Exception {
+        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount(), dto.getPaymentPlanLocationDetails().getGstamount()));
     }
 
-    private void createOrderPartnership(PartnershipDTO dto) {
-        dto.setRazorpayOrder(createOrder());
+    private void createOrderPartnership(PartnershipDTO dto) throws Exception {
+        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount(), dto.getPaymentPlanLocationDetails().getGstamount()));
     }
 
-    private String createOrder() {
+    private void createOrderCompany(CompanyDetailsDTO dto) throws Exception {
+        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount(), dto.getPaymentPlanLocationDetails().getGstamount()));
+    }
+
+    private String createOrder(Double amount, Double gstAmount) throws Exception {
         try {
             RazorpayClient razorpayClient = new RazorpayClient(
                     configService.getConfigByKey("payment.razorpay.key").getConfigvalue(),
                     configService.getConfigByKey("payment.razorpay.secret").getConfigvalue());
             JSONObject orderRequest = new JSONObject();
-            orderRequest.put("amount", 50000); // amount in the smallest currency unit
+
+            Double feeAmountC = amount * 100;
+            Double gstAmountC = gstAmount * 100;
+            Double transactionFeesC = 2 * (feeAmountC + gstAmountC) / 100;
+            orderRequest.put("amount", gstAmountC + feeAmountC + transactionFeesC); // amount in the smallest currency unit
             orderRequest.put("currency", "INR");
             orderRequest.put("receipt", generatedOrder());
             Order order = razorpayClient.Orders.create(orderRequest);
@@ -93,8 +104,8 @@ public class FormController {
 
         } catch (RazorpayException e) {
             System.out.println(e.getMessage());
+            throw new Exception("Unable to create Razor Pay Order");
         }
-        return null;
     }
 
     public String generatedOrder() {

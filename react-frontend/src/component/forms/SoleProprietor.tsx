@@ -6,7 +6,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -154,6 +154,7 @@ const SoleProprietorComponent = (props: any) => {
       });
   };
   const submitForm = (values: any) => {
+    values.paymentPlanLocationDetails = props.plan;
     axios
       .post("/api/submit-proprietorship", { ...values })
       .then((response: any) => {
@@ -1275,39 +1276,40 @@ const SoleProprietorComponent = (props: any) => {
                       Submit
                     </Button>
                   )}
-                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
-                    <>
-                      <Grid
-                        container
-                        spacing={3}
-                        style={{ textAlign: "center" }}
-                      >
-                        <Grid item xs={12}>
-                          <Button
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              approve();
-                            }}
-                          >
-                            Approve
-                          </Button>
-                          <Button
-                            style={{ marginLeft: "10px" }}
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              reject();
-                            }}
-                          >
-                            Reject
-                          </Button>
+                  {sessionStorage.getItem("role") !== "Customer" &&
+                    orderDetails?.status === "CREATED" && (
+                      <>
+                        <Grid
+                          container
+                          spacing={3}
+                          style={{ textAlign: "center" }}
+                        >
+                          <Grid item xs={12}>
+                            <Button
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                approve();
+                              }}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              style={{ marginLeft: "10px" }}
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                reject();
+                              }}
+                            >
+                              Reject
+                            </Button>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </>
-                  )}
+                      </>
+                    )}
                 </Form>
               )}
             </Formik>

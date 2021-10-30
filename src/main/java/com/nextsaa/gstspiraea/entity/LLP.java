@@ -132,7 +132,7 @@ public class LLP {
 
     @Column(name = "status")
     private String status;
-
+    private String gstDocument;
     @Column(name = "remark")
     private String remark;
     private boolean trading;
@@ -145,4 +145,6 @@ public class LLP {
     private String residentialAddress;
     private String partnerPassportPhoto;
     private String razorpayOrder;
+    @OneToOne
+    private PaymentPlanLocationDetails paymentPlanLocationDetails;
 }

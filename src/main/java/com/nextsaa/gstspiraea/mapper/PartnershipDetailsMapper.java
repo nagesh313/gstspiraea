@@ -45,6 +45,8 @@ public class PartnershipDetailsMapper {
         partnership.setModifiedBy(partnershipDTO.getModifiedBy());
         partnership.setModifiedOn(partnershipDTO.getModifiedOn());
         partnership.setStatus(partnershipDTO.getStatus());
+        partnership.setGstDocument(partnershipDTO.getGstDocument());
+
         partnership.setRemark(partnershipDTO.getRemark());
 
         partnership.setTrading(partnershipDTO.isTrading());
@@ -57,6 +59,7 @@ public class PartnershipDetailsMapper {
         partnership.setResidentialAddress(partnershipDTO.getResidentialAddress());
         partnership.setPartnerPassportPhoto(partnershipDTO.getPartnerPassportPhoto());
         partnership.setRazorpayOrder(partnershipDTO.getRazorpayOrder());
+        partnership.setPaymentPlanLocationDetails(partnershipDTO.getPaymentPlanLocationDetails());
         return partnership;
     }
 
@@ -100,6 +103,8 @@ public class PartnershipDetailsMapper {
         partnershipDTO.setModifiedBy(partnership.getModifiedBy());
         partnershipDTO.setModifiedOn(partnership.getModifiedOn());
         partnershipDTO.setStatus(partnership.getStatus());
+        partnershipDTO.setGstDocument(partnership.getGstDocument());
+
         partnershipDTO.setRemark(partnership.getRemark());
         partnershipDTO.setTrading(partnership.isTrading());
         partnershipDTO.setManufacture(partnership.isManufacture());
@@ -111,6 +116,8 @@ public class PartnershipDetailsMapper {
         partnershipDTO.setResidentialAddress(partnership.getResidentialAddress());
         partnershipDTO.setPartnerPassportPhoto(partnership.getPartnerPassportPhoto());
         partnershipDTO.setRazorpayOrder(partnership.getRazorpayOrder());
+        partnershipDTO.setPaymentPlanLocationDetails(partnership.getPaymentPlanLocationDetails());
+
         return partnershipDTO;
     }
 

@@ -129,7 +129,7 @@ public class Partnership {
 
     @Column(name = "status")
     private String status;
-
+    private String gstDocument;
     @Column(name = "remark")
     private String remark;
 
@@ -143,5 +143,7 @@ public class Partnership {
     private String residentialAddress;
     private String partnerPassportPhoto;
     private String razorpayOrder;
+    @OneToOne
+    private PaymentPlanLocationDetails paymentPlanLocationDetails;
 
 }

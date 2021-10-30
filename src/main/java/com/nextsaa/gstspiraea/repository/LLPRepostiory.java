@@ -16,5 +16,7 @@ public interface LLPRepostiory extends JpaRepository<LLP, Long> {
     List<LLP> findAllByCreatedBy(String user);
     long countByStatus(String status);
     long countByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
+    List<LLP> findAllByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
+
     long countByCreatedOnGreaterThan(LocalDateTime today);
 }

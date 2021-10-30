@@ -1,5 +1,9 @@
 package com.nextsaa.gstspiraea.controller;
 
+import com.nextsaa.gstspiraea.entity.CompanyDetails;
+import com.nextsaa.gstspiraea.entity.LLP;
+import com.nextsaa.gstspiraea.entity.Partnership;
+import com.nextsaa.gstspiraea.entity.Proprietorship;
 import com.nextsaa.gstspiraea.service.FileStorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -14,9 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/document/")
+@RequestMapping("/api/document")
 @Slf4j
 public class DocumentController {
     @Autowired
@@ -35,14 +40,6 @@ public class DocumentController {
         return fileName;
     }
 
-//    @PostMapping("/uploadMultipleFiles")
-//    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-//        return Arrays.asList(files)
-//                .stream()
-//                .map(file -> uploadFile(file))
-//                .collect(Collectors.toList());
-//    }
-
     @GetMapping("/downloadFile/{fileName:.+}")
     public @ResponseBody
     byte[] downloadFile(@PathVariable String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -59,6 +56,5 @@ public class DocumentController {
         response.addHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
 
         return IOUtils.toByteArray(resource.getURI());
-
     }
 }

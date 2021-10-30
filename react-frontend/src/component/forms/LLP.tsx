@@ -60,12 +60,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
 const aadharRegex = /^[0-9]{4}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
- 
+
 const validationSchema = Yup.object().shape({
   partneradharnumber: Yup.string()
     .required("Please enter Aadhar Number")
     .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
-    pannumber: Yup.string()
+  pannumber: Yup.string()
     .required("Please enter your Pan Number")
     .matches(panRegex, "Invalid Pan Number"),
 });
@@ -140,6 +140,8 @@ const LLPComponent = (props: any) => {
       });
   };
   const submitForm = (values: any) => {
+    values.paymentPlanLocationDetails = props.plan;
+
     axios
       .post("/api/submit-llp", { ...values })
       .then((response: any) => {
@@ -231,7 +233,7 @@ const LLPComponent = (props: any) => {
                       remark: "",
                     }
               }
-                validationSchema={validationSchema}
+              validationSchema={validationSchema}
               onSubmit={(values: any) => {
                 submitForm(values);
               }}
@@ -1422,39 +1424,41 @@ const LLPComponent = (props: any) => {
                       Submit
                     </Button>
                   )}
-                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
-                    <>
-                      <Grid
-                        container
-                        spacing={3}
-                        style={{ textAlign: "center" }}
-                      >
-                        <Grid item xs={12}>
-                          <Button
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              approve();
-                            }}
-                          >
-                            Approve
-                          </Button>
-                          <Button
-                            style={{ marginLeft: "10px" }}
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              reject();
-                            }}
-                          >
-                            Reject
-                          </Button>
+                  {params.id &&
+                    sessionStorage.getItem("role") !== "Customer" &&
+                    orderDetails?.status === "CREATED" && (
+                      <>
+                        <Grid
+                          container
+                          spacing={3}
+                          style={{ textAlign: "center" }}
+                        >
+                          <Grid item xs={12}>
+                            <Button
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                approve();
+                              }}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              style={{ marginLeft: "10px" }}
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                reject();
+                              }}
+                            >
+                              Reject
+                            </Button>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </>
-                  )}
+                      </>
+                    )}
                 </Form>
               )}
             </Formik>

@@ -1,5 +1,7 @@
 package com.nextsaa.gstspiraea.dto;
 
+import com.nextsaa.gstspiraea.entity.PaymentPlanDetails;
+import com.nextsaa.gstspiraea.entity.PaymentPlanLocationDetails;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -104,10 +106,12 @@ public class ProprietorshipDTO {
     private String modifiedBy;
 
     private String status;
-
+    private String gstDocument;
     private String remark;
     private boolean trading;
     private boolean manufacture;
     private boolean service;
     private String razorpayOrder;
+    private PaymentPlanLocationDetails paymentPlanLocationDetails;
+
 }

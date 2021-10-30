@@ -3,7 +3,7 @@ package com.nextsaa.gstspiraea.controller;
 import com.nextsaa.gstspiraea.dto.GSTApplicationType;
 import com.nextsaa.gstspiraea.dto.LoginForm;
 import com.nextsaa.gstspiraea.dto.UserDetailsDTO;
-import com.nextsaa.gstspiraea.entity.UserDetails;
+import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.UserService;
 import org.json.JSONObject;
@@ -138,7 +138,24 @@ public class LoginControllerRest {
             rejectedPercentage = rejected * 100 / total;
         }
 
-        Long todaysBusiness = 0L;
+        List<Proprietorship> list1 = proprietorshipRepostiory.findAllByStatusAndCreatedOnGreaterThan("PAID", LocalDate.now().atStartOfDay());
+        List<Partnership> list2 = partnershipRepository.findAllByStatusAndCreatedOnGreaterThan("PAID", LocalDate.now().atStartOfDay());
+        List<LLP> list3 = llpRepostiory.findAllByStatusAndCreatedOnGreaterThan("PAID", LocalDate.now().atStartOfDay());
+        List<CompanyDetails> list4 = companyDetailsRepository.findAllByStatusAndCreatedOnGreaterThan("PAID", LocalDate.now().atStartOfDay());
+        Double sum1 = list1.stream()
+                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount() + o.getPaymentPlanLocationDetails().getGstamount())
+                .sum();
+        Double sum2 = list2.stream()
+                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount() + o.getPaymentPlanLocationDetails().getGstamount())
+                .sum();
+        Double sum3 = list3.stream()
+                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount() + o.getPaymentPlanLocationDetails().getGstamount())
+                .sum();
+        Double sum4 = list4.stream()
+                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount() + o.getPaymentPlanLocationDetails().getGstamount())
+                .sum();
+        Double todaysBusiness = sum1 + sum2 + sum3 + sum4;
+        todaysBusiness.longValue();
         Long todaysApplication = proprietorshipRepostiory.countByCreatedOnGreaterThan(LocalDate.now().atStartOfDay()) + partnershipRepository.countByCreatedOnGreaterThan(LocalDate.now().atStartOfDay()) + llpRepostiory.countByCreatedOnGreaterThan(LocalDate.now().atStartOfDay()) + companyDetailsRepository.countByCreatedOnGreaterThan(LocalDate.now().atStartOfDay());
         Long totalCustomers = userDetailsRepository.count();
         Long applicationsManagement = proprietorshipRepostiory.count() + partnershipRepository.count() + llpRepostiory.count() + companyDetailsRepository.count();

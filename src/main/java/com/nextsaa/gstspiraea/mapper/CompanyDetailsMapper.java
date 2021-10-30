@@ -45,7 +45,11 @@ public class CompanyDetailsMapper {
         companyDetails.setModifiedBy(companyDetailsDTO.getModifiedBy());
         companyDetails.setModifiedOn(companyDetailsDTO.getModifiedOn());
         companyDetails.setStatus(companyDetailsDTO.getStatus());
+        companyDetails.setGstDocument(companyDetailsDTO.getGstDocument());
+
         companyDetails.setRemark(companyDetailsDTO.getRemark());
+        companyDetails.setRazorpayOrder(companyDetailsDTO.getRazorpayOrder());
+        companyDetails.setPaymentPlanLocationDetails(companyDetailsDTO.getPaymentPlanLocationDetails());
 
         return companyDetails;
     }
@@ -90,7 +94,12 @@ public class CompanyDetailsMapper {
         companyDetailsDTO.setModifiedBy(companyDetails.getModifiedBy());
         companyDetailsDTO.setModifiedOn(companyDetails.getModifiedOn());
         companyDetailsDTO.setStatus(companyDetails.getStatus());
+        companyDetailsDTO.setGstDocument(companyDetails.getGstDocument());
+
         companyDetailsDTO.setRemark(companyDetails.getRemark());
+        companyDetailsDTO.setRazorpayOrder(companyDetails.getRazorpayOrder());
+        companyDetails.setPaymentPlanLocationDetails(companyDetails.getPaymentPlanLocationDetails());
+
         return companyDetailsDTO;
     }
 

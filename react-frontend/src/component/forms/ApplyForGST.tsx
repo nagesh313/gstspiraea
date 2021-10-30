@@ -185,19 +185,19 @@ export const ApplyForGstComponent = () => {
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&
-          dropdown === "Proprietorship" && <SoleProprietor />}
+          dropdown === "Proprietorship" && <SoleProprietor plan={planLocation} />}
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&
-          dropdown === "Partnership" && <Partnership />}
+          dropdown === "Partnership" && <Partnership plan={planLocation} />}
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&
-          dropdown === "LLP" && <LLP />}
+          dropdown === "LLP" && <LLP plan={planLocation} />}
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&
-          dropdown === "Company" && <Company />}
+          dropdown === "Company" && <Company plan={planLocation} />}
       </main>
     </React.Fragment>
   );

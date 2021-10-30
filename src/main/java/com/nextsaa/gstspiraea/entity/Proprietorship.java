@@ -4,12 +4,7 @@ package com.nextsaa.gstspiraea.entity;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -169,7 +164,7 @@ public class Proprietorship {
 
     @Column(name = "status")
     private String status;
-
+    private String gstDocument;
     @Column(name = "remark")
     private String remark;
 
@@ -177,4 +172,6 @@ public class Proprietorship {
     private boolean manufacture;
     private boolean service;
     private String razorpayOrder;
+    @OneToOne
+    private PaymentPlanLocationDetails paymentPlanLocationDetails;
 }

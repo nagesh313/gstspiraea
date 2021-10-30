@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import GroupIcon from "@material-ui/icons/Group";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
@@ -67,7 +66,7 @@ export const AdminDashboard = () => {
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper} style={{ textAlign: "center" }}>
             <Typography component="div" variant="h4">
-              <AttachMoneyIcon style={{ fontSize: "3rem" }}></AttachMoneyIcon>
+             <img src="currency-inr.png" alt=""/> 
             </Typography>
             <Typography component="p" variant="h4">
               {dashboardData.todaysBusiness}

@@ -22,6 +22,6 @@ public interface ProprietorshipRepostiory extends JpaRepository<Proprietorship, 
     long countByStatus(String status);
 
     long countByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
-
+    List<Proprietorship> findAllByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
     long countByCreatedOnGreaterThan(LocalDateTime today);
 }

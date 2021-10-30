@@ -15,7 +15,11 @@ public interface CompanyDetailsRepository extends JpaRepository<CompanyDetails, 
     List<CompanyDetails> findAllByCreatedBy(String user);
 
     long countByStatus(String status);
+
     long countByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
-    long countByCreatedOnGreaterThan (LocalDateTime today);
+
+    List<CompanyDetails> findAllByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
+
+    long countByCreatedOnGreaterThan(LocalDateTime today);
 
 }

@@ -96,7 +96,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/{type}/{id}/{status}")
-    public void approveOrder(@PathVariable Long id, @PathVariable String type, @PathVariable String status) {
+    public void approveOrder(@PathVariable String type, @PathVariable Long id, @PathVariable String status) {
         switch (type) {
             case "Proprietorship":
                 Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
@@ -134,5 +134,48 @@ public class OrderController {
 
         }
     }
+
+    //          .get("/api/document/gst/" + orderType + "/" + id + "/" + documentUrl)
+
+    @GetMapping(value = "/gst/{type}/{id}/{documentURL}")
+    public void updateGSTDocument(@PathVariable String type, @PathVariable Long id, @PathVariable String documentURL) {
+        switch (type) {
+            case "Proprietorship":
+                Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
+                if (entity1.isPresent()) {
+                    Proprietorship object = entity1.get();
+                    object.setGstDocument(documentURL);
+                    proprietorshipRepostiory.save(object);
+                }
+                break;
+            case "Partnership":
+                Optional<Partnership> entity2 = partnershipRepository.findById(id);
+                if (entity2.isPresent()) {
+                    Partnership object = entity2.get();
+                    object.setGstDocument(documentURL);
+                    partnershipRepository.save(object);
+                }
+                break;
+            case "LLP":
+                Optional<LLP> entity3 = llpRepostiory.findById(id);
+                if (entity3.isPresent()) {
+                    LLP object = entity3.get();
+                    object.setGstDocument(documentURL);
+                    llpRepostiory.save(object);
+                }
+                break;
+            case "Company":
+                Optional<CompanyDetails> entity4 = companyDetailsRepository.findById(id);
+                if (entity4.isPresent()) {
+                    CompanyDetails object = entity4.get();
+                    object.setGstDocument(documentURL);
+                    companyDetailsRepository.save(object);
+                }
+                break;
+
+
+        }
+    }
+
 
 }

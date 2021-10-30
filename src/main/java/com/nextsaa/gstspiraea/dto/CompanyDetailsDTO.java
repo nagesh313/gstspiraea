@@ -1,8 +1,11 @@
 package com.nextsaa.gstspiraea.dto;
 
+import com.nextsaa.gstspiraea.entity.PaymentPlanDetails;
+import com.nextsaa.gstspiraea.entity.PaymentPlanLocationDetails;
 import lombok.Data;
 
 
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
 import java.util.Date;
@@ -85,7 +88,9 @@ public class CompanyDetailsDTO {
     private String modifiedBy;
 
     private String status;
-
+    private String gstDocument;
     private String remark;
+    private String razorpayOrder;
+    private PaymentPlanLocationDetails paymentPlanLocationDetails;
 
 }

@@ -45,7 +45,9 @@ public class LLPDetailsMapper {
     	llp.setModifiedBy(llpDTO.getModifiedBy());
     	llp.setModifiedOn(llpDTO.getModifiedOn());
     	llp.setStatus(llpDTO.getStatus());
-    	llp.setRemark(llpDTO.getRemark());
+		llp.setGstDocument(llpDTO.getGstDocument());
+
+		llp.setRemark(llpDTO.getRemark());
 
 		llp.setTrading(llpDTO.isTrading());
 		llp.setManufacture(llpDTO.isManufacture());
@@ -57,7 +59,9 @@ public class LLPDetailsMapper {
 		llp.setResidentialAddress(llpDTO.getResidentialAddress());
 		llp.setPartnerPassportPhoto(llpDTO.getPartnerPassportPhoto());
 		llp.setRazorpayOrder(llpDTO.getRazorpayOrder());
-        return llp;
+		llp.setPaymentPlanLocationDetails(llpDTO.getPaymentPlanLocationDetails());
+
+		return llp;
     }
 
 	public static LLPDTO mapToDto(LLP llp) {
@@ -100,6 +104,7 @@ public class LLPDetailsMapper {
 		llpDTO.setModifiedBy(llp.getModifiedBy());
 		llpDTO.setModifiedOn(llp.getModifiedOn());
 		llpDTO.setStatus(llp.getStatus());
+		llpDTO.setGstDocument(llp.getGstDocument());
 		llpDTO.setRemark(llp.getRemark());
 		llpDTO.setTrading(llp.isTrading());
 		llpDTO.setManufacture(llp.isManufacture());
@@ -111,7 +116,9 @@ public class LLPDetailsMapper {
 		llpDTO.setResidentialAddress(llp.getResidentialAddress());
 		llpDTO.setPartnerPassportPhoto(llp.getPartnerPassportPhoto());
 		llpDTO.setRazorpayOrder(llp.getRazorpayOrder());
-        return llpDTO;
+		llpDTO.setPaymentPlanLocationDetails(llp.getPaymentPlanLocationDetails());
+
+		return llpDTO;
     }
 	
 }
