@@ -20,6 +20,8 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
+import * as Yup from "yup";
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -56,7 +58,17 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
+const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+const aadharRegex = /^[0-9]{4}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
 
+const validationSchema = Yup.object().shape({
+  partneradharnumber: Yup.string()
+    .required("Please enter Aadhar Number")
+    .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
+  pannumber: Yup.string()
+    .required("Please enter your Pan Number")
+    .matches(panRegex, "Invalid Pan Number"),
+});
 const PartnershipComponent = (props: any) => {
   const classes = useStyles();
   const { params }: any = useRouteMatch();
@@ -141,12 +153,11 @@ const PartnershipComponent = (props: any) => {
       });
   };
 
- 
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
   const [open, setOpen] = React.useState(false);
- 
+
   const handleClickOpen = (imageName: any) => {
     setOpen(true);
     setImageName(imageName);
@@ -223,7 +234,7 @@ const PartnershipComponent = (props: any) => {
                       remark: "",
                     }
               }
-              //   validationSchema={SignInSchema}
+              validationSchema={validationSchema}
               onSubmit={(values: any) => {
                 submitForm(values);
               }}

@@ -8,13 +8,14 @@ import {
   Add,
   Delete,
   KeyboardArrowDownOutlined,
-  KeyboardArrowUpOutlined,
+  KeyboardArrowUpOutlined
 } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { failureToast } from "../util/util";
-import { CreateNewUserDialog } from "./CreateNewUser";
+import { CreateNewPlan } from "./CreateNewPlan";
+import { CreateNewPlanLocationDialog } from "./CreateNewPlanLocation";
 import Title from "./Title";
 export function PlanListComponent(props: any) {
   const [planList, setPlanList] = React.useState<any>([]);
@@ -30,27 +31,6 @@ export function PlanListComponent(props: any) {
         props.enqueueSnackbar(reponse.error, failureToast);
       });
   };
-  // const sendmail = (plan: any) => {
-  //   console.log(plan);
-  //   axios
-  //     .post("/api/generateLoginDetails", plan)
-  //     .then((response: any) => {
-  //       props.enqueueSnackbar("Plan Credentials Generated", successToast);
-  //       fetchPlanList();
-  //     })
-  //     .catch((reponse: any) => {
-  //       props.enqueueSnackbar(reponse.error, failureToast);
-  //     });
-  // };
-  // const handleModalOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleModalClose = (refresh: any) => {
-  //   if (refresh) {
-  //     fetchPlanList();
-  //   }
-  //   setOpen(false);
-  // };
   useEffect(() => {
     fetchPlanList();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -58,13 +38,33 @@ export function PlanListComponent(props: any) {
   return (
     <React.Fragment>
       <Title>List of registered Plans</Title>
-      <CollapsibleTable list={planList}></CollapsibleTable>
+      <CollapsibleTable
+        list={planList}
+        fetchPlanList={fetchPlanList}
+      ></CollapsibleTable>
     </React.Fragment>
   );
 }
 function Row(props: any) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
+
   const row = props.row;
+  const handleDeletePlan = (row: any) => {
+    axios
+      .delete("/api/plan/" + row.id)
+      .then((response: any) => {})
+      .catch((reponse: any) => {
+        // props.enqueueSnackbar(reponse.error, failureToast);
+      });
+  };
+  const handleDeletePlanLocation = (plan: any, planLocation: any) => {
+    axios
+      .delete("/api/plan-location/" + plan.id + "/" + planLocation.id)
+      .then((response: any) => {})
+      .catch((reponse: any) => {
+        // props.enqueueSnackbar(reponse.error, failureToast);
+      });
+  };
   return (
     <React.Fragment>
       <TableRow key={row.id}>
@@ -81,9 +81,7 @@ function Row(props: any) {
         <TableCell align="left">{row.remarks}</TableCell>
         <TableCell align="left">
           <IconButton>
-            <Delete
-            // onClick={handleModalOpen}
-            ></Delete>
+            <Delete onClick={() => handleDeletePlan(row)}></Delete>
           </IconButton>
         </TableCell>
       </TableRow>
@@ -104,9 +102,7 @@ function Row(props: any) {
                   </TableCell>
                   <TableCell align="left">
                     <IconButton>
-                      <Add
-                      // onClick={handleModalOpen}
-                      ></Add>
+                      <Add onClick={() => props.openLocationModal(row)}></Add>
                     </IconButton>
                   </TableCell>
                 </TableRow>
@@ -122,7 +118,9 @@ function Row(props: any) {
                     <TableCell align="left">
                       <IconButton>
                         <Delete
-                        // onClick={handleModalOpen}
+                          onClick={() =>
+                            handleDeletePlanLocation(row, historyRow)
+                          }
                         ></Delete>
                       </IconButton>
                     </TableCell>
@@ -138,7 +136,13 @@ function Row(props: any) {
 }
 export default function CollapsibleTable(props: any) {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [openLocation, setOpenLocation] = React.useState<boolean>(false);
+  const [plan, setPlan] = React.useState<any>();
 
+  const openLocationModal = (row: any) => {
+    setOpenLocation(true);
+    setPlan(row);
+  };
   const handleModalOpen = () => {
     setOpen(true);
   };
@@ -148,14 +152,25 @@ export default function CollapsibleTable(props: any) {
     }
     setOpen(false);
   };
+  const handleModalLocationClose = (refresh: any) => {
+    if (refresh) {
+      // fetchUserList();
+    }
+    setOpenLocation(false);
+  };
   return (
     <TableContainer component={Paper}>
-      <CreateNewUserDialog
+      <CreateNewPlan
         open={open}
         handleClose={handleModalClose}
-        // submitNewUser={submitNewUser}
-      ></CreateNewUserDialog>
-
+        fetchPlanList={props.fetchPlanList}
+      ></CreateNewPlan>
+      <CreateNewPlanLocationDialog
+        fetchPlanList={props.fetchPlanList}
+        open={openLocation}
+        plan={plan}
+        handleClose={handleModalLocationClose}
+      ></CreateNewPlanLocationDialog>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
@@ -175,7 +190,13 @@ export default function CollapsibleTable(props: any) {
         </TableHead>
         <TableBody>
           {props.list.map((row: any) => (
-            <Row key={row.name} row={row} />
+            <Row
+              key={row.name}
+              row={row}
+              openLocation={openLocation}
+              openLocationModal={openLocationModal}
+              handleModalLocationClose={handleModalLocationClose}
+            />
           ))}
         </TableBody>
       </Table>

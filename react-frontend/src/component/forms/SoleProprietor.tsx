@@ -6,7 +6,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
+  TextField
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -18,6 +18,7 @@ import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
+import * as Yup from "yup";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
 
@@ -57,6 +58,20 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
+const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+const aadharRegex = /^[0-9]{4}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
+
+const validationSchema = Yup.object().shape({
+  propadharnumber: Yup.string()
+    .required("Please enter Aadhar Number")
+    .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
+  signadharnumber: Yup.string()
+    .required("Please enter Aadhar Number")
+    .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
+  pannumber: Yup.string()
+    .required("Please enter your Pan Number")
+    .matches(panRegex, "Invalid Pan Number"),
+});
 
 const SoleProprietorComponent = (props: any) => {
   const classes = useStyles();
@@ -228,7 +243,7 @@ const SoleProprietorComponent = (props: any) => {
                       service: false,
                     }
               }
-              //   validationSchema={SignInSchema}
+              validationSchema={validationSchema}
               onSubmit={(values: any) => {
                 submitForm(values);
               }}

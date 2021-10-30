@@ -19,7 +19,8 @@ import { SignIn } from "../component/SignIn";
 import { SignUp } from "../component/SignUp";
 import { UserList } from "../component/UserList";
 import { PlanList } from "../component/PlanList";
-import QueueIcon from '@material-ui/icons/Queue';
+import QueueIcon from "@material-ui/icons/Queue";
+import { UploadGSTDocum } from "../component/UploadGSTDashboard";
 
 export const dashboardRoutes = [
   {
@@ -101,6 +102,13 @@ export const secondaryRoutes = [
     name: "/dashboard/home",
     icon: <AllOutIcon></AllOutIcon>,
     component: <AdminDashboard></AdminDashboard>,
+    layout: "/dashboard/home",
+  },
+  {
+    path: "/dashboard/upload-gst-document",
+    name: "/dashboard/home",
+    icon: <AllOutIcon></AllOutIcon>,
+    component: <UploadGSTDocum></UploadGSTDocum>,
     layout: "/dashboard/home",
   },
   {

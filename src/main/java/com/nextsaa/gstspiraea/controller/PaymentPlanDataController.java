@@ -12,10 +12,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.swing.text.PlainDocument;
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -104,18 +107,40 @@ public class PaymentPlanDataController {
         return paymentPlanDetailsRepository.findAll();
     }
 
-    @GetMapping("/plan-list/{id}")
-    private PaymentPlanDetails getPaymentPlanDetails(@PathVariable Long id) {
-        Optional<PaymentPlanDetails> plan = paymentPlanDetailsRepository.findById(id);
-        if (plan.isPresent()) {
-            return plan.get();
-        }
-        return null;
+    @PostMapping("/plan")
+    private void savePlan(@RequestBody PaymentPlanDetails paymentPlanDetails) {
+        paymentPlanDetailsRepository.save(paymentPlanDetails);
     }
 
-    @DeleteMapping("/plan-list/{id}")
+    @PostMapping("/plan-location/{id}")
+    private void savePlanLocation(@RequestBody PaymentPlanLocationDetails paymentPlanLocationDetails,
+                                  @PathVariable("id") Long id) {
+        Optional<PaymentPlanDetails> paymentPlanDetails = paymentPlanDetailsRepository.findById(id);
+        if (paymentPlanDetails.isPresent()) {
+            PaymentPlanDetails paymentPlan = paymentPlanDetails.get();
+            paymentPlanLocationDetailsRepository.save(paymentPlanLocationDetails);
+            paymentPlan.getPayplanLocation().add(paymentPlanLocationDetails);
+            paymentPlanDetailsRepository.save(paymentPlan);
+        }
+
+///        paymentPlanLocationDetailsRepository.save(paymentPlanLocationDetails);
+    }
+
+
+    @DeleteMapping("/plan/{id}")
     private void deleteBook(@PathVariable("id") Long id) {
         paymentPlanDetailsRepository.deleteById(id);
+    }
+
+    @DeleteMapping("/plan-location/{planId}/{id}")
+    private void deletePlanLocation(@PathVariable("planId") Long planId, @PathVariable("id") Long id) {
+        Optional<PaymentPlanDetails> plan = paymentPlanDetailsRepository.findById(planId);
+        if (plan.isPresent()) {
+            PaymentPlanDetails planDetails = plan.get();
+            List<PaymentPlanLocationDetails> updatedList = planDetails.getPayplanLocation().stream().filter(planLocationDetails -> planLocationDetails.getId() != id).collect(Collectors.toList());
+            planDetails.setPayplanLocation(updatedList);
+            paymentPlanDetailsRepository.save(planDetails);
+        }
     }
 
     @PostMapping("/books")
