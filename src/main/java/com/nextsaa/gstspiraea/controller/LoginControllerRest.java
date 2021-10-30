@@ -155,6 +155,7 @@ public class LoginControllerRest {
                 .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
                 .sum();
         Double todaysBusiness = sum1 + sum2 + sum3 + sum4;
+        todaysBusiness = todaysBusiness + todaysBusiness * 2 / 100;
         todaysBusiness.longValue();
         Long todaysApplication = proprietorshipRepostiory.countByCreatedOnGreaterThan(LocalDate.now().atStartOfDay()) + partnershipRepository.countByCreatedOnGreaterThan(LocalDate.now().atStartOfDay()) + llpRepostiory.countByCreatedOnGreaterThan(LocalDate.now().atStartOfDay()) + companyDetailsRepository.countByCreatedOnGreaterThan(LocalDate.now().atStartOfDay());
         Long totalCustomers = userDetailsRepository.count();
