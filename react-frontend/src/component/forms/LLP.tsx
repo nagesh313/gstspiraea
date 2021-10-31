@@ -179,14 +179,14 @@ const LLPComponent = (props: any) => {
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
-  let valuesForDirectors: any = {};
+  let valuesForPartners: any = {};
   [...Array(15)].forEach((value: any, index: any) => {
-    valuesForDirectors["partnerName" + index] = "";
-    valuesForDirectors["partnerFatherName" + index] = "";
-    valuesForDirectors["partnerAadharNo" + index] = "";
-    valuesForDirectors["partnerAadharPhotoCopy" + index] = "";
-    valuesForDirectors["partnerResidentialAddress" + index] = "";
-    valuesForDirectors["partnerPhoto" + index] = "";
+    valuesForPartners["partnerName" + index] = "";
+    valuesForPartners["partnerFatherName" + index] = "";
+    valuesForPartners["partnerAadharNo" + index] = "";
+    valuesForPartners["partnerAadharPhotoCopy" + index] = "";
+    valuesForPartners["partnerResidentialAddress" + index] = "";
+    valuesForPartners["partnerPhoto" + index] = "";
   });
   return (
     <React.Fragment>
@@ -247,8 +247,8 @@ const LLPComponent = (props: any) => {
                       manufacture: false,
                       service: false,
                       remark: "",
-                      numberOfDirectors: 1,
-                      ...valuesForDirectors,
+                      numberOfPartners: 1,
+                      ...valuesForPartners,
                     }
               }
               validationSchema={validationSchema}

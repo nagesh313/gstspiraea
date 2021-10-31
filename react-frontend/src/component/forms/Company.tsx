@@ -786,7 +786,7 @@ const CompanyComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"directorName" + index}
-                                label={"Director's " + index + " Name"}
+                                label={"Director's " + (index+1) + " Name"}
                                 name={"directorName" + index}
                                 autoComplete={"directorName" + index}
                                 onChange={handleChange}
