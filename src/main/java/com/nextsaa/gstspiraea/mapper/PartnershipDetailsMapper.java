@@ -1,7 +1,10 @@
 package com.nextsaa.gstspiraea.mapper;
 
 import com.nextsaa.gstspiraea.dto.PartnershipDTO;
+import com.nextsaa.gstspiraea.entity.Partner;
 import com.nextsaa.gstspiraea.entity.Partnership;
+
+import java.util.List;
 
 public class PartnershipDetailsMapper {
 
@@ -60,6 +63,7 @@ public class PartnershipDetailsMapper {
         partnership.setPartnerPassportPhoto(partnershipDTO.getPartnerPassportPhoto());
         partnership.setRazorpayOrder(partnershipDTO.getRazorpayOrder());
         partnership.setPaymentPlanLocationDetails(partnershipDTO.getPaymentPlanLocationDetails());
+        partnership.setPartnerList(partnershipDTO.getPartnerList());
         return partnership;
     }
 
@@ -117,6 +121,7 @@ public class PartnershipDetailsMapper {
         partnershipDTO.setPartnerPassportPhoto(partnership.getPartnerPassportPhoto());
         partnershipDTO.setRazorpayOrder(partnership.getRazorpayOrder());
         partnershipDTO.setPaymentPlanLocationDetails(partnership.getPaymentPlanLocationDetails());
+        partnershipDTO.setPartnerList(partnership.getPartnerList());
 
         return partnershipDTO;
     }

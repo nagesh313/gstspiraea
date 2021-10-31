@@ -4,14 +4,14 @@ import com.nextsaa.gstspiraea.dto.CompanyDetailsDTO;
 import com.nextsaa.gstspiraea.dto.LLPDTO;
 import com.nextsaa.gstspiraea.dto.PartnershipDTO;
 import com.nextsaa.gstspiraea.dto.ProprietorshipDTO;
+import com.nextsaa.gstspiraea.entity.CompanyDetails;
+import com.nextsaa.gstspiraea.entity.LLP;
+import com.nextsaa.gstspiraea.entity.Partnership;
 import com.nextsaa.gstspiraea.mapper.CompanyDetailsMapper;
 import com.nextsaa.gstspiraea.mapper.LLPDetailsMapper;
 import com.nextsaa.gstspiraea.mapper.PartnershipDetailsMapper;
 import com.nextsaa.gstspiraea.mapper.ProprietoshipDetailsMapper;
-import com.nextsaa.gstspiraea.repository.CompanyDetailsRepository;
-import com.nextsaa.gstspiraea.repository.LLPRepostiory;
-import com.nextsaa.gstspiraea.repository.PartnershipRepository;
-import com.nextsaa.gstspiraea.repository.ProprietorshipRepostiory;
+import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.ConfigService;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
@@ -40,7 +40,10 @@ public class FormController {
     @Autowired
     private CompanyDetailsRepository companyDetailsRepository;
 
-
+    @Autowired
+    private DirectorRepository directorRepository;
+    @Autowired
+    private PartnerRepository partnerRepository;
     @Autowired
     private ConfigService configService;
 
@@ -51,21 +54,27 @@ public class FormController {
     }
 
     @PostMapping(value = "/submit-partnership")
-    public void submitPartnership(@RequestBody PartnershipDTO dto) throws Exception {
-        createOrderPartnership(dto);
-        partnershipRepository.save(PartnershipDetailsMapper.mapToEntity(dto));
+    public void submitPartnership(@RequestBody PartnershipDTO partnershipDTO) throws Exception {
+        createOrderPartnership(partnershipDTO);
+        Partnership entity = PartnershipDetailsMapper.mapToEntity(partnershipDTO);
+        partnerRepository.saveAll(entity.getPartnerList());
+        partnershipRepository.save(entity);
     }
 
     @PostMapping(value = "/submit-llp")
-    public void submitLLP(@RequestBody LLPDTO dto) throws Exception {
-        createOrderLLP(dto);
-        llpRepostiory.save(LLPDetailsMapper.mapToEntity(dto));
+    public void submitLLP(@RequestBody LLPDTO llpdto) throws Exception {
+        createOrderLLP(llpdto);
+        LLP entity = LLPDetailsMapper.mapToEntity(llpdto);
+        partnerRepository.saveAll(entity.getPartnerList());
+        llpRepostiory.save(entity);
     }
 
     @PostMapping(value = "/submit-company-details")
-    public void submitCompanyDetails(@RequestBody CompanyDetailsDTO dto) throws Exception {
-        createOrderCompany(dto);
-        companyDetailsRepository.save(CompanyDetailsMapper.mapToEntity(dto));
+    public void submitCompanyDetails(@RequestBody CompanyDetailsDTO companyDetailsDTO) throws Exception {
+        createOrderCompany(companyDetailsDTO);
+        CompanyDetails entity = CompanyDetailsMapper.mapToEntity(companyDetailsDTO);
+        directorRepository.saveAll(entity.getDirectorList());
+        companyDetailsRepository.save(entity);
     }
 
     private void createOrderProprietorship(ProprietorshipDTO dto) throws Exception {

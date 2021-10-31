@@ -3,6 +3,7 @@ package com.nextsaa.gstspiraea.entity;
 import java.time.LocalDateTime;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -147,4 +148,6 @@ public class LLP {
     private String razorpayOrder;
     @OneToOne
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
+    @OneToMany
+    private List<Partner> partnerList;
 }

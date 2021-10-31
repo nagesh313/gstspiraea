@@ -1,11 +1,13 @@
 package com.nextsaa.gstspiraea.dto;
 
+import com.nextsaa.gstspiraea.entity.Partner;
 import com.nextsaa.gstspiraea.entity.PaymentPlanDetails;
 import com.nextsaa.gstspiraea.entity.PaymentPlanLocationDetails;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class PartnershipDTO {
@@ -98,6 +100,6 @@ public class PartnershipDTO {
     private String partnerPassportPhoto;
     private String razorpayOrder;
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
-
+    private List<Partner> partnerList;
 
 }

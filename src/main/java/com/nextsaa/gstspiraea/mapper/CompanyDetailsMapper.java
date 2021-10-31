@@ -2,6 +2,9 @@ package com.nextsaa.gstspiraea.mapper;
 
 import com.nextsaa.gstspiraea.dto.CompanyDetailsDTO;
 import com.nextsaa.gstspiraea.entity.CompanyDetails;
+import com.nextsaa.gstspiraea.entity.Director;
+
+import java.util.List;
 
 public class CompanyDetailsMapper {
 
@@ -50,6 +53,7 @@ public class CompanyDetailsMapper {
         companyDetails.setRemark(companyDetailsDTO.getRemark());
         companyDetails.setRazorpayOrder(companyDetailsDTO.getRazorpayOrder());
         companyDetails.setPaymentPlanLocationDetails(companyDetailsDTO.getPaymentPlanLocationDetails());
+        companyDetails.setDirectorList(companyDetailsDTO.getDirectorList());
 
         return companyDetails;
     }
@@ -98,8 +102,8 @@ public class CompanyDetailsMapper {
 
         companyDetailsDTO.setRemark(companyDetails.getRemark());
         companyDetailsDTO.setRazorpayOrder(companyDetails.getRazorpayOrder());
-        companyDetails.setPaymentPlanLocationDetails(companyDetails.getPaymentPlanLocationDetails());
-
+        companyDetailsDTO.setPaymentPlanLocationDetails(companyDetails.getPaymentPlanLocationDetails());
+        companyDetailsDTO.setDirectorList(companyDetails.getDirectorList());
         return companyDetailsDTO;
     }
 

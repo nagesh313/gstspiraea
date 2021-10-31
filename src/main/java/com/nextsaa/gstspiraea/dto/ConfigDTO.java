@@ -1,119 +1,121 @@
 package com.nextsaa.gstspiraea.dto;
 
+import com.nextsaa.gstspiraea.entity.Director;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ConfigDTO {
 
-	private Long configId;
+    private Long configId;
 
-	private String configkey;
+    private String configkey;
 
-	private String configvalue;
+    private String configvalue;
 
-	private String description;
+    private String description;
 
-	private LocalDateTime createdOn;
+    private LocalDateTime createdOn;
 
-	private String createdBy;
+    private String createdBy;
 
-	private LocalDateTime modifiedOn;
+    private LocalDateTime modifiedOn;
 
-	private String modifiedBy;
-	
-	private String status;
-	
-	private String remark;
-	
-	private int isActive;
+    private String modifiedBy;
 
-	public Long getConfigId() {
-		return configId;
-	}
+    private String status;
 
-	public void setConfigId(Long configId) {
-		this.configId = configId;
-	}
+    private String remark;
 
-	public String getConfigkey() {
-		return configkey;
-	}
+    private int isActive;
 
-	public void setConfigkey(String configkey) {
-		this.configkey = configkey;
-	}
+    public Long getConfigId() {
+        return configId;
+    }
 
-	public String getConfigvalue() {
-		return configvalue;
-	}
+    public void setConfigId(Long configId) {
+        this.configId = configId;
+    }
 
-	public void setConfigvalue(String configvalue) {
-		this.configvalue = configvalue;
-	}
+    public String getConfigkey() {
+        return configkey;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setConfigkey(String configkey) {
+        this.configkey = configkey;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getConfigvalue() {
+        return configvalue;
+    }
 
-	public LocalDateTime getCreatedOn() {
-		return createdOn;
-	}
+    public void setConfigvalue(String configvalue) {
+        this.configvalue = configvalue;
+    }
 
-	public void setCreatedOn(LocalDateTime createdOn) {
-		this.createdOn = createdOn;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
 
-	public LocalDateTime getModifiedOn() {
-		return modifiedOn;
-	}
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
 
-	public void setModifiedOn(LocalDateTime modifiedOn) {
-		this.modifiedOn = modifiedOn;
-	}
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
+    public LocalDateTime getModifiedOn() {
+        return modifiedOn;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setModifiedOn(LocalDateTime modifiedOn) {
+        this.modifiedOn = modifiedOn;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public int getIsActive() {
-		return isActive;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setIsActive(int isActive) {
-		this.isActive = isActive;
-	}	
-	
-	
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
 
 }

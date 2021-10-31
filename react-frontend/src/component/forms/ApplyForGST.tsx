@@ -128,7 +128,7 @@ export const ApplyForGstComponent = () => {
             <Grid xs={6} item>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
-                  Select A plan
+                  Select a plan
                 </InputLabel>
                 <Select
                   margin="dense"
@@ -140,7 +140,7 @@ export const ApplyForGstComponent = () => {
                   }}
                 >
                   {planList.map((plan: any) => {
-                    return <MenuItem value={plan}>{plan.payplanname}</MenuItem>;
+                    return <MenuItem value={plan} key={plan.id}>{plan.payplanname}</MenuItem>;
                   })}
                 </Select>
               </FormControl>
@@ -148,7 +148,7 @@ export const ApplyForGstComponent = () => {
             <Grid xs={6} item>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
-                  Select A Location
+                  Select a Location
                 </InputLabel>
                 <Select
                   margin="dense"

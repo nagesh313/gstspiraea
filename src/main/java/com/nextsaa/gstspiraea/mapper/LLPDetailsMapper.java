@@ -60,7 +60,7 @@ public class LLPDetailsMapper {
 		llp.setPartnerPassportPhoto(llpDTO.getPartnerPassportPhoto());
 		llp.setRazorpayOrder(llpDTO.getRazorpayOrder());
 		llp.setPaymentPlanLocationDetails(llpDTO.getPaymentPlanLocationDetails());
-
+		llp.setPartnerList(llpDTO.getPartnerList());
 		return llp;
     }
 
@@ -117,6 +117,7 @@ public class LLPDetailsMapper {
 		llpDTO.setPartnerPassportPhoto(llp.getPartnerPassportPhoto());
 		llpDTO.setRazorpayOrder(llp.getRazorpayOrder());
 		llpDTO.setPaymentPlanLocationDetails(llp.getPaymentPlanLocationDetails());
+		llpDTO.setPartnerList(llp.getPartnerList());
 
 		return llpDTO;
     }

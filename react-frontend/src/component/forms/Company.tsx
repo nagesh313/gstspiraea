@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  Divider,
   FormControlLabel,
   Grid,
   InputLabel,
@@ -20,7 +21,7 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
-import * as Yup from "yup";
+import { schema } from "./CompanySchema";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -58,17 +59,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
-const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-const aadharRegex = /^[0-9]{4}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
 
-const validationSchema = Yup.object().shape({
-  directorAadharNo: Yup.string()
-    .required("Please enter Aadhar Number")
-    .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
-  pannumber: Yup.string()
-    .required("Please enter your Pan Number")
-    .matches(panRegex, "Invalid Pan Number"),
-});
 const CompanyComponent = (props: any) => {
   const classes = useStyles();
   const { params }: any = useRouteMatch();
@@ -78,11 +69,23 @@ const CompanyComponent = (props: any) => {
     axios
       .get("/api/get-order/get/Company/" + id)
       .then((response: any) => {
-        // props.enqueueSnackbar("Order Rejected Successfull", successToast);
+        response.data.directorList.forEach((director: any, index: any) => {
+          response.data["directorName" + index] = director.directorName;
+          response.data["directorDin" + index] = director.directorDin;
+          response.data["directorFatherName" + index] =
+            director.directorFatherName;
+          response.data["directorAadharNo" + index] = director.directorAadharNo;
+          response.data["directorAadharPhotoCopy" + index] =
+            director.directorAadharPhotoCopy;
+          response.data["directorResidentialAddress" + index] =
+            director.directorResidentialAddress;
+          response.data["directorPhoto" + index] = director.directorPhoto;
+        });
+        response.data.numberOfDirectors = response.data.directorList.length;
         setOrderDetails(response.data);
       })
       .catch((reponse: any) => {
-        // props.enqueueSnackbar(reponse.error, failureToast);
+        props.enqueueSnackbar("Error fetching order details", failureToast);
       });
   };
   const approve = () => {
@@ -116,6 +119,7 @@ const CompanyComponent = (props: any) => {
         props.enqueueSnackbar("Unable To Reject the Application", failureToast);
       });
   };
+  const validationSchema = schema;
   useEffect(() => {
     if (params.id) {
       fetchOrderDetails(params.id);
@@ -136,12 +140,25 @@ const CompanyComponent = (props: any) => {
         // setTaskList(response.data);
       })
       .catch((reponse: any) => {
-        // props.enqueueSnackbar("Failed to upload the CSV", failureToast);
+        props.enqueueSnackbar("Failed to upload the document", failureToast);
       });
   };
   const submitForm = (values: any) => {
     values.paymentPlanLocationDetails = props.plan;
-
+    const directorList: any = [];
+    [...Array(values.numberOfDirectors)].forEach((value: any, index: any) => {
+      directorList.push({
+        directorName: values["directorName" + index],
+        directorDin: values["directorDin" + index],
+        directorFatherName: values["directorFatherName" + index],
+        directorAadharNo: values["directorAadharNo" + index],
+        directorAadharPhotoCopy: values["directorAadharPhotoCopy" + index],
+        directorResidentialAddress:
+          values["directorResidentialAddress" + index],
+        directorPhoto: values["directorPhoto" + index],
+      });
+    });
+    values.directorList = directorList;
     axios
       .post("/api/submit-company-details", { ...values })
       .then((response: any) => {
@@ -166,7 +183,16 @@ const CompanyComponent = (props: any) => {
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
-
+  let valuesForDirectors: any = {};
+  [...Array(15)].forEach((value: any, index: any) => {
+    valuesForDirectors["directorName" + index] = "";
+    valuesForDirectors["directorDin" + index] = "";
+    valuesForDirectors["directorFatherName" + index] = "";
+    valuesForDirectors["directorAadharNo" + index] = "";
+    valuesForDirectors["directorAadharPhotoCopy" + index] = "";
+    valuesForDirectors["directorResidentialAddress" + index] = "";
+    valuesForDirectors["directorPhoto" + index] = "";
+  });
   return (
     <React.Fragment>
       <CssBaseline />
@@ -188,37 +214,37 @@ const CompanyComponent = (props: any) => {
                 orderDetails
                   ? orderDetails
                   : {
-                      firmName: "test",
-                      legalbusinessName: "test",
-                      tradeName: "test",
-                      mobile: "test",
-                      email: "test",
-                      pannumber: "test",
-                      panphoto: "test",
-                      composition: "test",
+                      firmName: "",
+                      legalbusinessName: "",
+                      tradeName: "",
+                      mobile: "",
+                      email: "",
+                      pannumber: "",
+                      panphoto: "",
+                      composition: "Yes",
                       commencementDate: date,
-                      principleplace: "test",
-                      pricipleelectricityphoto: "test",
-                      priciplerentphoto: "test",
-                      priciplenocphoto: "test",
-                      additionalplace: "test",
-                      additionalelectricityphoto: "test",
-                      additionalrentphoto: "test",
-                      additionalnocphoto: "test",
-                      businessactivity: "test",
-                      hsn1: "test",
-                      hsn2: "test",
-                      hsn3: "test",
-                      hsn4: "test",
-                      hsn5: "test",
-                      accountname: "test",
-                      accountnumber: "test",
-                      ifsc: "test",
-                      branchname: "test",
-                      branchcode: "test",
-                      cancelcheqphoto: "test",
-                      tradelicensenumber: "test",
-                      tradelicensephoto: "test",
+                      principleplace: "",
+                      pricipleelectricityphoto: "",
+                      priciplerentphoto: "",
+                      priciplenocphoto: "",
+                      additionalplace: "",
+                      additionalelectricityphoto: "",
+                      additionalrentphoto: "",
+                      additionalnocphoto: "",
+                      businessactivity: "",
+                      hsn1: "",
+                      hsn2: "",
+                      hsn3: "",
+                      hsn4: "",
+                      hsn5: "",
+                      accountname: "",
+                      accountnumber: "",
+                      ifsc: "",
+                      branchname: "",
+                      branchcode: "",
+                      cancelcheqphoto: "",
+                      tradelicensenumber: "",
+                      tradelicensephoto: "",
                       status: "CREATED",
                       createdBy: sessionStorage.getItem("user"),
                       isActive: true,
@@ -226,14 +252,8 @@ const CompanyComponent = (props: any) => {
                       manufacture: false,
                       service: false,
                       remark: "",
-                      numberOfDirector: 1,
-                      directorName: "",
-                      directorDin: "",
-                      directorFatherName: "",
-                      directorAadharNo: "",
-                      directorAadharPhotoCopy: "",
-                      directorResidentialAddress: "",
-                      directorPhoto: "",
+                      numberOfDirectors: 1,
+                      ...valuesForDirectors,
                     }
               }
               validationSchema={validationSchema}
@@ -242,7 +262,6 @@ const CompanyComponent = (props: any) => {
               }}
             >
               {({ errors, touched, values, handleChange, setFieldValue }) => (
-                // obj: any
                 <Form noValidate>
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
@@ -587,7 +606,6 @@ const CompanyComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
-
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -727,7 +745,7 @@ const CompanyComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
-
+                  
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -742,6 +760,7 @@ const CompanyComponent = (props: any) => {
                         autoComplete="numberOfDirectors"
                         onChange={handleChange}
                         value={values.numberOfDirectors}
+                        InputProps={{ inputProps: { min: 1, max: 10 } }}
                         InputLabelProps={{ shrink: true }}
                         error={
                           errors.numberOfDirectors && touched.numberOfDirectors
@@ -754,209 +773,249 @@ const CompanyComponent = (props: any) => {
                       />
                     </Grid>
                   </Grid>
-
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="directorName"
-                        label="Director's Name"
-                        name="directorName"
-                        autoComplete="directorName"
-                        onChange={handleChange}
-                        value={values.directorName}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.directorName && touched.directorName
-                            ? true
-                            : false
-                        }
-                        helperText={touched.directorName && errors.directorName}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="directorDin"
-                        label="DIN of Director"
-                        name="directorDin"
-                        autoComplete="directorDin"
-                        onChange={handleChange}
-                        value={values.directorDin}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.directorDin && touched.directorDin
-                            ? true
-                            : false
-                        }
-                        helperText={touched.directorDin && errors.directorDin}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="directorFatherName"
-                        label="Director's Father name"
-                        name="directorFatherName"
-                        autoComplete="directorFatherName"
-                        onChange={handleChange}
-                        value={values.directorFatherName}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.directorFatherName &&
-                          touched.directorFatherName
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.directorFatherName &&
-                          errors.directorFatherName
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="directorAadharNo"
-                        label="Aadhaar No. of Director"
-                        name="directorAadharNo"
-                        autoComplete="directorAadharNo"
-                        onChange={handleChange}
-                        value={values.directorAadharNo}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.directorAadharNo && touched.directorAadharNo
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.directorAadharNo && errors.directorAadharNo
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        style={{ width: "90%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="directorAadharPhotoCopy"
-                        label="Please attach Aadhar copy"
-                        name="directorAadharPhotoCopy"
-                        autoComplete="directorAadharPhotoCopy"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "directorAadharPhotoCopy")
-                        }
-                        // value={values.directorAadharPhotoCopy}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.directorAadharPhotoCopy &&
-                          touched.directorAadharPhotoCopy
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.directorAadharPhotoCopy &&
-                          errors.directorAadharPhotoCopy
-                        }
-                      />
-                      {values.directorAadharPhotoCopy && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.directorAadharPhotoCopy);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="directorResidentialAddress"
-                        label="Residential Address"
-                        name="directorResidentialAddress"
-                        autoComplete="directorResidentialAddress"
-                        onChange={handleChange}
-                        value={values.directorResidentialAddress}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.directorResidentialAddress &&
-                          touched.directorResidentialAddress
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.directorResidentialAddress &&
-                          errors.directorResidentialAddress
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        style={{ width: "90%" }}
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="directorPhoto"
-                        label="Passport Size Photo"
-                        name="directorPhoto"
-                        autoComplete="directorPhoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "directorPhoto")
-                        }
-                        // value={values.directorPhoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.directorPhoto && touched.directorPhoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.directorPhoto && errors.directorPhoto
-                        }
-                      />
-                      {values.directorPhoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.directorPhoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
-                    </Grid>
-                  </Grid>
+                  {[...Array(values.numberOfDirectors)].map(
+                    (num: any, index: any) => {
+                      return (
+                        <React.Fragment key={index}>
+                          <Divider />
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"directorName" + index}
+                                label={"Director's " + index + " Name"}
+                                name={"directorName" + index}
+                                autoComplete={"directorName" + index}
+                                onChange={handleChange}
+                                value={values["directorName" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["directorName" + index] &&
+                                  touched["directorName" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["directorName" + index] &&
+                                  errors["directorName" + index]
+                                }
+                              />
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"directorDin" + index}
+                                label={"DIN of Director " + (index + 1)}
+                                name={"directorDin" + index}
+                                autoComplete={"directorDin" + index}
+                                onChange={handleChange}
+                                value={values["directorDin" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["directorDin" + index] &&
+                                  touched["directorDin" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["directorDin" + index] &&
+                                  errors["directorDin" + index]
+                                }
+                              />
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"directorFatherName" + index}
+                                label={
+                                  "Director " + (index + 1) + " Father's name"
+                                }
+                                name={"directorFatherName" + index}
+                                autoComplete={"directorFatherName" + index}
+                                onChange={handleChange}
+                                value={values["directorFatherName" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["directorFatherName" + index] &&
+                                  touched["directorFatherName" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["directorFatherName" + index] &&
+                                  errors["directorFatherName" + index]
+                                }
+                              />
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"directorAadharNo" + index}
+                                label={"Aadhaar No. of Director " + (index + 1)}
+                                name={"directorAadharNo" + index}
+                                autoComplete={"directorAadharNo" + index}
+                                onChange={handleChange}
+                                value={values["directorAadharNo" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["directorAadharNo" + index] &&
+                                  touched["directorAadharNo" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["directorAadharNo" + index] &&
+                                  errors["directorAadharNo" + index]
+                                }
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                type="file"
+                                style={{ width: "90%" }}
+                                size="small"
+                                required
+                                fullWidth
+                                id={"directorAadharPhotoCopy" + index}
+                                label="Please attach Aadhar copy"
+                                name={"directorAadharPhotoCopy" + index}
+                                autoComplete={"directorAadharPhotoCopy" + index}
+                                onChange={(file) =>
+                                  upload(
+                                    file,
+                                    setFieldValue,
+                                    "directorAadharPhotoCopy" + index
+                                  )
+                                }
+                                // value={values.directorAadharPhotoCopy}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["directorAadharPhotoCopy" + index] &&
+                                  touched["directorAadharPhotoCopy" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["directorAadharPhotoCopy" + index] &&
+                                  errors["directorAadharPhotoCopy" + index]
+                                }
+                              />
+                              {values["directorAadharPhotoCopy" + index] && (
+                                <Visibility
+                                  onClick={() => {
+                                    setImageName(
+                                      values["directorAadharPhotoCopy" + index]
+                                    );
+                                    setOpen(true);
+                                  }}
+                                  style={{ float: "right", marginTop: "25px" }}
+                                />
+                              )}
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"directorResidentialAddress" + index}
+                                label="Residential Address"
+                                name={"directorResidentialAddress" + index}
+                                autoComplete={
+                                  "directorResidentialAddress" + index
+                                }
+                                onChange={handleChange}
+                                value={
+                                  values["directorResidentialAddress" + index]
+                                }
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors[
+                                    "directorResidentialAddress" + index
+                                  ] &&
+                                  touched["directorResidentialAddress" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched[
+                                    "directorResidentialAddress" + index
+                                  ] &&
+                                  errors["directorResidentialAddress" + index]
+                                }
+                              />
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                type="file"
+                                style={{ width: "90%" }}
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"directorPhoto" + index}
+                                label="Passport Size Photo"
+                                name={"directorPhoto" + index}
+                                autoComplete={"directorPhoto" + index}
+                                onChange={(file) =>
+                                  upload(
+                                    file,
+                                    setFieldValue,
+                                    "directorPhoto" + index
+                                  )
+                                }
+                                // value={values.directorPhoto}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["directorPhoto" + index] &&
+                                  touched["directorPhoto" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["directorPhoto" + index] &&
+                                  errors["directorPhoto" + index]
+                                }
+                              />
+                              {values["directorPhoto" + index] && (
+                                <Visibility
+                                  onClick={() => {
+                                    setImageName(values["directorPhoto" + index]);
+                                    setOpen(true);
+                                  }}
+                                  style={{ float: "right", marginTop: "25px" }}
+                                />
+                              )}
+                            </Grid>
+                          </Grid>
+                        </React.Fragment>
+                      );
+                    }
+                  )}
+                  <Divider />
                   <Grid container spacing={4}>
                     <Grid item xs={6} sm={6}>
                       <label>
@@ -1048,7 +1107,6 @@ const CompanyComponent = (props: any) => {
                       ></TextField>
                     </Grid>
                   </Grid>
-
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -1106,7 +1164,6 @@ const CompanyComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
-
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField

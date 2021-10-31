@@ -1,5 +1,6 @@
 package com.nextsaa.gstspiraea.dto;
 
+import com.nextsaa.gstspiraea.entity.Director;
 import com.nextsaa.gstspiraea.entity.PaymentPlanDetails;
 import com.nextsaa.gstspiraea.entity.PaymentPlanLocationDetails;
 import lombok.Data;
@@ -9,6 +10,7 @@ import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class CompanyDetailsDTO {
@@ -92,5 +94,6 @@ public class CompanyDetailsDTO {
     private String remark;
     private String razorpayOrder;
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
+    private List<Director> directorList;
 
 }

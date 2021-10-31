@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  Divider,
   FormControlLabel,
   Grid,
   InputLabel,
@@ -20,7 +21,7 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
-import * as Yup from "yup";
+import { schema } from "./PartnerSchema";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -58,17 +59,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
-const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-const aadharRegex = /^[0-9]{4}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
-
-const validationSchema = Yup.object().shape({
-  partneradharnumber: Yup.string()
-    .required("Please enter Aadhar Number")
-    .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
-  pannumber: Yup.string()
-    .required("Please enter your Pan Number")
-    .matches(panRegex, "Invalid Pan Number"),
-});
 const PartnershipComponent = (props: any) => {
   const classes = useStyles();
   const { params }: any = useRouteMatch();
@@ -80,7 +70,20 @@ const PartnershipComponent = (props: any) => {
     axios
       .get("/api/get-order/get/Partnership/" + id)
       .then((response: any) => {
-        // props.enqueueSnackbar("Order Rejected Successfull", successToast);
+        response.data.partnerList.forEach((partner: any, index: any) => {
+          response.data["partnerName" + index] = partner.partnerName;
+          response.data["partnerFatherName" + index] =
+            partner.partnerFatherName;
+          response.data["partnerAadharNo" + index] =
+            partner.partnerAadharNo;
+          response.data["partnerAadharPhotoCopy" + index] =
+            partner.partnerAadharPhotoCopy;
+          response.data["partnerResidentialAddress" + index] =
+            partner.partnerResidentialAddress;
+          response.data["partnerPhoto" + index] =
+            partner.partnerPhoto;
+        });
+        response.data.numberOfPartners = response.data.partnerList.length;
         setOrderDetails(response.data);
       })
       .catch((reponse: any) => {
@@ -118,6 +121,7 @@ const PartnershipComponent = (props: any) => {
         props.enqueueSnackbar("Unable To Reject the Application", failureToast);
       });
   };
+  const validationSchema = schema;
   useEffect(() => {
     if (params.id) {
       fetchOrderDetails(params.id);
@@ -138,12 +142,23 @@ const PartnershipComponent = (props: any) => {
         // setTaskList(response.data);
       })
       .catch((reponse: any) => {
-        // props.enqueueSnackbar("Failed to upload the CSV", failureToast);
+        props.enqueueSnackbar("Failed to upload the Document", failureToast);
       });
   };
   const submitForm = (values: any) => {
     values.paymentPlanLocationDetails = props.plan;
-
+    const partnerList: any = [];
+    [...Array(values.numberOfPartners)].forEach((value: any, index: any) => {
+      partnerList.push({
+        partnerName: values["partnerName" + index],
+        partnerFatherName: values["partnerFatherName" + index],
+        partnerAadharNo: values["partnerAadharNo" + index],
+        partnerAadharPhotoCopy: values["partnerAadharPhotoCopy" + index],
+        partnerResidentialAddress: values["partnerResidentialAddress" + index],
+        partnerPhoto: values["partnerPhoto" + index],
+      });
+    });
+    values.partnerList = partnerList;
     axios
       .post("/api/submit-partnership", { ...values })
       .then((response: any) => {
@@ -169,6 +184,15 @@ const PartnershipComponent = (props: any) => {
     setOpen(false);
     setImageName("");
   };
+  let valuesForPartners: any = {};
+  [...Array(15)].forEach((value: any, index: any) => {
+    valuesForPartners["partnerName" + index] = "";
+    valuesForPartners["partnerFatherName" + index] = "";
+    valuesForPartners["partnerAadharNo" + index] = "";
+    valuesForPartners["partnerAadharPhotoCopy" + index] = "";
+    valuesForPartners["partnerResidentialAddress" + index] = "";
+    valuesForPartners["partnerPhoto" + index] = "";
+  });
   return (
     <React.Fragment>
       <CssBaseline />
@@ -224,16 +248,12 @@ const PartnershipComponent = (props: any) => {
                       isActive: true,
                       status: "CREATED",
                       createdBy: sessionStorage.getItem("user"),
-                      partnerName: "",
-                      partnerFatherName: "",
-                      partneradharnumber: "",
-                      partneradharphoto: "",
-                      residentialAddress: "",
-                      partnerPassportPhoto: "",
                       trading: false,
                       manufacture: false,
                       service: false,
                       remark: "",
+                      numberOfPartners: 1,
+                      ...valuesForPartners,
                     }
               }
               validationSchema={validationSchema}
@@ -242,7 +262,6 @@ const PartnershipComponent = (props: any) => {
               }}
             >
               {({ errors, touched, values, handleChange, setFieldValue }) => (
-                // obj: any
                 <Form noValidate>
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
@@ -734,455 +753,244 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         size="small"
+                        type="number"
                         required
                         fullWidth
-                        id="partnerName"
-                        label="Partner's Name"
-                        name="partnerName"
-                        autoComplete="partnerName"
+                        id="numberOfPartners"
+                        label="Number of Partner"
+                        name="numberOfPartners"
+                        autoComplete="numberOfPartners"
                         onChange={handleChange}
-                        value={values.partnerName}
+                        value={values.numberOfPartners}
+                        InputProps={{ inputProps: { min: 1, max: 10 } }}
                         InputLabelProps={{ shrink: true }}
                         error={
-                          errors.partnerName && touched.partnerName
-                            ? true
-                            : false
-                        }
-                        helperText={touched.partnerName && errors.partnerName}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="partnerFatherName"
-                        label="Partner's Father name"
-                        name="partnerFatherName"
-                        autoComplete="partnerFatherName"
-                        onChange={handleChange}
-                        value={values.partnerFatherName}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.partnerFatherName && touched.partnerFatherName
+                          errors.numberOfPartners && touched.numberOfPartners
                             ? true
                             : false
                         }
                         helperText={
-                          touched.partnerFatherName && errors.partnerFatherName
+                          touched.numberOfPartners && errors.numberOfPartners
                         }
                       />
                     </Grid>
                   </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="partneradharnumber"
-                        label="Aadhaar No. of Partner"
-                        name="partneradharnumber"
-                        autoComplete="partneradharnumber"
-                        onChange={handleChange}
-                        value={values.partneradharnumber}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.partneradharnumber &&
-                          touched.partneradharnumber
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.partneradharnumber &&
-                          errors.partneradharnumber
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        style={{ width: "90%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="partneradharphoto"
-                        label="Please attach Aadhar copy"
-                        name="partneradharphoto"
-                        autoComplete="partneradharphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "partneradharphoto")
-                        }
-                        // value={values.partneradharphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.partneradharphoto && touched.partneradharphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.partneradharphoto && errors.partneradharphoto
-                        }
-                      />
-                      {values.partneradharphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.partneradharphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="residentialAddress"
-                        label="Residential Address"
-                        name="residentialAddress"
-                        autoComplete="residentialAddress"
-                        onChange={handleChange}
-                        value={values.residentialAddress}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.residentialAddress &&
-                          touched.residentialAddress
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.residentialAddress &&
-                          errors.residentialAddress
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        style={{ width: "90%" }}
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="partnerPassportPhoto"
-                        label="Passport Size Photo"
-                        name="partnerPassportPhoto"
-                        autoComplete="partnerPassportPhoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "partnerPassportPhoto")
-                        }
-                        // value={values.partnerPassportPhoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.partnerPassportPhoto &&
-                          touched.partnerPassportPhoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.partnerPassportPhoto &&
-                          errors.partnerPassportPhoto
-                        }
-                      />
-                      {values.partnerPassportPhoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.partnerPassportPhoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
-                    </Grid>
-                  </Grid>
-
-                  {/* <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="propfatherName"
-                        label="Proprietor's Father name"
-                        name="propfatherName"
-                        autoComplete="propfatherName"
-                        onChange={handleChange}
-                        value={values.propfatherName}
-                        error={
-                          errors.propfatherName && touched.propfatherName
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.propfatherName && errors.propfatherName
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="propadharnumber"
-                        label="Aadhaar No. of Proprietor"
-                        name="propadharnumber"
-                        autoComplete="propadharnumber"
-                        onChange={handleChange}
-                        value={values.propadharnumber}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.propadharnumber && touched.propadharnumber
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.propadharnumber && errors.propadharnumber
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        type="file"  style={{ width: "90%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="propadharphoto"
-                        label="Please attach Aadhar copy"
-                        name="propadharphoto"
-                        autoComplete="propadharphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "propadharphoto")
-                        }
-                        // value={values.propadharphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.propadharphoto && touched.propadharphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.propadharphoto && errors.propadharphoto
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="resident_address"
-                        label="Residential Address"
-                        name="resident_address"
-                        autoComplete="resident_address"
-                        onChange={handleChange}
-                        value={values.resident_address}
-                        error={
-                          errors.resident_address && touched.resident_address
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.resident_address && errors.resident_address
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        type="file"  style={{ width: "90%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="photo"
-                        label="Passport Size Photo"
-                        name="photo"
-                        autoComplete="photo"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "photo")
-                        }
-                        // value={values.photo}
-                        InputLabelProps={{ shrink: true }}
-                        error={errors.photo && touched.photo ? true : false}
-                        helperText={touched.photo && errors.photo}
-                      />
-                    </Grid>
-                  </Grid>
-
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="authsignname"
-                        label="Name of Authorised Signatory"
-                        name="authsignname"
-                        autoComplete="authsignname"
-                        onChange={handleChange}
-                        value={values.authsignname}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.authsignname && touched.authsignname
-                            ? true
-                            : false
-                        }
-                        helperText={touched.authsignname && errors.authsignname}
-                      />
-                    </Grid>
-                  </Grid>
-
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="signfathername"
-                        label="Signatory's Father name"
-                        name="signfathername"
-                        autoComplete="signfathername"
-                        onChange={handleChange}
-                        value={values.signfathername}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.signfathername && touched.signfathername
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.signfathername && errors.signfathername
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="signadharnumber"
-                        label="Aadhaar No. of Signatory"
-                        name="signadharnumber"
-                        autoComplete="signadharnumber"
-                        onChange={handleChange}
-                        value={values.signadharnumber}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.signadharnumber && touched.signadharnumber
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.signadharnumber && errors.signadharnumber
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"  style={{ width: "90%" }}
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="signadharphoto"
-                        label="Please attach Aadhar copy"
-                        name="signadharphoto"
-                        autoComplete="signadharphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "signadharphoto")
-                        }
-                        // value={values.signadharphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.signadharphoto && touched.signadharphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.signadharphoto && errors.signadharphoto
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="residentsignaddress"
-                        label="Residential Address of signatory"
-                        name="residentsignaddress"
-                        autoComplete="residentsignaddress"
-                        onChange={handleChange}
-                        value={values.residentsignaddress}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.residentsignaddress &&
-                          touched.residentsignaddress
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.residentsignaddress &&
-                          errors.residentsignaddress
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"  style={{ width: "90%" }}
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="signphoto"
-                        label="Passport Size Photo of signatory"
-                        name="signphoto"
-                        autoComplete="signphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "signphoto")
-                        }
-                        // value={values.signphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.signphoto && touched.signphoto ? true : false
-                        }
-                        helperText={touched.signphoto && errors.signphoto}
-                      />
-                    </Grid>
-                  </Grid>
-                  */}
+                  {[...Array(values.numberOfPartners)].map(
+                    (num: any, index: any) => {
+                      return (
+                        <React.Fragment key={index}>
+                          <Divider />
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerName" + index}
+                                label={"Partner " + (index + 1) + " Name"}
+                                name={"partnerName" + index}
+                                autoComplete={"partnerName" + index}
+                                onChange={handleChange}
+                                value={values["partnerName" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerName" + index] &&
+                                  touched["partnerName" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerName" + index] &&
+                                  errors["partnerName" + index]
+                                }
+                              />
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerFatherName" + index}
+                                label={
+                                  "Partner " + (index + 1) + " Father's name"
+                                }
+                                name={"partnerFatherName" + index}
+                                autoComplete={"partnerFatherName" + index}
+                                onChange={handleChange}
+                                value={values["partnerFatherName" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerFatherName" + index] &&
+                                  touched["partnerFatherName" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerFatherName" + index] &&
+                                  errors["partnerFatherName" + index]
+                                }
+                              />
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerAadharNo" + index}
+                                label={"Aadhaar No. of Partner " + (index + 1)}
+                                name={"partnerAadharNo" + index}
+                                autoComplete={"partnerAadharNo" + index}
+                                onChange={handleChange}
+                                value={values["partnerAadharNo" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerAadharNo" + index] &&
+                                  touched["partnerAadharNo" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerAadharNo" + index] &&
+                                  errors["partnerAadharNo" + index]
+                                }
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                type="file"
+                                style={{ width: "90%" }}
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerAadharPhotoCopy" + index}
+                                label="Please attach Aadhar copy"
+                                name={"partnerAadharPhotoCopy" + index}
+                                autoComplete={"partnerAadharPhotoCopy" + index}
+                                onChange={(file) =>
+                                  upload(
+                                    file,
+                                    setFieldValue,
+                                    "partnerAadharPhotoCopy" + index
+                                  )
+                                }
+                                // value={values.partnerAadharPhotoCopy}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerAadharPhotoCopy" + index] &&
+                                  touched["partnerAadharPhotoCopy" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerAadharPhotoCopy" + index] &&
+                                  errors["partnerAadharPhotoCopy" + index]
+                                }
+                              />
+                              {values["partnerAadharPhotoCopy" + index] && (
+                                <Visibility
+                                  onClick={() => {
+                                    setImageName(
+                                      values["partnerAadharPhotoCopy" + index]
+                                    );
+                                    setOpen(true);
+                                  }}
+                                  style={{ float: "right", marginTop: "25px" }}
+                                />
+                              )}
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerResidentialAddress" + index}
+                                label="Residential Address"
+                                name={"partnerResidentialAddress" + index}
+                                autoComplete={
+                                  "partnerResidentialAddress" + index
+                                }
+                                onChange={handleChange}
+                                value={
+                                  values["partnerResidentialAddress" + index]
+                                }
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerResidentialAddress" + index] &&
+                                  touched["partnerResidentialAddress" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched[
+                                    "partnerResidentialAddress" + index
+                                  ] &&
+                                  errors["partnerResidentialAddress" + index]
+                                }
+                              />
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                type="file"
+                                style={{ width: "90%" }}
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerPhoto" + index}
+                                label="Passport Size Photo"
+                                name={"partnerPhoto" + index}
+                                autoComplete={"partnerPhoto" + index}
+                                onChange={(file) =>
+                                  upload(
+                                    file,
+                                    setFieldValue,
+                                    "partnerPhoto" + index
+                                  )
+                                }
+                                // value={values.partnerPhoto}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerPhoto" + index] &&
+                                  touched["partnerPhoto" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerPhoto" + index] &&
+                                  errors["partnerPhoto" + index]
+                                }
+                              />
+                              {values["partnerPhoto" + index] && (
+                                <Visibility
+                                  onClick={() => {
+                                    setImageName(
+                                      values["partnerPhoto" + index]
+                                    );
+                                    setOpen(true);
+                                  }}
+                                  style={{ float: "right", marginTop: "25px" }}
+                                />
+                              )}
+                            </Grid>
+                          </Grid>
+                        </React.Fragment>
+                      );
+                    }
+                  )}
+                  <Divider />
                   <Grid container spacing={4}>
                     <Grid item xs={6} sm={6}>
                       <label>
