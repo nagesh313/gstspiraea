@@ -200,7 +200,7 @@ const SoleProprietorComponent = (props: any) => {
                       email: "",
                       pannumber: "",
                       panphoto: "",
-                      composition: "Yes",
+                      composition: "No",
                       commencementDate: date,
                       principleplace: "",
                       pricipleelectricityphoto: "",

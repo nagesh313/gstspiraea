@@ -216,7 +216,7 @@ const LLPComponent = (props: any) => {
                       email: "",
                       pannumber: "",
                       panphoto: "",
-                      composition: "",
+                      composition: "No",
                       commencementDate: date,
                       principleplace: "",
                       pricipleelectricityphoto: "",

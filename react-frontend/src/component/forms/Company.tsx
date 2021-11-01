@@ -221,7 +221,7 @@ const CompanyComponent = (props: any) => {
                       email: "",
                       pannumber: "",
                       panphoto: "",
-                      composition: "Yes",
+                      composition: "No",
                       commencementDate: date,
                       principleplace: "",
                       pricipleelectricityphoto: "",
@@ -745,7 +745,7 @@ const CompanyComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
-                  
+
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -786,7 +786,7 @@ const CompanyComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"directorName" + index}
-                                label={"Director's " + (index+1) + " Name"}
+                                label={"Director's " + (index + 1) + " Name"}
                                 name={"directorName" + index}
                                 autoComplete={"directorName" + index}
                                 onChange={handleChange}
@@ -1003,7 +1003,9 @@ const CompanyComponent = (props: any) => {
                               {values["directorPhoto" + index] && (
                                 <Visibility
                                   onClick={() => {
-                                    setImageName(values["directorPhoto" + index]);
+                                    setImageName(
+                                      values["directorPhoto" + index]
+                                    );
                                     setOpen(true);
                                   }}
                                   style={{ float: "right", marginTop: "25px" }}
