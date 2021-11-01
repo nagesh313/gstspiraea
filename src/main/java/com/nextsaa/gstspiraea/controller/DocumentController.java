@@ -29,14 +29,11 @@ public class DocumentController {
 
     @RequestMapping(path = "/{uploadFile}", method = RequestMethod.POST,
             consumes = {"multipart/form-data"})
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws FileSystemException {
+    public String uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+        if (file.getSize() > 100000) {
+            throw new Exception("File Larger than 100Kb, Please upload a smaller file");
+        }
         String fileName = fileStorageService.storeFile(file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
         return fileName;
     }
 

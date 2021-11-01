@@ -28,6 +28,8 @@ public class UserDetailsMapper {
     	userDetails.setCreatedBy(userDetailsDTO.getCreatedBy());
     	userDetails.setModifiedBy(userDetailsDTO.getModifiedBy());
     	userDetails.setLastLoginDate(userDetailsDTO.getLastLoginDate());
+		userDetails.setVendorType(userDetailsDTO.getVendorType());
+		userDetails.setBusinessName(userDetailsDTO.getBusinessName());
         return userDetails;
     }
 
@@ -54,7 +56,9 @@ public class UserDetailsMapper {
 		userDetailsDTO.setCreatedBy(userDetails.getCreatedBy());
 		userDetailsDTO.setModifiedOn(userDetails.getModifiedOn());
 		userDetailsDTO.setModifiedBy(userDetails.getModifiedBy());
-		userDetailsDTO.setLastLoginDate(userDetailsDTO.getLastLoginDate());
+		userDetailsDTO.setLastLoginDate(userDetails.getLastLoginDate());
+		userDetailsDTO.setVendorType(userDetails.getVendorType());
+		userDetailsDTO.setBusinessName(userDetails.getBusinessName());
         return userDetailsDTO;
     }
 	

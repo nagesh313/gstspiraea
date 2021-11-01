@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -69,7 +69,6 @@ export function UserListComponent(props: any) {
   //     });
   // };
   const sendmail = (user: any) => {
-    console.log(user);
     axios
       .post("/api/generateLoginDetails", user)
       .then((response: any) => {
@@ -96,8 +95,7 @@ export function UserListComponent(props: any) {
             <TableCell>Email</TableCell>
             <TableCell>User Name</TableCell>
             <TableCell>Password</TableCell>
-            <TableCell align="center">
-            </TableCell>
+            <TableCell align="center"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -106,8 +104,32 @@ export function UserListComponent(props: any) {
               <TableCell>{row.firstName}</TableCell>
               <TableCell>{row.lastName}</TableCell>
               <TableCell>{row.userEmail}</TableCell>
-              <TableCell>{row.loginUserName}</TableCell>
-              <TableCell>{row.loginPassword}</TableCell>
+              <TableCell>
+                <TextField
+                  autoComplete="loginUserName"
+                  name="loginUserName"
+                  fullWidth
+                  size="small"
+                  id="loginUserName"
+                  defaultValue={row.loginUserName}
+                  onChange={(event: any) => {
+                    row.loginUserName = event.target.value;
+                  }}
+                />
+              </TableCell>
+              <TableCell>
+                <TextField
+                  autoComplete="loginPassword"
+                  name="loginPassword"
+                  fullWidth
+                  size="small"
+                  id="loginPassword"
+                  defaultValue={row.loginPassword}
+                  onChange={(event: any) => {
+                    row.loginPassword = event.target.value;
+                  }}
+                />
+              </TableCell>
 
               <TableCell align="center">
                 <Button

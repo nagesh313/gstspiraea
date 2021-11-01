@@ -35,27 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const SignupSchema = Yup.object().shape({
-  lastName: Yup.string()
+  businessName: Yup.string()
     .min(2, "Too Short!")
     .max(10, "Too Long!")
     .required("Required"),
-  firstName: Yup.string()
-    .min(2, "Too Short!")
-    .max(10, "Too Long!")
-    .required("Required"),
-  middleName: Yup.string()
-    .min(2, "Too Short!")
-    .max(10, "Too Long!")
-    .required("Required"),
-  gender: Yup.string()
-    .min(2, "Too Short!")
-    .max(10, "Too Long!")
-    .required("Required"),
+  vendorType: Yup.string().required("Required"),
   userEmail: Yup.string().email("Invalid userEmail").required("Required"),
-  mobile: Yup.string()
-    .min(2, "Too Short!")
-    .max(10, "Too Long!")
-    .required("Required"),
+  mobile: Yup.string().required("Required"),
 });
 export function SignUpComponent(props: any) {
   const classes = useStyles();
@@ -80,9 +66,6 @@ export function SignUpComponent(props: any) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
         <img
           alt=""
           src="/spiraea-logo-bw-web-1.png"
@@ -93,10 +76,8 @@ export function SignUpComponent(props: any) {
         </Typography>
         <Formik
           initialValues={{
-            lastName: "",
-            firstName: "",
-            middleName: "",
-            gender: "",
+            businessName: "",
+            vendorType: "P0",
             userEmail: "",
             mobile: "",
           }}
@@ -111,73 +92,41 @@ export function SignUpComponent(props: any) {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={12}>
                   <TextField
-                    autoComplete="firstName"
+                    autoComplete="businessName"
                     required
-                    name="firstName"
+                    name="businessName"
                     variant="outlined"
                     fullWidth
-                    id="firstName"
-                    label="First Name"
+                    id="businessName"
+                    label="Business Name"
                     autoFocus
                     onChange={handleChange}
-                    value={values.firstName}
-                    error={errors.firstName && touched.firstName ? true : false}
-                    helperText={touched.firstName && errors.firstName}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <TextField
-                    required
-                    variant="outlined"
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="lastName"
-                    onChange={handleChange}
-                    value={values.lastName}
-                    error={errors.lastName && touched.lastName ? true : false}
-                    helperText={touched.lastName && errors.lastName}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <TextField
-                    required
-                    variant="outlined"
-                    fullWidth
-                    id="middleName"
-                    label="Middle Name (Father/ Husband Name)"
-                    name="middleName"
-                    autoComplete="middleName"
-                    onChange={handleChange}
-                    value={values.middleName}
+                    value={values.businessName}
                     error={
-                      errors.middleName && touched.middleName ? true : false
+                      errors.businessName && touched.businessName ? true : false
                     }
-                    helperText={touched.middleName && errors.middleName}
+                    helperText={touched.businessName && errors.businessName}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
-                      Gender
+                      Vendor Type
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-helper-label"
                       fullWidth
                       id="demo-simple-select-helper"
-                      value={values.gender}
-                      error={errors.gender && touched.gender ? true : false}
-                      // value={age}
+                      value={values.vendorType}
+                      error={
+                        errors.vendorType && touched.vendorType ? true : false
+                      }
                       onChange={(event: any, data: any) => {
-                        setFieldValue("gender", data?.props?.children);
+                        setFieldValue("vendorType", data?.props?.children);
                       }}
                     >
-                      <MenuItem value={"Male"}>Male</MenuItem>
-                      <MenuItem value={"Female"}>Female</MenuItem>
-                      <MenuItem value={"Dont want to specify"}>
-                        Dont want to specify
-                      </MenuItem>
+                      <MenuItem value={"P0"}>P0</MenuItem>
+                      <MenuItem value={"P1"}>P1</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -198,6 +147,7 @@ export function SignUpComponent(props: any) {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    type="number"
                     variant="outlined"
                     required
                     fullWidth

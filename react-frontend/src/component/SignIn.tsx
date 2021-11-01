@@ -22,14 +22,8 @@ import { failureToast } from "../util/util";
 import { StickyFooter } from "./StickyFooter";
 import { CustomizedTimeline } from "./TimeLine";
 const SignInSchema = Yup.object().shape({
-  loginUserName: Yup.string()
-    .min(2, "Too Short!")
-    .max(10, "Too Long!")
-    .required("Required"),
-  loginPassword: Yup.string()
-    .min(2, "Too Short!")
-    .max(10, "Too Long!")
-    .required("Required"),
+  loginUserName: Yup.string().max(10, "Too Long!").required("Required"),
+  loginPassword: Yup.string().max(10, "Too Long!").required("Required"),
   role: Yup.string().required("Required"),
 });
 
@@ -89,9 +83,6 @@ export function SignInComponent(props: any) {
         <Grid container>
           <Grid xs={12} sm={6}>
             <div className={classes.paper}>
-              {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
               <img
                 alt=""
                 src="/spiraea-logo-bw-web-1.png"

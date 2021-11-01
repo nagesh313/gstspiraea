@@ -150,7 +150,8 @@ const SoleProprietorComponent = (props: any) => {
         // setTaskList(response.data);
       })
       .catch((reponse: any) => {
-        // props.enqueueSnackbar("Failed to upload the CSV", failureToast);
+        props.enqueueSnackbar(reponse.message, failureToast);
+        event.target.value = "";
       });
   };
   const submitForm = (values: any) => {

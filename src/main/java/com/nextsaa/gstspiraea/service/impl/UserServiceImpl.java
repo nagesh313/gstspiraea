@@ -53,12 +53,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetailsDTO createUser(UserDetailsDTO userDetailsDTO) {
         UserDetails user = userDetailsRepository.save(UserDetailsMapper.mapUserToEntity(userDetailsDTO));
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(userDetailsDTO.getUserEmail());
-        msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
-        msg.setSubject(configService.getConfigByKey("registrationMailSubject").getConfigvalue());
-        msg.setText(configService.getConfigByKey("registrationMailBody").getConfigvalue());
-        javaMailSender.send(msg);
+        try {
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setTo(userDetailsDTO.getUserEmail());
+            msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
+            msg.setSubject(configService.getConfigByKey("registrationMailSubject").getConfigvalue());
+            msg.setText(configService.getConfigByKey("registrationMailBody").getConfigvalue());
+            javaMailSender.send(msg);
+        } catch (Exception e) {
+            System.out.println("Not Able to send email");
+        }
+
         return UserDetailsMapper.mapUserToDto(user);
     }
 
@@ -86,25 +91,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetailsDTO updateLoginDetails(UserDetailsDTO userDetailsDTO) {
-        String loginUserName = "";
-        String password = Utility.generateCommonLangPassword();
-        if (userDetailsDTO.getFirstName().length() > 4) {
-            loginUserName = userDetailsDTO.getFirstName().substring(0, 4);
-        }
-        if (userDetailsDTO.getUserEmail().length() > 4) {
-            loginUserName = loginUserName.concat("1" + userDetailsDTO.getUserEmail().substring(0, 4));
-        }
+//        String loginUserName = "";
+//        String password = Utility.generateCommonLangPassword();
+//        if (userDetailsDTO.getFirstName().length() > 4) {
+//            loginUserName = userDetailsDTO.getFirstName().substring(0, 4);
+//        }
+//        if (userDetailsDTO.getUserEmail().length() > 4) {
+//            loginUserName = loginUserName.concat("1" + userDetailsDTO.getUserEmail().substring(0, 4));
+//        }
 
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(userDetailsDTO.getUserEmail());
-        msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
-        msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
-        msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue() + "\n UserName: " + loginUserName + "\n Password: " + password);
-        javaMailSender.send(msg);
-
+        try {
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setTo(userDetailsDTO.getUserEmail());
+            msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
+            msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
+            msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue() + "\n UserName: " + userDetailsDTO.getLoginUserName() + "\n Password: " + userDetailsDTO.getLoginPassword());
+            javaMailSender.send(msg);
+        } catch (Exception e) {
+            System.out.println("Unable to send mail");
+        }
         UserDetails user = userDetailsRepository.findById(userDetailsDTO.getUserId()).orElseThrow(() -> new DataNotFoundException(ExceptionConstants.USER_RECORD_NOT_FOUND));
-        user.setLoginUserName(loginUserName);
-        user.setLoginPassword(password);
+        user.setLoginUserName(userDetailsDTO.getLoginUserName());
+        user.setLoginPassword(userDetailsDTO.getLoginPassword());
         user.setModifiedOn(LocalDateTime.now());
         user.setModifiedBy("ADMIN");
         return UserDetailsMapper.mapUserToDto(userDetailsRepository.save(user));

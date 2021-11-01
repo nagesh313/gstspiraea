@@ -142,7 +142,8 @@ const PartnershipComponent = (props: any) => {
         // setTaskList(response.data);
       })
       .catch((reponse: any) => {
-        props.enqueueSnackbar("Failed to upload the Document", failureToast);
+        props.enqueueSnackbar(reponse.message, failureToast);
+        event.target.value = "";
       });
   };
   const submitForm = (values: any) => {

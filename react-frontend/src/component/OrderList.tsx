@@ -142,10 +142,8 @@ function OrderListComponent(props: any) {
             );
           })
           .catch((reponse: any) => {
-            props.enqueueSnackbar(
-              "Failed to upload the Document",
-              failureToast
-            );
+            props.enqueueSnackbar(reponse.message, failureToast);
+            event.target.value = "";
           });
       })
       .catch((reponse: any) => {

@@ -1,230 +1,58 @@
 package com.nextsaa.gstspiraea.dto;
 
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@Data
 public class UserDetailsDTO {
 
-	private Long userId;
+    private Long userId;
 
-	private String firstName;
+    private String firstName;
 
-	private String middleName;
+    private String middleName;
 
-	private String lastName;
+    private String lastName;
 
-	private Date dateOfBirth;
+    private Date dateOfBirth;
 
-	private String userEmail;
+    private String userEmail;
 
-	private Double mobile;
+    private Double mobile;
 
-	private String gender;
-	
-	private String role;
+    private String gender;
 
-	private int isActive;
-	
-	private int isArchived;
-	
-	private String loginUserName;
-	
-	private String loginPassword;
-	
-	private int isMobileVerified;
-	
-	private int isEmailVerified;
-	
-	private int loginAttempt;
-	
-	private String custPhoto;
-	
-	private LocalDateTime createdOn;
+    private String role;
 
-	private String createdBy;
+    private int isActive;
 
-	private LocalDateTime modifiedOn;
+    private int isArchived;
 
-	private String modifiedBy;
+    private String loginUserName;
 
-	private Date lastLoginDate;
+    private String loginPassword;
 
-	public Long getUserId() {
-		return userId;
-	}
+    private int isMobileVerified;
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    private int isEmailVerified;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    private int loginAttempt;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    private String custPhoto;
 
-	public String getMiddleName() {
-		return middleName;
-	}
+    private LocalDateTime createdOn;
 
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
+    private String createdBy;
 
-	public String getLastName() {
-		return lastName;
-	}
+    private LocalDateTime modifiedOn;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}	
+    private String modifiedBy;
 
-	public int getIsEmailVerified() {
-		return isEmailVerified;
-	}
+    private Date lastLoginDate;
+    private String businessName;
+    private String vendorType;
 
-	public void setIsEmailVerified(int isEmailVerified) {
-		this.isEmailVerified = isEmailVerified;
-	}
-
-
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public Double getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(Double mobile) {
-		this.mobile = mobile;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public int getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(int isActive) {
-		this.isActive = isActive;
-	}
-
-	public int getIsArchived() {
-		return isArchived;
-	}
-
-	public void setIsArchived(int isArchived) {
-		this.isArchived = isArchived;
-	}
-
-	public String getLoginUserName() {
-		return loginUserName;
-	}
-
-	public void setLoginUserName(String loginUserName) {
-		this.loginUserName = loginUserName;
-	}
-
-	public String getLoginPassword() {
-		return loginPassword;
-	}
-
-	public void setLoginPassword(String loginPassword) {
-		this.loginPassword = loginPassword;
-	}
-
-	public int getIsMobileVerified() {
-		return isMobileVerified;
-	}
-
-	public void setIsMobileVerified(int isMobileVerified) {
-		this.isMobileVerified = isMobileVerified;
-	}
-
-	public int getLoginAttempt() {
-		return loginAttempt;
-	}
-
-	public void setLoginAttempt(int loginAttempt) {
-		this.loginAttempt = loginAttempt;
-	}
-
-	public String getCustPhoto() {
-		return custPhoto;
-	}
-
-	public void setCustPhoto(String custPhoto) {
-		this.custPhoto = custPhoto;
-	}
-
-	public LocalDateTime getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(LocalDateTime createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public LocalDateTime getModifiedOn() {
-		return modifiedOn;
-	}
-
-	public void setModifiedOn(LocalDateTime modifiedOn) {
-		this.modifiedOn = modifiedOn;
-	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
-	public Date getLastLoginDate() {
-		return lastLoginDate;
-	}
-
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
-	
 }
