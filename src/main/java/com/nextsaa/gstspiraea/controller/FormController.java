@@ -1,17 +1,6 @@
 package com.nextsaa.gstspiraea.controller;
 
-import com.nextsaa.gstspiraea.dto.CompanyDetailsDTO;
-import com.nextsaa.gstspiraea.dto.LLPDTO;
-import com.nextsaa.gstspiraea.dto.PartnershipDTO;
-import com.nextsaa.gstspiraea.dto.ProprietorshipDTO;
-import com.nextsaa.gstspiraea.entity.CompanyDetails;
-import com.nextsaa.gstspiraea.entity.LLP;
-import com.nextsaa.gstspiraea.entity.Partnership;
-import com.nextsaa.gstspiraea.entity.Proprietorship;
-import com.nextsaa.gstspiraea.mapper.CompanyDetailsMapper;
-import com.nextsaa.gstspiraea.mapper.LLPDetailsMapper;
-import com.nextsaa.gstspiraea.mapper.PartnershipDetailsMapper;
-import com.nextsaa.gstspiraea.mapper.ProprietoshipDetailsMapper;
+import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.ConfigService;
 import com.razorpay.Order;
@@ -49,31 +38,27 @@ public class FormController {
     private ConfigService configService;
 
     @PostMapping(value = "/save-submit-proprietorship")
-    public void saveSubmitProprietorship(@RequestBody ProprietorshipDTO dto) throws Exception {
-        Proprietorship entity = ProprietoshipDetailsMapper.mapToEntity(dto);
+    public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
         entity.setStatus("DRAFT");
         proprietorshipRepostiory.save(entity);
     }
 
     @PostMapping(value = "/save-submit-partnership")
-    public void saveSubmitPartnership(@RequestBody PartnershipDTO partnershipDTO) throws Exception {
-        Partnership entity = PartnershipDetailsMapper.mapToEntity(partnershipDTO);
+    public void saveSubmitPartnership(@RequestBody Partnership entity) throws Exception {
         partnerRepository.saveAll(entity.getPartnerList());
         entity.setStatus("DRAFT");
         partnershipRepository.save(entity);
     }
 
     @PostMapping(value = "/save-submit-llp")
-    public void saveSubmitLLP(@RequestBody LLPDTO llpdto) throws Exception {
-        LLP entity = LLPDetailsMapper.mapToEntity(llpdto);
+    public void saveSubmitLLP(@RequestBody LLP entity) throws Exception {
         partnerRepository.saveAll(entity.getPartnerList());
         entity.setStatus("DRAFT");
         llpRepostiory.save(entity);
     }
 
     @PostMapping(value = "/save-submit-company-details")
-    public void saveSubmitCompanyDetails(@RequestBody CompanyDetailsDTO companyDetailsDTO) throws Exception {
-        CompanyDetails entity = CompanyDetailsMapper.mapToEntity(companyDetailsDTO);
+    public void saveSubmitCompanyDetails(@RequestBody CompanyDetails entity) throws Exception {
         directorRepository.saveAll(entity.getDirectorList());
         entity.setStatus("DRAFT");
         companyDetailsRepository.save(entity);
@@ -81,56 +66,52 @@ public class FormController {
 
 
     @PostMapping(value = "/submit-proprietorship")
-    public void submitProprietorship(@RequestBody ProprietorshipDTO dto) throws Exception {
-        createOrderProprietorship(dto);
-        proprietorshipRepostiory.save(ProprietoshipDetailsMapper.mapToEntity(dto));
+    public void submitProprietorship(@RequestBody Proprietorship entity) throws Exception {
+        createOrderProprietorship(entity);
+        proprietorshipRepostiory.save(entity);
     }
 
     @PostMapping(value = "/submit-partnership")
-    public void submitPartnership(@RequestBody PartnershipDTO partnershipDTO) throws Exception {
-        createOrderPartnership(partnershipDTO);
-        Partnership entity = PartnershipDetailsMapper.mapToEntity(partnershipDTO);
+    public void submitPartnership(@RequestBody Partnership entity) throws Exception {
+        createOrderPartnership(entity);
         partnerRepository.saveAll(entity.getPartnerList());
         partnershipRepository.save(entity);
     }
 
     @PostMapping(value = "/submit-llp")
-    public void submitLLP(@RequestBody LLPDTO llpdto) throws Exception {
-        createOrderLLP(llpdto);
-        LLP entity = LLPDetailsMapper.mapToEntity(llpdto);
+    public void submitLLP(@RequestBody LLP entity) throws Exception {
+        createOrderLLP(entity);
         partnerRepository.saveAll(entity.getPartnerList());
         llpRepostiory.save(entity);
     }
 
     @PostMapping(value = "/submit-company-details")
-    public void submitCompanyDetails(@RequestBody CompanyDetailsDTO companyDetailsDTO) throws Exception {
-        createOrderCompany(companyDetailsDTO);
-        CompanyDetails entity = CompanyDetailsMapper.mapToEntity(companyDetailsDTO);
+    public void submitCompanyDetails(@RequestBody CompanyDetails entity) throws Exception {
+        createOrderCompany(entity);
         directorRepository.saveAll(entity.getDirectorList());
         companyDetailsRepository.save(entity);
     }
 
-    private void createOrderProprietorship(ProprietorshipDTO dto) throws Exception {
-        dto.setStatus("CREATED");
-        dto.setRazorpayOrder(createOrder(
-                dto.getPaymentPlanLocationDetails().getPayplanamount()
+    private void createOrderProprietorship(Proprietorship entity) throws Exception {
+        entity.setStatus("CREATED");
+        entity.setRazorpayOrder(createOrder(
+                entity.getPaymentPlanLocationDetails().getPayplanamount()
         ));
     }
 
-    private void createOrderLLP(LLPDTO dto) throws Exception {
-        dto.setStatus("CREATED");
-
-        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
+    private void createOrderLLP(LLP entity) throws Exception {
+        entity.setStatus("CREATED");
+        entity.setRazorpayOrder(createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
-    private void createOrderPartnership(PartnershipDTO dto) throws Exception {
-        dto.setStatus("CREATED");
-        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
+    private void createOrderPartnership(Partnership entity) throws Exception {
+        entity.setStatus("CREATED");
+        entity.setRazorpayOrder(createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
-    private void createOrderCompany(CompanyDetailsDTO dto) throws Exception {
-        dto.setStatus("CREATED");
-        dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
+    private void createOrderCompany(CompanyDetails entity) throws Exception {
+        entity.setStatus("CREATED");
+        entity.setRazorpayOrder(createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
     private String createOrder(Double amount) throws Exception {

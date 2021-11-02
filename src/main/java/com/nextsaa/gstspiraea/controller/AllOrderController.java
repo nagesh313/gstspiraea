@@ -1,13 +1,9 @@
 package com.nextsaa.gstspiraea.controller;
 
-import com.nextsaa.gstspiraea.dto.CompanyDetailsDTO;
-import com.nextsaa.gstspiraea.dto.LLPDTO;
-import com.nextsaa.gstspiraea.dto.PartnershipDTO;
-import com.nextsaa.gstspiraea.dto.ProprietorshipDTO;
-import com.nextsaa.gstspiraea.mapper.CompanyDetailsMapper;
-import com.nextsaa.gstspiraea.mapper.LLPDetailsMapper;
-import com.nextsaa.gstspiraea.mapper.PartnershipDetailsMapper;
-import com.nextsaa.gstspiraea.mapper.ProprietoshipDetailsMapper;
+import com.nextsaa.gstspiraea.entity.CompanyDetails;
+import com.nextsaa.gstspiraea.entity.LLP;
+import com.nextsaa.gstspiraea.entity.Partnership;
+import com.nextsaa.gstspiraea.entity.Proprietorship;
 import com.nextsaa.gstspiraea.repository.CompanyDetailsRepository;
 import com.nextsaa.gstspiraea.repository.LLPRepostiory;
 import com.nextsaa.gstspiraea.repository.PartnershipRepository;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/get-all-order")
@@ -36,24 +31,24 @@ public class AllOrderController {
 
 
     @GetMapping(value = "/Proprietorship")
-    public List<ProprietorshipDTO> getAllProprietorship() {
-        return proprietorshipRepostiory.findAll().stream().map(entity -> ProprietoshipDetailsMapper.mapToDto(entity)).collect(Collectors.toList());
+    public List<Proprietorship> getAllProprietorship() {
+        return proprietorshipRepostiory.findAll();
     }
 
     @GetMapping(value = "/Partnership")
-    public List<PartnershipDTO> getAllPartnership() {
-        return partnershipRepository.findAll().stream().map(entity -> PartnershipDetailsMapper.mapToDto(entity)).collect(Collectors.toList());
+    public List<Partnership> getAllPartnership() {
+        return partnershipRepository.findAll();
     }
 
     @GetMapping(value = "/LLP")
-    public List<LLPDTO> getAllLLP() {
-        return llpRepostiory.findAll().stream().map(entity -> LLPDetailsMapper.mapToDto(entity)).collect(Collectors.toList());
+    public List<LLP> getAllLLP() {
+        return llpRepostiory.findAll();
 
     }
 
     @GetMapping(value = "/Company")
-    public List<CompanyDetailsDTO> getAllCompany() {
-        return companyDetailsRepository.findAll().stream().map(entity -> CompanyDetailsMapper.mapToDto(entity)).collect(Collectors.toList());
+    public List<CompanyDetails> getAllCompany() {
+        return companyDetailsRepository.findAll();
 
     }
 }

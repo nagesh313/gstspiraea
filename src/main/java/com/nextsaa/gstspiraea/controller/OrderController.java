@@ -1,9 +1,5 @@
 package com.nextsaa.gstspiraea.controller;
 
-import com.nextsaa.gstspiraea.dto.CompanyDetailsDTO;
-import com.nextsaa.gstspiraea.dto.LLPDTO;
-import com.nextsaa.gstspiraea.dto.PartnershipDTO;
-import com.nextsaa.gstspiraea.dto.ProprietorshipDTO;
 import com.nextsaa.gstspiraea.entity.CompanyDetails;
 import com.nextsaa.gstspiraea.entity.LLP;
 import com.nextsaa.gstspiraea.entity.Partnership;
@@ -39,58 +35,58 @@ public class OrderController {
 
 
     @GetMapping(value = "/Proprietorship/{user}")
-    public List<ProprietorshipDTO> getAllProprietorship(@PathVariable String user) {
-        return proprietorshipRepostiory.findAllByCreatedBy(user).stream().map(entity -> ProprietoshipDetailsMapper.mapToDto(entity)).collect(Collectors.toList());
+    public List<Proprietorship> getAllProprietorship(@PathVariable String user) {
+        return proprietorshipRepostiory.findAllByCreatedBy(user);
     }
 
     @GetMapping(value = "/Partnership/{user}")
-    public List<PartnershipDTO> getAllPartnership(@PathVariable String user) {
-        return partnershipRepository.findAllByCreatedBy(user).stream().map(entity -> PartnershipDetailsMapper.mapToDto(entity)).collect(Collectors.toList());
+    public List<Partnership> getAllPartnership(@PathVariable String user) {
+        return partnershipRepository.findAllByCreatedBy(user);
     }
 
     @GetMapping(value = "/LLP/{user}")
-    public List<LLPDTO> getAllLLP(@PathVariable String user) {
-        return llpRepostiory.findAllByCreatedBy(user).stream().map(entity -> LLPDetailsMapper.mapToDto(entity)).collect(Collectors.toList());
+    public List<LLP> getAllLLP(@PathVariable String user) {
+        return llpRepostiory.findAllByCreatedBy(user);
 
     }
 
     @GetMapping(value = "/Company/{user}")
-    public List<CompanyDetailsDTO> getAllCompany(@PathVariable String user) {
-        return companyDetailsRepository.findAllByCreatedBy(user).stream().map(entity -> CompanyDetailsMapper.mapToDto(entity)).collect(Collectors.toList());
+    public List<CompanyDetails> getAllCompany(@PathVariable String user) {
+        return companyDetailsRepository.findAllByCreatedBy(user);
     }
 
     @GetMapping(value = "/get/Proprietorship/{id}")
-    public ProprietorshipDTO getProprietorshipById(@PathVariable Long id) {
+    public Proprietorship getProprietorshipById(@PathVariable Long id) {
         Optional<Proprietorship> entity = proprietorshipRepostiory.findById(id);
         if (entity.isPresent()) {
-            return ProprietoshipDetailsMapper.mapToDto(entity.get());
+            return entity.get();
         }
         return null;
     }
 
     @GetMapping(value = "/get/Partnership/{id}")
-    public PartnershipDTO getPartnershipById(@PathVariable Long id) {
+    public Partnership getPartnershipById(@PathVariable Long id) {
         Optional<Partnership> entity = partnershipRepository.findById(id);
         if (entity.isPresent()) {
-            return PartnershipDetailsMapper.mapToDto(entity.get());
+            return entity.get();
         }
         return null;
     }
 
     @GetMapping(value = "/get/LLP/{id}")
-    public LLPDTO getLLPById(@PathVariable Long id) {
+    public LLP getLLPById(@PathVariable Long id) {
         Optional<LLP> entity = llpRepostiory.findById(id);
         if (entity.isPresent()) {
-            return LLPDetailsMapper.mapToDto(entity.get());
+            return entity.get();
         }
         return null;
     }
 
     @GetMapping(value = "/get/Company/{id}")
-    public CompanyDetailsDTO getCompanyById(@PathVariable Long id) {
+    public CompanyDetails getCompanyById(@PathVariable Long id) {
         Optional<CompanyDetails> entity = companyDetailsRepository.findById(id);
         if (entity.isPresent()) {
-            return CompanyDetailsMapper.mapToDto(entity.get());
+            return entity.get();
         }
         return null;
     }

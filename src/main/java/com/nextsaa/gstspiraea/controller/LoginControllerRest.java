@@ -2,7 +2,6 @@ package com.nextsaa.gstspiraea.controller;
 
 import com.nextsaa.gstspiraea.dto.GSTApplicationType;
 import com.nextsaa.gstspiraea.dto.LoginForm;
-import com.nextsaa.gstspiraea.dto.UserDetailsDTO;
 import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.UserService;
@@ -92,7 +91,7 @@ public class LoginControllerRest {
     }
 
     @PostMapping(value = "/createRegistration")
-    public void createRegistration(@RequestBody UserDetailsDTO user) {
+    public void createRegistration(@RequestBody UserDetails user) {
         //Set default fields for customer registration
         user.setCreatedBy("REGISTRATION");
         user.setRole("CUSTOMER");
@@ -104,13 +103,13 @@ public class LoginControllerRest {
     }
 
     @GetMapping(value = "/getAllUsers")
-    public List<UserDetailsDTO> getAllUsers() {
+    public List<UserDetails> getAllUsers() {
         //Set default fields for customer registration
         return userService.getAllUsers();
     }
 
     @PostMapping("/generateLoginDetails")
-    public void generateLoginDetails(@RequestBody UserDetailsDTO user) {
+    public void generateLoginDetails(@RequestBody UserDetails user) {
         userService.updateLoginDetails(user);
     }
 

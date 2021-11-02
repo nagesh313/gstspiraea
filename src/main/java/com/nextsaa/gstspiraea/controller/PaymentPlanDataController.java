@@ -2,19 +2,14 @@ package com.nextsaa.gstspiraea.controller;
 
 import com.nextsaa.gstspiraea.entity.PaymentPlanDetails;
 import com.nextsaa.gstspiraea.entity.PaymentPlanLocationDetails;
-import com.nextsaa.gstspiraea.entity.UserDetails;
 import com.nextsaa.gstspiraea.repository.PaymentPlanDetailsRepository;
 import com.nextsaa.gstspiraea.repository.PaymentPlanLocationDetailsRepository;
 import com.nextsaa.gstspiraea.repository.UserDetailsRepository;
 import com.nextsaa.gstspiraea.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import javax.swing.text.PlainDocument;
-import javax.swing.text.html.Option;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

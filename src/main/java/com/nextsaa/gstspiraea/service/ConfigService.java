@@ -1,9 +1,24 @@
 package com.nextsaa.gstspiraea.service;
 
+import com.nextsaa.gstspiraea.entity.Config;
+import com.nextsaa.gstspiraea.repository.ConfigRepository;
 
-import com.nextsaa.gstspiraea.dto.ConfigDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public interface ConfigService {
+@Service
+public class ConfigService {
 
-    ConfigDTO getConfigByKey(String key);
+    @Autowired
+    private final ConfigRepository configRepository;
+
+    public ConfigService(final ConfigRepository configRepository) {
+        this.configRepository = configRepository;
+    }
+
+    public Config getConfigByKey(String key) {
+        Config config = configRepository.findByConfigkey(key);
+        return config;
+    }
+
 }

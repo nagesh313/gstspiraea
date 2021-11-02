@@ -1,23 +1,104 @@
 package com.nextsaa.gstspiraea.service;
 
-
-import java.util.List;
-
-import com.nextsaa.gstspiraea.dto.UserDetailsDTO;
+import com.nextsaa.gstspiraea.entity.UserDetails;
+import com.nextsaa.gstspiraea.exceptions.DataNotFoundException;
+import com.nextsaa.gstspiraea.repository.UserDetailsRepository;
+import com.nextsaa.gstspiraea.util.ExceptionConstants;
+import com.nextsaa.gstspiraea.util.ObjectMapperUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
+import java.time.LocalDateTime;
+import java.util.List;
 
-public interface UserService {
+@Service
+public class UserService {
 
-    UserDetailsDTO getUserById(Long id);
-    
-    List<UserDetailsDTO> getAllUsers();
+    @Autowired
+    private final UserDetailsRepository userDetailsRepository;
 
-    UserDetailsDTO createUser(UserDetailsDTO userDetailsDTO);
+    @Autowired
+    private final ConfigService configService;
 
-    UserDetailsDTO updateEmployee(UserDetailsDTO userDetailsDTO);
+    @Autowired
+    private JavaMailSender javaMailSender;
+	
+	/*@Autowired ,PasswordEncoder passwordEncoder
+    private final PasswordEncoder passwordEncoder;*/
 
-    UserDetailsDTO updateLoginDetails(UserDetailsDTO userDetailsDTO);
+    public UserService(final UserDetailsRepository userDetailsRepository, ConfigService configService) {
+        this.userDetailsRepository = userDetailsRepository;
+        //this.passwordEncoder = passwordEncoder;
+        this.configService = configService;
+    }
 
-    Boolean checkLoginDetails(String username, String password, String role) throws AuthenticationException;
+    public UserDetails getUserById(Long id) {
+        UserDetails user = userDetailsRepository.findById(id)
+                .orElseThrow(() -> new DataNotFoundException(ExceptionConstants.USER_RECORD_NOT_FOUND));
+        return user;
+    }
+
+
+    public UserDetails createUser(UserDetails userDetails) {
+        UserDetails user = userDetailsRepository.save(userDetails);
+        try {
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setTo(userDetails.getUserEmail());
+            msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
+            msg.setSubject(configService.getConfigByKey("registrationMailSubject").getConfigvalue());
+            msg.setText(configService.getConfigByKey("registrationMailBody").getConfigvalue());
+            javaMailSender.send(msg);
+        } catch (Exception e) {
+            System.out.println("Not Able to send email");
+        }
+
+        return user;
+    }
+
+    public Boolean checkLoginDetails(String username, String password, String role) throws AuthenticationException {
+        UserDetails user = userDetailsRepository.findByLoginUserName(username);
+        //passwordEncoder.encode
+        if (user.getLoginPassword().equals(password) && user.getRole().equalsIgnoreCase(role)) {
+            return true;
+        } else {
+            throw new AuthenticationException("Invalid Credentials");
+        }
+    }
+
+
+    public List<UserDetails> getAllUsers() {
+        return ObjectMapperUtils.mapAll(userDetailsRepository.findAll(), UserDetails.class);
+    }
+
+
+    public UserDetails updateLoginDetails(UserDetails userDetailsDTO) {
+//        String loginUserName = "";
+//        String password = Utility.generateCommonLangPassword();
+//        if (userDetailsDTO.getFirstName().length() > 4) {
+//            loginUserName = userDetailsDTO.getFirstName().substring(0, 4);
+//        }
+//        if (userDetailsDTO.getUserEmail().length() > 4) {
+//            loginUserName = loginUserName.concat("1" + userDetailsDTO.getUserEmail().substring(0, 4));
+//        }
+
+        try {
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setTo(userDetailsDTO.getUserEmail());
+            msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
+            msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
+            msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue() + "\n UserName: " + userDetailsDTO.getLoginUserName() + "\n Password: " + userDetailsDTO.getLoginPassword());
+            javaMailSender.send(msg);
+        } catch (Exception e) {
+            System.out.println("Unable to send mail");
+        }
+        UserDetails user = userDetailsRepository.findById(userDetailsDTO.getUserId()).orElseThrow(() -> new DataNotFoundException(ExceptionConstants.USER_RECORD_NOT_FOUND));
+        user.setLoginUserName(userDetailsDTO.getLoginUserName());
+        user.setLoginPassword(userDetailsDTO.getLoginPassword());
+        user.setModifiedOn(LocalDateTime.now());
+        user.setModifiedBy("ADMIN");
+        return userDetailsRepository.save(user);
+    }
 }
