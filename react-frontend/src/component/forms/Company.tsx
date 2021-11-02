@@ -119,7 +119,6 @@ const CompanyComponent = (props: any) => {
         props.enqueueSnackbar("Unable To Reject the Application", failureToast);
       });
   };
-  const validationSchema = schema;
   useEffect(() => {
     if (params.id) {
       fetchOrderDetails(params.id);
@@ -288,7 +287,7 @@ const CompanyComponent = (props: any) => {
                       ...valuesForDirectors,
                     }
               }
-              validationSchema={validationSchema}
+              validationSchema={schema}
               onSubmit={(values: any) => {
                 submitForm(values);
               }}
@@ -1283,7 +1282,7 @@ const CompanyComponent = (props: any) => {
                     </Grid>
                   )}
                   {(params.id === undefined ||
-                    orderDetails?.status === "SAVED") && (
+                    orderDetails?.status === "DRAFT") && (
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <Button

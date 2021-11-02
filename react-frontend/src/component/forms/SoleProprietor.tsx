@@ -1273,7 +1273,7 @@ const SoleProprietorComponent = (props: any) => {
                     </Grid>
                   )}
                   {(params.id === undefined ||
-                    orderDetails?.status === "SAVED") && (
+                    orderDetails?.status === "DRAFT") && (
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <Button

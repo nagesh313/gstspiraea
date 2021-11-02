@@ -51,7 +51,7 @@ public class FormController {
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody ProprietorshipDTO dto) throws Exception {
         Proprietorship entity = ProprietoshipDetailsMapper.mapToEntity(dto);
-        entity.setStatus("SAVED");
+        entity.setStatus("DRAFT");
         proprietorshipRepostiory.save(entity);
     }
 
@@ -59,7 +59,7 @@ public class FormController {
     public void saveSubmitPartnership(@RequestBody PartnershipDTO partnershipDTO) throws Exception {
         Partnership entity = PartnershipDetailsMapper.mapToEntity(partnershipDTO);
         partnerRepository.saveAll(entity.getPartnerList());
-        entity.setStatus("SAVED");
+        entity.setStatus("DRAFT");
         partnershipRepository.save(entity);
     }
 
@@ -67,7 +67,7 @@ public class FormController {
     public void saveSubmitLLP(@RequestBody LLPDTO llpdto) throws Exception {
         LLP entity = LLPDetailsMapper.mapToEntity(llpdto);
         partnerRepository.saveAll(entity.getPartnerList());
-        entity.setStatus("SAVED");
+        entity.setStatus("DRAFT");
         llpRepostiory.save(entity);
     }
 
@@ -75,7 +75,7 @@ public class FormController {
     public void saveSubmitCompanyDetails(@RequestBody CompanyDetailsDTO companyDetailsDTO) throws Exception {
         CompanyDetails entity = CompanyDetailsMapper.mapToEntity(companyDetailsDTO);
         directorRepository.saveAll(entity.getDirectorList());
-        entity.setStatus("SAVED");
+        entity.setStatus("DRAFT");
         companyDetailsRepository.save(entity);
     }
 

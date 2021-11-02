@@ -119,7 +119,6 @@ const PartnershipComponent = (props: any) => {
         props.enqueueSnackbar("Unable To Reject the Application", failureToast);
       });
   };
-  const validationSchema = schema;
   useEffect(() => {
     if (params.id) {
       fetchOrderDetails(params.id);
@@ -278,7 +277,7 @@ const PartnershipComponent = (props: any) => {
                       ...valuesForPartners,
                     }
               }
-              validationSchema={validationSchema}
+              validationSchema={schema}
               onSubmit={(values: any) => {
                 submitForm(values);
               }}
@@ -1248,7 +1247,7 @@ const PartnershipComponent = (props: any) => {
                     </Grid>
                   )}
                   {(params.id === undefined ||
-                    orderDetails?.status === "SAVED") && (
+                    orderDetails?.status === "DRAFT") && (
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <Button
