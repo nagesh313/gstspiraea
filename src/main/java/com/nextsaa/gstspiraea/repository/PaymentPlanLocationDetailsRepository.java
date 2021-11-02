@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface PaymentPlanLocationDetailsRepository extends JpaRepository<PaymentPlanLocationDetails, Long> {
+public interface PaymentPlanLocationDetailsRepository extends JpaRepository<PaymentPlanLocationDetails, String> {
 
 }

@@ -1,6 +1,7 @@
 package com.nextsaa.gstspiraea.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +13,12 @@ import javax.persistence.Id;
 public class PaymentPlanLocationDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String id;
     private String payplanLocation;
     private Double payplanamount;
 }

@@ -16,7 +16,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface ProprietorshipRepostiory extends JpaRepository<Proprietorship, Long> {
+public interface ProprietorshipRepostiory extends JpaRepository<Proprietorship, String> {
     List<Proprietorship> findAllByCreatedBy(String user);
 
     long countByStatus(String status);

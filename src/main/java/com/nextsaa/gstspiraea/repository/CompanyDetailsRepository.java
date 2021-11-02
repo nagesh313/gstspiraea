@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface CompanyDetailsRepository extends JpaRepository<CompanyDetails, Long> {
+public interface CompanyDetailsRepository extends JpaRepository<CompanyDetails, String> {
     List<CompanyDetails> findAllByCreatedBy(String user);
 
     long countByStatus(String status);

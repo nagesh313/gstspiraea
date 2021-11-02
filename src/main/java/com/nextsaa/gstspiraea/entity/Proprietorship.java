@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "proprietorship")
@@ -15,9 +16,12 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Proprietorship {
 
     @Id
-    @Column(name = "proprietorshipid")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long proprietorshipid;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String proprietorshipid;
 
     @Column(name = "personName", nullable = false)
     private String personName;

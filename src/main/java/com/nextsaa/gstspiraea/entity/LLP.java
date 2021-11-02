@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "llp")
@@ -16,9 +17,12 @@ import org.hibernate.annotations.CreationTimestamp;
 public class LLP {
 
     @Id
-    @Column(name = "llpid")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long llpid;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String llpid;
 
     @Column(name = "firmName", nullable = false)
     private String firmName;

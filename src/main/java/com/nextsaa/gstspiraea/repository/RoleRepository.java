@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.nextsaa.gstspiraea.entity.RoleDetails;
 
 @Repository
-public interface RoleRepository extends JpaRepository<RoleDetails, Long> {
+public interface RoleRepository extends JpaRepository<RoleDetails, String> {
 
 
 }

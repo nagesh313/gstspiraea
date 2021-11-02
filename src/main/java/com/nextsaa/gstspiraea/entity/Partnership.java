@@ -2,6 +2,7 @@ package com.nextsaa.gstspiraea.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,9 +15,12 @@ import java.util.List;
 public class Partnership {
 
     @Id
-    @Column(name = "partnershipid")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long partnershipid;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String partnershipid;
 
     @Column(name = "firmName", nullable = false)
     private String firmName;

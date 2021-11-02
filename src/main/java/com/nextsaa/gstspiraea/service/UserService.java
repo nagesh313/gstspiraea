@@ -35,7 +35,7 @@ public class UserService {
         this.configService = configService;
     }
 
-    public UserDetails getUserById(Long id) {
+    public UserDetails getUserById(String id) {
         UserDetails user = userDetailsRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException(ExceptionConstants.USER_RECORD_NOT_FOUND));
         return user;

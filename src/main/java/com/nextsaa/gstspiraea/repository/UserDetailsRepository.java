@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> {
+public interface UserDetailsRepository extends JpaRepository<UserDetails, String> {
 
     UserDetails findByLoginUserName(String username);
     Long countByLoginUserName(String username);

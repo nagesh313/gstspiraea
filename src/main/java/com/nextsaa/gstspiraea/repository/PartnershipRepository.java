@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Repository
-public interface PartnershipRepository extends JpaRepository<Partnership, Long> {
+public interface PartnershipRepository extends JpaRepository<Partnership, String> {
     List<Partnership> findAllByCreatedBy(String user);
     long countByStatus(String status);
     long countByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);

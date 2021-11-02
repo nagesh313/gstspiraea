@@ -2,6 +2,7 @@ package com.nextsaa.gstspiraea.entity;
 
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,13 +14,19 @@ import javax.persistence.Id;
 public class Partner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String id;
     private String partnerName;
     private String partnerFatherName;
     private String partnerAadharNo;
     private String partnerAadharPhotoCopyFront;
     private String partnerAadharPhotoCopyBack;
+    private String pannumber;
+    private String pannumberCopy;
     private String partnerResidentialAddress;
     private String partnerPhoto;
 }

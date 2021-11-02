@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Repository
-public interface LLPRepostiory extends JpaRepository<LLP, Long> {
+public interface LLPRepostiory extends JpaRepository<LLP, String> {
     List<LLP> findAllByCreatedBy(String user);
     long countByStatus(String status);
     long countByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);

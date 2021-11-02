@@ -102,7 +102,7 @@ public class PaymentPlanDataController {
 
     @PostMapping("/plan-location/{id}")
     private void savePlanLocation(@RequestBody PaymentPlanLocationDetails paymentPlanLocationDetails,
-                                  @PathVariable("id") Long id) {
+                                  @PathVariable("id") String id) {
         Optional<PaymentPlanDetails> paymentPlanDetails = paymentPlanDetailsRepository.findById(id);
         if (paymentPlanDetails.isPresent()) {
             PaymentPlanDetails paymentPlan = paymentPlanDetails.get();
@@ -116,16 +116,16 @@ public class PaymentPlanDataController {
 
 
     @DeleteMapping("/plan/{id}")
-    private void deleteBook(@PathVariable("id") Long id) {
+    private void deleteBook(@PathVariable("id") String id) {
         paymentPlanDetailsRepository.deleteById(id);
     }
 
     @DeleteMapping("/plan-location/{planId}/{id}")
-    private void deletePlanLocation(@PathVariable("planId") Long planId, @PathVariable("id") Long id) {
+    private void deletePlanLocation(@PathVariable("planId") String planId, @PathVariable("id") String id) {
         Optional<PaymentPlanDetails> plan = paymentPlanDetailsRepository.findById(planId);
         if (plan.isPresent()) {
             PaymentPlanDetails planDetails = plan.get();
-            List<PaymentPlanLocationDetails> updatedList = planDetails.getPayplanLocation().stream().filter(planLocationDetails -> planLocationDetails.getId() != id).collect(Collectors.toList());
+            List<PaymentPlanLocationDetails> updatedList = planDetails.getPayplanLocation().stream().filter(planLocationDetails -> id.equals(planLocationDetails.getId())).collect(Collectors.toList());
             planDetails.setPayplanLocation(updatedList);
             paymentPlanDetailsRepository.save(planDetails);
         }

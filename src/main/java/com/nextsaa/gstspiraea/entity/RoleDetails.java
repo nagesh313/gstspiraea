@@ -11,15 +11,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "role_details")
 public class RoleDetails {
 
 	@Id
-	@Column(name = "roleid")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long roleid;
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(
+			name = "UUID",
+			strategy = "org.hibernate.id.UUIDGenerator"
+	)
+	private String roleid;
 
 	@Column(name = "rolename", nullable = false)
 	private String rolename;
@@ -44,11 +48,11 @@ public class RoleDetails {
 	@Column(name = "lastlogindt")
 	private Date lastLoginDate;
 
-	public Long getRoleid() {
+	public String getRoleid() {
 		return roleid;
 	}
 
-	public void setRoleid(Long roleid) {
+	public void setRoleid(String roleid) {
 		this.roleid = roleid;
 	}
 

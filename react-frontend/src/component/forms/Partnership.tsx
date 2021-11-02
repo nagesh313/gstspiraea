@@ -162,6 +162,8 @@ const PartnershipComponent = (props: any) => {
           values["partnerAadharPhotoCopyFront" + index],
         partnerAadharPhotoCopyBack:
           values["partnerAadharPhotoCopyBack" + index],
+        pannumber: values["pannumber" + index],
+        pannumberCopy: values["pannumberCopy" + index],
         partnerResidentialAddress: values["partnerResidentialAddress" + index],
         partnerPhoto: values["partnerPhoto" + index],
       });
@@ -217,6 +219,8 @@ const PartnershipComponent = (props: any) => {
     valuesForPartners["partnerAadharNo" + index] = "";
     valuesForPartners["partnerAadharPhotoCopyFront" + index] = "";
     valuesForPartners["partnerAadharPhotoCopyBack" + index] = "";
+    valuesForPartners["pannumber" + index] = "";
+    valuesForPartners["pannumberCopy" + index] = "";
     valuesForPartners["partnerResidentialAddress" + index] = "";
     valuesForPartners["partnerPhoto" + index] = "";
   });
@@ -1012,6 +1016,82 @@ const PartnershipComponent = (props: any) => {
                               </Grid>
                             </Grid>
                           </Grid>
+
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"pannumber" + index}
+                                label={"PAN No. of Partner " + (index + 1)}
+                                name={"pannumber" + index}
+                                autoComplete={"pannumber" + index}
+                                onChange={handleChange}
+                                value={values["pannumber" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["pannumber" + index] &&
+                                  touched["pannumber" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["pannumber" + index] &&
+                                  errors["pannumber" + index]
+                                }
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                margin="dense"
+                                type="file"
+                                style={{ width: "90%" }}
+                                size="small"
+                                required
+                                fullWidth
+                                id={"pannumberCopy" + index}
+                                label="Please attach PAN copy"
+                                name={"pannumberCopy" + index}
+                                autoComplete={"pannumberCopy" + index}
+                                onChange={(file) =>
+                                  upload(
+                                    file,
+                                    setFieldValue,
+                                    "pannumberCopy" + index
+                                  )
+                                }
+                                // value={values.pannumberCopy}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["pannumberCopy" + index] &&
+                                  touched["pannumberCopy" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["pannumberCopy" + index] &&
+                                  errors["pannumberCopy" + index]
+                                }
+                              />
+                              {values["pannumberCopy" + index] && (
+                                <Visibility
+                                  onClick={() => {
+                                    setImageName(
+                                      values["pannumberCopy" + index]
+                                    );
+                                    setOpen(true);
+                                  }}
+                                  style={{
+                                    float: "right",
+                                    marginTop: "25px",
+                                  }}
+                                />
+                              )}
+                            </Grid>
+                          </Grid>
+
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
@@ -1246,8 +1326,6 @@ const PartnershipComponent = (props: any) => {
                     </Grid>
                   </Grid>
 
-
-
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -1286,10 +1364,6 @@ const PartnershipComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
-
-
-
-
 
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>

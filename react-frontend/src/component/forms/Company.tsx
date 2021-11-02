@@ -79,6 +79,8 @@ const CompanyComponent = (props: any) => {
             director.directorAadharPhotoCopyFront;
           response.data["directorAadharPhotoCopyBack" + index] =
             director.directorAadharPhotoCopyBack;
+          response.data["pannumber" + index] = director.pannumber;
+          response.data["pannumberCopy" + index] = director.pannumberCopy;
           response.data["directorResidentialAddress" + index] =
             director.directorResidentialAddress;
           response.data["directorPhoto" + index] = director.directorPhoto;
@@ -167,8 +169,12 @@ const CompanyComponent = (props: any) => {
         directorDin: values["directorDin" + index],
         directorFatherName: values["directorFatherName" + index],
         directorAadharNo: values["directorAadharNo" + index],
-        directorAadharPhotoCopyFront: values["directorAadharPhotoCopyFront" + index],
-        directorAadharPhotoCopyBack: values["directorAadharPhotoCopyBack" + index],
+        directorAadharPhotoCopyFront:
+          values["directorAadharPhotoCopyFront" + index],
+        directorAadharPhotoCopyBack:
+          values["directorAadharPhotoCopyBack" + index],
+        pannumber: values["pannumber" + index],
+        pannumberCopy: values["pannumberCopy" + index],
         directorResidentialAddress:
           values["directorResidentialAddress" + index],
         directorPhoto: values["directorPhoto" + index],
@@ -225,6 +231,8 @@ const CompanyComponent = (props: any) => {
     valuesForDirectors["directorAadharNo" + index] = "";
     valuesForDirectors["directorAadharPhotoCopyFront" + index] = "";
     valuesForDirectors["directorAadharPhotoCopyBack" + index] = "";
+    valuesForDirectors["pannumber" + index] = "";
+    valuesForDirectors["pannumberCopy" + index] = "";
     valuesForDirectors["directorResidentialAddress" + index] = "";
     valuesForDirectors["directorPhoto" + index] = "";
   });
@@ -922,52 +930,159 @@ const CompanyComponent = (props: any) => {
                                 }
                               />
                             </Grid>
-                            <Grid>
-                            <Grid item xs={12}>
-                              <TextField
-                                margin="dense"
-                                type="file"
-                                style={{ width: "90%" }}
-                                size="small"
-                                required
-                                fullWidth
-                                id={"directorAadharPhotoCopyFront" + index}
-                                label="Please attach Front Aadhar copy"
-                                name={"directorAadharPhotoCopyFront" + index}
-                                autoComplete={"directorAadharPhotoCopyFront" + index}
-                                onChange={(file) =>
-                                  upload(
-                                    file,
-                                    setFieldValue,
+                            <Grid item xs={12} sm={6}>
+                              <Grid item xs={12}>
+                                <TextField
+                                  margin="dense"
+                                  type="file"
+                                  style={{ width: "90%" }}
+                                  size="small"
+                                  required
+                                  fullWidth
+                                  id={"directorAadharPhotoCopyFront" + index}
+                                  label="Please attach Front Aadhar copy"
+                                  name={"directorAadharPhotoCopyFront" + index}
+                                  autoComplete={
                                     "directorAadharPhotoCopyFront" + index
-                                  )
-                                }
-                                // value={values.directorAadharPhotoCopyFront}
+                                  }
+                                  onChange={(file) =>
+                                    upload(
+                                      file,
+                                      setFieldValue,
+                                      "directorAadharPhotoCopyFront" + index
+                                    )
+                                  }
+                                  // value={values.directorAadharPhotoCopyFront}
+                                  InputLabelProps={{ shrink: true }}
+                                  error={
+                                    errors[
+                                      "directorAadharPhotoCopyFront" + index
+                                    ] &&
+                                    touched[
+                                      "directorAadharPhotoCopyFront" + index
+                                    ]
+                                      ? true
+                                      : false
+                                  }
+                                  helperText={
+                                    touched[
+                                      "directorAadharPhotoCopyFront" + index
+                                    ] &&
+                                    errors[
+                                      "directorAadharPhotoCopyFront" + index
+                                    ]
+                                  }
+                                />
+                                {values[
+                                  "directorAadharPhotoCopyFront" + index
+                                ] && (
+                                  <Visibility
+                                    onClick={() => {
+                                      setImageName(
+                                        values[
+                                          "directorAadharPhotoCopyFront" + index
+                                        ]
+                                      );
+                                      setOpen(true);
+                                    }}
+                                    style={{
+                                      float: "right",
+                                      marginTop: "25px",
+                                    }}
+                                  />
+                                )}
+                              </Grid>
+                              <Grid item xs={12}>
+                                <TextField
+                                  margin="dense"
+                                  type="file"
+                                  style={{ width: "90%" }}
+                                  size="small"
+                                  required
+                                  fullWidth
+                                  id={"directorAadharPhotoCopyBack" + index}
+                                  label="Please attach Back Aadhar copy"
+                                  name={"directorAadharPhotoCopyBack" + index}
+                                  autoComplete={
+                                    "directorAadharPhotoCopyBack" + index
+                                  }
+                                  onChange={(file) =>
+                                    upload(
+                                      file,
+                                      setFieldValue,
+                                      "directorAadharPhotoCopyBack" + index
+                                    )
+                                  }
+                                  // value={values.directorAadharPhotoCopyBack}
+                                  InputLabelProps={{ shrink: true }}
+                                  error={
+                                    errors[
+                                      "directorAadharPhotoCopyBack" + index
+                                    ] &&
+                                    touched[
+                                      "directorAadharPhotoCopyBack" + index
+                                    ]
+                                      ? true
+                                      : false
+                                  }
+                                  helperText={
+                                    touched[
+                                      "directorAadharPhotoCopyBack" + index
+                                    ] &&
+                                    errors[
+                                      "directorAadharPhotoCopyBack" + index
+                                    ]
+                                  }
+                                />
+                                {values[
+                                  "directorAadharPhotoCopyBack" + index
+                                ] && (
+                                  <Visibility
+                                    onClick={() => {
+                                      setImageName(
+                                        values[
+                                          "directorAadharPhotoCopyBack" + index
+                                        ]
+                                      );
+                                      setOpen(true);
+                                    }}
+                                    style={{
+                                      float: "right",
+                                      marginTop: "25px",
+                                    }}
+                                  />
+                                )}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"pannumber" + index}
+                                label={"PAN No. of Director " + (index + 1)}
+                                name={"pannumber" + index}
+                                autoComplete={"pannumber" + index}
+                                onChange={handleChange}
+                                value={values["pannumber" + index]}
                                 InputLabelProps={{ shrink: true }}
                                 error={
-                                  errors["directorAadharPhotoCopyFront" + index] &&
-                                  touched["directorAadharPhotoCopyFront" + index]
+                                  errors["pannumber" + index] &&
+                                  touched["pannumber" + index]
                                     ? true
                                     : false
                                 }
                                 helperText={
-                                  touched["directorAadharPhotoCopyFront" + index] &&
-                                  errors["directorAadharPhotoCopyFront" + index]
+                                  touched["pannumber" + index] &&
+                                  errors["pannumber" + index]
                                 }
                               />
-                              {values["directorAadharPhotoCopyFront" + index] && (
-                                <Visibility
-                                  onClick={() => {
-                                    setImageName(
-                                      values["directorAadharPhotoCopyFront" + index]
-                                    );
-                                    setOpen(true);
-                                  }}
-                                  style={{ float: "right", marginTop: "25px" }}
-                                />
-                              )}
                             </Grid>
-                            <Grid item xs={12} >
+                            <Grid item xs={12} sm={6}>
                               <TextField
                                 margin="dense"
                                 type="file"
@@ -975,44 +1090,47 @@ const CompanyComponent = (props: any) => {
                                 size="small"
                                 required
                                 fullWidth
-                                id={"directorAadharPhotoCopyBack" + index}
-                                label="Please attach Back Aadhar copy"
-                                name={"directorAadharPhotoCopyBack" + index}
-                                autoComplete={"directorAadharPhotoCopyBack" + index}
+                                id={"pannumberCopy" + index}
+                                label="Please attach PAN copy"
+                                name={"pannumberCopy" + index}
+                                autoComplete={"pannumberCopy" + index}
                                 onChange={(file) =>
                                   upload(
                                     file,
                                     setFieldValue,
-                                    "directorAadharPhotoCopyBack" + index
+                                    "pannumberCopy" + index
                                   )
                                 }
-                                // value={values.directorAadharPhotoCopyBack}
+                                // value={values.pannumberCopy}
                                 InputLabelProps={{ shrink: true }}
                                 error={
-                                  errors["directorAadharPhotoCopyBack" + index] &&
-                                  touched["directorAadharPhotoCopyBack" + index]
+                                  errors["pannumberCopy" + index] &&
+                                  touched["pannumberCopy" + index]
                                     ? true
                                     : false
                                 }
                                 helperText={
-                                  touched["directorAadharPhotoCopyBack" + index] &&
-                                  errors["directorAadharPhotoCopyBack" + index]
+                                  touched["pannumberCopy" + index] &&
+                                  errors["pannumberCopy" + index]
                                 }
                               />
-                              {values["directorAadharPhotoCopyBack" + index] && (
+                              {values["pannumberCopy" + index] && (
                                 <Visibility
                                   onClick={() => {
                                     setImageName(
-                                      values["directorAadharPhotoCopyBack" + index]
+                                      values["pannumberCopy" + index]
                                     );
                                     setOpen(true);
                                   }}
-                                  style={{ float: "right", marginTop: "25px" }}
+                                  style={{
+                                    float: "right",
+                                    marginTop: "25px",
+                                  }}
                                 />
                               )}
                             </Grid>
-                            </Grid>
-                         </Grid>
+                          </Grid>
+
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField

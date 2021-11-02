@@ -4,21 +4,19 @@ import com.nextsaa.gstspiraea.entity.CompanyDetails;
 import com.nextsaa.gstspiraea.entity.LLP;
 import com.nextsaa.gstspiraea.entity.Partnership;
 import com.nextsaa.gstspiraea.entity.Proprietorship;
-import com.nextsaa.gstspiraea.mapper.*;
 import com.nextsaa.gstspiraea.repository.CompanyDetailsRepository;
 import com.nextsaa.gstspiraea.repository.LLPRepostiory;
 import com.nextsaa.gstspiraea.repository.PartnershipRepository;
 import com.nextsaa.gstspiraea.repository.ProprietorshipRepostiory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/get-order")
@@ -56,7 +54,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/get/Proprietorship/{id}")
-    public Proprietorship getProprietorshipById(@PathVariable Long id) {
+    public Proprietorship getProprietorshipById(@PathVariable String id) {
         Optional<Proprietorship> entity = proprietorshipRepostiory.findById(id);
         if (entity.isPresent()) {
             return entity.get();
@@ -65,7 +63,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/get/Partnership/{id}")
-    public Partnership getPartnershipById(@PathVariable Long id) {
+    public Partnership getPartnershipById(@PathVariable String id) {
         Optional<Partnership> entity = partnershipRepository.findById(id);
         if (entity.isPresent()) {
             return entity.get();
@@ -74,7 +72,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/get/LLP/{id}")
-    public LLP getLLPById(@PathVariable Long id) {
+    public LLP getLLPById(@PathVariable String id) {
         Optional<LLP> entity = llpRepostiory.findById(id);
         if (entity.isPresent()) {
             return entity.get();
@@ -83,7 +81,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/get/Company/{id}")
-    public CompanyDetails getCompanyById(@PathVariable Long id) {
+    public CompanyDetails getCompanyById(@PathVariable String id) {
         Optional<CompanyDetails> entity = companyDetailsRepository.findById(id);
         if (entity.isPresent()) {
             return entity.get();
@@ -92,7 +90,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/{type}/{id}/{status}")
-    public void approveOrder(@PathVariable String type, @PathVariable Long id, @PathVariable String status) {
+    public void approveOrder(@PathVariable String type, @PathVariable String id, @PathVariable String status) {
         switch (type) {
             case "Proprietorship":
                 Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
@@ -134,7 +132,7 @@ public class OrderController {
     //          .get("/api/document/gst/" + orderType + "/" + id + "/" + documentUrl)
 
     @GetMapping(value = "/gst/{type}/{id}/{documentURL}")
-    public void updateGSTDocument(@PathVariable String type, @PathVariable Long id, @PathVariable String documentURL) {
+    public void updateGSTDocument(@PathVariable String type, @PathVariable String id, @PathVariable String documentURL) {
         switch (type) {
             case "Proprietorship":
                 Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
