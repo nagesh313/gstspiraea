@@ -95,7 +95,7 @@ export const ApplyForGstComponent = () => {
                 required
                 fullWidth
                 id="name"
-                label="Name of Person"
+                label="Name of Business"
                 name="name"
                 autoComplete="name"
                 value={name}

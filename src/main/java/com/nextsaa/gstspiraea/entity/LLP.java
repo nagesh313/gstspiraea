@@ -147,6 +147,7 @@ public class LLP {
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Partner> partnerList;
+    private String certificateOfIncorportation;
     private String declarationOfAuthorisedSignatory;
     @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;

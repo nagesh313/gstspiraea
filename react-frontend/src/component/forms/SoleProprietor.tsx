@@ -274,10 +274,8 @@ const SoleProprietorComponent = (props: any) => {
                       trading: false,
                       manufacture: false,
                       service: false,
-                      additionalPOB: "test",
-                      principalPOB: "test",
                       declarationOfAuthorisedSignatory: "test",
-                      numberOfOtherGST: 1,
+                      numberOfOtherGST: 0,
                       ...valuesOfGSTInOtherStates,
                     }
               }
@@ -913,7 +911,7 @@ const SoleProprietorComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
-
+                  {/* 
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -1085,6 +1083,7 @@ const SoleProprietorComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
+               */}
                   <Grid container spacing={4}>
                     <Grid item xs={6} sm={6}>
                       <label>
@@ -1278,76 +1277,6 @@ const SoleProprietorComponent = (props: any) => {
                           touched.tradelicensephoto && errors.tradelicensephoto
                         }
                       />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        style={{ width: "90%" }}
-                        margin="dense"
-                        size="small"
-                        fullWidth
-                        id="additionalPOB"
-                        label="Additional POB"
-                        name="additionalPOB"
-                        autoComplete="additionalPOB"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "additionalPOB")
-                        }
-                        // value={values.additionalPOB}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.additionalPOB && touched.additionalPOB
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.additionalPOB && errors.additionalPOB
-                        }
-                      />
-                      {values.additionalPOB && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.additionalPOB);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        style={{ width: "90%" }}
-                        margin="dense"
-                        size="small"
-                        fullWidth
-                        id="principalPOB"
-                        label="Principal POB"
-                        name="principalPOB"
-                        autoComplete="principalPOB"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "principalPOB")
-                        }
-                        // value={values.principalPOB}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.principalPOB && touched.principalPOB
-                            ? true
-                            : false
-                        }
-                        helperText={touched.principalPOB && errors.principalPOB}
-                      />
-                      {values.principalPOB && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.principalPOB);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>

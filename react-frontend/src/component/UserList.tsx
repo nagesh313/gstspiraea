@@ -90,8 +90,6 @@ export function UserListComponent(props: any) {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>First Name</TableCell>
-            <TableCell>Last Name</TableCell>
             <TableCell>Email</TableCell>
             <TableCell>User Name</TableCell>
             <TableCell>Password</TableCell>
@@ -101,8 +99,6 @@ export function UserListComponent(props: any) {
         <TableBody>
           {userList.map((row: any) => (
             <TableRow key={row.id}>
-              <TableCell>{row.firstName}</TableCell>
-              <TableCell>{row.lastName}</TableCell>
               <TableCell>{row.userEmail}</TableCell>
               <TableCell>
                 <TextField
