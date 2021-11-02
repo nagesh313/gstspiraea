@@ -3,6 +3,7 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
+  FormGroup,
   Grid,
   InputLabel,
   MenuItem,
@@ -85,6 +86,8 @@ const PartnershipComponent = (props: any) => {
           response.data["partnerPhoto" + index] = partner.partnerPhoto;
           response.data["partnerMobile" + index] = partner.partnerMobile;
           response.data["partnerEmail" + index] = partner.partnerEmail;
+          response.data["isAuthorisedSignatory" + index] =
+            partner.isAuthorisedSignatory;
         });
         response.data.numberOfPartners = response.data.partnerList.length;
 
@@ -182,6 +185,7 @@ const PartnershipComponent = (props: any) => {
         partnerPhoto: values["partnerPhoto" + index],
         partnerMobile: values["partnerMobile" + index],
         partnerEmail: values["partnerEmail" + index],
+        isAuthorisedSignatory: values["isAuthorisedSignatory" + index],
       });
     });
     values.partnerList = partnerList;
@@ -250,6 +254,7 @@ const PartnershipComponent = (props: any) => {
     valuesForPartners["partnerPhoto" + index] = "";
     valuesForPartners["partnerMobile" + index] = "";
     valuesForPartners["partnerEmail" + index] = "";
+    valuesForPartners["isAuthorisedSignatory" + index] = false;
   });
   let valuesOfGSTInOtherStates: any = {};
   [...Array(15)].forEach((value: any, index: any) => {
@@ -317,7 +322,7 @@ const PartnershipComponent = (props: any) => {
                       remark: "test",
                       numberOfPartners: 1,
                       ...valuesForPartners,
-                      partnershipDeed:"test",
+                      partnershipDeed: "test",
                       declarationOfAuthorisedSignatory: "test",
                       numberOfOtherGST: 0,
                       ...valuesOfGSTInOtherStates,
@@ -872,6 +877,41 @@ const PartnershipComponent = (props: any) => {
                                   errors["partnerName" + index]
                                 }
                               />
+                            </Grid>
+
+                            <Grid item xs={12} sm={6}>
+                              <FormGroup>
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      checked={
+                                        values["isAuthorisedSignatory" + index]
+                                      }
+                                      value={
+                                        values["isAuthorisedSignatory" + index]
+                                      }
+                                    />
+                                  }
+                                  id={"isAuthorisedSignatory" + index}
+                                  name={"isAuthorisedSignatory" + index}
+                                  onChange={handleChange}
+                                  // error={
+                                  //   errors["isAuthorisedSignatory" + index] &&
+                                  //   touched["isAuthorisedSignatory" + index]
+                                  //     ? true
+                                  //     : false
+                                  // }
+                                  // helperText={
+                                  //   touched["isAuthorisedSignatory" + index] &&
+                                  //   errors["isAuthorisedSignatory" + index]
+                                  // }
+                                  label={
+                                    "Partner " +
+                                    (index + 1) +
+                                    " is Authorised Signatory"
+                                  }
+                                />
+                              </FormGroup>
                             </Grid>
                           </Grid>
                           <Grid container spacing={4}>
@@ -1458,69 +1498,73 @@ const PartnershipComponent = (props: any) => {
                     </Grid>
                   </Grid>
 
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="tradelicensenumber"
-                        label="Trade License number (Applicable to West Bengal reg only)"
-                        name="tradelicensenumber"
-                        autoComplete="tradelicensenumber"
-                        onChange={handleChange}
-                        value={values.tradelicensenumber}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.tradelicensenumber &&
-                          touched.tradelicensenumber
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.tradelicensenumber &&
-                          errors.tradelicensenumber
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        style={{ width: "90%" }}
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="tradelicensephoto"
-                        label="Attach trade license"
-                        name="tradelicensephoto"
-                        autoComplete="tradelicensephoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "tradelicensephoto")
-                        }
-                        // value={values.tradelicensephoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.tradelicensephoto && touched.tradelicensephoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.tradelicensephoto && errors.tradelicensephoto
-                        }
-                      />
-                      {values.tradelicensephoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.tradelicensephoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
+                  {sessionStorage.getItem("role") !== "Admin" && (
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          margin="dense"
+                          size="small"
+                          required
+                          fullWidth
+                          id="tradelicensenumber"
+                          label="Trade License number (Applicable to West Bengal reg only)"
+                          name="tradelicensenumber"
+                          autoComplete="tradelicensenumber"
+                          onChange={handleChange}
+                          value={values.tradelicensenumber}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.tradelicensenumber &&
+                            touched.tradelicensenumber
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.tradelicensenumber &&
+                            errors.tradelicensenumber
+                          }
                         />
-                      )}
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          type="file"
+                          style={{ width: "90%" }}
+                          margin="dense"
+                          size="small"
+                          required
+                          fullWidth
+                          id="tradelicensephoto"
+                          label="Attach trade license"
+                          name="tradelicensephoto"
+                          autoComplete="tradelicensephoto"
+                          onChange={(file) =>
+                            upload(file, setFieldValue, "tradelicensephoto")
+                          }
+                          // value={values.tradelicensephoto}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.tradelicensephoto &&
+                            touched.tradelicensephoto
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.tradelicensephoto &&
+                            errors.tradelicensephoto
+                          }
+                        />
+                        {values.tradelicensephoto && (
+                          <Visibility
+                            onClick={() => {
+                              setImageName(values.tradelicensephoto);
+                              setOpen(true);
+                            }}
+                            style={{ float: "right", marginTop: "25px" }}
+                          />
+                        )}
+                      </Grid>
                     </Grid>
-                  </Grid>
+                  )}
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField

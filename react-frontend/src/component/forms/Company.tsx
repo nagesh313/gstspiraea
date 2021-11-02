@@ -1209,7 +1209,8 @@ const CompanyComponent = (props: any) => {
                                 fullWidth
                                 id={"directorPhoto" + index}
                                 label={
-                                  "Passport Size Photo Director" + index
+                                  "Passport Size Photo of Director " +
+                                  (index + 1)
                                 }
                                 name={"directorPhoto" + index}
                                 autoComplete={"directorPhoto" + index}
@@ -1443,69 +1444,73 @@ const CompanyComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="tradelicensenumber"
-                        label="Trade License number (Applicable to West Bengal reg only)"
-                        name="tradelicensenumber"
-                        autoComplete="tradelicensenumber"
-                        onChange={handleChange}
-                        value={values.tradelicensenumber}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.tradelicensenumber &&
-                          touched.tradelicensenumber
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.tradelicensenumber &&
-                          errors.tradelicensenumber
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        style={{ width: "90%" }}
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="tradelicensephoto"
-                        label="Attach trade license"
-                        name="tradelicensephoto"
-                        autoComplete="tradelicensephoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "tradelicensephoto")
-                        }
-                        // value={values.tradelicensephoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.tradelicensephoto && touched.tradelicensephoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.tradelicensephoto && errors.tradelicensephoto
-                        }
-                      />
-                      {values.tradelicensephoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.tradelicensephoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
+                  {sessionStorage.getItem("role") !== "Admin" && (
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          margin="dense"
+                          size="small"
+                          required
+                          fullWidth
+                          id="tradelicensenumber"
+                          label="Trade License number (Applicable to West Bengal reg only)"
+                          name="tradelicensenumber"
+                          autoComplete="tradelicensenumber"
+                          onChange={handleChange}
+                          value={values.tradelicensenumber}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.tradelicensenumber &&
+                            touched.tradelicensenumber
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.tradelicensenumber &&
+                            errors.tradelicensenumber
+                          }
                         />
-                      )}
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          type="file"
+                          style={{ width: "90%" }}
+                          margin="dense"
+                          size="small"
+                          required
+                          fullWidth
+                          id="tradelicensephoto"
+                          label="Attach trade license"
+                          name="tradelicensephoto"
+                          autoComplete="tradelicensephoto"
+                          onChange={(file) =>
+                            upload(file, setFieldValue, "tradelicensephoto")
+                          }
+                          // value={values.tradelicensephoto}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.tradelicensephoto &&
+                            touched.tradelicensephoto
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.tradelicensephoto &&
+                            errors.tradelicensephoto
+                          }
+                        />
+                        {values.tradelicensephoto && (
+                          <Visibility
+                            onClick={() => {
+                              setImageName(values.tradelicensephoto);
+                              setOpen(true);
+                            }}
+                            style={{ float: "right", marginTop: "25px" }}
+                          />
+                        )}
+                      </Grid>
                     </Grid>
-                  </Grid>
+                  )}
 
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>

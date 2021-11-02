@@ -31,5 +31,13 @@ public class Partner {
     private String partnerPhoto;
     private String partnerMobile;
     private String partnerEmail;
+    private boolean isAuthorisedSignatory;
 
+    public boolean getIsAuthorisedSignatory() {
+        return this.isAuthorisedSignatory;
+    }
+
+    public void setIsAuthorisedSignatory(boolean isAuthorisedSignatory) {
+        this.isAuthorisedSignatory = isAuthorisedSignatory;
+    }
 }
