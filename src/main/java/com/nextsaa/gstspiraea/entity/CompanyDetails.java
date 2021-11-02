@@ -79,4 +79,5 @@ public class CompanyDetails {
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
     @OneToMany
     private List<Director> directorList;
+    private String certificateOfIncorportation;
 }

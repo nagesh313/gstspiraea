@@ -29,4 +29,7 @@ public class Partner {
     private String pannumberCopy;
     private String partnerResidentialAddress;
     private String partnerPhoto;
+    private String partnerMobile;
+    private String partnerEmail;
+
 }

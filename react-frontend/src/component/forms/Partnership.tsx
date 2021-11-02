@@ -82,6 +82,8 @@ const PartnershipComponent = (props: any) => {
           response.data["partnerResidentialAddress" + index] =
             partner.partnerResidentialAddress;
           response.data["partnerPhoto" + index] = partner.partnerPhoto;
+          response.data["partnerMobile" + index] = partner.partnerMobile;
+          response.data["partnerEmail" + index] = partner.partnerEmail;
         });
         response.data.numberOfPartners = response.data.partnerList.length;
         setOrderDetails(response.data);
@@ -166,6 +168,8 @@ const PartnershipComponent = (props: any) => {
         pannumberCopy: values["pannumberCopy" + index],
         partnerResidentialAddress: values["partnerResidentialAddress" + index],
         partnerPhoto: values["partnerPhoto" + index],
+        partnerMobile: values["partnerMobile" + index],
+        partnerEmail: values["partnerEmail" + index],
       });
     });
     values.partnerList = partnerList;
@@ -223,6 +227,8 @@ const PartnershipComponent = (props: any) => {
     valuesForPartners["pannumberCopy" + index] = "";
     valuesForPartners["partnerResidentialAddress" + index] = "";
     valuesForPartners["partnerPhoto" + index] = "";
+    valuesForPartners["partnerMobile" + index] = "";
+    valuesForPartners["partnerEmail" + index] = "";
   });
   return (
     <React.Fragment>
@@ -1016,7 +1022,6 @@ const PartnershipComponent = (props: any) => {
                               </Grid>
                             </Grid>
                           </Grid>
-
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
@@ -1043,7 +1048,7 @@ const PartnershipComponent = (props: any) => {
                                 }
                               />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={6}>
                               <TextField
                                 margin="dense"
                                 type="file"
@@ -1091,7 +1096,6 @@ const PartnershipComponent = (props: any) => {
                               )}
                             </Grid>
                           </Grid>
-
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
@@ -1169,6 +1173,59 @@ const PartnershipComponent = (props: any) => {
                                   style={{ float: "right", marginTop: "25px" }}
                                 />
                               )}
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                type="number"
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerMobile" + index}
+                                label="Mobile"
+                                name={"partnerMobile" + index}
+                                autoComplete={"partnerMobile" + index}
+                                onChange={handleChange}
+                                value={values["partnerMobile" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerMobile" + index] &&
+                                  touched["partnerMobile" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerMobile" + index] &&
+                                  errors["partnerMobile" + index]
+                                }
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerEmail" + index}
+                                label="Email"
+                                name={"partnerEmail" + index}
+                                autoComplete={"partnerEmail" + index}
+                                onChange={handleChange}
+                                value={values["partnerEmail" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerEmail" + index] &&
+                                  touched["partnerEmail" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerEmail" + index] &&
+                                  errors["partnerEmail" + index]
+                                }
+                              />
                             </Grid>
                           </Grid>
                         </React.Fragment>

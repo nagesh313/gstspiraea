@@ -288,6 +288,7 @@ const CompanyComponent = (props: any) => {
                       cancelcheqphoto: "test",
                       tradelicensenumber: "test",
                       tradelicensephoto: "test",
+                      certificateOfIncorportation:"test",
                       status: "CREATED",
                       createdBy: sessionStorage.getItem("user"),
                       isActive: true,
@@ -1358,6 +1359,44 @@ const CompanyComponent = (props: any) => {
                         <Visibility
                           onClick={() => {
                             setImageName(values.cancelcheqphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        type="file"
+                        style={{ width: "90%" }}
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="certificateOfIncorportation"
+                        label="Certificate Of Incorportation"
+                        name="certificateOfIncorportation"
+                        autoComplete="certificateOfIncorportation"
+                        onChange={(file) =>
+                          upload(file, setFieldValue, "certificateOfIncorportation")
+                        }
+                        // value={values.certificateOfIncorportation}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.certificateOfIncorportation && touched.certificateOfIncorportation
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.certificateOfIncorportation && errors.certificateOfIncorportation
+                        }
+                      />
+                      {values.certificateOfIncorportation && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.certificateOfIncorportation);
                             setOpen(true);
                           }}
                           style={{ float: "right", marginTop: "25px" }}
