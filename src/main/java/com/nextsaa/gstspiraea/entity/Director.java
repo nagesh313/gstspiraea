@@ -16,7 +16,8 @@ public class Director {
     private String directorDin;
     private String directorFatherName;
     private String directorAadharNo;
-    private String directorAadharPhotoCopy;
+    private String directorAadharPhotoCopyFront;
+    private String directorAadharPhotoCopyBack;
     private String directorResidentialAddress;
     private String directorPhoto;
 }

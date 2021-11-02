@@ -75,8 +75,10 @@ const CompanyComponent = (props: any) => {
           response.data["directorFatherName" + index] =
             director.directorFatherName;
           response.data["directorAadharNo" + index] = director.directorAadharNo;
-          response.data["directorAadharPhotoCopy" + index] =
-            director.directorAadharPhotoCopy;
+          response.data["directorAadharPhotoCopyFront" + index] =
+            director.directorAadharPhotoCopyFront;
+          response.data["directorAadharPhotoCopyBack" + index] =
+            director.directorAadharPhotoCopyBack;
           response.data["directorResidentialAddress" + index] =
             director.directorResidentialAddress;
           response.data["directorPhoto" + index] = director.directorPhoto;
@@ -165,7 +167,8 @@ const CompanyComponent = (props: any) => {
         directorDin: values["directorDin" + index],
         directorFatherName: values["directorFatherName" + index],
         directorAadharNo: values["directorAadharNo" + index],
-        directorAadharPhotoCopy: values["directorAadharPhotoCopy" + index],
+        directorAadharPhotoCopyFront: values["directorAadharPhotoCopyFront" + index],
+        directorAadharPhotoCopyBack: values["directorAadharPhotoCopyBack" + index],
         directorResidentialAddress:
           values["directorResidentialAddress" + index],
         directorPhoto: values["directorPhoto" + index],
@@ -220,7 +223,8 @@ const CompanyComponent = (props: any) => {
     valuesForDirectors["directorDin" + index] = "";
     valuesForDirectors["directorFatherName" + index] = "";
     valuesForDirectors["directorAadharNo" + index] = "";
-    valuesForDirectors["directorAadharPhotoCopy" + index] = "";
+    valuesForDirectors["directorAadharPhotoCopyFront" + index] = "";
+    valuesForDirectors["directorAadharPhotoCopyBack" + index] = "";
     valuesForDirectors["directorResidentialAddress" + index] = "";
     valuesForDirectors["directorPhoto" + index] = "";
   });
@@ -245,44 +249,44 @@ const CompanyComponent = (props: any) => {
                 orderDetails
                   ? orderDetails
                   : {
-                      firmName: "",
-                      legalbusinessName: "",
-                      tradeName: "",
-                      mobile: "",
-                      email: "",
-                      pannumber: "",
-                      panphoto: "",
+                      firmName: "test",
+                      legalbusinessName: "test",
+                      tradeName: "test",
+                      mobile: "test",
+                      email: "test",
+                      pannumber: "test",
+                      panphoto: "test",
                       composition: "No",
                       commencementDate: date,
-                      principleplace: "",
-                      pricipleelectricityphoto: "",
-                      priciplerentphoto: "",
-                      priciplenocphoto: "",
-                      additionalplace: "",
-                      additionalelectricityphoto: "",
-                      additionalrentphoto: "",
-                      additionalnocphoto: "",
-                      businessactivity: "",
-                      hsn1: "",
-                      hsn2: "",
-                      hsn3: "",
-                      hsn4: "",
-                      hsn5: "",
-                      accountname: "",
-                      accountnumber: "",
-                      ifsc: "",
-                      branchname: "",
-                      branchcode: "",
-                      cancelcheqphoto: "",
-                      tradelicensenumber: "",
-                      tradelicensephoto: "",
+                      principleplace: "test",
+                      pricipleelectricityphoto: "test",
+                      priciplerentphoto: "test",
+                      priciplenocphoto: "test",
+                      additionalplace: "test",
+                      additionalelectricityphoto: "test",
+                      additionalrentphoto: "test",
+                      additionalnocphoto: "test",
+                      businessactivity: "test",
+                      hsn1: "test",
+                      hsn2: "test",
+                      hsn3: "test",
+                      hsn4: "test",
+                      hsn5: "test",
+                      accountname: "test",
+                      accountnumber: "test",
+                      ifsc: "test",
+                      branchname: "test",
+                      branchcode: "test",
+                      cancelcheqphoto: "test",
+                      tradelicensenumber: "test",
+                      tradelicensephoto: "test",
                       status: "CREATED",
                       createdBy: sessionStorage.getItem("user"),
                       isActive: true,
                       trading: false,
                       manufacture: false,
                       service: false,
-                      remark: "",
+                      remark: "test",
                       numberOfDirectors: 1,
                       ...valuesForDirectors,
                     }
@@ -918,7 +922,8 @@ const CompanyComponent = (props: any) => {
                                 }
                               />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid>
+                            <Grid item xs={12}>
                               <TextField
                                 margin="dense"
                                 type="file"
@@ -926,35 +931,35 @@ const CompanyComponent = (props: any) => {
                                 size="small"
                                 required
                                 fullWidth
-                                id={"directorAadharPhotoCopy" + index}
-                                label="Please attach Aadhar copy"
-                                name={"directorAadharPhotoCopy" + index}
-                                autoComplete={"directorAadharPhotoCopy" + index}
+                                id={"directorAadharPhotoCopyFront" + index}
+                                label="Please attach Front Aadhar copy"
+                                name={"directorAadharPhotoCopyFront" + index}
+                                autoComplete={"directorAadharPhotoCopyFront" + index}
                                 onChange={(file) =>
                                   upload(
                                     file,
                                     setFieldValue,
-                                    "directorAadharPhotoCopy" + index
+                                    "directorAadharPhotoCopyFront" + index
                                   )
                                 }
-                                // value={values.directorAadharPhotoCopy}
+                                // value={values.directorAadharPhotoCopyFront}
                                 InputLabelProps={{ shrink: true }}
                                 error={
-                                  errors["directorAadharPhotoCopy" + index] &&
-                                  touched["directorAadharPhotoCopy" + index]
+                                  errors["directorAadharPhotoCopyFront" + index] &&
+                                  touched["directorAadharPhotoCopyFront" + index]
                                     ? true
                                     : false
                                 }
                                 helperText={
-                                  touched["directorAadharPhotoCopy" + index] &&
-                                  errors["directorAadharPhotoCopy" + index]
+                                  touched["directorAadharPhotoCopyFront" + index] &&
+                                  errors["directorAadharPhotoCopyFront" + index]
                                 }
                               />
-                              {values["directorAadharPhotoCopy" + index] && (
+                              {values["directorAadharPhotoCopyFront" + index] && (
                                 <Visibility
                                   onClick={() => {
                                     setImageName(
-                                      values["directorAadharPhotoCopy" + index]
+                                      values["directorAadharPhotoCopyFront" + index]
                                     );
                                     setOpen(true);
                                   }}
@@ -962,7 +967,52 @@ const CompanyComponent = (props: any) => {
                                 />
                               )}
                             </Grid>
-                          </Grid>
+                            <Grid item xs={12} >
+                              <TextField
+                                margin="dense"
+                                type="file"
+                                style={{ width: "90%" }}
+                                size="small"
+                                required
+                                fullWidth
+                                id={"directorAadharPhotoCopyBack" + index}
+                                label="Please attach Back Aadhar copy"
+                                name={"directorAadharPhotoCopyBack" + index}
+                                autoComplete={"directorAadharPhotoCopyBack" + index}
+                                onChange={(file) =>
+                                  upload(
+                                    file,
+                                    setFieldValue,
+                                    "directorAadharPhotoCopyBack" + index
+                                  )
+                                }
+                                // value={values.directorAadharPhotoCopyBack}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["directorAadharPhotoCopyBack" + index] &&
+                                  touched["directorAadharPhotoCopyBack" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["directorAadharPhotoCopyBack" + index] &&
+                                  errors["directorAadharPhotoCopyBack" + index]
+                                }
+                              />
+                              {values["directorAadharPhotoCopyBack" + index] && (
+                                <Visibility
+                                  onClick={() => {
+                                    setImageName(
+                                      values["directorAadharPhotoCopyBack" + index]
+                                    );
+                                    setOpen(true);
+                                  }}
+                                  style={{ float: "right", marginTop: "25px" }}
+                                />
+                              )}
+                            </Grid>
+                            </Grid>
+                         </Grid>
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField

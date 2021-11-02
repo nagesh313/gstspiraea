@@ -18,7 +18,8 @@ public class Partner {
     private String partnerName;
     private String partnerFatherName;
     private String partnerAadharNo;
-    private String partnerAadharPhotoCopy;
+    private String partnerAadharPhotoCopyFront;
+    private String partnerAadharPhotoCopyBack;
     private String partnerResidentialAddress;
     private String partnerPhoto;
 }

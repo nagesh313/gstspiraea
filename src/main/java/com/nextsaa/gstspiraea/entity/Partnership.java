@@ -137,12 +137,6 @@ public class Partnership {
     private boolean trading;
     private boolean manufacture;
     private boolean service;
-    private String partnerName;
-    private String partnerFatherName;
-    private String partneradharnumber;
-    private String partneradharphoto;
-    private String residentialAddress;
-    private String partnerPassportPhoto;
     private String razorpayOrder;
     @OneToOne
     private PaymentPlanLocationDetails paymentPlanLocationDetails;

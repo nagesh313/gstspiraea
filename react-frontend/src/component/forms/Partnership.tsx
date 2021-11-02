@@ -75,8 +75,10 @@ const PartnershipComponent = (props: any) => {
           response.data["partnerFatherName" + index] =
             partner.partnerFatherName;
           response.data["partnerAadharNo" + index] = partner.partnerAadharNo;
-          response.data["partnerAadharPhotoCopy" + index] =
-            partner.partnerAadharPhotoCopy;
+          response.data["partnerAadharPhotoCopyFront" + index] =
+            partner.partnerAadharPhotoCopyFront;
+          response.data["partnerAadharPhotoCopyBack" + index] =
+            partner.partnerAadharPhotoCopyBack;
           response.data["partnerResidentialAddress" + index] =
             partner.partnerResidentialAddress;
           response.data["partnerPhoto" + index] = partner.partnerPhoto;
@@ -156,7 +158,10 @@ const PartnershipComponent = (props: any) => {
         partnerName: values["partnerName" + index],
         partnerFatherName: values["partnerFatherName" + index],
         partnerAadharNo: values["partnerAadharNo" + index],
-        partnerAadharPhotoCopy: values["partnerAadharPhotoCopy" + index],
+        partnerAadharPhotoCopyFront:
+          values["partnerAadharPhotoCopyFront" + index],
+        partnerAadharPhotoCopyBack:
+          values["partnerAadharPhotoCopyBack" + index],
         partnerResidentialAddress: values["partnerResidentialAddress" + index],
         partnerPhoto: values["partnerPhoto" + index],
       });
@@ -210,7 +215,8 @@ const PartnershipComponent = (props: any) => {
     valuesForPartners["partnerName" + index] = "";
     valuesForPartners["partnerFatherName" + index] = "";
     valuesForPartners["partnerAadharNo" + index] = "";
-    valuesForPartners["partnerAadharPhotoCopy" + index] = "";
+    valuesForPartners["partnerAadharPhotoCopyFront" + index] = "";
+    valuesForPartners["partnerAadharPhotoCopyBack" + index] = "";
     valuesForPartners["partnerResidentialAddress" + index] = "";
     valuesForPartners["partnerPhoto" + index] = "";
   });
@@ -235,44 +241,44 @@ const PartnershipComponent = (props: any) => {
                 orderDetails
                   ? orderDetails
                   : {
-                      firmName: "",
-                      legalbusinessName: "",
-                      tradeName: "",
-                      mobile: "",
-                      email: "",
-                      pannumber: "",
-                      panphoto: "",
+                      firmName: "test",
+                      legalbusinessName: "test",
+                      tradeName: "test",
+                      mobile: "test",
+                      email: "test",
+                      pannumber: "test",
+                      panphoto: "test",
                       composition: "No",
                       commencementDate: date,
-                      principleplace: "",
-                      pricipleelectricityphoto: "",
-                      priciplerentphoto: "",
-                      priciplenocphoto: "",
-                      additionalplace: "",
-                      additionalelectricityphoto: "",
-                      additionalrentphoto: "",
-                      additionalnocphoto: "",
-                      businessactivity: "",
-                      hsn1: "",
-                      hsn2: "",
-                      hsn3: "",
-                      hsn4: "",
-                      hsn5: "",
-                      accountname: "",
-                      accountnumber: "",
-                      ifsc: "",
-                      branchname: "",
-                      branchcode: "",
-                      cancelcheqphoto: "",
-                      tradelicensenumber: "",
-                      tradelicensephoto: "",
+                      principleplace: "test",
+                      pricipleelectricityphoto: "test",
+                      priciplerentphoto: "test",
+                      priciplenocphoto: "test",
+                      additionalplace: "test",
+                      additionalelectricityphoto: "test",
+                      additionalrentphoto: "test",
+                      additionalnocphoto: "test",
+                      businessactivity: "test",
+                      hsn1: "test",
+                      hsn2: "test",
+                      hsn3: "test",
+                      hsn4: "test",
+                      hsn5: "test",
+                      accountname: "test",
+                      accountnumber: "test",
+                      ifsc: "test",
+                      branchname: "test",
+                      branchcode: "test",
+                      cancelcheqphoto: "test",
+                      tradelicensenumber: "test",
+                      tradelicensephoto: "test",
                       isActive: true,
                       status: "CREATED",
                       createdBy: sessionStorage.getItem("user"),
                       trading: false,
                       manufacture: false,
                       service: false,
-                      remark: "",
+                      remark: "test",
                       numberOfPartners: 1,
                       ...valuesForPartners,
                     }
@@ -884,48 +890,126 @@ const PartnershipComponent = (props: any) => {
                               />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                              <TextField
-                                margin="dense"
-                                type="file"
-                                style={{ width: "90%" }}
-                                size="small"
-                                required
-                                fullWidth
-                                id={"partnerAadharPhotoCopy" + index}
-                                label="Please attach Aadhar copy"
-                                name={"partnerAadharPhotoCopy" + index}
-                                autoComplete={"partnerAadharPhotoCopy" + index}
-                                onChange={(file) =>
-                                  upload(
-                                    file,
-                                    setFieldValue,
-                                    "partnerAadharPhotoCopy" + index
-                                  )
-                                }
-                                // value={values.partnerAadharPhotoCopy}
-                                InputLabelProps={{ shrink: true }}
-                                error={
-                                  errors["partnerAadharPhotoCopy" + index] &&
-                                  touched["partnerAadharPhotoCopy" + index]
-                                    ? true
-                                    : false
-                                }
-                                helperText={
-                                  touched["partnerAadharPhotoCopy" + index] &&
-                                  errors["partnerAadharPhotoCopy" + index]
-                                }
-                              />
-                              {values["partnerAadharPhotoCopy" + index] && (
-                                <Visibility
-                                  onClick={() => {
-                                    setImageName(
-                                      values["partnerAadharPhotoCopy" + index]
-                                    );
-                                    setOpen(true);
-                                  }}
-                                  style={{ float: "right", marginTop: "25px" }}
+                              <Grid item xs={12}>
+                                <TextField
+                                  margin="dense"
+                                  type="file"
+                                  style={{ width: "90%" }}
+                                  size="small"
+                                  required
+                                  fullWidth
+                                  id={"partnerAadharPhotoCopyFront" + index}
+                                  label="Please attach Front Aadhar copy"
+                                  name={"partnerAadharPhotoCopyFront" + index}
+                                  autoComplete={
+                                    "partnerAadharPhotoCopyFront" + index
+                                  }
+                                  onChange={(file) =>
+                                    upload(
+                                      file,
+                                      setFieldValue,
+                                      "partnerAadharPhotoCopyFront" + index
+                                    )
+                                  }
+                                  // value={values.partnerAadharPhotoCopyFront}
+                                  InputLabelProps={{ shrink: true }}
+                                  error={
+                                    errors[
+                                      "partnerAadharPhotoCopyFront" + index
+                                    ] &&
+                                    touched[
+                                      "partnerAadharPhotoCopyFront" + index
+                                    ]
+                                      ? true
+                                      : false
+                                  }
+                                  helperText={
+                                    touched[
+                                      "partnerAadharPhotoCopyFront" + index
+                                    ] &&
+                                    errors[
+                                      "partnerAadharPhotoCopyFront" + index
+                                    ]
+                                  }
                                 />
-                              )}
+                                {values[
+                                  "partnerAadharPhotoCopyFront" + index
+                                ] && (
+                                  <Visibility
+                                    onClick={() => {
+                                      setImageName(
+                                        values[
+                                          "partnerAadharPhotoCopyFront" + index
+                                        ]
+                                      );
+                                      setOpen(true);
+                                    }}
+                                    style={{
+                                      float: "right",
+                                      marginTop: "25px",
+                                    }}
+                                  />
+                                )}
+                              </Grid>
+                              <Grid item xs={12}>
+                                <TextField
+                                  margin="dense"
+                                  type="file"
+                                  style={{ width: "90%" }}
+                                  size="small"
+                                  required
+                                  fullWidth
+                                  id={"partnerAadharPhotoCopyBack" + index}
+                                  label="Please attach Back Aadhar copy"
+                                  name={"partnerAadharPhotoCopyBack" + index}
+                                  autoComplete={
+                                    "partnerAadharPhotoCopyBack" + index
+                                  }
+                                  onChange={(file) =>
+                                    upload(
+                                      file,
+                                      setFieldValue,
+                                      "partnerAadharPhotoCopyBack" + index
+                                    )
+                                  }
+                                  // value={values.partnerAadharPhotoCopyBack}
+                                  InputLabelProps={{ shrink: true }}
+                                  error={
+                                    errors[
+                                      "partnerAadharPhotoCopyBack" + index
+                                    ] &&
+                                    touched[
+                                      "partnerAadharPhotoCopyBack" + index
+                                    ]
+                                      ? true
+                                      : false
+                                  }
+                                  helperText={
+                                    touched[
+                                      "partnerAadharPhotoCopyBack" + index
+                                    ] &&
+                                    errors["partnerAadharPhotoCopyBack" + index]
+                                  }
+                                />
+                                {values[
+                                  "partnerAadharPhotoCopyBack" + index
+                                ] && (
+                                  <Visibility
+                                    onClick={() => {
+                                      setImageName(
+                                        values[
+                                          "partnerAadharPhotoCopyBack" + index
+                                        ]
+                                      );
+                                      setOpen(true);
+                                    }}
+                                    style={{
+                                      float: "right",
+                                      marginTop: "25px",
+                                    }}
+                                  />
+                                )}
+                              </Grid>
                             </Grid>
                           </Grid>
                           <Grid container spacing={4}>
