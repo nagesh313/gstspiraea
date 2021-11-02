@@ -80,4 +80,6 @@ public class CompanyDetails {
     @OneToMany
     private List<Director> directorList;
     private String certificateOfIncorportation;
+    private String additionalPOB;
+    private String principalPOB;
 }

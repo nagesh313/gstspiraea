@@ -291,6 +291,8 @@ const PartnershipComponent = (props: any) => {
                       remark: "test",
                       numberOfPartners: 1,
                       ...valuesForPartners,
+                      additionalPOB: "test",
+                      principalPOB: "test",
                     }
               }
               validationSchema={schema}
@@ -1478,6 +1480,76 @@ const PartnershipComponent = (props: any) => {
                         <Visibility
                           onClick={() => {
                             setImageName(values.tradelicensephoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        type="file"
+                        style={{ width: "90%" }}
+                        margin="dense"
+                        size="small"
+                        fullWidth
+                        id="additionalPOB"
+                        label="Additional POB"
+                        name="additionalPOB"
+                        autoComplete="additionalPOB"
+                        onChange={(file) =>
+                          upload(file, setFieldValue, "additionalPOB")
+                        }
+                        // value={values.additionalPOB}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.additionalPOB && touched.additionalPOB
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.additionalPOB && errors.additionalPOB
+                        }
+                      />
+                      {values.additionalPOB && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.additionalPOB);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        type="file"
+                        style={{ width: "90%" }}
+                        margin="dense"
+                        size="small"
+                        fullWidth
+                        id="principalPOB"
+                        label="Principal POB"
+                        name="principalPOB"
+                        autoComplete="principalPOB"
+                        onChange={(file) =>
+                          upload(file, setFieldValue, "principalPOB")
+                        }
+                        // value={values.principalPOB}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.principalPOB && touched.principalPOB
+                            ? true
+                            : false
+                        }
+                        helperText={touched.principalPOB && errors.principalPOB}
+                      />
+                      {values.principalPOB && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.principalPOB);
                             setOpen(true);
                           }}
                           style={{ float: "right", marginTop: "25px" }}

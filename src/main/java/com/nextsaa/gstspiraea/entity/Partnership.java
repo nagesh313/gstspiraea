@@ -147,4 +147,6 @@ public class Partnership {
     @OneToMany
     private List<Partner> partnerList;
     private String partnershipDeed;
+    private String additionalPOB;
+    private String principalPOB;
 }

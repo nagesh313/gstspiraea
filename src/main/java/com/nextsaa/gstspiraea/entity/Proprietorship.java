@@ -178,4 +178,6 @@ public class Proprietorship {
     private String razorpayOrder;
     @OneToOne
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
+    private String additionalPOB;
+    private String principalPOB;
 }
