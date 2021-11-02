@@ -142,5 +142,5 @@ public class Partnership {
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
     @OneToMany
     private List<Partner> partnerList;
-
+    private String partnershipDeed;
 }

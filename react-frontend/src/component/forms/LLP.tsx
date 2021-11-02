@@ -270,6 +270,7 @@ const LLPComponent = (props: any) => {
                       cancelcheqphoto: "test",
                       tradelicensenumber: "test",
                       tradelicensephoto: "test",
+                      partnershipDeed:"test",
                       isActive: true,
                       status: "CREATED",
                       createdBy: sessionStorage.getItem("user"),

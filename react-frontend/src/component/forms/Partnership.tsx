@@ -1246,6 +1246,51 @@ const PartnershipComponent = (props: any) => {
                     </Grid>
                   </Grid>
 
+
+
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        type="file"
+                        style={{ width: "90%" }}
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="partnershipDeed"
+                        label="Partnership Deed"
+                        name="partnershipDeed"
+                        autoComplete="partnershipDeed"
+                        onChange={(file) =>
+                          upload(file, setFieldValue, "partnershipDeed")
+                        }
+                        // value={values.partnershipDeed}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.partnershipDeed && touched.partnershipDeed
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.partnershipDeed && errors.partnershipDeed
+                        }
+                      />
+                      {values.partnershipDeed && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.partnershipDeed);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
+                    </Grid>
+                  </Grid>
+
+
+
+
+
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
