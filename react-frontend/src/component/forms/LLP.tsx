@@ -163,7 +163,7 @@ const LLPComponent = (props: any) => {
         orderDetails?.paymentPlanLocationDetails;
     }
     const partnerList: any = [];
-    [...Array(values.numberOfDirectors)].forEach((value: any, index: any) => {
+    [...Array(values.numberOfPartners)].forEach((value: any, index: any) => {
       partnerList.push({
         id: values["id" + index] ? values["id" + index] : undefined,
         partnerName: values["partnerName" + index],
@@ -1128,7 +1128,10 @@ const LLPComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"partnerResidentialAddress" + index}
-                                label="Residential Address"
+                                label={
+                                  "Residential Address of Partner " +
+                                  (index + 1)
+                                }
                                 name={"partnerResidentialAddress" + index}
                                 autoComplete={
                                   "partnerResidentialAddress" + index
@@ -1163,7 +1166,10 @@ const LLPComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"partnerPhoto" + index}
-                                label="Passport Size Photo"
+                                label={
+                                  "Passport Size Photo of Partner " +
+                                  (index + 1)
+                                }
                                 name={"partnerPhoto" + index}
                                 autoComplete={"partnerPhoto" + index}
                                 onChange={(file) =>

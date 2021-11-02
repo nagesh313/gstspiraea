@@ -158,7 +158,7 @@ const SoleProprietorComponent = (props: any) => {
         orderDetails?.paymentPlanLocationDetails;
     }
     const gstCertificatesInOtherStates: any = [];
-    [...Array(values.numberOfPartners)].forEach((value: any, index: any) => {
+    [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {
       gstCertificatesInOtherStates.push({
         id: values["id" + index] ? values["id" + index] : undefined,
         gstNumber: values["gstNumber" + index],

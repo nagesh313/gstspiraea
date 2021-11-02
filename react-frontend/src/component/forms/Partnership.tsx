@@ -1134,7 +1134,10 @@ const PartnershipComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"partnerResidentialAddress" + index}
-                                label="Residential Address"
+                                label={
+                                  "Residential Address Of Partner " +
+                                  (index + 1)
+                                }
                                 name={"partnerResidentialAddress" + index}
                                 autoComplete={
                                   "partnerResidentialAddress" + index
@@ -1169,7 +1172,10 @@ const PartnershipComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"partnerPhoto" + index}
-                                label="Passport Size Photo"
+                                label={
+                                  "Passport Size Photo of Partner " +
+                                  (index + 1)
+                                }
                                 name={"partnerPhoto" + index}
                                 autoComplete={"partnerPhoto" + index}
                                 onChange={(file) =>
@@ -1214,7 +1220,7 @@ const PartnershipComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"partnerMobile" + index}
-                                label="Mobile"
+                                label={"Mobile of Partner " + (index + 1)}
                                 name={"partnerMobile" + index}
                                 autoComplete={"partnerMobile" + index}
                                 onChange={handleChange}
@@ -1239,7 +1245,7 @@ const PartnershipComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"partnerEmail" + index}
-                                label="Email"
+                                label={"Email of Partner " + (index + 1)}
                                 name={"partnerEmail" + index}
                                 autoComplete={"partnerEmail" + index}
                                 onChange={handleChange}

@@ -1169,7 +1169,9 @@ const CompanyComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"directorResidentialAddress" + index}
-                                label="Residential Address"
+                                label={
+                                  "Residential Address of Director" + index
+                                }
                                 name={"directorResidentialAddress" + index}
                                 autoComplete={
                                   "directorResidentialAddress" + index
@@ -1206,7 +1208,9 @@ const CompanyComponent = (props: any) => {
                                 required
                                 fullWidth
                                 id={"directorPhoto" + index}
-                                label="Passport Size Photo"
+                                label={
+                                  "Passport Size Photo Director" + index
+                                }
                                 name={"directorPhoto" + index}
                                 autoComplete={"directorPhoto" + index}
                                 onChange={(file) =>
