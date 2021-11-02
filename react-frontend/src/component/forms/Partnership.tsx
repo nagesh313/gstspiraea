@@ -317,6 +317,7 @@ const PartnershipComponent = (props: any) => {
                       remark: "test",
                       numberOfPartners: 1,
                       ...valuesForPartners,
+                      partnershipDeed:"test",
                       declarationOfAuthorisedSignatory: "test",
                       numberOfOtherGST: 0,
                       ...valuesOfGSTInOtherStates,

@@ -146,6 +146,7 @@ public class Partnership {
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Partner> partnerList;
+    private String certificateOfIncorportation;
     private String partnershipDeed;
     private String declarationOfAuthorisedSignatory;
     @OneToMany(cascade = CascadeType.ALL)
