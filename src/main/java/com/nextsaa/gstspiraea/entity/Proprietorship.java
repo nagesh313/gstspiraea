@@ -182,7 +182,7 @@ public class Proprietorship {
     private String additionalPOB;
     private String principalPOB;
     private String declarationOfAuthorisedSignatory;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
 
 }

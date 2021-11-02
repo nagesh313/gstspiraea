@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  Divider,
   FormControlLabel,
   Grid,
   InputLabel,
@@ -80,6 +81,15 @@ const SoleProprietorComponent = (props: any) => {
       .get("/api/get-order/get/Proprietorship/" + id)
       .then((response: any) => {
         // props.enqueueSnackbar("Order Rejected Successfull", successToast);
+        response.data.gstCertificatesInOtherStates.forEach(
+          (gst: any, index: any) => {
+            response.data["id" + index] = gst.id;
+            response.data["gstNumber" + index] = gst.gstNumber;
+            response.data["gstAttachment" + index] = gst.gstAttachment;
+          }
+        );
+        response.data.numberOfOtherGST =
+          response.data.gstCertificatesInOtherStates.length;
         setOrderDetails(response.data);
       })
       .catch((reponse: any) => {
@@ -147,7 +157,15 @@ const SoleProprietorComponent = (props: any) => {
       values.paymentPlanLocationDetails =
         orderDetails?.paymentPlanLocationDetails;
     }
-
+    const gstCertificatesInOtherStates: any = [];
+    [...Array(values.numberOfPartners)].forEach((value: any, index: any) => {
+      gstCertificatesInOtherStates.push({
+        id: values["id" + index] ? values["id" + index] : undefined,
+        gstNumber: values["gstNumber" + index],
+        gstAttachment: values["gstAttachment" + index],
+      });
+    });
+    values.gstCertificatesInOtherStates = gstCertificatesInOtherStates;
     if (save) {
       axios
         .post("/api/save-submit-proprietorship", { ...values })
@@ -180,6 +198,12 @@ const SoleProprietorComponent = (props: any) => {
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
+
+  let valuesOfGSTInOtherStates: any = {};
+  [...Array(15)].forEach((value: any, index: any) => {
+    valuesOfGSTInOtherStates["gstNumber" + index] = "";
+    valuesOfGSTInOtherStates["gstAttachment" + index] = "";
+  });
   return (
     <React.Fragment>
       <CssBaseline />
@@ -206,7 +230,7 @@ const SoleProprietorComponent = (props: any) => {
                       tradeName: "test",
                       mobile: "test",
                       email: "test",
-                      pannumber: "test",
+                      pannumber: "AAAAA2222G",
                       panphoto: "test",
                       composition: "No",
                       commencementDate: date,
@@ -252,7 +276,9 @@ const SoleProprietorComponent = (props: any) => {
                       service: false,
                       additionalPOB: "test",
                       principalPOB: "test",
-                      declarationOfAuthorisedSignatory:"test"
+                      declarationOfAuthorisedSignatory: "test",
+                      numberOfOtherGST: 1,
+                      ...valuesOfGSTInOtherStates,
                     }
               }
               validationSchema={schema}
@@ -1369,6 +1395,119 @@ const SoleProprietorComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
+
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        type="number"
+                        fullWidth
+                        id="numberOfOtherGST"
+                        label="Number Of Other GST"
+                        name="numberOfOtherGST"
+                        autoComplete="numberOfOtherGST"
+                        onChange={handleChange}
+                        value={values.numberOfOtherGST}
+                        InputProps={{ inputProps: { min: 1, max: 10 } }}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.numberOfOtherGST && touched.numberOfOtherGST
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.numberOfOtherGST && errors.numberOfOtherGST
+                        }
+                      />
+                    </Grid>
+                  </Grid>
+
+                  {[...Array(values.numberOfOtherGST)].map(
+                    (num: any, index: any) => {
+                      return (
+                        <React.Fragment key={index}>
+                          <Divider />
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"gstNumber" + index}
+                                label={"GST Number " + (index + 1)}
+                                name={"gstNumber" + index}
+                                autoComplete={"gstNumber" + index}
+                                onChange={handleChange}
+                                value={values["gstNumber" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["gstNumber" + index] &&
+                                  touched["gstNumber" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["gstNumber" + index] &&
+                                  errors["gstNumber" + index]
+                                }
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                type="file"
+                                style={{ width: "90%" }}
+                                size="small"
+                                required
+                                fullWidth
+                                id={"gstAttachment" + index}
+                                label="Please attach GST Copy"
+                                name={"gstAttachment" + index}
+                                autoComplete={"gstAttachment" + index}
+                                onChange={(file) =>
+                                  upload(
+                                    file,
+                                    setFieldValue,
+                                    "gstAttachment" + index
+                                  )
+                                }
+                                // value={values.gstAttachment}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["gstAttachment" + index] &&
+                                  touched["gstAttachment" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["gstAttachment" + index] &&
+                                  errors["gstAttachment" + index]
+                                }
+                              />
+                              {values["gstAttachment" + index] && (
+                                <Visibility
+                                  onClick={() => {
+                                    setImageName(
+                                      values["gstAttachment" + index]
+                                    );
+                                    setOpen(true);
+                                  }}
+                                  style={{
+                                    float: "right",
+                                    marginTop: "25px",
+                                  }}
+                                />
+                              )}
+                            </Grid>
+                          </Grid>
+                        </React.Fragment>
+                      );
+                    }
+                  )}
+                  <Divider />
+
                   {params.id && sessionStorage.getItem("role") !== "Customer" && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>

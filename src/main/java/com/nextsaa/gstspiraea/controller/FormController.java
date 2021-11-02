@@ -36,6 +36,8 @@ public class FormController {
     private PartnerRepository partnerRepository;
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private GSTCertificatesInOtherStatesRepository gstCertificatesInOtherStatesRepository;
 
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
@@ -45,21 +47,18 @@ public class FormController {
 
     @PostMapping(value = "/save-submit-partnership")
     public void saveSubmitPartnership(@RequestBody Partnership entity) throws Exception {
-        partnerRepository.saveAll(entity.getPartnerList());
         entity.setStatus("DRAFT");
         partnershipRepository.save(entity);
     }
 
     @PostMapping(value = "/save-submit-llp")
     public void saveSubmitLLP(@RequestBody LLP entity) throws Exception {
-        partnerRepository.saveAll(entity.getPartnerList());
         entity.setStatus("DRAFT");
         llpRepostiory.save(entity);
     }
 
     @PostMapping(value = "/save-submit-company-details")
     public void saveSubmitCompanyDetails(@RequestBody CompanyDetails entity) throws Exception {
-        directorRepository.saveAll(entity.getDirectorList());
         entity.setStatus("DRAFT");
         companyDetailsRepository.save(entity);
     }
@@ -74,21 +73,18 @@ public class FormController {
     @PostMapping(value = "/submit-partnership")
     public void submitPartnership(@RequestBody Partnership entity) throws Exception {
         createOrderPartnership(entity);
-        partnerRepository.saveAll(entity.getPartnerList());
         partnershipRepository.save(entity);
     }
 
     @PostMapping(value = "/submit-llp")
     public void submitLLP(@RequestBody LLP entity) throws Exception {
         createOrderLLP(entity);
-        partnerRepository.saveAll(entity.getPartnerList());
         llpRepostiory.save(entity);
     }
 
     @PostMapping(value = "/submit-company-details")
     public void submitCompanyDetails(@RequestBody CompanyDetails entity) throws Exception {
         createOrderCompany(entity);
-        directorRepository.saveAll(entity.getDirectorList());
         companyDetailsRepository.save(entity);
     }
 

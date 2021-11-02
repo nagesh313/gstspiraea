@@ -71,6 +71,7 @@ const PartnershipComponent = (props: any) => {
       .get("/api/get-order/get/Partnership/" + id)
       .then((response: any) => {
         response.data.partnerList.forEach((partner: any, index: any) => {
+          response.data["id" + index] = partner.id;
           response.data["partnerName" + index] = partner.partnerName;
           response.data["partnerFatherName" + index] =
             partner.partnerFatherName;
@@ -86,6 +87,16 @@ const PartnershipComponent = (props: any) => {
           response.data["partnerEmail" + index] = partner.partnerEmail;
         });
         response.data.numberOfPartners = response.data.partnerList.length;
+
+        response.data.gstCertificatesInOtherStates.forEach(
+          (gst: any, index: any) => {
+            response.data["id" + index] = gst.id;
+            response.data["gstNumber" + index] = gst.gstNumber;
+            response.data["gstAttachment" + index] = gst.gstAttachment;
+          }
+        );
+        response.data.numberOfOtherGST =
+          response.data.gstCertificatesInOtherStates.length;
         setOrderDetails(response.data);
       })
       .catch((reponse: any) => {
@@ -157,6 +168,7 @@ const PartnershipComponent = (props: any) => {
     const partnerList: any = [];
     [...Array(values.numberOfPartners)].forEach((value: any, index: any) => {
       partnerList.push({
+        id: values["id" + index] ? values["id" + index] : undefined,
         partnerName: values["partnerName" + index],
         partnerFatherName: values["partnerFatherName" + index],
         partnerAadharNo: values["partnerAadharNo" + index],
@@ -173,6 +185,15 @@ const PartnershipComponent = (props: any) => {
       });
     });
     values.partnerList = partnerList;
+    const gstCertificatesInOtherStates: any = [];
+    [...Array(values.numberOfPartners)].forEach((value: any, index: any) => {
+      gstCertificatesInOtherStates.push({
+        id: values["id" + index] ? values["id" + index] : undefined,
+        gstNumber: values["gstNumber" + index],
+        gstAttachment: values["gstAttachment" + index],
+      });
+    });
+    values.gstCertificatesInOtherStates = gstCertificatesInOtherStates;
     if (save) {
       axios
         .post("/api/save-submit-partnership", { ...values })
@@ -220,15 +241,20 @@ const PartnershipComponent = (props: any) => {
   [...Array(15)].forEach((value: any, index: any) => {
     valuesForPartners["partnerName" + index] = "";
     valuesForPartners["partnerFatherName" + index] = "";
-    valuesForPartners["partnerAadharNo" + index] = "";
+    valuesForPartners["partnerAadharNo" + index] = "1111 1111 1111";
     valuesForPartners["partnerAadharPhotoCopyFront" + index] = "";
     valuesForPartners["partnerAadharPhotoCopyBack" + index] = "";
-    valuesForPartners["pannumber" + index] = "";
+    valuesForPartners["pannumber" + index] = "AAAAA1111F";
     valuesForPartners["pannumberCopy" + index] = "";
     valuesForPartners["partnerResidentialAddress" + index] = "";
     valuesForPartners["partnerPhoto" + index] = "";
     valuesForPartners["partnerMobile" + index] = "";
     valuesForPartners["partnerEmail" + index] = "";
+  });
+  let valuesOfGSTInOtherStates: any = {};
+  [...Array(15)].forEach((value: any, index: any) => {
+    valuesOfGSTInOtherStates["gstNumber" + index] = "";
+    valuesOfGSTInOtherStates["gstAttachment" + index] = "";
   });
   return (
     <React.Fragment>
@@ -256,7 +282,7 @@ const PartnershipComponent = (props: any) => {
                       tradeName: "test",
                       mobile: "test",
                       email: "test",
-                      pannumber: "test",
+                      pannumber: "AAAAA2222G",
                       panphoto: "test",
                       composition: "No",
                       commencementDate: date,
@@ -292,7 +318,10 @@ const PartnershipComponent = (props: any) => {
                       numberOfPartners: 1,
                       ...valuesForPartners,
                       additionalPOB: "test",
-                      principalPOB: "test",       declarationOfAuthorisedSignatory:"test"
+                      principalPOB: "test",
+                      declarationOfAuthorisedSignatory: "test",
+                      numberOfOtherGST: 1,
+                      ...valuesOfGSTInOtherStates,
                     }
               }
               validationSchema={schema}
@@ -1602,6 +1631,117 @@ const PartnershipComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        fullWidth
+                        type="number"
+                        id="numberOfOtherGST"
+                        label="Number Of Other GST"
+                        name="numberOfOtherGST"
+                        autoComplete="numberOfOtherGST"
+                        onChange={handleChange}
+                        value={values.numberOfOtherGST}
+                        InputProps={{ inputProps: { min: 1, max: 10 } }}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.numberOfOtherGST && touched.numberOfOtherGST
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.numberOfOtherGST && errors.numberOfOtherGST
+                        }
+                      />
+                    </Grid>
+                  </Grid>
+
+                  {[...Array(values.numberOfOtherGST)].map(
+                    (num: any, index: any) => {
+                      return (
+                        <React.Fragment key={index}>
+                          <Divider />
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"gstNumber" + index}
+                                label={"GST Number " + (index + 1)}
+                                name={"gstNumber" + index}
+                                autoComplete={"gstNumber" + index}
+                                onChange={handleChange}
+                                value={values["gstNumber" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["gstNumber" + index] &&
+                                  touched["gstNumber" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["gstNumber" + index] &&
+                                  errors["gstNumber" + index]
+                                }
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                type="file"
+                                style={{ width: "90%" }}
+                                size="small"
+                                required
+                                fullWidth
+                                id={"gstAttachment" + index}
+                                label="Please attach GST Copy"
+                                name={"gstAttachment" + index}
+                                autoComplete={"gstAttachment" + index}
+                                onChange={(file) =>
+                                  upload(
+                                    file,
+                                    setFieldValue,
+                                    "gstAttachment" + index
+                                  )
+                                }
+                                // value={values.gstAttachment}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["gstAttachment" + index] &&
+                                  touched["gstAttachment" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["gstAttachment" + index] &&
+                                  errors["gstAttachment" + index]
+                                }
+                              />
+                              {values["gstAttachment" + index] && (
+                                <Visibility
+                                  onClick={() => {
+                                    setImageName(
+                                      values["gstAttachment" + index]
+                                    );
+                                    setOpen(true);
+                                  }}
+                                  style={{
+                                    float: "right",
+                                    marginTop: "25px",
+                                  }}
+                                />
+                              )}
+                            </Grid>
+                          </Grid>
+                        </React.Fragment>
+                      );
+                    }
+                  )}
+                  <Divider />
                   {params.id && sessionStorage.getItem("role") !== "Customer" && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>

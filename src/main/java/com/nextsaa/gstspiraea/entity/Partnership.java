@@ -144,13 +144,13 @@ public class Partnership {
     private String razorpayOrder;
     @OneToOne
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Partner> partnerList;
     private String partnershipDeed;
     private String additionalPOB;
     private String principalPOB;
     private String declarationOfAuthorisedSignatory;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
 
 }

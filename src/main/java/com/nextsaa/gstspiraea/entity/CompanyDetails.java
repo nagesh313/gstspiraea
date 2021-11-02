@@ -77,12 +77,12 @@ public class CompanyDetails {
     private String razorpayOrder;
     @OneToOne
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Director> directorList;
     private String certificateOfIncorportation;
     private String additionalPOB;
     private String principalPOB;
     private String declarationOfAuthorisedSignatory;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
 }

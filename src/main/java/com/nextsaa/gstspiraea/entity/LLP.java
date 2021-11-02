@@ -145,9 +145,9 @@ public class LLP {
     private String razorpayOrder;
     @OneToOne
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Partner> partnerList;
     private String declarationOfAuthorisedSignatory;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
 }
