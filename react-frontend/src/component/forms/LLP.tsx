@@ -21,7 +21,7 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
-import { schema } from "./LLPSchema";
+import { schema } from "./schema/LLPSchema";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -142,8 +142,13 @@ const LLPComponent = (props: any) => {
         event.target.value = "";
       });
   };
-  const submitForm = (values: any) => {
-    values.paymentPlanLocationDetails = props.plan;
+  const submitForm = (values: any, save = false) => {
+    if (props.plan) {
+      values.paymentPlanLocationDetails = props.plan;
+    } else if (orderDetails?.paymentPlanLocationDetails) {
+      values.paymentPlanLocationDetails =
+        orderDetails?.paymentPlanLocationDetails;
+    }
     const partnerList: any = [];
     [...Array(values.numberOfDirectors)].forEach((value: any, index: any) => {
       partnerList.push({
@@ -156,15 +161,34 @@ const LLPComponent = (props: any) => {
       });
     });
     values.partnerList = partnerList;
-    axios
-      .post("/api/submit-llp", { ...values })
-      .then((response: any) => {
-        history.push("/dashboard/order-list");
-        props.enqueueSnackbar("Application Saved SuccessFully", successToast);
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar("Not able to save the Application", failureToast);
-      });
+
+    if (save) {
+      axios
+        .post("/api/save-submit-llp", { ...values })
+        .then((response: any) => {
+          history.push("/dashboard/order-list");
+          props.enqueueSnackbar("Application Saved SuccessFully", successToast);
+        })
+        .catch((reponse: any) => {
+          props.enqueueSnackbar(
+            "Not able to save the Application",
+            failureToast
+          );
+        });
+    } else {
+      axios
+        .post("/api/submit-llp", { ...values })
+        .then((response: any) => {
+          history.push("/dashboard/order-list");
+          props.enqueueSnackbar("Application Saved SuccessFully", successToast);
+        })
+        .catch((reponse: any) => {
+          props.enqueueSnackbar(
+            "Not able to save the Application",
+            failureToast
+          );
+        });
+    }
   };
   const [imageName, setImageName] = React.useState<any>();
   const [open, setOpen] = React.useState(false);
@@ -1221,17 +1245,37 @@ const LLPComponent = (props: any) => {
                       </Grid>
                     </Grid>
                   )}
-                  {params.id === undefined && (
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      style={{ marginTop: "10px" }}
-                      // className={classes.submit}
-                    >
-                      Submit
-                    </Button>
+                  {(params.id === undefined ||
+                    orderDetails?.status === "SAVED") && (
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <Button
+                          type="button"
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          style={{ marginTop: "10px" }}
+                          // className={classes.submit}
+                          onClick={() => {
+                            submitForm(values, true);
+                          }}
+                        >
+                          Save
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          style={{ marginTop: "10px" }}
+                          // className={classes.submit}
+                        >
+                          Submit
+                        </Button>
+                      </Grid>
+                    </Grid>
                   )}
                   {params.id &&
                     sessionStorage.getItem("role") !== "Customer" &&

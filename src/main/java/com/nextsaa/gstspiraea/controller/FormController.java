@@ -7,6 +7,7 @@ import com.nextsaa.gstspiraea.dto.ProprietorshipDTO;
 import com.nextsaa.gstspiraea.entity.CompanyDetails;
 import com.nextsaa.gstspiraea.entity.LLP;
 import com.nextsaa.gstspiraea.entity.Partnership;
+import com.nextsaa.gstspiraea.entity.Proprietorship;
 import com.nextsaa.gstspiraea.mapper.CompanyDetailsMapper;
 import com.nextsaa.gstspiraea.mapper.LLPDetailsMapper;
 import com.nextsaa.gstspiraea.mapper.PartnershipDetailsMapper;
@@ -47,6 +48,38 @@ public class FormController {
     @Autowired
     private ConfigService configService;
 
+    @PostMapping(value = "/save-submit-proprietorship")
+    public void saveSubmitProprietorship(@RequestBody ProprietorshipDTO dto) throws Exception {
+        Proprietorship entity = ProprietoshipDetailsMapper.mapToEntity(dto);
+        entity.setStatus("SAVED");
+        proprietorshipRepostiory.save(entity);
+    }
+
+    @PostMapping(value = "/save-submit-partnership")
+    public void saveSubmitPartnership(@RequestBody PartnershipDTO partnershipDTO) throws Exception {
+        Partnership entity = PartnershipDetailsMapper.mapToEntity(partnershipDTO);
+        partnerRepository.saveAll(entity.getPartnerList());
+        entity.setStatus("SAVED");
+        partnershipRepository.save(entity);
+    }
+
+    @PostMapping(value = "/save-submit-llp")
+    public void saveSubmitLLP(@RequestBody LLPDTO llpdto) throws Exception {
+        LLP entity = LLPDetailsMapper.mapToEntity(llpdto);
+        partnerRepository.saveAll(entity.getPartnerList());
+        entity.setStatus("SAVED");
+        llpRepostiory.save(entity);
+    }
+
+    @PostMapping(value = "/save-submit-company-details")
+    public void saveSubmitCompanyDetails(@RequestBody CompanyDetailsDTO companyDetailsDTO) throws Exception {
+        CompanyDetails entity = CompanyDetailsMapper.mapToEntity(companyDetailsDTO);
+        directorRepository.saveAll(entity.getDirectorList());
+        entity.setStatus("SAVED");
+        companyDetailsRepository.save(entity);
+    }
+
+
     @PostMapping(value = "/submit-proprietorship")
     public void submitProprietorship(@RequestBody ProprietorshipDTO dto) throws Exception {
         createOrderProprietorship(dto);
@@ -78,20 +111,25 @@ public class FormController {
     }
 
     private void createOrderProprietorship(ProprietorshipDTO dto) throws Exception {
+        dto.setStatus("CREATED");
         dto.setRazorpayOrder(createOrder(
                 dto.getPaymentPlanLocationDetails().getPayplanamount()
         ));
     }
 
     private void createOrderLLP(LLPDTO dto) throws Exception {
+        dto.setStatus("CREATED");
+
         dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
     private void createOrderPartnership(PartnershipDTO dto) throws Exception {
+        dto.setStatus("CREATED");
         dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
     private void createOrderCompany(CompanyDetailsDTO dto) throws Exception {
+        dto.setStatus("CREATED");
         dto.setRazorpayOrder(createOrder(dto.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 

@@ -18,9 +18,9 @@ import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import * as Yup from "yup";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
+import { schema } from "./schema/SoleProprietorSchama";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -58,20 +58,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
-const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-const aadharRegex = /^[0-9]{4}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
-
-const validationSchema = Yup.object().shape({
-  propadharnumber: Yup.string()
-    .required("Please enter Aadhar Number")
-    .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
-  signadharnumber: Yup.string()
-    .required("Please enter Aadhar Number")
-    .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
-  pannumber: Yup.string()
-    .required("Please enter your Pan Number")
-    .matches(panRegex, "Invalid Pan Number"),
-});
 
 const SoleProprietorComponent = (props: any) => {
   const classes = useStyles();
@@ -154,20 +140,41 @@ const SoleProprietorComponent = (props: any) => {
         event.target.value = "";
       });
   };
-  const submitForm = (values: any) => {
-    values.paymentPlanLocationDetails = props.plan;
-    axios
-      .post("/api/submit-proprietorship", { ...values })
-      .then((response: any) => {
-        props.enqueueSnackbar(
-          "Application Submitted Successfully",
-          successToast
-        );
-        history.push("/dashboard/order-list");
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar("Error while submitting", failureToast);
-      });
+  const submitForm = (values: any, save = false) => {
+    if (props.plan) {
+      values.paymentPlanLocationDetails = props.plan;
+    } else if (orderDetails?.paymentPlanLocationDetails) {
+      values.paymentPlanLocationDetails =
+        orderDetails?.paymentPlanLocationDetails;
+    }
+
+    if (save) {
+      axios
+        .post("/api/save-submit-proprietorship", { ...values })
+        .then((response: any) => {
+          props.enqueueSnackbar(
+            "Application Submitted Successfully",
+            successToast
+          );
+          history.push("/dashboard/order-list");
+        })
+        .catch((reponse: any) => {
+          props.enqueueSnackbar("Error while submitting", failureToast);
+        });
+    } else {
+      axios
+        .post("/api/submit-proprietorship", { ...values })
+        .then((response: any) => {
+          props.enqueueSnackbar(
+            "Application Submitted Successfully",
+            successToast
+          );
+          history.push("/dashboard/order-list");
+        })
+        .catch((reponse: any) => {
+          props.enqueueSnackbar("Error while submitting", failureToast);
+        });
+    }
   };
 
   var curr = new Date();
@@ -245,7 +252,7 @@ const SoleProprietorComponent = (props: any) => {
                       service: false,
                     }
               }
-              validationSchema={validationSchema}
+              validationSchema={schema}
               onSubmit={(values: any) => {
                 submitForm(values);
               }}
@@ -1265,17 +1272,37 @@ const SoleProprietorComponent = (props: any) => {
                       </Grid>
                     </Grid>
                   )}
-                  {params.id === undefined && (
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      style={{ marginTop: "10px" }}
-                      // className={classes.submit}
-                    >
-                      Submit
-                    </Button>
+                  {(params.id === undefined ||
+                    orderDetails?.status === "SAVED") && (
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <Button
+                          type="button"
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          style={{ marginTop: "10px" }}
+                          // className={classes.submit}
+                          onClick={() => {
+                            submitForm(values, true);
+                          }}
+                        >
+                          Save
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          style={{ marginTop: "10px" }}
+                          // className={classes.submit}
+                        >
+                          Submit
+                        </Button>
+                      </Grid>
+                    </Grid>
                   )}
                   {sessionStorage.getItem("role") !== "Customer" &&
                     orderDetails?.status === "CREATED" && (
