@@ -4,7 +4,6 @@ import com.nextsaa.gstspiraea.entity.UserDetails;
 import com.nextsaa.gstspiraea.exceptions.DataNotFoundException;
 import com.nextsaa.gstspiraea.repository.UserDetailsRepository;
 import com.nextsaa.gstspiraea.util.ExceptionConstants;
-import com.nextsaa.gstspiraea.util.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -70,7 +69,7 @@ public class UserService {
 
 
     public List<UserDetails> getAllUsers() {
-        return ObjectMapperUtils.mapAll(userDetailsRepository.findAll(), UserDetails.class);
+        return userDetailsRepository.findAll();
     }
 
 
