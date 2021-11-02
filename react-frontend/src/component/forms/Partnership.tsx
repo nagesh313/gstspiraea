@@ -74,14 +74,12 @@ const PartnershipComponent = (props: any) => {
           response.data["partnerName" + index] = partner.partnerName;
           response.data["partnerFatherName" + index] =
             partner.partnerFatherName;
-          response.data["partnerAadharNo" + index] =
-            partner.partnerAadharNo;
+          response.data["partnerAadharNo" + index] = partner.partnerAadharNo;
           response.data["partnerAadharPhotoCopy" + index] =
             partner.partnerAadharPhotoCopy;
           response.data["partnerResidentialAddress" + index] =
             partner.partnerResidentialAddress;
-          response.data["partnerPhoto" + index] =
-            partner.partnerPhoto;
+          response.data["partnerPhoto" + index] = partner.partnerPhoto;
         });
         response.data.numberOfPartners = response.data.partnerList.length;
         setOrderDetails(response.data);
@@ -373,7 +371,7 @@ const PartnershipComponent = (props: any) => {
                         required
                         fullWidth
                         id="pannumber"
-                        label="PAN Number"
+                        label="PAN Number of Firm"
                         name="pannumber"
                         autoComplete="pannumber"
                         onChange={handleChange}

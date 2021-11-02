@@ -127,22 +127,30 @@ const CompanyComponent = (props: any) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const upload = (event: any, setFieldValue: any, field: any) => {
-    let formData = new FormData();
-    formData.append("file", event.currentTarget.files[0]);
-    axios
-      .post("/api/document/uploadFile", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response: any) => {
-        setFieldValue(field, response.data);
-        // setTaskList(response.data);
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar(reponse.message, failureToast);
-        event.target.value = "";
-      });
+    if (
+      event.currentTarget.files[0].size > 100000 &&
+      field.includes("directorPhoto")
+    ) {
+      props.enqueueSnackbar("File Cannot be bigger than 100KB", failureToast);
+      event.target.value = "";
+    } else {
+      let formData = new FormData();
+      formData.append("file", event.currentTarget.files[0]);
+      axios
+        .post("/api/document/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response: any) => {
+          setFieldValue(field, response.data);
+          // setTaskList(response.data);
+        })
+        .catch((reponse: any) => {
+          props.enqueueSnackbar(reponse.message, failureToast);
+          event.target.value = "";
+        });
+    }
   };
   const submitForm = (values: any) => {
     values.paymentPlanLocationDetails = props.plan;
@@ -373,7 +381,7 @@ const CompanyComponent = (props: any) => {
                         required
                         fullWidth
                         id="pannumber"
-                        label="PAN Number"
+                        label="PAN Number of Company"
                         name="pannumber"
                         autoComplete="pannumber"
                         onChange={handleChange}
