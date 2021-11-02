@@ -3,6 +3,7 @@ package com.nextsaa.gstspiraea.entity;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -180,4 +181,8 @@ public class Proprietorship {
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
     private String additionalPOB;
     private String principalPOB;
+    private String declarationOfAuthorisedSignatory;
+    @OneToMany
+    private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
+
 }

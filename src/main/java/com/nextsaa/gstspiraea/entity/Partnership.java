@@ -149,4 +149,8 @@ public class Partnership {
     private String partnershipDeed;
     private String additionalPOB;
     private String principalPOB;
+    private String declarationOfAuthorisedSignatory;
+    @OneToMany
+    private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
+
 }

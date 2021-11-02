@@ -147,4 +147,7 @@ public class LLP {
     private PaymentPlanLocationDetails paymentPlanLocationDetails;
     @OneToMany
     private List<Partner> partnerList;
+    private String declarationOfAuthorisedSignatory;
+    @OneToMany
+    private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
 }

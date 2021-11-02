@@ -252,6 +252,7 @@ const SoleProprietorComponent = (props: any) => {
                       service: false,
                       additionalPOB: "test",
                       principalPOB: "test",
+                      declarationOfAuthorisedSignatory:"test"
                     }
               }
               validationSchema={schema}
@@ -1316,6 +1317,51 @@ const SoleProprietorComponent = (props: any) => {
                         <Visibility
                           onClick={() => {
                             setImageName(values.principalPOB);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        type="file"
+                        style={{ width: "90%" }}
+                        margin="dense"
+                        size="small"
+                        fullWidth
+                        id="declarationOfAuthorisedSignatory"
+                        label="Declaration Of Authorised Signatory"
+                        name="declarationOfAuthorisedSignatory"
+                        autoComplete="declarationOfAuthorisedSignatory"
+                        onChange={(file) =>
+                          upload(
+                            file,
+                            setFieldValue,
+                            "declarationOfAuthorisedSignatory"
+                          )
+                        }
+                        // value={values.declarationOfAuthorisedSignatory}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.declarationOfAuthorisedSignatory &&
+                          touched.declarationOfAuthorisedSignatory
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.declarationOfAuthorisedSignatory &&
+                          errors.declarationOfAuthorisedSignatory
+                        }
+                      />
+                      {values.declarationOfAuthorisedSignatory && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(
+                              values.declarationOfAuthorisedSignatory
+                            );
                             setOpen(true);
                           }}
                           style={{ float: "right", marginTop: "25px" }}
