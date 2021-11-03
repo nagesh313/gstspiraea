@@ -6,9 +6,9 @@ export const schema = Yup.object().shape({
   propadharnumber: Yup.string()
     .required("Please enter Aadhar Number")
     .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
-  signadharnumber: Yup.string()
-    .required("Please enter Aadhar Number")
-    .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
+  // signadharnumber: Yup.string()
+  //   .required("Please enter Aadhar Number")
+  //   .matches(aadharRegex, "Invalid Aadhar Number (78XX 45XX 97XX)"),
   pannumber: Yup.string()
     .required("Please enter your Pan Number")
     .matches(panRegex, "Invalid Pan Number"),
