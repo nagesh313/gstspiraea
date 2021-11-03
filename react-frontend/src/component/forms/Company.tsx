@@ -1742,7 +1742,6 @@ const CompanyComponent = (props: any) => {
                           style={{ textAlign: "center" }}
                         >
                           <Grid item xs={12}>
-                          <Grid item xs={12}>
                             <Button
                               type="button"
                               variant="contained"
@@ -1754,7 +1753,7 @@ const CompanyComponent = (props: any) => {
                               Save & Update
                             </Button>
                             <Button
-                             style={{ marginLeft: "10px" }}
+                              style={{ marginLeft: "10px" }}
                               type="button"
                               variant="contained"
                               color="primary"
