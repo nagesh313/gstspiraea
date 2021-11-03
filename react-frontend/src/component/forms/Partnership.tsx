@@ -1660,7 +1660,6 @@ const PartnershipComponent = (props: any) => {
                     (num: any, index: any) => {
                       return (
                         <React.Fragment key={index}>
-
                           <Divider />
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
@@ -1804,6 +1803,17 @@ const PartnershipComponent = (props: any) => {
                         >
                           <Grid item xs={12}>
                             <Button
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                submitForm(values, true);
+                              }}
+                            >
+                              Save & Update
+                            </Button>
+                            <Button
+                              style={{ marginLeft: "10px" }}
                               type="button"
                               variant="contained"
                               color="primary"

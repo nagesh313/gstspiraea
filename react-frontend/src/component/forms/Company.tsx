@@ -1742,7 +1742,19 @@ const CompanyComponent = (props: any) => {
                           style={{ textAlign: "center" }}
                         >
                           <Grid item xs={12}>
+                          <Grid item xs={12}>
                             <Button
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                submitForm(values, true);
+                              }}
+                            >
+                              Save & Update
+                            </Button>
+                            <Button
+                             style={{ marginLeft: "10px" }}
                               type="button"
                               variant="contained"
                               color="primary"
