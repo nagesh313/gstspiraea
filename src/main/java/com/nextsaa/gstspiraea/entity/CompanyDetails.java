@@ -70,7 +70,7 @@ public class CompanyDetails {
     private String modifiedBy;
 
     @Column(name = "status")
-    private String status;
+    private String status = "DRAFT";
     private String gstDocument;
     @Column(name = "remark")
     private String remark;

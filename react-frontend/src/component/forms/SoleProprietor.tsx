@@ -250,7 +250,8 @@ const SoleProprietorComponent = (props: any) => {
                       additionalnocphoto: "test",
                       propfatherName: "test",
                       propadharnumber: "test",
-                      propadharphoto: "test",
+                      propadharphotoFront: "test",
+                      propadharphotoBack: "test",
                       resident_address: "test",
                       photo: "test",
                       authsignname: "test",
@@ -830,41 +831,83 @@ const SoleProprietorComponent = (props: any) => {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        style={{ width: "90%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="propadharphoto"
-                        label="Please attach Aadhar copy"
-                        name="propadharphoto"
-                        autoComplete="propadharphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "propadharphoto")
-                        }
-                        // value={values.propadharphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.propadharphoto && touched.propadharphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.propadharphoto && errors.propadharphoto
-                        }
-                      />
-                      {values.propadharphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.propadharphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
+                    <Grid item container xs={12} sm={6}>
+                      <Grid item xs={12}>
+                        <TextField
+                          margin="dense"
+                          type="file"
+                          style={{ width: "90%" }}
+                          size="small"
+                          required
+                          fullWidth
+                          id="propadharphotoFront"
+                          label="Please attach Front Aadhar copy"
+                          name="propadharphotoFront"
+                          autoComplete="propadharphotoFront"
+                          onChange={(file) =>
+                            upload(file, setFieldValue, "propadharphotoFront")
+                          }
+                          // value={values.propadharphotoFront}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.propadharphotoFront &&
+                            touched.propadharphotoFront
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.propadharphotoFront &&
+                            errors.propadharphotoFront
+                          }
                         />
-                      )}
+                        {values.propadharphotoFront && (
+                          <Visibility
+                            onClick={() => {
+                              setImageName(values.propadharphotoFront);
+                              setOpen(true);
+                            }}
+                            style={{ float: "right", marginTop: "25px" }}
+                          />
+                        )}
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          margin="dense"
+                          type="file"
+                          style={{ width: "90%" }}
+                          size="small"
+                          required
+                          fullWidth
+                          id="propadharphotoBack"
+                          label="Please attach Back Aadhar copy"
+                          name="propadharphotoBack"
+                          autoComplete="propadharphotoBack"
+                          onChange={(file) =>
+                            upload(file, setFieldValue, "propadharphotoBack")
+                          }
+                          // value={values.propadharphotoBack}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.propadharphotoBack &&
+                            touched.propadharphotoBack
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.propadharphotoBack &&
+                            errors.propadharphotoBack
+                          }
+                        />
+                        {values.propadharphotoBack && (
+                          <Visibility
+                            onClick={() => {
+                              setImageName(values.propadharphotoBack);
+                              setOpen(true);
+                            }}
+                            style={{ float: "right", marginTop: "25px" }}
+                          />
+                        )}
+                      </Grid>
                     </Grid>
                   </Grid>
 
@@ -1408,7 +1451,6 @@ const SoleProprietorComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-
                   {params.id && sessionStorage.getItem("role") !== "Customer" && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
@@ -1472,6 +1514,17 @@ const SoleProprietorComponent = (props: any) => {
                         >
                           <Grid item xs={12}>
                             <Button
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                submitForm(values, true);
+                              }}
+                            >
+                              Save & Update
+                            </Button>
+                            <Button
+                              style={{ marginLeft: "10px" }}
                               type="button"
                               variant="contained"
                               color="primary"

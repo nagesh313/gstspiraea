@@ -81,9 +81,8 @@ public class Proprietorship {
     @Column(name = "propadharnumber")
     private String propadharnumber;
 
-    @Column(name = "propadharphoto")
-    private String propadharphoto;
-
+    private String propadharphotoFront;
+    private String propadharphotoBack;
     @Column(name = "resident_address")
     private String resident_address;
 
@@ -168,7 +167,7 @@ public class Proprietorship {
     private String modifiedBy;
 
     @Column(name = "status")
-    private String status;
+    private String status = "DRAFT";
     private String gstDocument;
     @Column(name = "remark")
     private String remark;

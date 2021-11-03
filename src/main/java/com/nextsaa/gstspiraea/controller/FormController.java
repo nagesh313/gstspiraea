@@ -41,25 +41,21 @@ public class FormController {
 
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
-        entity.setStatus("DRAFT");
         proprietorshipRepostiory.save(entity);
     }
 
     @PostMapping(value = "/save-submit-partnership")
     public void saveSubmitPartnership(@RequestBody Partnership entity) throws Exception {
-        entity.setStatus("DRAFT");
         partnershipRepository.save(entity);
     }
 
     @PostMapping(value = "/save-submit-llp")
     public void saveSubmitLLP(@RequestBody LLP entity) throws Exception {
-        entity.setStatus("DRAFT");
         llpRepostiory.save(entity);
     }
 
     @PostMapping(value = "/save-submit-company-details")
     public void saveSubmitCompanyDetails(@RequestBody CompanyDetails entity) throws Exception {
-        entity.setStatus("DRAFT");
         companyDetailsRepository.save(entity);
     }
 
