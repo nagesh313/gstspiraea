@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/gstspiraea/static/css/main.ca49cfec.chunk.css",
+    "main.js": "/gstspiraea/static/js/main.363691e8.chunk.js",
+    "main.js.map": "/gstspiraea/static/js/main.363691e8.chunk.js.map",
+    "runtime-main.js": "/gstspiraea/static/js/runtime-main.ef9f0105.js",
+    "runtime-main.js.map": "/gstspiraea/static/js/runtime-main.ef9f0105.js.map",
+    "static/js/2.3a50d22c.chunk.js": "/gstspiraea/static/js/2.3a50d22c.chunk.js",
+    "static/js/2.3a50d22c.chunk.js.map": "/gstspiraea/static/js/2.3a50d22c.chunk.js.map",
+    "index.html": "/gstspiraea/index.html",
+    "static/css/main.ca49cfec.chunk.css.map": "/gstspiraea/static/css/main.ca49cfec.chunk.css.map",
+    "static/js/2.3a50d22c.chunk.js.LICENSE.txt": "/gstspiraea/static/js/2.3a50d22c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ef9f0105.js",
+    "static/js/2.3a50d22c.chunk.js",
+    "static/css/main.ca49cfec.chunk.css",
+    "static/js/main.363691e8.chunk.js"
+  ]
+}
