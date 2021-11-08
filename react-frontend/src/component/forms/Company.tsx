@@ -249,10 +249,10 @@ const CompanyComponent = (props: any) => {
     valuesForDirectors["directorName" + index] = "";
     valuesForDirectors["directorDin" + index] = "";
     valuesForDirectors["directorFatherName" + index] = "";
-    valuesForDirectors["directorAadharNo" + index] = "1111 1111 1111";
+    valuesForDirectors["directorAadharNo" + index] = "";
     valuesForDirectors["directorAadharPhotoCopyFront" + index] = "";
     valuesForDirectors["directorAadharPhotoCopyBack" + index] = "";
-    valuesForDirectors["pannumber" + index] = "AAAAA2222A";
+    valuesForDirectors["pannumber" + index] = "";
     valuesForDirectors["pannumberCopy" + index] = "";
     valuesForDirectors["directorResidentialAddress" + index] = "";
     valuesForDirectors["directorPhoto" + index] = "";
@@ -284,45 +284,45 @@ const CompanyComponent = (props: any) => {
                 orderDetails
                   ? orderDetails
                   : {
-                      firmName: "test",
-                      legalbusinessName: "test",
-                      tradeName: "test",
-                      mobile: "test",
-                      email: "test",
-                      pannumber: "AAAAA2222G",
-                      panphoto: "test",
+                      firmName: "",
+                      legalbusinessName: "",
+                      tradeName: "",
+                      mobile: "",
+                      email: "",
+                      pannumber: "",
+                      panphoto: "",
                       composition: "No",
                       commencementDate: date,
                       principleplace: "",
-                      pricipleelectricityphoto: "test",
-                      priciplerentphoto: "test",
-                      priciplenocphoto: "test",
-                      additionalplace: "test",
-                      additionalelectricityphoto: "test",
-                      additionalrentphoto: "test",
-                      additionalnocphoto: "test",
-                      businessactivity: "test",
-                      hsn1: "test",
-                      hsn2: "test",
-                      hsn3: "test",
-                      hsn4: "test",
-                      hsn5: "test",
-                      accountname: "test",
-                      accountnumber: "test",
-                      ifsc: "test",
-                      branchname: "test",
-                      branchcode: "test",
-                      cancelcheqphoto: "test",
-                      tradelicensenumber: "test",
-                      tradelicensephoto: "test",
-                      certificateOfIncorportation: "test",
+                      pricipleelectricityphoto: "",
+                      priciplerentphoto: "",
+                      priciplenocphoto: "",
+                      additionalplace: "",
+                      additionalelectricityphoto: "",
+                      additionalrentphoto: "",
+                      additionalnocphoto: "",
+                      businessactivity: "",
+                      hsn1: "",
+                      hsn2: "",
+                      hsn3: "",
+                      hsn4: "",
+                      hsn5: "",
+                      accountname: "",
+                      accountnumber: "",
+                      ifsc: "",
+                      branchname: "",
+                      branchcode: "",
+                      cancelcheqphoto: "",
+                      tradelicensenumber: "",
+                      tradelicensephoto: "",
+                      certificateOfIncorportation: "",
                       status: "CREATED",
                       createdBy: sessionStorage.getItem("user"),
                       isActive: true,
                       trading: false,
                       manufacture: false,
                       service: false,
-                      remark: "test",
+                      remark: "",
                       numberOfDirectors: 1,
                       ...valuesForDirectors,
                       declarationOfAuthorisedSignatory: "",

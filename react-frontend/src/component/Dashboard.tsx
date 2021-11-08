@@ -250,52 +250,11 @@ export default function Dashboard() {
             variant="h6"
             color="inherit"
             noWrap
-            onClick={() => navigate("#/dashboard/home")}
+            onClick={() => navigate("/#/dashboard/home")}
             style={{ cursor: "pointer" }}
           >
             gstspiraea-ui
           </Typography>
-          {/* <div>
-            <Button
-              size="small"
-              style={{
-                color: "white",
-                borderColor: "white",
-                marginLeft: "10px",
-              }}
-              color="primary"
-              variant="outlined"
-              onClick={() => navigate("/dashboard/SingleCellRNA")}
-            >
-              Single Cell RNASeq
-            </Button>{" "}
-            <Button
-              size="small"
-              style={{
-                color: "white",
-                borderColor: "white",
-                marginLeft: "10px",
-              }}
-              color="primary"
-              variant="outlined"
-              onClick={() => navigate("/dashboard/BulkRNATasks")}
-            >
-              Bulk RNASeq
-            </Button>{" "}
-            <Button
-              size="small"
-              style={{
-                color: "white",
-                borderColor: "white",
-                marginLeft: "10px",
-              }}
-              color="primary"
-              variant="outlined"
-              onClick={() => navigate("/dashboard/HitLIkeMolecules")}
-            >
-              Hit LIke Molecules
-            </Button>
-          </div> */}
           <div className={classes.grow} />
           <img
             alt=""
@@ -327,7 +286,7 @@ export default function Dashboard() {
             </IconButton>
           </div>
         </Toolbar>
-      </AppBar>{" "}
+      </AppBar>
       {renderMobileMenu}
       {renderMenu}
       <Drawer

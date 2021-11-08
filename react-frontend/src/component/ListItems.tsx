@@ -29,13 +29,13 @@ export const MainListItems = () => {
   const admin = role === "Admin";
   return admin ? (
     <div>
-      <ListItem button component="a" href="/#/dashboard/home">
+      <ListItem button component="a" href="/gstspiraea/#/dashboard/home">
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
-      <ListItem button component="a" href="/#/dashboard/order-list">
+      <ListItem button component="a" href="/gstspiraea/#/dashboard/order-list">
         <ListItemIcon>
           <FormatListBulletedIcon />
         </ListItemIcon>
@@ -44,60 +44,18 @@ export const MainListItems = () => {
     </div>
   ) : (
     <div>
-      <ListItem button component="a" href="/#/dashboard/order-list">
+      <ListItem button component="a" href="/gstspiraea/#/dashboard/order-list">
         <ListItemIcon>
           <FormatListBulletedIcon />
         </ListItemIcon>
         <ListItemText primary="Applications" />
       </ListItem>
-      <ListItem button component="a" href="/#/dashboard/apply-for-gst">
+      <ListItem button component="a" href="/gstspiraea/#/dashboard/apply-for-gst">
         <ListItemIcon>
           <AccessibilityIcon />
         </ListItemIcon>
         <ListItemText primary="Apply For GST" />
       </ListItem>
-      {/* <ListItem button component="a" href="/#/dashboard/sole-proprietor">
-        <ListItemIcon>
-          <AssignmentIndIcon />
-        </ListItemIcon>
-        <ListItemText primary="Sole Proprietor" />
-      </ListItem>
-      <ListItem button component="a" href="/#/dashboard/partnership">
-        <ListItemIcon>
-          <Faceicon />
-        </ListItemIcon>
-        <ListItemText primary="Partnership" />
-      </ListItem>
-      <ListItem button component="a" href="/#/dashboard/llp">
-        <ListItemIcon>
-          <AccessibilityIcon />
-        </ListItemIcon>
-        <ListItemText primary="LLP" />
-      </ListItem> */}
-      {/* <ListItem button component="a" href="/#/dashboard/checkout">
-        <ListItemIcon>
-          <ShoppingCartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Checkout" />
-      </ListItem>
-      <ListItem button component="a" href="/#/dashboard/pricing">
-        <ListItemIcon>
-          <LocalOfferIcon />
-        </ListItemIcon>
-        <ListItemText primary="Pricing" />
-      </ListItem>
-      <ListItem button component="a" href="/#/dashboard/album">
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-        <ListItemText primary="Album" />
-      </ListItem>{" "}
-      <ListItem button component="a" href="/#/dashboard/deposits">
-        <ListItemIcon>
-          <AccountBalanceWalletIcon />
-        </ListItemIcon>
-        <ListItemText primary="Deposits" />
-      </ListItem> */}
     </div>
   );
 };
@@ -138,7 +96,7 @@ export const SecondaryListItems = () => {
                 button
                 className={classes.nested}
                 component="a"
-                href="/#/dashboard/userList"
+                href="/gstspiraea/#/dashboard/userList"
               >
                 <ListItemIcon>
                   <ContactsIcon />
@@ -149,7 +107,7 @@ export const SecondaryListItems = () => {
                 button
                 className={classes.nested}
                 component="a"
-                href="/#/dashboard/planList"
+                href="/gstspiraea/#/dashboard/planList"
               >
                 <ListItemIcon>
                   <Queue />

@@ -16,7 +16,7 @@ export const DialogComponent = (props: any) => {
       >
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <img src={"/api/document/downloadFile/" + props.name} alt="" />
+            <img src={"/gstspiraea/api/document/downloadFile/" + props.name} alt="" />
           </DialogContentText>
         </DialogContent>
         <DialogActions>

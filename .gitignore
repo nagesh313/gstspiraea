@@ -13,6 +13,7 @@
 .idea/
 .mvn/
 target/
+src/main/resources/
 /react-frontend/.idea/**/*
 /react-frontend/build/**/*
 /react-frontend/node_modules/**/*
