@@ -3,10 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import { LoaderComponent } from "./component/Loader";
 import { dashboardRoutes } from "./routes/routes";
-import axios from "axios";
 
 export function App() {
-  axios.defaults.baseURL = '/gstspiraea/';
   return (
     <>
       <LoaderComponent></LoaderComponent>

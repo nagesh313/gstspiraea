@@ -29,13 +29,13 @@ export const MainListItems = () => {
   const admin = role === "Admin";
   return admin ? (
     <div>
-      <ListItem button component="a" href="/gstspiraea/#/dashboard/home">
+      <ListItem button component="a" href="/#/dashboard/home">
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
-      <ListItem button component="a" href="/gstspiraea/#/dashboard/order-list">
+      <ListItem button component="a" href="/#/dashboard/order-list">
         <ListItemIcon>
           <FormatListBulletedIcon />
         </ListItemIcon>
@@ -44,13 +44,13 @@ export const MainListItems = () => {
     </div>
   ) : (
     <div>
-      <ListItem button component="a" href="/gstspiraea/#/dashboard/order-list">
+      <ListItem button component="a" href="/#/dashboard/order-list">
         <ListItemIcon>
           <FormatListBulletedIcon />
         </ListItemIcon>
         <ListItemText primary="Applications" />
       </ListItem>
-      <ListItem button component="a" href="/gstspiraea/#/dashboard/apply-for-gst">
+      <ListItem button component="a" href="/#/dashboard/apply-for-gst">
         <ListItemIcon>
           <AccessibilityIcon />
         </ListItemIcon>
@@ -96,7 +96,7 @@ export const SecondaryListItems = () => {
                 button
                 className={classes.nested}
                 component="a"
-                href="/gstspiraea/#/dashboard/userList"
+                href="/#/dashboard/userList"
               >
                 <ListItemIcon>
                   <ContactsIcon />
@@ -107,7 +107,7 @@ export const SecondaryListItems = () => {
                 button
                 className={classes.nested}
                 component="a"
-                href="/gstspiraea/#/dashboard/planList"
+                href="/#/dashboard/planList"
               >
                 <ListItemIcon>
                   <Queue />
