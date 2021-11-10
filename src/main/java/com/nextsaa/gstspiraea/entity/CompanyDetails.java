@@ -40,7 +40,6 @@ public class CompanyDetails {
     private String additionalelectricityphoto;
     private String additionalrentphoto;
     private String additionalnocphoto;
-    private String businessactivity;
     private String hsn1;
     private String hsn2;
     private String hsn3;

@@ -75,9 +75,6 @@ public class LLP {
     @Column(name = "additionalnocphoto")
     private String additionalnocphoto;
 
-    @Column(name = "businessactivity")
-    private String businessactivity;
-
     @Column(name = "hsn1")
     private String hsn1;
 

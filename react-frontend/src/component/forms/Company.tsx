@@ -301,17 +301,12 @@ const CompanyComponent = (props: any) => {
                       additionalelectricityphoto: "",
                       additionalrentphoto: "",
                       additionalnocphoto: "",
-                      businessactivity: "",
                       hsn1: "",
                       hsn2: "",
                       hsn3: "",
                       hsn4: "",
                       hsn5: "",
-                      accountname: "",
-                      accountnumber: "",
-                      ifsc: "",
                       branchname: "",
-                      branchcode: "",
                       cancelcheqphoto: "",
                       tradelicensenumber: "",
                       tradelicensephoto: "",
@@ -1179,7 +1174,7 @@ const CompanyComponent = (props: any) => {
                                 fullWidth
                                 id={"directorResidentialAddress" + index}
                                 label={
-                                  "Residential Address of Director" + index
+                                  "Residential Address of Director" + (index+1)
                                 }
                                 name={"directorResidentialAddress" + index}
                                 autoComplete={
