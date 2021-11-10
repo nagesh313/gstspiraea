@@ -93,20 +93,8 @@ public class LLP {
     @Column(name = "hsn5")
     private String hsn5;
 
-    @Column(name = "accountname")
-    private String accountname;
-
-    @Column(name = "accountnumber")
-    private String accountnumber;
-
-    @Column(name = "ifsc")
-    private String ifsc;
-
     @Column(name = "branchname")
     private String branchname;
-
-    @Column(name = "branchcode")
-    private String branchcode;
 
     @Column(name = "cancelcheqphoto")
     private String cancelcheqphoto;

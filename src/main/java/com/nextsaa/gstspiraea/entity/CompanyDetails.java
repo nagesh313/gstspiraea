@@ -46,11 +46,7 @@ public class CompanyDetails {
     private String hsn3;
     private String hsn4;
     private String hsn5;
-    private String accountname;
-    private String accountnumber;
-    private String ifsc;
     private String branchname;
-    private String branchcode;
     private String cancelcheqphoto;
     private String tradelicensenumber;
     private String tradelicensephoto;

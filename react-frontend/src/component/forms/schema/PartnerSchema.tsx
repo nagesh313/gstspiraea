@@ -35,11 +35,11 @@ function buildSchema() {
   [...Array(15)].forEach((value: any, index: any) => {
     shape["partnerName" + index] = Yup.string().when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-      then: Yup.string().required(),
+      then: Yup.string().required("Required"),
     });
     shape["partnerFatherName" + index] = Yup.string().when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-      then: Yup.string().required(),
+      then: Yup.string().required("Required"),
     });
     shape["partnerAadharNo" + index] = Yup.string().when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
@@ -51,14 +51,14 @@ function buildSchema() {
       "numberOfPartners",
       {
         is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-        then: Yup.string().required(),
+        then: Yup.string().required("Required"),
       }
     );
     shape["partnerAadharPhotoCopyBack" + index] = Yup.string().when(
       "numberOfPartners",
       {
         is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-        then: Yup.string().required(),
+        then: Yup.string().required("Required"),
       }
     );
     shape["pannumber" + index] = Yup.string().when("numberOfPartners", {
@@ -69,25 +69,25 @@ function buildSchema() {
     });
     shape["pannumberCopy" + index] = Yup.string().when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-      then: Yup.string().required(),
+      then: Yup.string().required("Required"),
     });
     shape["partnerResidentialAddress" + index] = Yup.string().when(
       "numberOfPartners",
       {
         is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-        then: Yup.string().required(),
+        then: Yup.string().required("Required"),
       }
     );
     shape["partnerPhoto" + index] = Yup.string().when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-      then: Yup.string().required(),
+      then: Yup.string().required("Required"),
     });
 
-    shape["partnerMobile" + index] = Yup.string().when("numberOfPartners", {
+    shape["partnerMobile" + index] = Yup.number().when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-      then: Yup.string().required(),
+      then: Yup.number().required("Required"),
     });
-    shape["partnerEmail" + index] = Yup.string().when("numberOfPartners", {
+    shape["partnerEmail" + index] = Yup.string().email("Invalid").when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
       then: Yup.string().email("Invalid").required("Required"),
     });

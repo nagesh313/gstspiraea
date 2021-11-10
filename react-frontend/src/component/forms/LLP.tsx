@@ -82,6 +82,8 @@ const LLPComponent = (props: any) => {
           response.data["partnerResidentialAddress" + index] =
             partner.partnerResidentialAddress;
           response.data["partnerPhoto" + index] = partner.partnerPhoto;
+          response.data["partnerMobile" + index] = partner.partnerMobile;
+          response.data["partnerEmail" + index] = partner.partnerEmail;
         });
         response.data.numberOfPartners = response.data.partnerList.length;
 
@@ -185,11 +187,13 @@ const LLPComponent = (props: any) => {
         pannumberCopy: values["pannumberCopy" + index],
         partnerResidentialAddress: values["partnerResidentialAddress" + index],
         partnerPhoto: values["partnerPhoto" + index],
+        partnerMobile: values["partnerMobile" + index],
+        partnerEmail: values["partnerEmail" + index],
       });
     });
     values.partnerList = partnerList;
     const gstCertificatesInOtherStates: any = [];
-    [...Array(values.numberOfPartners)].forEach((value: any, index: any) => {
+    [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {
       gstCertificatesInOtherStates.push({
         id: values["id" + index] ? values["id" + index] : undefined,
         gstNumber: values["gstNumber" + index],
@@ -250,6 +254,8 @@ const LLPComponent = (props: any) => {
     valuesForPartners["pannumberCopy" + index] = "";
     valuesForPartners["partnerResidentialAddress" + index] = "";
     valuesForPartners["partnerPhoto" + index] = "";
+    valuesForPartners["partnerMobile" + index] = "";
+    valuesForPartners["partnerEmail" + index] = "";
   });
   let valuesOfGSTInOtherStates: any = {};
   [...Array(15)].forEach((value: any, index: any) => {
@@ -257,7 +263,7 @@ const LLPComponent = (props: any) => {
     valuesOfGSTInOtherStates["gstAttachment" + index] = "";
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
-
+  console.log(schema);
   return (
     <React.Fragment>
       <CssBaseline />
@@ -296,17 +302,12 @@ const LLPComponent = (props: any) => {
                       additionalelectricityphoto: "",
                       additionalrentphoto: "",
                       additionalnocphoto: "",
-                      businessactivity: "",
                       hsn1: "",
                       hsn2: "",
                       hsn3: "",
                       hsn4: "",
                       hsn5: "",
-                      accountname: "",
-                      accountnumber: "",
-                      ifsc: "",
                       branchname: "",
-                      branchcode: "",
                       cancelcheqphoto: "",
                       tradelicensenumber: "",
                       tradelicensephoto: "",
@@ -1061,7 +1062,6 @@ const LLPComponent = (props: any) => {
                               </Grid>
                             </Grid>
                           </Grid>
-
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
@@ -1136,7 +1136,6 @@ const LLPComponent = (props: any) => {
                               )}
                             </Grid>
                           </Grid>
-
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
@@ -1222,6 +1221,59 @@ const LLPComponent = (props: any) => {
                               )}
                             </Grid>
                           </Grid>
+                          <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                type="number"
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerMobile" + index}
+                                label={"Mobile of Partner " + (index + 1)}
+                                name={"partnerMobile" + index}
+                                autoComplete={"partnerMobile" + index}
+                                onChange={handleChange}
+                                value={values["partnerMobile" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerMobile" + index] &&
+                                  touched["partnerMobile" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerMobile" + index] &&
+                                  errors["partnerMobile" + index]
+                                }
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                                id={"partnerEmail" + index}
+                                label={"Email of Partner " + (index + 1)}
+                                name={"partnerEmail" + index}
+                                autoComplete={"partnerEmail" + index}
+                                onChange={handleChange}
+                                value={values["partnerEmail" + index]}
+                                InputLabelProps={{ shrink: true }}
+                                error={
+                                  errors["partnerEmail" + index] &&
+                                  touched["partnerEmail" + index]
+                                    ? true
+                                    : false
+                                }
+                                helperText={
+                                  touched["partnerEmail" + index] &&
+                                  errors["partnerEmail" + index]
+                                }
+                              />
+                            </Grid>
+                          </Grid>{" "}
                         </React.Fragment>
                       );
                     }
@@ -1384,7 +1436,6 @@ const LLPComponent = (props: any) => {
                         style={{ width: "90%" }}
                         margin="dense"
                         size="small"
-                        required
                         fullWidth
                         id="partnershipDeed"
                         label="Partnership Deed"
