@@ -73,9 +73,6 @@ public class Partnership {
     @Column(name = "additionalnocphoto")
     private String additionalnocphoto;
 
-    @Column(name = "businessactivity")
-    private String businessactivity;
-
     @Column(name = "hsn1")
     private String hsn1;
 
@@ -91,20 +88,8 @@ public class Partnership {
     @Column(name = "hsn5")
     private String hsn5;
 
-    @Column(name = "accountname")
-    private String accountname;
-
-    @Column(name = "accountnumber")
-    private String accountnumber;
-
-    @Column(name = "ifsc")
-    private String ifsc;
-
     @Column(name = "branchname")
     private String branchname;
-
-    @Column(name = "branchcode")
-    private String branchcode;
 
     @Column(name = "cancelcheqphoto")
     private String cancelcheqphoto;

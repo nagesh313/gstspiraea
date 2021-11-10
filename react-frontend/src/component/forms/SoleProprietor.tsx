@@ -1169,7 +1169,7 @@ const SoleProprietorComponent = (props: any) => {
                         autoComplete="numberOfOtherGST"
                         onChange={handleChange}
                         value={values.numberOfOtherGST}
-                        InputProps={{ inputProps: { min: 1, max: 10 } }}
+                        InputProps={{ inputProps: { min: 0, max: 10 } }}
                         InputLabelProps={{ shrink: true }}
                         error={
                           errors.numberOfOtherGST && touched.numberOfOtherGST

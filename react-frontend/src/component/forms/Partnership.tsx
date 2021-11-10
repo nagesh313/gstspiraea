@@ -86,6 +86,8 @@ const PartnershipComponent = (props: any) => {
           response.data["partnerPhoto" + index] = partner.partnerPhoto;
           response.data["partnerMobile" + index] = partner.partnerMobile;
           response.data["partnerEmail" + index] = partner.partnerEmail;
+          response.data["pannumber" + index] = partner.pannumber;
+          response.data["pannumberCopy" + index] = partner.pannumberCopy;
           response.data["isAuthorisedSignatory" + index] =
             partner.isAuthorisedSignatory;
         });
@@ -270,7 +272,7 @@ const PartnershipComponent = (props: any) => {
     valuesOfGSTInOtherStates["gstAttachment" + index] = "";
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
-
+console.log(schema);
   return (
     <React.Fragment>
       <CssBaseline />
@@ -309,17 +311,12 @@ const PartnershipComponent = (props: any) => {
                       additionalelectricityphoto: "",
                       additionalrentphoto: "",
                       additionalnocphoto: "",
-                      businessactivity: "",
                       hsn1: "",
                       hsn2: "",
                       hsn3: "",
                       hsn4: "",
                       hsn5: "",
-                      accountname: "",
-                      accountnumber: "",
-                      ifsc: "",
                       branchname: "",
-                      branchcode: "",
                       cancelcheqphoto: "",
                       tradelicensenumber: "",
                       tradelicensephoto: "",
@@ -1643,7 +1640,7 @@ const PartnershipComponent = (props: any) => {
                         autoComplete="numberOfOtherGST"
                         onChange={handleChange}
                         value={values.numberOfOtherGST}
-                        InputProps={{ inputProps: { min: 1, max: 10 } }}
+                        InputProps={{ inputProps: { min: 0, max: 10 } }}
                         InputLabelProps={{ shrink: true }}
                         error={
                           errors.numberOfOtherGST && touched.numberOfOtherGST
