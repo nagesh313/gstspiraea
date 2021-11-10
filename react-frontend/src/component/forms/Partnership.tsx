@@ -1662,7 +1662,6 @@ console.log(schema);
                               <TextField
                                 margin="dense"
                                 size="small"
-                                required
                                 fullWidth
                                 id={"gstNumber" + index}
                                 label={"GST Number " + (index + 1)}
@@ -1689,7 +1688,6 @@ console.log(schema);
                                 type="file"
                                 style={{ width: "90%" }}
                                 size="small"
-                                required
                                 fullWidth
                                 id={"gstAttachment" + index}
                                 label="Please attach GST Copy"

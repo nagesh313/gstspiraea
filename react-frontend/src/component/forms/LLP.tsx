@@ -1614,7 +1614,6 @@ const LLPComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 size="small"
-                                required
                                 fullWidth
                                 id={"gstNumber" + index}
                                 label={"GST Number " + (index + 1)}
@@ -1641,7 +1640,6 @@ const LLPComponent = (props: any) => {
                                 type="file"
                                 style={{ width: "90%" }}
                                 size="small"
-                                required
                                 fullWidth
                                 id={"gstAttachment" + index}
                                 label="Please attach GST Copy"
