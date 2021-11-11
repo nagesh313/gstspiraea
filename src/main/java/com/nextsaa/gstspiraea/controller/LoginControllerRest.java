@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.naming.AuthenticationException;
+import java.rmi.ServerException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -91,14 +92,14 @@ public class LoginControllerRest {
     }
 
     @PostMapping(value = "/createRegistration")
-    public void createRegistration(@RequestBody UserDetails user) {
+    public void createRegistration(@RequestBody UserDetails user) throws ServerException {
         //Set default fields for customer registration
         user.setCreatedBy("REGISTRATION");
         user.setRole("CUSTOMER");
         user.setIsActive(1);
         user.setIsEmailVerified(0);
         user.setIsMobileVerified(0);
-        userService.createUser(user);
+        userService.createUser (user);
         System.out.print("Here");
     }
 

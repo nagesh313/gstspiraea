@@ -699,7 +699,6 @@ console.log(schema);
                       <TextField
                         margin="dense"
                         size="small"
-                        required
                         fullWidth
                         id="additionalplace"
                         label="Additional Place of Business address"
@@ -724,7 +723,6 @@ console.log(schema);
                         type="file"
                         style={{ width: "90%" }}
                         size="small"
-                        required
                         fullWidth
                         id="additionalelectricityphoto"
                         label="Please attach Electricity bill"
@@ -764,7 +762,6 @@ console.log(schema);
                         type="file"
                         style={{ width: "90%" }}
                         size="small"
-                        required
                         fullWidth
                         id="additionalrentphoto"
                         label="Please attach Rent Agrement"
@@ -800,7 +797,6 @@ console.log(schema);
                         type="file"
                         style={{ width: "90%" }}
                         size="small"
-                        required
                         fullWidth
                         id="additionalnocphoto"
                         label="Please attach NOC if Rented"

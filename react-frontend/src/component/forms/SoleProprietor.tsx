@@ -638,7 +638,6 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         size="small"
-                        required
                         fullWidth
                         id="additionalplace"
                         label="Additional Place of Business address"
@@ -663,7 +662,6 @@ const SoleProprietorComponent = (props: any) => {
                         type="file"
                         style={{ width: "90%" }}
                         size="small"
-                        required
                         fullWidth
                         id="additionalelectricityphoto"
                         label="Please attach Electricity bill"
@@ -703,7 +701,6 @@ const SoleProprietorComponent = (props: any) => {
                         type="file"
                         style={{ width: "90%" }}
                         size="small"
-                        required
                         fullWidth
                         id="additionalrentphoto"
                         label="Please attach Rent Agrement"
@@ -739,7 +736,6 @@ const SoleProprietorComponent = (props: any) => {
                         type="file"
                         style={{ width: "90%" }}
                         size="small"
-                        required
                         fullWidth
                         id="additionalnocphoto"
                         label="Please attach NOC if Rented"

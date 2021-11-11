@@ -10,8 +10,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
+import java.rmi.ServerException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -41,20 +43,14 @@ public class UserService {
     }
 
 
-    public UserDetails createUser(UserDetails userDetails) {
-        UserDetails user = userDetailsRepository.save(userDetails);
-        try {
-            SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setTo(userDetails.getUserEmail());
-            msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
-            msg.setSubject(configService.getConfigByKey("registrationMailSubject").getConfigvalue());
-            msg.setText(configService.getConfigByKey("registrationMailBody").getConfigvalue());
-            javaMailSender.send(msg);
-        } catch (Exception e) {
-            System.out.println("Not Able to send email");
+    public UserDetails createUser(UserDetails userDetails) throws ServerException {
+        boolean user = userDetailsRepository.existsByUserEmail(userDetails.getUserEmail());
+        if (user) {
+            throw new ServerException("Email Id Already Exist");
+        } else {
+            UserDetails newUser = userDetailsRepository.save(userDetails);
+            return newUser;
         }
-
-        return user;
     }
 
     public Boolean checkLoginDetails(String username, String password, String role) throws AuthenticationException {

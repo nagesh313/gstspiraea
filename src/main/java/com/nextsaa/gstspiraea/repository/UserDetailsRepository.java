@@ -13,8 +13,10 @@ import java.util.Optional;
 
 @Repository
 public interface UserDetailsRepository extends JpaRepository<UserDetails, String> {
+    boolean existsByUserEmail(String userEmail);
 
     UserDetails findByLoginUserName(String username);
+
     Long countByLoginUserName(String username);
 
 }

@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 const SignupSchema = Yup.object().shape({
   businessName: Yup.string()
     .min(2, "Too Short!")
-    .max(10, "Too Long!")
     .required("Required"),
   vendorType: Yup.string().required("Required"),
   userEmail: Yup.string().email("Invalid userEmail").required("Required"),

@@ -122,7 +122,7 @@ export default function Dashboard() {
   const history = useHistory();
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
