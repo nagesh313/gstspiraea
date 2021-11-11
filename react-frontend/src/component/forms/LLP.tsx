@@ -1512,7 +1512,6 @@ const LLPComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           size="small"
-                          required
                           fullWidth
                           id="tradelicensenumber"
                           label="Trade License number (Applicable to West Bengal reg only)"
@@ -1539,7 +1538,6 @@ const LLPComponent = (props: any) => {
                           style={{ width: "90%" }}
                           margin="dense"
                           size="small"
-                          required
                           fullWidth
                           id="tradelicensephoto"
                           label="Attach trade license"

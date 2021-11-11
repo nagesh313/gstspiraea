@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-const aadharRegex = /^[0-9]{4}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
+const aadharRegex = /^[0-9]{4}[0-9]{4}[0-9]{4}$/;
 function buildSchema() {
   const shape: any = {
     firmName: Yup.string().required("Required"),
@@ -19,11 +19,10 @@ function buildSchema() {
     // additionalelectricityphoto: Yup.string().required("Required"),
     // additionalrentphoto: Yup.string().required("Required"),
     // additionalnocphoto: Yup.string().required("Required"),
-    // businessactivity: Yup.string().required("Required"),
     branchname: Yup.string().required("Required"),
     cancelcheqphoto: Yup.string().required("Required"),
-    tradelicensenumber: Yup.string().required("Required"),
-    tradelicensephoto: Yup.string().required("Required"),
+    // tradelicensenumber: Yup.string().required("Required"),
+    // tradelicensephoto: Yup.string().required("Required"),
     pannumber: Yup.string()
       .required("Please enter your Pan Number")
       .matches(panRegex, "Invalid Pan Number"),

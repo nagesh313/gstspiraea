@@ -297,9 +297,9 @@ export default function Dashboard() {
         open={open}
       >
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
+          {/* <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
-          </IconButton>
+          </IconButton> */}
         </div>
         <Divider />
         <List>

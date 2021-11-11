@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-const aadharRegex = /^[0-9]{4}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
+const aadharRegex = /^[0-9]{4}[0-9]{4}[0-9]{4}$/;
 
 export const schema = Yup.object().shape({
   personName: Yup.string().required("Required"),
@@ -26,10 +26,9 @@ export const schema = Yup.object().shape({
   resident_address: Yup.string().required("Required"),
   photo: Yup.string().required("Required"),
   branchname: Yup.string().required("Required"),
-
   cancelcheqphoto: Yup.string().required("Required"),
-  tradelicensenumber: Yup.string().required("Required"),
-  tradelicensephoto: Yup.string().required("Required"),
+  // tradelicensenumber: Yup.string().required("Required"),
+  // tradelicensephoto: Yup.string().required("Required"),
   
   propadharnumber: Yup.string()
     .required("Please enter Aadhar Number")
