@@ -15,7 +15,7 @@ import Title from "./Title";
 
 function OrderListComponent(props: any) {
   const [orderList, setOrderList] = React.useState<any>([]);
-  const [orderType, setOrderType] = React.useState("Proprietorship");
+  const [orderType, setOrderType] = React.useState("All");
   const history = useHistory();
   const fetchOrderList = () => {
     let url = "";
@@ -162,6 +162,28 @@ function OrderListComponent(props: any) {
     setOpen(false);
     setImageName("");
   };
+  const orderTypeText = (row: any) => {
+    if (row.proprietorshipid) {
+      return "Proprietorship";
+    } else if (row.partnershipid) {
+      return "Partnership";
+    } else if (row.llpid) {
+      return "LLP";
+    } else if (row.companydetailsid) {
+      return "Company";
+    }
+  };
+  const orderTypeId = (row: any) => {
+    if (row.proprietorshipid) {
+      return row.proprietorshipid;
+    } else if (row.partnershipid) {
+      return row.partnershipid;
+    } else if (row.llpid) {
+      return row.llpid;
+    } else if (row.companydetailsid) {
+      return row.companydetailsid;
+    }
+  };
   let isP0: any = sessionStorage.getItem("type");
   isP0 = isP0 === "P0";
   console.log(isP0);
@@ -176,24 +198,113 @@ function OrderListComponent(props: any) {
       <Title>Application List</Title>
       <Select
         style={{ marginLeft: "30px", marginBottom: "9px" }}
-        defaultValue="Proprietorship"
+        defaultValue="All"
         onChange={(event: any, data: any) => {
           // setSelectedSample(data.props.children);
           setOrderType(data?.props?.value);
         }}
       >
+        <MenuItem value={"All"}>All</MenuItem>
         <MenuItem value={"Proprietorship"}>Proprietorship</MenuItem>
         <MenuItem value={"Partnership"}>Partnership</MenuItem>
         <MenuItem value={"LLP"}>LLP</MenuItem>
         <MenuItem value={"Company"}>Company</MenuItem>
       </Select>
+      {orderType === "All" && (
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Order Type</TableCell>
+              <TableCell>ID</TableCell>
+              <TableCell>Trade Name</TableCell>
+              <TableCell>Legal Business Name</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>GST Doc</TableCell>
+              <TableCell align="center"></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orderList.map((row: any) => (
+              <TableRow key={row.proprietorshipid}>
+                <TableCell>{orderTypeText(row)}</TableCell>
+                <TableCell>{orderTypeId(row)}</TableCell>
+                <TableCell>{row.tradeName}</TableCell>
+                <TableCell>{row.legalbusinessName}</TableCell>
+                <TableCell>{row.status}</TableCell>
+                <TableCell>
+                  {role === "Admin" && (
+                    <TextField
+                      margin="dense"
+                      type="file"
+                      style={{ width: "90%" }}
+                      size="small"
+                      required
+                      fullWidth
+                      label="Attach GST Doc"
+                      onChange={(file: any) => upload(file, row)}
+                      // value={values.pricipleelectricityphoto}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  )}
+                  {row.gstDocument && row.gstDocument !== "" && (
+                    <Visibility
+                      onClick={() => {
+                        setImageName(row.gstDocument);
+                        setOpen(true);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  )}
+                </TableCell>
+                <TableCell align="center">
+                  {sessionStorage.getItem("role") !== "Customer" && (
+                    <>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => {
+                          view(row);
+                        }}
+                      >
+                        View
+                      </Button>
+                    </>
+                  )}
+                  {sessionStorage.getItem("role") === "Customer" && (
+                    <>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => {
+                          view(row);
+                        }}
+                      >
+                        View
+                      </Button>
+                      {row.status === "CREATED" && !isP0 && (
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          variant="outlined"
+                          size="small"
+                          onClick={() => displayRazorpay(row)}
+                        >
+                          Pay
+                        </Button>
+                      )}
+                    </>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
       {orderType === "Proprietorship" && (
         <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell>ProprietorShip ID</TableCell>
               <TableCell>Trade Name</TableCell>
-              <TableCell>Person Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>GST Doc</TableCell>
@@ -205,7 +316,6 @@ function OrderListComponent(props: any) {
               <TableRow key={row.proprietorshipid}>
                 <TableCell>{row.proprietorshipid}</TableCell>
                 <TableCell>{row.tradeName}</TableCell>
-                <TableCell>{row.personName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
                 <TableCell>
@@ -282,7 +392,6 @@ function OrderListComponent(props: any) {
             <TableRow>
               <TableCell>Partnership ID</TableCell>
               <TableCell>Firm Name</TableCell>
-              <TableCell>Partner Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>GST Doc</TableCell>
@@ -294,7 +403,6 @@ function OrderListComponent(props: any) {
               <TableRow key={row.partnershipid}>
                 <TableCell>{row.partnershipid}</TableCell>
                 <TableCell>{row.firmName}</TableCell>
-                <TableCell>{row.partnerName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
                 <TableCell>
@@ -371,7 +479,6 @@ function OrderListComponent(props: any) {
             <TableRow>
               <TableCell>LLP ID</TableCell>
               <TableCell>Firm Name</TableCell>
-              <TableCell>Partner Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>GST Doc</TableCell>
@@ -383,7 +490,6 @@ function OrderListComponent(props: any) {
               <TableRow key={row.llpid}>
                 <TableCell>{row.llpid}</TableCell>
                 <TableCell>{row.firmName}</TableCell>
-                <TableCell>{row.partnerName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
                 <TableCell>

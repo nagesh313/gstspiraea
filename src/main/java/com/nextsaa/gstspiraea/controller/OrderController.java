@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,15 @@ public class OrderController {
     @Autowired
     private CompanyDetailsRepository companyDetailsRepository;
 
+    @GetMapping(value = "/All/{user}")
+    public List<Object> getAll(@PathVariable String user) {
+        List<Object> response = new ArrayList<>();
+        response.addAll(proprietorshipRepostiory.findAllByCreatedBy(user));
+        response.addAll(partnershipRepository.findAllByCreatedBy(user));
+        response.addAll(llpRepostiory.findAllByCreatedBy(user));
+        response.addAll(companyDetailsRepository.findAllByCreatedBy(user));
+        return response;
+    }
 
     @GetMapping(value = "/Proprietorship/{user}")
     public List<Proprietorship> getAllProprietorship(@PathVariable String user) {
