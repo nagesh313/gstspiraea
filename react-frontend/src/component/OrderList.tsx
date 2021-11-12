@@ -232,7 +232,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
                 <TableCell>
-                  {role === "Admin" && (
+                  {(role === "Admin" || role === "Agent") && (
                     <TextField
                       margin="dense"
                       type="file"
@@ -319,7 +319,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
                 <TableCell>
-                  {role === "Admin" && (
+                  {(role === "Admin" || role === "Agent") && (
                     <TextField
                       margin="dense"
                       type="file"
@@ -406,7 +406,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
                 <TableCell>
-                  {role === "Admin" && (
+                  {(role === "Admin" || role === "Agent") && (
                     <TextField
                       margin="dense"
                       type="file"
@@ -493,7 +493,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
                 <TableCell>
-                  {role === "Admin" && (
+                  {(role === "Admin" || role === "Agent") && (
                     <TextField
                       margin="dense"
                       type="file"
@@ -580,7 +580,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
                 <TableCell>
-                  {role === "Admin" && (
+                  {(role === "Admin" || role === "Agent") && (
                     <TextField
                       margin="dense"
                       type="file"
