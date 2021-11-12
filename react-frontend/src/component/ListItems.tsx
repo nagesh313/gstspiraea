@@ -50,12 +50,14 @@ export const MainListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Applications" />
       </ListItem>
-      <ListItem button component="a" href="/#/dashboard/apply-for-gst">
-        <ListItemIcon>
-          <AccessibilityIcon />
-        </ListItemIcon>
-        <ListItemText primary="Apply For GST" />
-      </ListItem>
+      {role !== "Agent" && (
+        <ListItem button component="a" href="/#/dashboard/apply-for-gst">
+          <ListItemIcon>
+            <AccessibilityIcon />
+          </ListItemIcon>
+          <ListItemText primary="Apply For GST" />
+        </ListItem>
+      )}
     </div>
   );
 };
