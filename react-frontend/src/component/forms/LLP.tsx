@@ -1778,52 +1778,55 @@ const LLPComponent = (props: any) => {
                       </Grid>
                     </Grid>
                   )}
-                  {params.id &&
-                    sessionStorage.getItem("role") !== "Customer" &&
-                    orderDetails?.status === "CREATED" && (
-                      <>
-                        <Grid
-                          container
-                          spacing={3}
-                          style={{ textAlign: "center" }}
-                        >
-                          <Grid item xs={12}>
-                            <Button
-                              type="button"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                submitForm(values, true);
-                              }}
-                            >
-                              Save & Update
-                            </Button>
-                            <Button
-                              style={{ marginLeft: "10px" }}
-                              type="button"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                approve();
-                              }}
-                            >
-                              Approve
-                            </Button>
-                            <Button
-                              style={{ marginLeft: "10px" }}
-                              type="button"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                reject();
-                              }}
-                            >
-                              Reject
-                            </Button>
-                          </Grid>
+                  {sessionStorage.getItem("role") !== "Customer" && (
+                    <>
+                      <Grid
+                        container
+                        spacing={3}
+                        style={{ textAlign: "center" }}
+                      >
+                        <Grid item xs={12}>
+                          <Button
+                            type="button"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                              submitForm(values, true);
+                            }}
+                          >
+                            Save & Update
+                          </Button>
+                          {orderDetails?.status === "CREATED" && (
+                            <>
+                              {" "}
+                              <Button
+                                style={{ marginLeft: "10px" }}
+                                type="button"
+                                variant="contained"
+                                color="primary"
+                                onClick={() => {
+                                  approve();
+                                }}
+                              >
+                                Approve
+                              </Button>
+                              <Button
+                                style={{ marginLeft: "10px" }}
+                                type="button"
+                                variant="contained"
+                                color="primary"
+                                onClick={() => {
+                                  reject();
+                                }}
+                              >
+                                Reject
+                              </Button>
+                            </>
+                          )}
                         </Grid>
-                      </>
-                    )}
+                      </Grid>
+                    </>
+                  )}
                 </Form>
               )}
             </Formik>
