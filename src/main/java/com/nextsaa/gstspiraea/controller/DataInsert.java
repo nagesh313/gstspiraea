@@ -253,14 +253,14 @@ public class DataInsert {
                 .partnerPhoto("test")
                 .partnerMobile("test")
                 .partnerEmail("test@test.com")
-                .isAuthorisedSignatory(false)
+
                 .build();
-        
+
         GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
                 .gstNumber("test")
                 .gstAttachment("test")
                 .build();
-        
+
         Partnership partnership = Partnership.builder()
                 .partnershipid("test")
                 .firmName("test")
@@ -326,14 +326,14 @@ public class DataInsert {
                 .partnerPhoto("test")
                 .partnerMobile("test")
                 .partnerEmail("test@test.com")
-                .isAuthorisedSignatory(false)
+
                 .build();
-        
+
         GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
                 .gstNumber("test")
                 .gstAttachment("test")
                 .build();
-        
+
         LLP llp = LLP.builder()
                 .firmName("test")
                 .legalbusinessName("test")
@@ -403,7 +403,7 @@ public class DataInsert {
                 .gstNumber("test")
                 .gstAttachment("test")
                 .build();
-        
+
         CompanyDetails details = CompanyDetails.builder()
                 .firmName("test")
                 .legalbusinessName("test")
@@ -457,7 +457,7 @@ public class DataInsert {
                 .gstNumber("test")
                 .gstAttachment("test")
                 .build();
-        
+
         Proprietorship proprietorship = Proprietorship.builder()
                 .personName("test")
                 .legalbusinessName("test")
@@ -528,14 +528,14 @@ public class DataInsert {
                 .partnerPhoto("test")
                 .partnerMobile("test")
                 .partnerEmail("test@test.com")
-                .isAuthorisedSignatory(false)
+
                 .build();
-        
+
         GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
                 .gstNumber("test")
                 .gstAttachment("test")
                 .build();
-        
+
 
         Partnership partnership = Partnership.builder()
                 .partnershipid("test")
@@ -603,14 +603,14 @@ public class DataInsert {
                 .partnerPhoto("test")
                 .partnerMobile("test")
                 .partnerEmail("test@test.com")
-                .isAuthorisedSignatory(false)
+
                 .build();
-        
+
         GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
                 .gstNumber("test")
                 .gstAttachment("test")
                 .build();
-        
+
         LLP llp = LLP.builder()
                 .firmName("test")
                 .legalbusinessName("test")
@@ -681,7 +681,7 @@ public class DataInsert {
                 .gstNumber("test")
                 .gstAttachment("test")
                 .build();
-        
+
         CompanyDetails details = CompanyDetails.builder()
                 .firmName("test")
                 .legalbusinessName("test")

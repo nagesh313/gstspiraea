@@ -218,7 +218,7 @@ const PartnershipComponent = (props: any) => {
       alert("Only one Partner can be Authorised Partner");
       return;
     }
-    
+
     values.partnerList = partnerList;
 
     const gstCertificatesInOtherStates: any = [];
@@ -1795,13 +1795,13 @@ const PartnershipComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
+                  {(isAdmin || (values.remark && values.remark !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField
                           margin="dense"
                           size="small"
-                          required
+                          // disabled={sessionStorage.getItem("role") === "Customer"}
                           fullWidth
                           id="remark"
                           label="Remark"

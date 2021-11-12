@@ -1835,13 +1835,13 @@ const LLPComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
+                  {(isAdmin || (values.remark && values.remark !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField
                           margin="dense"
                           size="small"
-                          required
+                          // disabled={sessionStorage.getItem("role") === "Customer"}
                           fullWidth
                           id="remark"
                           label="Remark"

@@ -87,7 +87,7 @@ const CompanyComponent = (props: any) => {
             director.directorResidentialAddress;
           response.data["directorPhoto" + index] = director.directorPhoto;
           response.data["isAuthorisedSignatory" + index] =
-          director.isAuthorisedSignatory;
+            director.isAuthorisedSignatory;
         });
         response.data.numberOfDirectors = response.data.directorList.length;
 
@@ -1768,13 +1768,13 @@ const CompanyComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  {params.id && sessionStorage.getItem("role") !== "Customer" && (
+                  {(isAdmin || (values.remark && values.remark !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField
                           margin="dense"
                           size="small"
-                          required
+                          // disabled={sessionStorage.getItem("role") === "Customer"}
                           fullWidth
                           id="remark"
                           label="Remark"
