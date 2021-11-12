@@ -1135,6 +1135,15 @@ const SoleProprietorComponent = (props: any) => {
                           touched.cancelcheqphoto && errors.cancelcheqphoto
                         }
                       />
+                       {values.cancelcheqphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.cancelcheqphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -1191,6 +1200,15 @@ const SoleProprietorComponent = (props: any) => {
                             errors.tradelicensephoto
                           }
                         />
+                         {values.tradelicensephoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.tradelicensephoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
                       </Grid>
                     </Grid>
                   )}
