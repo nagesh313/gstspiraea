@@ -195,6 +195,7 @@ const LLPComponent = (props: any) => {
         isAuthorisedSignatory: values["isAuthorisedSignatory" + index],
       });
     });
+    
     const partnerListEmail = partnerList.map((p: any) => p.partnerEmail);
     const duplicates = partnerListEmail.filter(
       (item: any, index: any) => partnerListEmail.indexOf(item) !== index
@@ -203,6 +204,18 @@ const LLPComponent = (props: any) => {
       alert("Duplicate Partner email found : " + duplicates.toString());
       return;
     }
+    const partnerListAuthorised = partnerList
+      .map((p: any) => p.isAuthorisedSignatory)
+      .filter((p: any) => p);
+    if (partnerListAuthorised?.length === 0) {
+      alert("Please select atleast on Authorised Partner");
+      return;
+    }
+    if (partnerListAuthorised?.length > 1) {
+      alert("Only one Partner can be Authorised Partner");
+      return;
+    }
+    
     values.partnerList = partnerList;
     const gstCertificatesInOtherStates: any = [];
     [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {

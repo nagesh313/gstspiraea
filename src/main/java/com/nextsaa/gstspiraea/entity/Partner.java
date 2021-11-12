@@ -37,7 +37,7 @@ public class Partner {
     private String partnerPhoto;
     private String partnerMobile;
     private String partnerEmail;
-    private boolean isAuthorisedSignatory;
+    private boolean isAuthorisedSignatory = false;
 
     public boolean getIsAuthorisedSignatory() {
         return this.isAuthorisedSignatory;
