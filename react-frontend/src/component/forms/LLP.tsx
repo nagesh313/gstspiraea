@@ -191,6 +191,14 @@ const LLPComponent = (props: any) => {
         partnerEmail: values["partnerEmail" + index],
       });
     });
+    const partnerListEmail = partnerList.map((p: any) => p.partnerEmail);
+    const duplicates = partnerListEmail.filter(
+      (item: any, index: any) => partnerListEmail.indexOf(item) !== index
+    );
+    if (duplicates?.length > 0) {
+      alert("Duplicate Partner email found : " + duplicates.toString());
+      return;
+    }
     values.partnerList = partnerList;
     const gstCertificatesInOtherStates: any = [];
     [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {
@@ -1222,7 +1230,7 @@ const LLPComponent = (props: any) => {
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
-                                type="number"
+                                // type="number"
                                 margin="dense"
                                 size="small"
                                 required

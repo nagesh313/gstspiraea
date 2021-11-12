@@ -225,7 +225,7 @@ function OrderListComponent(props: any) {
           </TableHead>
           <TableBody>
             {orderList.map((row: any) => (
-              <TableRow key={row.proprietorshipid}>
+              <TableRow key={orderTypeId(row)}>
                 <TableCell>{orderTypeText(row)}</TableCell>
                 <TableCell>{orderTypeId(row)}</TableCell>
                 <TableCell>{row.tradeName}</TableCell>

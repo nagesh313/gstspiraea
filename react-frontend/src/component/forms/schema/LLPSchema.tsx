@@ -86,9 +86,9 @@ function buildSchema() {
       then: Yup.string().required("Required"),
     });
 
-    shape["partnerMobile" + index] = Yup.number().when("numberOfPartners", {
+    shape["partnerMobile" + index] = Yup.string().when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-      then: Yup.number().required("Required"),
+      then: Yup.string().required("Required"),
     });
     shape["partnerEmail" + index] = Yup.string().email("Invalid").when("numberOfPartners", {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,

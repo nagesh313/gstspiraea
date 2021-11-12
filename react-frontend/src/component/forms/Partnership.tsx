@@ -171,9 +171,6 @@ const PartnershipComponent = (props: any) => {
         });
     }
   };
-  const alertValidations = (values: any) => {
-    // 23. Partners email id should be unique.
-  };
   const submitForm = (values: any, save = false) => {
     if (props.plan) {
       values.paymentPlanLocationDetails = props.plan;
@@ -201,6 +198,14 @@ const PartnershipComponent = (props: any) => {
         isAuthorisedSignatory: values["isAuthorisedSignatory" + index],
       });
     });
+    const partnerListEmail = partnerList.map((p: any) => p.partnerEmail);
+    const duplicates = partnerListEmail.filter(
+      (item: any, index: any) => partnerListEmail.indexOf(item) !== index
+    );
+    if (duplicates?.length > 0) {
+      alert("Duplicate Partner email found : " + duplicates.toString());
+      return;
+    }
     values.partnerList = partnerList;
     const gstCertificatesInOtherStates: any = [];
     [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {
@@ -342,7 +347,6 @@ const PartnershipComponent = (props: any) => {
               }
               validationSchema={schema}
               onSubmit={(values: any) => {
-                alertValidations(values);
                 submitForm(values);
               }}
             >
@@ -1269,7 +1273,7 @@ const PartnershipComponent = (props: any) => {
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
-                                type="number"
+                                // type="number"
                                 margin="dense"
                                 size="small"
                                 required
