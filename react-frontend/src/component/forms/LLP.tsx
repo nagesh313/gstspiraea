@@ -1755,37 +1755,38 @@ const LLPComponent = (props: any) => {
                     </Grid>
                   )}
                   {(params.id === undefined ||
-                    orderDetails?.status === "DRAFT") && (
-                    <Grid container spacing={2}>
-                      <Grid item xs={6}>
-                        <Button
-                          type="button"
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          style={{ marginTop: "10px" }}
-                          // className={classes.submit}
-                          onClick={() => {
-                            submitForm(values, true);
-                          }}
-                        >
-                          Save
-                        </Button>
+                    orderDetails?.status === "DRAFT") &&
+                    sessionStorage.getItem("role") === "Customer" && (
+                      <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                          <Button
+                            type="button"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            style={{ marginTop: "10px" }}
+                            // className={classes.submit}
+                            onClick={() => {
+                              submitForm(values, true);
+                            }}
+                          >
+                            Save
+                          </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            style={{ marginTop: "10px" }}
+                            // className={classes.submit}
+                          >
+                            Submit
+                          </Button>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          style={{ marginTop: "10px" }}
-                          // className={classes.submit}
-                        >
-                          Submit
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  )}
+                    )}
                   {sessionStorage.getItem("role") !== "Customer" && (
                     <>
                       <Grid
@@ -1806,7 +1807,6 @@ const LLPComponent = (props: any) => {
                           </Button>
                           {orderDetails?.status === "CREATED" && (
                             <>
-                              {" "}
                               <Button
                                 style={{ marginLeft: "10px" }}
                                 type="button"
