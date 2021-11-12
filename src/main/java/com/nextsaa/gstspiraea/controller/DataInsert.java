@@ -35,7 +35,12 @@ public class DataInsert {
     LLPRepostiory llpRepostiory;
     @Autowired
     CompanyDetailsRepository companyDetailsRepository;
-
+    @Autowired
+    PartnerRepository partnerRepository;
+    @Autowired
+    DirectorRepository directorRepository;
+    @Autowired
+    GSTCertificatesInOtherStatesRepository gstCertificatesInOtherStatesRepository;
     @Autowired
     private ConfigService configService;
 
@@ -69,7 +74,7 @@ public class DataInsert {
         p2.setPayplanamount(18000D);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
-        paymentPlanDetailsRepository.save(plan1);
+        paymentPlanDetailsRepository.saveAndFlush(plan1);
     }
 
     public void createPlan2() {
@@ -84,7 +89,7 @@ public class DataInsert {
         p2.setPayplanamount(12000D);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
-        paymentPlanDetailsRepository.save(plan1);
+        paymentPlanDetailsRepository.saveAndFlush(plan1);
     }
 
     public void createPlan3() {
@@ -99,7 +104,7 @@ public class DataInsert {
         p2.setPayplanamount(5000D);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
-        paymentPlanDetailsRepository.save(plan1);
+        paymentPlanDetailsRepository.saveAndFlush(plan1);
     }
 
     public void createPlan4() {
@@ -111,7 +116,7 @@ public class DataInsert {
         p1.setPayplanamount(3000D);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1));
         plan4.setPayplanLocation(Arrays.asList(p1));
-        paymentPlanDetailsRepository.save(plan4);
+        paymentPlanDetailsRepository.saveAndFlush(plan4);
     }
 
     public void createUsers() {
@@ -127,8 +132,7 @@ public class DataInsert {
         admin.setModifiedOn(LocalDateTime.now());
         admin.setCreatedBy("admin");
         admin.setCreatedOn(LocalDateTime.now());
-        userDetailsRepository.save(admin);
-
+        userDetailsRepository.saveAndFlush(admin);
         UserDetails user = new UserDetails();
         user.setFirstName("user");
         user.setLastName("user");
@@ -142,7 +146,7 @@ public class DataInsert {
         user.setCreatedBy("admin");
         user.setCreatedOn(LocalDateTime.now());
         user.setVendorType("P1");
-        userDetailsRepository.save(user);
+        userDetailsRepository.saveAndFlush(user);
 
         UserDetails user0 = new UserDetails();
         user0.setFirstName("user0");
@@ -157,7 +161,7 @@ public class DataInsert {
         user0.setCreatedBy("admin");
         user0.setCreatedOn(LocalDateTime.now());
         user0.setVendorType("P0");
-        userDetailsRepository.save(user0);
+        userDetailsRepository.saveAndFlush(user0);
 
 
         UserDetails agent = new UserDetails();
@@ -172,17 +176,23 @@ public class DataInsert {
         agent.setModifiedOn(LocalDateTime.now());
         agent.setCreatedBy("admin");
         agent.setCreatedOn(LocalDateTime.now());
-        userDetailsRepository.save(agent);
+        userDetailsRepository.saveAndFlush(agent);
     }
 
     public void createProprietorshipOrder() throws Exception {
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+//        
+//        gstCertificatesInOtherStatesRepository.flush();
         Proprietorship proprietorship = Proprietorship.builder()
                 .personName("test")
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
                 .email("test")
-                .pannumber("test")
+                .pannumber("AAAAA2222A")
                 .panphoto("test")
                 .composition("test")
                 .commencementDate("test")
@@ -225,12 +235,32 @@ public class DataInsert {
                 .service(true)
                 .razorpayOrder(createOrder(new Double(10000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
-//                .gstCertificatesInOtherStates("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
-        proprietorshipRepostiory.save(proprietorship);
+        proprietorshipRepostiory.saveAndFlush(proprietorship);
     }
 
     public void createPartnerShipOrder() throws Exception {
+        Partner partner = Partner.builder()
+                .partnerName("test")
+                .partnerFatherName("test")
+                .partnerAadharNo("111111111111")
+                .partnerAadharPhotoCopyFront("test")
+                .partnerAadharPhotoCopyBack("test")
+                .pannumber("AAAAA1111A")
+                .pannumberCopy("test")
+                .partnerResidentialAddress("test")
+                .partnerPhoto("test")
+                .partnerMobile("test")
+                .partnerEmail("test")
+                .isAuthorisedSignatory(false)
+                .build();
+        
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+        
         Partnership partnership = Partnership.builder()
                 .partnershipid("test")
                 .firmName("test")
@@ -238,7 +268,7 @@ public class DataInsert {
                 .tradeName("test")
                 .mobile("test")
                 .email("test")
-                .pannumber("test")
+                .pannumber("AAAAA2222A")
                 .panphoto("test")
                 .composition("test")
                 .commencementDate(new Date())
@@ -258,7 +288,6 @@ public class DataInsert {
                 .branchname("test")
                 .accountnumber("test")
                 .ifsccode("test")
-
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -275,23 +304,43 @@ public class DataInsert {
                 .service(true)
                 .razorpayOrder(createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
-//                .partnerList("test")
+                .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
                 .partnershipDeed("test")
                 .declarationOfAuthorisedSignatory("test")
-//                .gstCertificatesInOtherStates("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
-        partnershipRepository.save(partnership);
+        partnershipRepository.saveAndFlush(partnership);
     }
 
     public void createLLPOrder() throws Exception {
+        Partner partner = Partner.builder()
+                .partnerName("test")
+                .partnerFatherName("test")
+                .partnerAadharNo("111111111111")
+                .partnerAadharPhotoCopyFront("test")
+                .partnerAadharPhotoCopyBack("test")
+                .pannumber("AAAAA2222D")
+                .pannumberCopy("test")
+                .partnerResidentialAddress("test")
+                .partnerPhoto("test")
+                .partnerMobile("test")
+                .partnerEmail("test")
+                .isAuthorisedSignatory(false)
+                .build();
+        
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+        
         LLP llp = LLP.builder()
                 .firmName("test")
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
                 .email("test")
-                .pannumber("test")
+                .pannumber("AAAAA2222A")
                 .panphoto("test")
                 .composition("test")
                 .commencementDate(new Date())
@@ -311,7 +360,6 @@ public class DataInsert {
                 .branchname("test")
                 .accountnumber("test")
                 .ifsccode("test")
-
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -328,22 +376,40 @@ public class DataInsert {
                 .service(true)
                 .razorpayOrder(createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
-//                .partnerList("test")
+                .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
                 .partnershipDeed("test")
-//                .gstCertificatesInOtherStates("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
-        llpRepostiory.save(llp);
+        llpRepostiory.saveAndFlush(llp);
     }
 
     public void createCompanyOrder() throws Exception {
+        Director director = Director.builder()
+                .directorName("test")
+                .directorDin("test")
+                .directorFatherName("test")
+                .directorAadharNo("111111111111")
+                .directorAadharPhotoCopyFront("test")
+                .directorAadharPhotoCopyBack("test")
+                .pannumber("AAAAA1111A")
+                .pannumberCopy("test")
+                .directorResidentialAddress("test")
+                .directorPhoto("test")
+                .build();
+
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+        
         CompanyDetails details = CompanyDetails.builder()
                 .firmName("test")
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
                 .email("test")
-                .pannumber("test")
+                .pannumber("AAAAA2222A")
                 .panphoto("test")
                 .composition("test")
                 .commencementDate(new Date())
@@ -377,22 +443,27 @@ public class DataInsert {
 //                .remark("test")
                 .razorpayOrder(createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
-//                .directorList(Arrays.asList())
+                .directorList(Arrays.asList(director))
                 .certificateOfIncorportation("test")
                 .declarationOfAuthorisedSignatory("test")
-//                .gstCertificatesInOtherStates(Arrays.asList())
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
-        companyDetailsRepository.save(details);
+        companyDetailsRepository.saveAndFlush(details);
     }
 
     public void createProprietorshipOrder1() throws Exception {
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+        
         Proprietorship proprietorship = Proprietorship.builder()
                 .personName("test")
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
                 .email("test")
-                .pannumber("test")
+                .pannumber("AAAAA2222A")
                 .panphoto("test")
                 .composition("test")
                 .commencementDate("test")
@@ -438,12 +509,33 @@ public class DataInsert {
                 .service(true)
                 .razorpayOrder(createOrder(new Double(10000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
-//                .gstCertificatesInOtherStates("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
-        proprietorshipRepostiory.save(proprietorship);
+        proprietorshipRepostiory.saveAndFlush(proprietorship);
     }
 
     public void createPartnerShipOrder1() throws Exception {
+        Partner partner = Partner.builder()
+                .partnerName("test")
+                .partnerFatherName("test")
+                .partnerAadharNo("111111111111")
+                .partnerAadharPhotoCopyFront("test")
+                .partnerAadharPhotoCopyBack("test")
+                .pannumber("AAAAA2222A")
+                .pannumberCopy("test")
+                .partnerResidentialAddress("test")
+                .partnerPhoto("test")
+                .partnerMobile("test")
+                .partnerEmail("test")
+                .isAuthorisedSignatory(false)
+                .build();
+        
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+        
+
         Partnership partnership = Partnership.builder()
                 .partnershipid("test")
                 .firmName("test")
@@ -451,7 +543,7 @@ public class DataInsert {
                 .tradeName("test")
                 .mobile("test")
                 .email("test")
-                .pannumber("test")
+                .pannumber("AAAAA2222A")
                 .panphoto("test")
                 .composition("test")
                 .commencementDate(new Date())
@@ -488,23 +580,43 @@ public class DataInsert {
                 .service(true)
                 .razorpayOrder(createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
-//                .partnerList("test")
+                .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
                 .partnershipDeed("test")
                 .declarationOfAuthorisedSignatory("test")
-//                .gstCertificatesInOtherStates("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
-        partnershipRepository.save(partnership);
+        partnershipRepository.saveAndFlush(partnership);
     }
 
     public void createLLPOrder1() throws Exception {
+        Partner partner = Partner.builder()
+                .partnerName("test")
+                .partnerFatherName("test")
+                .partnerAadharNo("111111111111")
+                .partnerAadharPhotoCopyFront("test")
+                .partnerAadharPhotoCopyBack("test")
+                .pannumber("AAAAA2222A")
+                .pannumberCopy("test")
+                .partnerResidentialAddress("test")
+                .partnerPhoto("test")
+                .partnerMobile("test")
+                .partnerEmail("test")
+                .isAuthorisedSignatory(false)
+                .build();
+        
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+        
         LLP llp = LLP.builder()
                 .firmName("test")
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
                 .email("test")
-                .pannumber("test")
+                .pannumber("AAAAA2222A")
                 .panphoto("test")
                 .composition("test")
                 .commencementDate(new Date())
@@ -541,22 +653,40 @@ public class DataInsert {
                 .service(true)
                 .razorpayOrder(createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
-//                .partnerList("test")
+                .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
                 .partnershipDeed("test")
-//                .gstCertificatesInOtherStates("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
-        llpRepostiory.save(llp);
+        llpRepostiory.saveAndFlush(llp);
     }
 
     public void createCompanyOrder1() throws Exception {
+        Director director = Director.builder()
+                .directorName("test")
+                .directorDin("test")
+                .directorFatherName("test")
+                .directorAadharNo("111111111111")
+                .directorAadharPhotoCopyFront("test")
+                .directorAadharPhotoCopyBack("test")
+                .pannumber("AAAAA2222S")
+                .pannumberCopy("test")
+                .directorResidentialAddress("test")
+                .directorPhoto("test")
+                .build();
+
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+        
         CompanyDetails details = CompanyDetails.builder()
                 .firmName("test")
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
                 .email("test")
-                .pannumber("test")
+                .pannumber("AAAAA2222A")
                 .panphoto("test")
                 .composition("test")
                 .commencementDate(new Date())
@@ -590,12 +720,12 @@ public class DataInsert {
 //                .remark("test")
                 .razorpayOrder(createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
-//                .directorList(Arrays.asList())
+                .directorList(Arrays.asList(director))
                 .certificateOfIncorportation("test")
                 .declarationOfAuthorisedSignatory("test")
-//                .gstCertificatesInOtherStates(Arrays.asList())
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
-        companyDetailsRepository.save(details);
+        companyDetailsRepository.saveAndFlush(details);
     }
 
     private String createOrder(Double amount) throws Exception {

@@ -35,13 +35,13 @@ function OrderListComponent(props: any) {
       });
   };
   const view = (row: any) => {
-    if (orderType === "Proprietorship") {
+    if (row.proprietorshipid) {
       history.push("/dashboard/sole-proprietor/" + row.proprietorshipid);
-    } else if (orderType === "Partnership") {
+    } else if (row.partnershipid) {
       history.push("/dashboard/partnership/" + row.partnershipid);
-    } else if (orderType === "LLP") {
+    } else if (row.llpid) {
       history.push("/dashboard/llp/" + row.llpid);
-    } else if (orderType === "Company") {
+    } else if (row.companydetailsid) {
       history.push("/dashboard/company/" + row.companydetailsid);
     }
   };
@@ -79,13 +79,13 @@ function OrderListComponent(props: any) {
       order_id: razor.id,
       handler: async function (response: any) {
         let id: any = "";
-        if (orderType === "Proprietorship") {
+        if (row.proprietorshipid) {
           id = row.proprietorshipid;
-        } else if (orderType === "Partnership") {
+        } else if (row.partnershipid) {
           id = row.partnershipid;
-        } else if (orderType === "LLP") {
+        } else if (row.llpid) {
           id = row.llpid;
-        } else if (orderType === "Company") {
+        } else if (row.companydetailsid) {
           id = row.companydetailsid;
         }
         axios
