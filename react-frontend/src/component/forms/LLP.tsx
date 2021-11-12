@@ -3,6 +3,7 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
+  FormGroup,
   Grid,
   InputLabel,
   MenuItem,
@@ -84,6 +85,8 @@ const LLPComponent = (props: any) => {
           response.data["partnerPhoto" + index] = partner.partnerPhoto;
           response.data["partnerMobile" + index] = partner.partnerMobile;
           response.data["partnerEmail" + index] = partner.partnerEmail;
+          response.data["isAuthorisedSignatory" + index] =
+          partner.isAuthorisedSignatory;
         });
         response.data.numberOfPartners = response.data.partnerList.length;
 
@@ -189,6 +192,7 @@ const LLPComponent = (props: any) => {
         partnerPhoto: values["partnerPhoto" + index],
         partnerMobile: values["partnerMobile" + index],
         partnerEmail: values["partnerEmail" + index],
+        isAuthorisedSignatory: values["isAuthorisedSignatory" + index],
       });
     });
     const partnerListEmail = partnerList.map((p: any) => p.partnerEmail);
@@ -264,6 +268,7 @@ const LLPComponent = (props: any) => {
     valuesForPartners["partnerPhoto" + index] = "";
     valuesForPartners["partnerMobile" + index] = "";
     valuesForPartners["partnerEmail" + index] = "";
+    valuesForPartners["isAuthorisedSignatory" + index] = false;
   });
   let valuesOfGSTInOtherStates: any = {};
   [...Array(15)].forEach((value: any, index: any) => {
@@ -888,6 +893,40 @@ const LLPComponent = (props: any) => {
                                   errors["partnerName" + index]
                                 }
                               />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <FormGroup>
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      checked={
+                                        values["isAuthorisedSignatory" + index]
+                                      }
+                                      value={
+                                        values["isAuthorisedSignatory" + index]
+                                      }
+                                    />
+                                  }
+                                  id={"isAuthorisedSignatory" + index}
+                                  name={"isAuthorisedSignatory" + index}
+                                  onChange={handleChange}
+                                  // error={
+                                  //   errors["isAuthorisedSignatory" + index] &&
+                                  //   touched["isAuthorisedSignatory" + index]
+                                  //     ? true
+                                  //     : false
+                                  // }
+                                  // helperText={
+                                  //   touched["isAuthorisedSignatory" + index] &&
+                                  //   errors["isAuthorisedSignatory" + index]
+                                  // }
+                                  label={
+                                    "Partner " +
+                                    (index + 1) +
+                                    " is Authorised Signatory"
+                                  }
+                                />
+                              </FormGroup>
                             </Grid>
                           </Grid>
                           <Grid container spacing={4}>
