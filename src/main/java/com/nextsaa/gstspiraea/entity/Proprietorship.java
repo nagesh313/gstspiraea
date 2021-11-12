@@ -112,7 +112,8 @@ public class Proprietorship {
 
     @Column(name = "branchname")
     private String branchname;
-
+    private String accountnumber;
+    private String ifsccode;
     @Column(name = "cancelcheqphoto")
     private String cancelcheqphoto;
 

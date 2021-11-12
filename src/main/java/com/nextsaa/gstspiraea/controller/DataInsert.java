@@ -206,6 +206,9 @@ public class DataInsert {
                 .hsn4("test")
                 .hsn5("test")
                 .branchname("test")
+                .accountnumber("test")
+                .ifsccode("test")
+
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -253,6 +256,9 @@ public class DataInsert {
                 .hsn4("test")
                 .hsn5("test")
                 .branchname("test")
+                .accountnumber("test")
+                .ifsccode("test")
+
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -303,6 +309,9 @@ public class DataInsert {
                 .hsn4("test")
                 .hsn5("test")
                 .branchname("test")
+                .accountnumber("test")
+                .ifsccode("test")
+
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -352,6 +361,9 @@ public class DataInsert {
                 .hsn4("test")
                 .hsn5("test")
                 .branchname("test")
+                .accountnumber("test")
+                .ifsccode("test")
+
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -404,6 +416,12 @@ public class DataInsert {
                 .hsn4("test")
                 .hsn5("test")
                 .branchname("test")
+                .accountnumber("test")
+                .ifsccode("test")
+
+                .accountnumber("test")
+                .ifsccode("test")
+
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -451,6 +469,9 @@ public class DataInsert {
                 .hsn4("test")
                 .hsn5("test")
                 .branchname("test")
+                .accountnumber("test")
+                .ifsccode("test")
+
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -501,6 +522,9 @@ public class DataInsert {
                 .hsn4("test")
                 .hsn5("test")
                 .branchname("test")
+                .accountnumber("test")
+                .ifsccode("test")
+
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")
@@ -550,6 +574,9 @@ public class DataInsert {
                 .hsn4("test")
                 .hsn5("test")
                 .branchname("test")
+                .accountnumber("test")
+                .ifsccode("test")
+
                 .cancelcheqphoto("test")
                 .tradelicensenumber("test")
                 .tradelicensephoto("test")

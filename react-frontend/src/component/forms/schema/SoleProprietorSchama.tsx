@@ -28,6 +28,8 @@ function buildSchema() {
     resident_address: Yup.string().required("Required"),
     photo: Yup.string().required("Required"),
     branchname: Yup.string().required("Required"),
+    accountnumber: Yup.string().required("Required"),
+    ifsccode: Yup.string().required("Required"),
     cancelcheqphoto: Yup.string().required("Required"),
     // tradelicensenumber: Yup.string().required("Required"),
     // tradelicensephoto: Yup.string().required("Required"),

@@ -307,6 +307,8 @@ const CompanyComponent = (props: any) => {
                       hsn4: "",
                       hsn5: "",
                       branchname: "",
+                      accountnumber: "",
+                      ifsccode: "",
                       cancelcheqphoto: "",
                       tradelicensenumber: "",
                       tradelicensephoto: "",
@@ -1170,7 +1172,8 @@ const CompanyComponent = (props: any) => {
                                 fullWidth
                                 id={"directorResidentialAddress" + index}
                                 label={
-                                  "Residential Address of Director" + (index+1)
+                                  "Residential Address of Director" +
+                                  (index + 1)
                                 }
                                 name={"directorResidentialAddress" + index}
                                 autoComplete={
@@ -1343,6 +1346,52 @@ const CompanyComponent = (props: any) => {
                       ></TextField>
                     </Grid>
                   </Grid>
+
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="accountnumber"
+                        label="Bank Account Number"
+                        name="accountnumber"
+                        autoComplete="accountnumber"
+                        onChange={handleChange}
+                        value={values.accountnumber}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.accountnumber && touched.accountnumber
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.accountnumber && errors.accountnumber
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="ifsccode"
+                        label="IFSC CODE"
+                        name="ifsccode"
+                        autoComplete="ifsccode"
+                        onChange={handleChange}
+                        value={values.ifsccode}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.ifsccode && touched.ifsccode ? true : false
+                        }
+                        helperText={touched.ifsccode && errors.ifsccode}
+                      />
+                    </Grid>
+                  </Grid>
+
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
