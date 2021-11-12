@@ -171,6 +171,10 @@ const PartnershipComponent = (props: any) => {
         });
     }
   };
+  const alertValidations = (values: any) => {
+    // 23. Partners email id should be unique.
+
+  };
   const submitForm = (values: any, save = false) => {
     if (props.plan) {
       values.paymentPlanLocationDetails = props.plan;
@@ -272,7 +276,7 @@ const PartnershipComponent = (props: any) => {
     valuesOfGSTInOtherStates["gstAttachment" + index] = "";
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
-console.log(schema);
+  console.log(schema);
   return (
     <React.Fragment>
       <CssBaseline />
@@ -337,6 +341,7 @@ console.log(schema);
               }
               validationSchema={schema}
               onSubmit={(values: any) => {
+                alertValidations(values);
                 submitForm(values);
               }}
             >

@@ -162,6 +162,9 @@ function OrderListComponent(props: any) {
     setOpen(false);
     setImageName("");
   };
+  let isP0: any = sessionStorage.getItem("type");
+  isP0 = isP0 === "P0";
+  console.log(isP0);
   return (
     <React.Fragment>
       <DialogComponent
@@ -255,7 +258,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && (
+                      {row.status === "CREATED" && !isP0 && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"
@@ -344,7 +347,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && (
+                      {row.status === "CREATED" && !isP0 && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"
@@ -433,7 +436,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && (
+                      {row.status === "CREATED" && !isP0 && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"
@@ -520,7 +523,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && (
+                      {row.status === "CREATED" && !isP0 && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"

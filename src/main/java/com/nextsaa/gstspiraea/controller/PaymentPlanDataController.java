@@ -29,67 +29,6 @@ public class PaymentPlanDataController {
     @Autowired
     PaymentPlanLocationDetailsRepository paymentPlanLocationDetailsRepository;
 
-    @PostConstruct
-    public void createPlan1() {
-        PaymentPlanDetails plan1 = new PaymentPlanDetails();
-        plan1.setPayplanname("Place of Business (Rent Agreement) + GST registration");
-        plan1.setRemarks("11 months rent agreement.");
-        PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
-        p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
-        p1.setPayplanamount(11000D);
-        PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
-        p2.setPayplanLocation("Kolkata");
-        p2.setPayplanamount(18000D);
-        paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
-        plan1.setPayplanLocation(Arrays.asList(p1, p2));
-        paymentPlanDetailsRepository.save(plan1);
-    }
-
-    @PostConstruct
-    public void createPlan2() {
-        PaymentPlanDetails plan1 = new PaymentPlanDetails();
-        plan1.setPayplanname("Place of Business (Rent Agreement) Only");
-        plan1.setRemarks("11 months rent agreement.");
-        PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
-        p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
-        p1.setPayplanamount(10000D);
-        PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
-        p2.setPayplanLocation("Kolkata");
-        p2.setPayplanamount(12000D);
-        paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
-        plan1.setPayplanLocation(Arrays.asList(p1, p2));
-        paymentPlanDetailsRepository.save(plan1);
-    }
-
-    @PostConstruct
-    public void createPlan3() {
-        PaymentPlanDetails plan1 = new PaymentPlanDetails();
-        plan1.setPayplanname("GST Registration Only");
-        plan1.setRemarks("Gumasta / Shop establishment license is not included in this");
-        PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
-        p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
-        p1.setPayplanamount(2500D);
-        PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
-        p2.setPayplanLocation("Kolkata");
-        p2.setPayplanamount(5000D);
-        paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
-        plan1.setPayplanLocation(Arrays.asList(p1, p2));
-        paymentPlanDetailsRepository.save(plan1);
-    }
-
-    @PostConstruct
-    public void createPlan4() {
-        PaymentPlanDetails plan4 = new PaymentPlanDetails();
-        plan4.setPayplanname("Gumasta / Shop establishment license");
-        plan4.setRemarks("Applicable only Kolkata");
-        PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
-        p1.setPayplanLocation("Kolkata");
-        p1.setPayplanamount(3000D);
-        paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1));
-        plan4.setPayplanLocation(Arrays.asList(p1));
-        paymentPlanDetailsRepository.save(plan4);
-    }
-
     @GetMapping("/plan-list")
     private List<PaymentPlanDetails> getAllPaymentPlanDetails() {
         return paymentPlanDetailsRepository.findAll();

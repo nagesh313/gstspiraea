@@ -64,6 +64,7 @@ export function SignInComponent(props: any) {
       .then((response: any) => {
         sessionStorage.setItem("role", values.role);
         sessionStorage.setItem("user", values.loginUserName);
+        sessionStorage.setItem("type", response.data.vendorType);
         if (values.role === "Customer") {
           history.push("/dashboard/order-list");
         } else if (values.role === "Agent") {

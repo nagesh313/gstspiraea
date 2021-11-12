@@ -1,6 +1,9 @@
 package com.nextsaa.gstspiraea.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +15,9 @@ import java.util.List;
 @Entity
 @Table(name = "partnership")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Partnership {
 
     @Id

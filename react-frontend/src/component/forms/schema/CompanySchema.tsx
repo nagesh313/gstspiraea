@@ -11,6 +11,7 @@ function buildSchema() {
     panphoto: Yup.string().required("Required"),
     composition: Yup.string().required("Required"),
     commencementDate: Yup.string().required("Required"),
+    hsn1: Yup.string().required("Required").min(1, "Minimum 4 characters"),
     // principleplace: Yup.string().required("Required"),
     // pricipleelectricityphoto: Yup.string().required("Required"),
     // priciplerentphoto: Yup.string().required("Required"),
@@ -89,6 +90,23 @@ function buildSchema() {
       is: (numberOfDirectors: number) => numberOfDirectors >= index + 1,
       then: Yup.string().required("Required"),
     });
+    
+    shape["gstNumber" + index] = Yup.string().when(
+      "numberOfOtherGST",
+      {
+        is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
+        then: Yup.string().required("Required"),
+      }
+    );
+    shape["gstAttachment" + index] = Yup.string().when(
+      "numberOfOtherGST",
+      {
+        is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
+        then: Yup.string().required("Required"),
+      }
+    );
+
+
 
     // shape["partnerMobile" + index] = Yup.number().when("numberOfDirectors", {
     //   is: (numberOfDirectors: number) => numberOfDirectors >= index + 1,
