@@ -33,4 +33,13 @@ public class Director {
     private String pannumberCopy;
     private String directorResidentialAddress;
     private String directorPhoto;
+    private boolean isAuthorisedSignatory = false;
+
+    public boolean getIsAuthorisedSignatory() {
+        return this.isAuthorisedSignatory;
+    }
+
+    public void setIsAuthorisedSignatory(boolean isAuthorisedSignatory) {
+        this.isAuthorisedSignatory = isAuthorisedSignatory;
+    }
 }

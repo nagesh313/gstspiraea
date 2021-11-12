@@ -3,6 +3,7 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
+  FormGroup,
   Grid,
   InputLabel,
   MenuItem,
@@ -85,6 +86,8 @@ const CompanyComponent = (props: any) => {
           response.data["directorResidentialAddress" + index] =
             director.directorResidentialAddress;
           response.data["directorPhoto" + index] = director.directorPhoto;
+          response.data["isAuthorisedSignatory" + index] =
+          director.isAuthorisedSignatory;
         });
         response.data.numberOfDirectors = response.data.directorList.length;
 
@@ -190,8 +193,22 @@ const CompanyComponent = (props: any) => {
         directorResidentialAddress:
           values["directorResidentialAddress" + index],
         directorPhoto: values["directorPhoto" + index],
+        isAuthorisedSignatory: values["isAuthorisedSignatory" + index],
       });
     });
+
+    const directorListAuthorised = directorList
+      .map((p: any) => p.isAuthorisedSignatory)
+      .filter((p: any) => p);
+    if (directorListAuthorised?.length === 0) {
+      alert("Please select atleast on Authorised Director");
+      return;
+    }
+    if (directorListAuthorised?.length > 1) {
+      alert("Only one Partner can be Authorised Director");
+      return;
+    }
+
     values.directorList = directorList;
     const gstCertificatesInOtherStates: any = [];
     [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {
@@ -256,6 +273,7 @@ const CompanyComponent = (props: any) => {
     valuesForDirectors["pannumberCopy" + index] = "";
     valuesForDirectors["directorResidentialAddress" + index] = "";
     valuesForDirectors["directorPhoto" + index] = "";
+    valuesForDirectors["isAuthorisedSignatory" + index] = false;
   });
   let valuesOfGSTInOtherStates: any = {};
   [...Array(15)].forEach((value: any, index: any) => {
@@ -878,6 +896,40 @@ const CompanyComponent = (props: any) => {
                                   errors["directorName" + index]
                                 }
                               />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <FormGroup>
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      checked={
+                                        values["isAuthorisedSignatory" + index]
+                                      }
+                                      value={
+                                        values["isAuthorisedSignatory" + index]
+                                      }
+                                    />
+                                  }
+                                  id={"isAuthorisedSignatory" + index}
+                                  name={"isAuthorisedSignatory" + index}
+                                  onChange={handleChange}
+                                  // error={
+                                  //   errors["isAuthorisedSignatory" + index] &&
+                                  //   touched["isAuthorisedSignatory" + index]
+                                  //     ? true
+                                  //     : false
+                                  // }
+                                  // helperText={
+                                  //   touched["isAuthorisedSignatory" + index] &&
+                                  //   errors["isAuthorisedSignatory" + index]
+                                  // }
+                                  label={
+                                    "Director " +
+                                    (index + 1) +
+                                    " is Authorised Signatory"
+                                  }
+                                />
+                              </FormGroup>
                             </Grid>
                           </Grid>
                           <Grid container spacing={4}>
