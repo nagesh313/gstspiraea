@@ -195,7 +195,7 @@ const LLPComponent = (props: any) => {
         isAuthorisedSignatory: values["isAuthorisedSignatory" + index],
       });
     });
-    
+
     const partnerListEmail = partnerList.map((p: any) => p.partnerEmail);
     const duplicates = partnerListEmail.filter(
       (item: any, index: any) => partnerListEmail.indexOf(item) !== index
@@ -348,6 +348,7 @@ const LLPComponent = (props: any) => {
                       manufacture: false,
                       service: false,
                       remark: "",
+                      declarationOfAuthorisedSignatory:"",
                       numberOfPartners: 1,
                       ...valuesForPartners,
                       numberOfOtherGST: 0,
@@ -1668,6 +1669,55 @@ const LLPComponent = (props: any) => {
                           <Visibility
                             onClick={() => {
                               setImageName(values.tradelicensephoto);
+                              setOpen(true);
+                            }}
+                            style={{ float: "right", marginTop: "25px" }}
+                          />
+                        )}
+                      </Grid>
+                    </Grid>
+                  )}
+                  {(isAdmin ||
+                    (values.declarationOfAuthorisedSignatory &&
+                      values.declarationOfAuthorisedSignatory !== "")) && (
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          type="file"
+                          style={{ width: "90%" }}
+                          margin="dense"
+                          size="small"
+                          fullWidth
+                          id="declarationOfAuthorisedSignatory"
+                          label="Declaration Of Authorised Signatory"
+                          name="declarationOfAuthorisedSignatory"
+                          autoComplete="declarationOfAuthorisedSignatory"
+                          onChange={(file) =>
+                            upload(
+                              file,
+                              setFieldValue,
+                              "declarationOfAuthorisedSignatory"
+                            )
+                          }
+                          // value={values.declarationOfAuthorisedSignatory}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.declarationOfAuthorisedSignatory &&
+                            touched.declarationOfAuthorisedSignatory
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.declarationOfAuthorisedSignatory &&
+                            errors.declarationOfAuthorisedSignatory
+                          }
+                        />
+                        {values.declarationOfAuthorisedSignatory && (
+                          <Visibility
+                            onClick={() => {
+                              setImageName(
+                                values.declarationOfAuthorisedSignatory
+                              );
                               setOpen(true);
                             }}
                             style={{ float: "right", marginTop: "25px" }}

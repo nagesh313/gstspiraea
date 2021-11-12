@@ -142,6 +142,7 @@ public class LLP {
     private List<Partner> partnerList;
     private String certificateOfIncorportation;
     private String partnershipDeed;
+    private String declarationOfAuthorisedSignatory;
     @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
 }

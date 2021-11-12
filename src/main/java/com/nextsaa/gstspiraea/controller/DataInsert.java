@@ -379,6 +379,7 @@ public class DataInsert {
                 .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
                 .partnershipDeed("test")
+                .declarationOfAuthorisedSignatory("test")
                 .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
         llpRepostiory.saveAndFlush(llp);
@@ -656,6 +657,7 @@ public class DataInsert {
                 .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
                 .partnershipDeed("test")
+                .declarationOfAuthorisedSignatory("test")
                 .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
         llpRepostiory.saveAndFlush(llp);
