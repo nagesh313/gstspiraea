@@ -1,4 +1,4 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button, MenuItem, Select, TextField } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -11,12 +11,17 @@ import { failureToast, successToast } from "../util/util";
 import Title from "./Title";
 export function UserListComponent(props: any) {
   const [userList, setUserList] = React.useState<any>([]);
+  const [agentList, setAgentList] = React.useState<any>([]);
   // const [open, setOpen] = React.useState<boolean>(false);
 
   const fetchUserList = () => {
     axios
       .get("/api/getAllUsers")
       .then((response: any) => {
+        const agentList = response.data?.filter((row: any) => {
+          return row.role === "Agent";
+        });
+        setAgentList(agentList);
         setUserList(response.data);
       })
       .catch((reponse: any) => {
@@ -79,7 +84,20 @@ export function UserListComponent(props: any) {
         props.enqueueSnackbar(reponse.error, failureToast);
       });
   };
-
+  const updateUserAgentMapping = (user: any, loginUserName: any) => {
+    axios
+      .get(
+        "/api/updateUserAgentMapping/" + user.userId + "/" + loginUserName
+      )
+      .then((response: any) => {
+        props.enqueueSnackbar("User Assigned Successfully", successToast);
+        fetchUserList();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable to assigned User to Agent", failureToast);
+        fetchUserList();
+      });
+  };
   useEffect(() => {
     fetchUserList();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -93,6 +111,7 @@ export function UserListComponent(props: any) {
             <TableCell>Email</TableCell>
             <TableCell>User Name</TableCell>
             <TableCell>Password</TableCell>
+            <TableCell>Assign To Agent</TableCell>
             <TableCell align="center"></TableCell>
           </TableRow>
         </TableHead>
@@ -102,7 +121,7 @@ export function UserListComponent(props: any) {
               return row.role === "Customer";
             })
             ?.map((row: any) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.userId}>
                 <TableCell>{row.userEmail}</TableCell>
                 <TableCell>
                   <TextField
@@ -130,7 +149,23 @@ export function UserListComponent(props: any) {
                     }}
                   />
                 </TableCell>
-
+                <TableCell>
+                  <Select
+                    style={{ marginLeft: "30px", marginBottom: "9px" }}
+                    value={row.assignedToAgent}
+                    onChange={(event: any, data: any) => {
+                      updateUserAgentMapping(row, event.target.value);
+                    }}
+                  >
+                    {agentList.map((agent: any) => {
+                      return (
+                        <MenuItem value={agent.loginUserName} key={agent.loginUserName}>
+                          {agent.loginUserName}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </TableCell>
                 <TableCell align="center">
                   <Button
                     variant="outlined"
@@ -188,7 +223,7 @@ export function UserListComponent(props: any) {
               return row.role === "Agent";
             })
             ?.map((row: any) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.userId}>
                 <TableCell>{row.userEmail}</TableCell>
                 <TableCell>
                   <TextField
@@ -274,7 +309,7 @@ export function UserListComponent(props: any) {
               return row.role === "Admin";
             })
             ?.map((row: any) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.userId}>
                 <TableCell>{row.userEmail}</TableCell>
                 <TableCell>
                   <TextField

@@ -17,6 +17,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -55,7 +57,7 @@ public class LoginControllerRest {
         user.setIsActive(1);
         user.setIsEmailVerified(0);
         user.setIsMobileVerified(0);
-        userService.createUser (user);
+        userService.createUser(user);
         System.out.print("Here");
     }
 
@@ -63,6 +65,17 @@ public class LoginControllerRest {
     public List<UserDetails> getAllUsers() {
         //Set default fields for customer registration
         return userService.getAllUsers();
+    }
+
+    @GetMapping(value = "/updateUserAgentMapping/{userId}/{agentName}")
+    public void updateUserAgentMapping(@PathVariable String userId, @PathVariable String agentName) {
+        //Set default fields for customer registration
+        Optional<UserDetails> user = userDetailsRepository.findById(userId);
+        if (user.isPresent()) {
+            UserDetails userDetails = user.get();
+            userDetails.setAssignedToAgent(agentName);
+            userDetailsRepository.save(userDetails);
+        }
     }
 
     @PostMapping("/generateLoginDetails")

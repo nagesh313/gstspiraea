@@ -15,7 +15,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
@@ -24,8 +23,7 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
 import { schema } from "./schema/LLPSchema";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import MessageIcon from "@material-ui/icons/Message";
+import { Visibility, GetApp, Message } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -143,22 +141,7 @@ const LLPComponent = (props: any) => {
       fetchOrderDetails(params.id);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const downloadReport = (filename: any) => {
-    axios
-      .get("/api/document/downloadFile/" + filename, { responseType: "blob" })
-      .then((response: any) => {
-        var element = document.createElement("a");
-        var file = new Blob([response.data]);
-        element.target = "_blank";
-        element.download = filename;
-        element.href = URL.createObjectURL(file);
-        element.click();
-        element.remove();
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar("Unable To Download", failureToast);
-      });
-  };
+
   const upload = (event: any, setFieldValue: any, field: any) => {
     let formData = new FormData();
     formData.append("file", event.currentTarget.files[0]);
@@ -282,6 +265,22 @@ const LLPComponent = (props: any) => {
     setOpen(false);
     setImageName("");
   };
+  const downloadReport = (filename: any) => {
+    axios
+      .get("/api/document/downloadFile/" + filename, { responseType: "blob" })
+      .then((response: any) => {
+        var element = document.createElement("a");
+        var file = new Blob([response.data]);
+        element.target = "_blank";
+        element.download = filename;
+        element.href = URL.createObjectURL(file);
+        element.click();
+        element.remove();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable To Download", failureToast);
+      });
+  };
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   var date = curr.toISOString().substr(0, 10);
@@ -368,7 +367,7 @@ const LLPComponent = (props: any) => {
                       declarationOfAuthorisedSignatory: "",
                       numberOfPartners: 1,
                       ...valuesForPartners,
-                      numberOfOtherGST: 1,
+                      numberOfOtherGST: 0,
                       ...valuesOfGSTInOtherStates,
                     }
               }
@@ -503,7 +502,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        style={{ width: "90%" }}
                         size="small"
                         required
                         fullWidth
@@ -589,139 +588,203 @@ const LLPComponent = (props: any) => {
                     </Grid>
                   </Grid>
 
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="principleplace"
-                        label="Principal Place of Business address"
-                        name="principleplace"
-                        autoComplete="principleplace"
-                        onChange={handleChange}
-                        value={values.principleplace}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.principleplace && touched.principleplace
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.principleplace && errors.principleplace
-                        }
-                      />
+                  {(isAdmin ||
+                    (values.principleplace &&
+                      values.principleplace !== "")) && (
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          margin="dense"
+                          size="small"
+                          required
+                          fullWidth
+                          id="principleplace"
+                          label="Principal Place of Business address"
+                          name="principleplace"
+                          autoComplete="principleplace"
+                          onChange={handleChange}
+                          value={values.principleplace}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.principleplace && touched.principleplace
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.principleplace && errors.principleplace
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          margin="dense"
+                          type="file"
+                          style={{ width: "90%" }}
+                          size="small"
+                          required
+                          fullWidth
+                          id="pricipleelectricityphoto"
+                          label="Please attach Electricity bill"
+                          name="pricipleelectricityphoto"
+                          autoComplete="pricipleelectricityphoto"
+                          onChange={(file) =>
+                            upload(
+                              file,
+                              setFieldValue,
+                              "pricipleelectricityphoto"
+                            )
+                          }
+                          // value={values.pricipleelectricityphoto}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.pricipleelectricityphoto &&
+                            touched.pricipleelectricityphoto
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.pricipleelectricityphoto &&
+                            errors.pricipleelectricityphoto
+                          }
+                        />
+                        {values.pricipleelectricityphoto && (
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.pricipleelectricityphoto);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(
+                                    values.pricipleelectricityphoto
+                                  );
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={
+                                "File Name : " + values.pricipleelectricityphoto
+                              }
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
+                        <TextField
+                          margin="dense"
+                          type="file"
+                          style={{ width: "90%" }}
+                          size="small"
+                          required
+                          fullWidth
+                          id="priciplerentphoto"
+                          label="Please attach Rent Agrement"
+                          name="priciplerentphoto"
+                          autoComplete="priciplerentphoto"
+                          onChange={(file) =>
+                            upload(file, setFieldValue, "priciplerentphoto")
+                          }
+                          // value={values.priciplerentphoto}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.priciplerentphoto &&
+                            touched.priciplerentphoto
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.priciplerentphoto &&
+                            errors.priciplerentphoto
+                          }
+                        />
+                        {values.priciplerentphoto && (
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.priciplerentphoto);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(values.priciplerentphoto);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={"File Name : " + values.priciplerentphoto}
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
+                        <TextField
+                          margin="dense"
+                          type="file"
+                          style={{ width: "90%" }}
+                          size="small"
+                          required
+                          fullWidth
+                          id="priciplenocphoto"
+                          label="Please attach NOC if Rented"
+                          name="priciplenocphoto"
+                          autoComplete="priciplenocphoto"
+                          onChange={(file) =>
+                            upload(file, setFieldValue, "priciplenocphoto")
+                          }
+                          // value={values.priciplenocphoto}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.priciplenocphoto && touched.priciplenocphoto
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.priciplenocphoto && errors.priciplenocphoto
+                          }
+                        />
+                        {values.priciplenocphoto && (
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.priciplenocphoto);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(values.priciplenocphoto);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={"File Name : " + values.priciplenocphoto}
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        style={{ width: "70%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="pricipleelectricityphoto"
-                        label="Please attach Electricity bill"
-                        name="pricipleelectricityphoto"
-                        autoComplete="pricipleelectricityphoto"
-                        onChange={(file) =>
-                          upload(
-                            file,
-                            setFieldValue,
-                            "pricipleelectricityphoto"
-                          )
-                        }
-                        // value={values.pricipleelectricityphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.pricipleelectricityphoto &&
-                          touched.pricipleelectricityphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.pricipleelectricityphoto &&
-                          errors.pricipleelectricityphoto
-                        }
-                      />
-                      {values.pricipleelectricityphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.pricipleelectricityphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        style={{ width: "70%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="priciplerentphoto"
-                        label="Please attach Rent Agrement"
-                        name="priciplerentphoto"
-                        autoComplete="priciplerentphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "priciplerentphoto")
-                        }
-                        // value={values.priciplerentphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.priciplerentphoto && touched.priciplerentphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.priciplerentphoto && errors.priciplerentphoto
-                        }
-                      />
-                      {values.priciplerentphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.priciplerentphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        style={{ width: "70%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="priciplenocphoto"
-                        label="Please attach NOC if Rented"
-                        name="priciplenocphoto"
-                        autoComplete="priciplenocphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "priciplenocphoto")
-                        }
-                        // value={values.priciplenocphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.priciplenocphoto && touched.priciplenocphoto
-                            ? true
-                            : false
-                        }
-                        helperText={touched.panphoto && errors.priciplenocphoto}
-                      />
-                      {values.priciplenocphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.priciplenocphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
-                    </Grid>
-                  </Grid>
+                  )}
+
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -749,7 +812,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        style={{ width: "90%" }}
                         size="small"
                         fullWidth
                         id="additionalelectricityphoto"
@@ -777,18 +840,39 @@ const LLPComponent = (props: any) => {
                         }
                       />
                       {values.additionalelectricityphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.additionalelectricityphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.additionalelectricityphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(
+                                  values.additionalelectricityphoto
+                                );
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={
+                              "File Name : " + values.additionalelectricityphoto
+                            }
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        style={{ width: "90%" }}
                         size="small"
                         fullWidth
                         id="additionalrentphoto"
@@ -812,18 +896,35 @@ const LLPComponent = (props: any) => {
                         }
                       />
                       {values.additionalrentphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.additionalrentphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.additionalrentphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.additionalrentphoto);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={"File Name : " + values.additionalrentphoto}
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        style={{ width: "90%" }}
                         size="small"
                         fullWidth
                         id="additionalnocphoto"
@@ -847,13 +948,30 @@ const LLPComponent = (props: any) => {
                         }
                       />
                       {values.additionalnocphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.additionalnocphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.additionalnocphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.additionalnocphoto);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={"File Name : " + values.additionalnocphoto}
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                     </Grid>
                   </Grid>
@@ -1011,7 +1129,7 @@ const LLPComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "70%" }}
+                                  style={{ width: "90%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1052,27 +1170,52 @@ const LLPComponent = (props: any) => {
                                 {values[
                                   "partnerAadharPhotoCopyFront" + index
                                 ] && (
-                                  <Visibility
-                                    onClick={() => {
-                                      setImageName(
+                                  <>
+                                    <Tooltip title="View">
+                                      <Visibility
+                                        className="file-action-icon"
+                                        onClick={() => {
+                                          setImageName(
+                                            values[
+                                              "partnerAadharPhotoCopyFront" +
+                                                index
+                                            ]
+                                          );
+                                          setOpen(true);
+                                        }}
+                                      />
+                                    </Tooltip>
+                                    <Tooltip title="Download">
+                                      <GetApp
+                                        className="file-action-icon"
+                                        onClick={() => {
+                                          downloadReport(
+                                            values[
+                                              "partnerAadharPhotoCopyFront" +
+                                                index
+                                            ]
+                                          );
+                                        }}
+                                      />
+                                    </Tooltip>
+                                    <Tooltip
+                                      title={
+                                        "File Name : " +
                                         values[
                                           "partnerAadharPhotoCopyFront" + index
                                         ]
-                                      );
-                                      setOpen(true);
-                                    }}
-                                    style={{
-                                      float: "right",
-                                      marginTop: "25px",
-                                    }}
-                                  />
+                                      }
+                                    >
+                                      <Message className="file-action-icon" />
+                                    </Tooltip>
+                                  </>
                                 )}
                               </Grid>
                               <Grid item xs={12}>
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "70%" }}
+                                  style={{ width: "90%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1111,20 +1254,45 @@ const LLPComponent = (props: any) => {
                                 {values[
                                   "partnerAadharPhotoCopyBack" + index
                                 ] && (
-                                  <Visibility
-                                    onClick={() => {
-                                      setImageName(
+                                  <>
+                                    <Tooltip title="View">
+                                      <Visibility
+                                        className="file-action-icon"
+                                        onClick={() => {
+                                          setImageName(
+                                            values[
+                                              "partnerAadharPhotoCopyBack" +
+                                                index
+                                            ]
+                                          );
+                                          setOpen(true);
+                                        }}
+                                      />
+                                    </Tooltip>
+                                    <Tooltip title="Download">
+                                      <GetApp
+                                        className="file-action-icon"
+                                        onClick={() => {
+                                          downloadReport(
+                                            values[
+                                              "partnerAadharPhotoCopyBack" +
+                                                index
+                                            ]
+                                          );
+                                        }}
+                                      />
+                                    </Tooltip>
+                                    <Tooltip
+                                      title={
+                                        "File Name : " +
                                         values[
                                           "partnerAadharPhotoCopyBack" + index
                                         ]
-                                      );
-                                      setOpen(true);
-                                    }}
-                                    style={{
-                                      float: "right",
-                                      marginTop: "25px",
-                                    }}
-                                  />
+                                      }
+                                    >
+                                      <Message className="file-action-icon" />
+                                    </Tooltip>
+                                  </>
                                 )}
                               </Grid>
                             </Grid>
@@ -1159,7 +1327,7 @@ const LLPComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "70%" }}
+                                style={{ width: "90%" }}
                                 size="small"
                                 required
                                 fullWidth
@@ -1188,18 +1356,37 @@ const LLPComponent = (props: any) => {
                                 }
                               />
                               {values["pannumberCopy" + index] && (
-                                <Visibility
-                                  onClick={() => {
-                                    setImageName(
+                                <>
+                                  <Tooltip title="View">
+                                    <Visibility
+                                      className="file-action-icon"
+                                      onClick={() => {
+                                        setImageName(
+                                          values["pannumberCopy" + index]
+                                        );
+                                        setOpen(true);
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Tooltip title="Download">
+                                    <GetApp
+                                      className="file-action-icon"
+                                      onClick={() => {
+                                        downloadReport(
+                                          values["pannumberCopy" + index]
+                                        );
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Tooltip
+                                    title={
+                                      "File Name : " +
                                       values["pannumberCopy" + index]
-                                    );
-                                    setOpen(true);
-                                  }}
-                                  style={{
-                                    float: "right",
-                                    marginTop: "25px",
-                                  }}
-                                />
+                                    }
+                                  >
+                                    <Message className="file-action-icon" />
+                                  </Tooltip>
+                                </>
                               )}
                             </Grid>
                           </Grid>
@@ -1243,7 +1430,7 @@ const LLPComponent = (props: any) => {
                             <Grid item xs={12} sm={6}>
                               <TextField
                                 type="file"
-                                style={{ width: "70%" }}
+                                style={{ width: "90%" }}
                                 margin="dense"
                                 size="small"
                                 required
@@ -1276,15 +1463,37 @@ const LLPComponent = (props: any) => {
                                 }
                               />
                               {values["partnerPhoto" + index] && (
-                                <Visibility
-                                  onClick={() => {
-                                    setImageName(
+                                <>
+                                  <Tooltip title="View">
+                                    <Visibility
+                                      className="file-action-icon"
+                                      onClick={() => {
+                                        setImageName(
+                                          values["partnerPhoto" + index]
+                                        );
+                                        setOpen(true);
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Tooltip title="Download">
+                                    <GetApp
+                                      className="file-action-icon"
+                                      onClick={() => {
+                                        downloadReport(
+                                          values["partnerPhoto" + index]
+                                        );
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Tooltip
+                                    title={
+                                      "File Name : " +
                                       values["partnerPhoto" + index]
-                                    );
-                                    setOpen(true);
-                                  }}
-                                  style={{ float: "right", marginTop: "25px" }}
-                                />
+                                    }
+                                  >
+                                    <Message className="file-action-icon" />
+                                  </Tooltip>
+                                </>
                               )}
                             </Grid>
                           </Grid>
@@ -1505,7 +1714,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "70%" }}
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1529,13 +1738,30 @@ const LLPComponent = (props: any) => {
                         }
                       />
                       {values.cancelcheqphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.cancelcheqphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.cancelcheqphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.cancelcheqphoto);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={"File Name : " + values.cancelcheqphoto}
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                     </Grid>
                   </Grid>
@@ -1543,7 +1769,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "70%" }}
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         fullWidth
@@ -1566,13 +1792,30 @@ const LLPComponent = (props: any) => {
                         }
                       />
                       {values.partnershipDeed && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.partnershipDeed);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.partnershipDeed);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.partnershipDeed);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={"File Name : " + values.partnershipDeed}
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                     </Grid>
                   </Grid>
@@ -1580,7 +1823,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "70%" }}
+                        style={{ width: "90%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1610,13 +1853,37 @@ const LLPComponent = (props: any) => {
                         }
                       />
                       {values.certificateOfIncorportation && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.certificateOfIncorportation);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(
+                                  values.certificateOfIncorportation
+                                );
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(
+                                  values.certificateOfIncorportation
+                                );
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={
+                              "File Name : " +
+                              values.certificateOfIncorportation
+                            }
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                     </Grid>
                   </Grid>
@@ -1649,7 +1916,7 @@ const LLPComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "70%" }}
+                          style={{ width: "90%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1674,62 +1941,105 @@ const LLPComponent = (props: any) => {
                           }
                         />
                         {values.tradelicensephoto && (
-                          <Visibility
-                            onClick={() => {
-                              setImageName(values.tradelicensephoto);
-                              setOpen(true);
-                            }}
-                            style={{ float: "right", marginTop: "25px" }}
-                          />
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.tradelicensephoto);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(values.tradelicensephoto);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={"File Name : " + values.tradelicensephoto}
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
                         )}
                       </Grid>
                     </Grid>
                   )}
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        style={{ width: "70%" }}
-                        margin="dense"
-                        size="small"
-                        fullWidth
-                        id="declarationOfAuthorisedSignatory"
-                        label="Declaration Of Authorised Signatory"
-                        name="declarationOfAuthorisedSignatory"
-                        autoComplete="declarationOfAuthorisedSignatory"
-                        onChange={(file) =>
-                          upload(
-                            file,
-                            setFieldValue,
-                            "declarationOfAuthorisedSignatory"
-                          )
-                        }
-                        // value={values.declarationOfAuthorisedSignatory}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.declarationOfAuthorisedSignatory &&
-                          touched.declarationOfAuthorisedSignatory
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.declarationOfAuthorisedSignatory &&
-                          errors.declarationOfAuthorisedSignatory
-                        }
-                      />
-                      {values.declarationOfAuthorisedSignatory && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(
-                              values.declarationOfAuthorisedSignatory
-                            );
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
+                  {(isAdmin ||
+                    (values.declarationOfAuthorisedSignatory &&
+                      values.declarationOfAuthorisedSignatory !== "")) && (
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          type="file"
+                          style={{ width: "90%" }}
+                          margin="dense"
+                          size="small"
+                          fullWidth
+                          id="declarationOfAuthorisedSignatory"
+                          label="Declaration Of Authorised Signatory"
+                          name="declarationOfAuthorisedSignatory"
+                          autoComplete="declarationOfAuthorisedSignatory"
+                          onChange={(file) =>
+                            upload(
+                              file,
+                              setFieldValue,
+                              "declarationOfAuthorisedSignatory"
+                            )
+                          }
+                          // value={values.declarationOfAuthorisedSignatory}
+                          InputLabelProps={{ shrink: true }}
+                          error={
+                            errors.declarationOfAuthorisedSignatory &&
+                            touched.declarationOfAuthorisedSignatory
+                              ? true
+                              : false
+                          }
+                          helperText={
+                            touched.declarationOfAuthorisedSignatory &&
+                            errors.declarationOfAuthorisedSignatory
+                          }
                         />
-                      )}
+                        {values.declarationOfAuthorisedSignatory && (
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(
+                                    values.declarationOfAuthorisedSignatory
+                                  );
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(
+                                    values.declarationOfAuthorisedSignatory
+                                  );
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={
+                                "File Name : " +
+                                values.declarationOfAuthorisedSignatory
+                              }
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
+                      </Grid>
                     </Grid>
-                  </Grid>
+                  )}
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -1743,7 +2053,7 @@ const LLPComponent = (props: any) => {
                         autoComplete="numberOfOtherGST"
                         onChange={handleChange}
                         value={values.numberOfOtherGST}
-                        InputProps={{ inputProps: { min: 1, max: 10 } }}
+                        InputProps={{ inputProps: { min: 0, max: 10 } }}
                         InputLabelProps={{ shrink: true }}
                         error={
                           errors.numberOfOtherGST && touched.numberOfOtherGST
@@ -1791,7 +2101,7 @@ const LLPComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "70%" }}
+                                style={{ width: "90%" }}
                                 size="small"
                                 fullWidth
                                 id={"gstAttachment" + index}
@@ -1819,18 +2129,37 @@ const LLPComponent = (props: any) => {
                                 }
                               />
                               {values["gstAttachment" + index] && (
-                                <Visibility
-                                  onClick={() => {
-                                    setImageName(
+                                <>
+                                  <Tooltip title="View">
+                                    <Visibility
+                                      className="file-action-icon"
+                                      onClick={() => {
+                                        setImageName(
+                                          values["gstAttachment" + index]
+                                        );
+                                        setOpen(true);
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Tooltip title="Download">
+                                    <GetApp
+                                      className="file-action-icon"
+                                      onClick={() => {
+                                        downloadReport(
+                                          values["gstAttachment" + index]
+                                        );
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Tooltip
+                                    title={
+                                      "File Name : " +
                                       values["gstAttachment" + index]
-                                    );
-                                    setOpen(true);
-                                  }}
-                                  style={{
-                                    float: "right",
-                                    marginTop: "25px",
-                                  }}
-                                />
+                                    }
+                                  >
+                                    <Message className="file-action-icon" />
+                                  </Tooltip>
+                                </>
                               )}
                             </Grid>
                           </Grid>
@@ -1839,25 +2168,27 @@ const LLPComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  <Grid container spacing={4}>
-                    <Grid item xs={12}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        // disabled={sessionStorage.getItem("role") === "Customer"}
-                        fullWidth
-                        id="remark"
-                        label="Remark"
-                        name="remark"
-                        autoComplete="remark"
-                        onChange={handleChange}
-                        value={values.remark}
-                        InputLabelProps={{ shrink: true }}
-                        error={errors.remark && touched.remark ? true : false}
-                        helperText={touched.remark && errors.remark}
-                      />
+                  {(isAdmin || (values.remark && values.remark !== "")) && (
+                    <Grid container spacing={4}>
+                      <Grid item xs={12}>
+                        <TextField
+                          margin="dense"
+                          size="small"
+                          // disabled={sessionStorage.getItem("role") === "Customer"}
+                          fullWidth
+                          id="remark"
+                          label="Remark"
+                          name="remark"
+                          autoComplete="remark"
+                          onChange={handleChange}
+                          value={values.remark}
+                          InputLabelProps={{ shrink: true }}
+                          error={errors.remark && touched.remark ? true : false}
+                          helperText={touched.remark && errors.remark}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
+                  )}
                   {(params.id === undefined ||
                     orderDetails?.status === "DRAFT") &&
                     sessionStorage.getItem("role") === "Customer" && (

@@ -93,5 +93,5 @@ public class UserDetails {
     private Date lastLoginDate;
     private String businessName;
     private String vendorType;
-
+    private String assignedToAgent;
 }
