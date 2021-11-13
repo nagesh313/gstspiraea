@@ -152,7 +152,7 @@ export function UserListComponent(props: any) {
                 <TableCell>
                   <Select
                     style={{ marginLeft: "30px", marginBottom: "9px" }}
-                    value={row.assignedToAgent}
+                    value={row.assignedToAgent?row.assignedToAgent:""}
                     onChange={(event: any, data: any) => {
                       updateUserAgentMapping(row, event.target.value);
                     }}

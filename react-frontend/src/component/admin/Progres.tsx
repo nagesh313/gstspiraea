@@ -36,7 +36,7 @@ export const ProgressBar = (props: any) => {
 
   return (
     <div className={classes.root}>
-      <BorderLinearProgress variant="determinate" value={props.progress} />
+      <BorderLinearProgress variant="determinate" value={props.progress?props.progress:0} />
     </div>
   );
 };

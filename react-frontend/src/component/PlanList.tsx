@@ -187,7 +187,7 @@ export default function CollapsibleTable(props: any) {
         <TableBody>
           {props.list.map((row: any) => (
             <Row
-              key={row.name}
+              key={row.id}
               row={row}
               openLocation={openLocation}
               openLocationModal={openLocationModal}

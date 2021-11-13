@@ -82,7 +82,7 @@ export function SignInComponent(props: any) {
       <Container component="main">
         <CssBaseline />
         <Grid container>
-          <Grid xs={12} sm={6}>
+          <Grid item xs={12} sm={6}>
             <div className={classes.paper}>
               <img
                 alt=""
@@ -190,7 +190,7 @@ export function SignInComponent(props: any) {
               </Formik>
             </div>
           </Grid>
-          <Grid xs={12} sm={6}>
+          <Grid item xs={12} sm={6}>
             <div className={classes.paper}>
               <CustomizedTimeline></CustomizedTimeline>
             </div>
