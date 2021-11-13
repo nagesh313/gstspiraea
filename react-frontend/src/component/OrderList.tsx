@@ -22,6 +22,9 @@ function OrderListComponent(props: any) {
     if (sessionStorage.getItem("role") === "Customer") {
       url =
         "/api/get-order/" + orderType + "/" + sessionStorage.getItem("user");
+    } else if (sessionStorage.getItem("role") === "Agent") {
+      url =
+        "/api/get-all-order/" + orderType + "/" + sessionStorage.getItem("user");
     } else {
       url = "/api/get-all-order/" + orderType;
     }

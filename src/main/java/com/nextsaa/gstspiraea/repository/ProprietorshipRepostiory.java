@@ -19,9 +19,14 @@ import java.util.Optional;
 public interface ProprietorshipRepostiory extends JpaRepository<Proprietorship, String> {
     List<Proprietorship> findAllByCreatedBy(String user);
 
+    List<Proprietorship> findAllByCreatedByIn(List<String> user);
+
     long countByStatus(String status);
 
     long countByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
+
     List<Proprietorship> findAllByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
+
     long countByCreatedOnGreaterThan(LocalDateTime today);
+
 }

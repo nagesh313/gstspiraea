@@ -1,13 +1,7 @@
 package com.nextsaa.gstspiraea.controller;
 
-import com.nextsaa.gstspiraea.entity.CompanyDetails;
-import com.nextsaa.gstspiraea.entity.LLP;
-import com.nextsaa.gstspiraea.entity.Partnership;
-import com.nextsaa.gstspiraea.entity.Proprietorship;
-import com.nextsaa.gstspiraea.repository.CompanyDetailsRepository;
-import com.nextsaa.gstspiraea.repository.LLPRepostiory;
-import com.nextsaa.gstspiraea.repository.PartnershipRepository;
-import com.nextsaa.gstspiraea.repository.ProprietorshipRepostiory;
+import com.nextsaa.gstspiraea.entity.*;
+import com.nextsaa.gstspiraea.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/get-all-order")
@@ -30,35 +25,50 @@ public class AllOrderController {
     private LLPRepostiory llpRepostiory;
     @Autowired
     private CompanyDetailsRepository companyDetailsRepository;
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
 
-    @GetMapping(value = "/All")
-    public List<Object> getAll() {
-        List<Object> response = new ArrayList<>();
-        response.addAll(proprietorshipRepostiory.findAll());
-        response.addAll(partnershipRepository.findAll());
-        response.addAll(llpRepostiory.findAll());
-        response.addAll(companyDetailsRepository.findAll());
-        return response;
+    @GetMapping(value = {"/All", "/All/{agentLoginName}"})
+    public List<Object> getAll(@PathVariable(required = false) String agentLoginName) {
+
+        if (agentLoginName != null) {
+            List<UserDetails> userList = userDetailsRepository.findAllByAssignedToAgent(agentLoginName);
+            List<Object> response = new ArrayList<>();
+            response.addAll(proprietorshipRepostiory.findAllByCreatedByIn(userList.stream().map(UserDetails::getLoginUserName).collect(Collectors.toList())));
+            response.addAll(partnershipRepository.findAllByCreatedByIn(userList.stream().map(UserDetails::getLoginUserName).collect(Collectors.toList())));
+            response.addAll(llpRepostiory.findAllByCreatedByIn(userList.stream().map(UserDetails::getLoginUserName).collect(Collectors.toList())));
+            response.addAll(companyDetailsRepository.findAllByCreatedByIn(userList.stream().map(UserDetails::getLoginUserName).collect(Collectors.toList())));
+            return response;
+        } else {
+            List<Object> response = new ArrayList<>();
+            response.addAll(proprietorshipRepostiory.findAll());
+            response.addAll(partnershipRepository.findAll());
+            response.addAll(llpRepostiory.findAll());
+            response.addAll(companyDetailsRepository.findAll());
+            return response;
+        }
+
     }
 
-    @GetMapping(value = "/Proprietorship")
-    public List<Proprietorship> getAllProprietorship() {
+    @GetMapping(value = {"/Proprietorship", "/Proprietorship/{agentLoginName}"})
+    public List<Proprietorship> getAllProprietorship(@PathVariable(required = false) String agentLoginName) {
         return proprietorshipRepostiory.findAll();
+
     }
 
-    @GetMapping(value = "/Partnership")
-    public List<Partnership> getAllPartnership() {
+    @GetMapping(value = {"/Partnership/", "/Partnership/{agentLoginName}"})
+    public List<Partnership> getAllPartnership(@PathVariable(required = false) String agentLoginName) {
         return partnershipRepository.findAll();
     }
 
-    @GetMapping(value = "/LLP")
-    public List<LLP> getAllLLP() {
+    @GetMapping(value = {"/LLP", "/LLP/{agentLoginName}"})
+    public List<LLP> getAllLLP(@PathVariable(required = false) String agentLoginName) {
         return llpRepostiory.findAll();
 
     }
 
-    @GetMapping(value = "/Company")
-    public List<CompanyDetails> getAllCompany() {
+    @GetMapping(value = {"/Company", "/Company/{agentLoginName}"})
+    public List<CompanyDetails> getAllCompany(@PathVariable(required = false) String agentLoginName) {
         return companyDetailsRepository.findAll();
 
     }

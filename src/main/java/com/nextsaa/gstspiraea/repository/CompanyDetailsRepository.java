@@ -14,6 +14,8 @@ import java.util.List;
 public interface CompanyDetailsRepository extends JpaRepository<CompanyDetails, String> {
     List<CompanyDetails> findAllByCreatedBy(String user);
 
+    List<CompanyDetails> findAllByCreatedByIn(List<String> user);
+
     long countByStatus(String status);
 
     long countByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
