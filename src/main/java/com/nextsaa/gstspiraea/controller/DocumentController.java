@@ -27,7 +27,7 @@ public class DocumentController {
         return fileName;
     }
 
-    @GetMapping("/downloadFile/{fileName:.+}")
+    @GetMapping(value = "/downloadFile/{fileName:.+}",produces = "octet/stream")
     public @ResponseBody
     byte[] downloadFile(@PathVariable String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Load file as Resource
@@ -35,4 +35,5 @@ public class DocumentController {
         response.addHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
         return IOUtils.toByteArray(resource.getURI());
     }
+
 }

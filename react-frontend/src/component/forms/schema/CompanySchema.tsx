@@ -12,10 +12,24 @@ function buildSchema() {
     composition: Yup.string().required("Required"),
     commencementDate: Yup.string().required("Required"),
     hsn1: Yup.string().required("Required").min(1, "Minimum 4 characters"),
-    // principleplace: Yup.string().required("Required"),
-    // pricipleelectricityphoto: Yup.string().required("Required"),
-    // priciplerentphoto: Yup.string().required("Required"),
-    // priciplenocphoto: Yup.string().required("Required"),
+
+    principleplace: Yup.string().when({
+      is: () => sessionStorage.getItem("role") === "Admin",
+      then: Yup.string().required("Required"),
+    }),
+    pricipleelectricityphoto: Yup.string().when({
+      is: () => sessionStorage.getItem("role") === "Admin",
+      then: Yup.string().required("Required"),
+    }),
+    priciplerentphoto: Yup.string().when({
+      is: () => sessionStorage.getItem("role") === "Admin",
+      then: Yup.string().required("Required"),
+    }),
+    priciplenocphoto: Yup.string().when({
+      is: () => sessionStorage.getItem("role") === "Admin",
+      then: Yup.string().required("Required"),
+    }),
+
     // additionalplace: Yup.string().required("Required"),
     // additionalelectricityphoto: Yup.string().required("Required"),
     // additionalrentphoto: Yup.string().required("Required"),
@@ -92,23 +106,15 @@ function buildSchema() {
       is: (numberOfDirectors: number) => numberOfDirectors >= index + 1,
       then: Yup.string().required("Required"),
     });
-    
-    shape["gstNumber" + index] = Yup.string().when(
-      "numberOfOtherGST",
-      {
-        is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
-        then: Yup.string().required("Required"),
-      }
-    );
-    shape["gstAttachment" + index] = Yup.string().when(
-      "numberOfOtherGST",
-      {
-        is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
-        then: Yup.string().required("Required"),
-      }
-    );
 
-
+    shape["gstNumber" + index] = Yup.string().when("numberOfOtherGST", {
+      is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
+      then: Yup.string().required("Required"),
+    });
+    shape["gstAttachment" + index] = Yup.string().when("numberOfOtherGST", {
+      is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
+      then: Yup.string().required("Required"),
+    });
 
     // shape["partnerMobile" + index] = Yup.number().when("numberOfDirectors", {
     //   is: (numberOfDirectors: number) => numberOfDirectors >= index + 1,

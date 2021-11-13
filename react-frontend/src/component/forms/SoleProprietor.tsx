@@ -8,12 +8,13 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Visibility } from "@material-ui/icons";
+import { GetApp, Message, Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
@@ -132,6 +133,22 @@ const SoleProprietorComponent = (props: any) => {
       fetchOrderDetails(params.id);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const downloadReport = (filename: any) => {
+    axios
+      .get("/api/document/downloadFile/" + filename, { responseType: "blob" })
+      .then((response: any) => {
+        var element = document.createElement("a");
+        var file = new Blob([response.data]);
+        element.target = "_blank";
+        element.download = filename;
+        element.href = URL.createObjectURL(file);
+        element.click();
+        element.remove();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable To Download", failureToast);
+      });
+  };
   const upload = (event: any, setFieldValue: any, field: any) => {
     let formData = new FormData();
     formData.append("file", event.currentTarget.files[0]);
@@ -272,7 +289,7 @@ const SoleProprietorComponent = (props: any) => {
                       trading: false,
                       manufacture: false,
                       service: false,
-                      numberOfOtherGST: 0,
+                      numberOfOtherGST: 1,
                       ...valuesOfGSTInOtherStates,
                     }
               }
@@ -407,7 +424,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         required
                         fullWidth
@@ -427,13 +444,28 @@ const SoleProprietorComponent = (props: any) => {
                         helperText={touched.panphoto && errors.panphoto}
                       />
                       {values.panphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.panphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.panphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport("back.jpeg");
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title={"File Name : " + values.panphoto}>
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                     </Grid>
                   </Grid>
@@ -493,9 +525,7 @@ const SoleProprietorComponent = (props: any) => {
                     </Grid>
                   </Grid>
 
-                  {(isAdmin ||
-                    (values.principleplace &&
-                      values.principleplace !== "")) && (
+                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
                         <TextField
@@ -524,7 +554,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -564,7 +594,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -600,7 +630,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -662,7 +692,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalelectricityphoto"
@@ -701,7 +731,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalrentphoto"
@@ -736,7 +766,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalnocphoto"
@@ -823,7 +853,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -861,7 +891,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -927,7 +957,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         required
                         fullWidth
@@ -1112,7 +1142,7 @@ const SoleProprietorComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1135,7 +1165,7 @@ const SoleProprietorComponent = (props: any) => {
                           touched.cancelcheqphoto && errors.cancelcheqphoto
                         }
                       />
-                       {values.cancelcheqphoto && (
+                      {values.cancelcheqphoto && (
                         <Visibility
                           onClick={() => {
                             setImageName(values.cancelcheqphoto);
@@ -1176,7 +1206,7 @@ const SoleProprietorComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1200,15 +1230,15 @@ const SoleProprietorComponent = (props: any) => {
                             errors.tradelicensephoto
                           }
                         />
-                         {values.tradelicensephoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.tradelicensephoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
+                        {values.tradelicensephoto && (
+                          <Visibility
+                            onClick={() => {
+                              setImageName(values.tradelicensephoto);
+                              setOpen(true);
+                            }}
+                            style={{ float: "right", marginTop: "25px" }}
+                          />
+                        )}
                       </Grid>
                     </Grid>
                   )}
@@ -1226,7 +1256,7 @@ const SoleProprietorComponent = (props: any) => {
                         autoComplete="numberOfOtherGST"
                         onChange={handleChange}
                         value={values.numberOfOtherGST}
-                        InputProps={{ inputProps: { min: 0, max: 10 } }}
+                        InputProps={{ inputProps: { min: 1, max: 10 } }}
                         InputLabelProps={{ shrink: true }}
                         error={
                           errors.numberOfOtherGST && touched.numberOfOtherGST
@@ -1274,7 +1304,7 @@ const SoleProprietorComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 size="small"
                                 fullWidth
                                 id={"gstAttachment" + index}
@@ -1322,9 +1352,7 @@ const SoleProprietorComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  {(isAdmin ||
-                    (values.remark &&
-                      values.remark !== "")) && (
+                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField
@@ -1391,6 +1419,7 @@ const SoleProprietorComponent = (props: any) => {
                             variant="contained"
                             color="primary"
                             onClick={() => {
+                              values.adminUploadedDocs = true;
                               submitForm(values, true);
                             }}
                           >

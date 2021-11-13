@@ -145,4 +145,12 @@ public class LLP {
     private String declarationOfAuthorisedSignatory;
     @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
+    private boolean adminUploadedDocs = false;
+    public boolean getAdminUploadedDocs() {
+        return this.adminUploadedDocs;
+    }
+
+    public void setAdminUploadedDocs(boolean adminUploadedDocs) {
+        this.adminUploadedDocs = adminUploadedDocs;
+    }
 }

@@ -9,6 +9,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -23,7 +24,8 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
 import { schema } from "./schema/PartnerSchema";
-
+import GetAppIcon from "@material-ui/icons/GetApp";
+import MessageIcon from "@material-ui/icons/Message";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -144,7 +146,22 @@ const PartnershipComponent = (props: any) => {
       fetchOrderDetails(params.id);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  const downloadReport = (filename: any) => {
+    axios
+      .get("/api/document/downloadFile/" + filename, { responseType: "blob" })
+      .then((response: any) => {
+        var element = document.createElement("a");
+        var file = new Blob([response.data]);
+        element.target = "_blank";
+        element.download = filename;
+        element.href = URL.createObjectURL(file);
+        element.click();
+        element.remove();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable To Download", failureToast);
+      });
+  };
   const upload = (event: any, setFieldValue: any, field: any) => {
     let formData = new FormData();
     formData.append("file", event.currentTarget.files[0]);
@@ -355,7 +372,7 @@ const PartnershipComponent = (props: any) => {
                       ...valuesForPartners,
                       partnershipDeed: "",
                       declarationOfAuthorisedSignatory: "",
-                      numberOfOtherGST: 0,
+                      numberOfOtherGST: 1,
                       ...valuesOfGSTInOtherStates,
                     }
               }
@@ -490,7 +507,7 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         required
                         fullWidth
@@ -576,9 +593,7 @@ const PartnershipComponent = (props: any) => {
                     </Grid>
                   </Grid>
 
-                  {(isAdmin ||
-                    (values.principleplace &&
-                      values.principleplace !== "")) && (
+                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
                         <TextField
@@ -607,7 +622,7 @@ const PartnershipComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -647,7 +662,7 @@ const PartnershipComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -683,7 +698,7 @@ const PartnershipComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -745,7 +760,7 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalelectricityphoto"
@@ -784,7 +799,7 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalrentphoto"
@@ -819,7 +834,7 @@ const PartnershipComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalnocphoto"
@@ -1007,7 +1022,7 @@ const PartnershipComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "90%" }}
+                                  style={{ width: "70%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1068,7 +1083,7 @@ const PartnershipComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "90%" }}
+                                  style={{ width: "70%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1155,7 +1170,7 @@ const PartnershipComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 size="small"
                                 required
                                 fullWidth
@@ -1239,7 +1254,7 @@ const PartnershipComponent = (props: any) => {
                             <Grid item xs={12} sm={6}>
                               <TextField
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 margin="dense"
                                 size="small"
                                 required
@@ -1500,7 +1515,7 @@ const PartnershipComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1539,7 +1554,7 @@ const PartnershipComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         fullWidth
@@ -1602,7 +1617,7 @@ const PartnershipComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1638,14 +1653,12 @@ const PartnershipComponent = (props: any) => {
                       </Grid>
                     </Grid>
                   )}
-                  {(isAdmin ||
-                    (values.declarationOfAuthorisedSignatory &&
-                      values.declarationOfAuthorisedSignatory !== "")) && (
+                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1700,7 +1713,7 @@ const PartnershipComponent = (props: any) => {
                         autoComplete="numberOfOtherGST"
                         onChange={handleChange}
                         value={values.numberOfOtherGST}
-                        InputProps={{ inputProps: { min: 0, max: 10 } }}
+                        InputProps={{ inputProps: { min: 1, max: 10 } }}
                         InputLabelProps={{ shrink: true }}
                         error={
                           errors.numberOfOtherGST && touched.numberOfOtherGST
@@ -1747,7 +1760,7 @@ const PartnershipComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 size="small"
                                 fullWidth
                                 id={"gstAttachment" + index}
@@ -1795,7 +1808,7 @@ const PartnershipComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  {(isAdmin || (values.remark && values.remark !== "")) && (
+                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField
@@ -1862,6 +1875,7 @@ const PartnershipComponent = (props: any) => {
                             variant="contained"
                             color="primary"
                             onClick={() => {
+                              values.adminUploadedDocs = true;
                               submitForm(values, true);
                             }}
                           >

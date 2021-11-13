@@ -9,6 +9,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -23,7 +24,8 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { DialogComponent } from "../Dialog";
 import { schema } from "./schema/LLPSchema";
-
+import GetAppIcon from "@material-ui/icons/GetApp";
+import MessageIcon from "@material-ui/icons/Message";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -86,7 +88,7 @@ const LLPComponent = (props: any) => {
           response.data["partnerMobile" + index] = partner.partnerMobile;
           response.data["partnerEmail" + index] = partner.partnerEmail;
           response.data["isAuthorisedSignatory" + index] =
-          partner.isAuthorisedSignatory;
+            partner.isAuthorisedSignatory;
         });
         response.data.numberOfPartners = response.data.partnerList.length;
 
@@ -141,7 +143,22 @@ const LLPComponent = (props: any) => {
       fetchOrderDetails(params.id);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  const downloadReport = (filename: any) => {
+    axios
+      .get("/api/document/downloadFile/" + filename, { responseType: "blob" })
+      .then((response: any) => {
+        var element = document.createElement("a");
+        var file = new Blob([response.data]);
+        element.target = "_blank";
+        element.download = filename;
+        element.href = URL.createObjectURL(file);
+        element.click();
+        element.remove();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable To Download", failureToast);
+      });
+  };
   const upload = (event: any, setFieldValue: any, field: any) => {
     let formData = new FormData();
     formData.append("file", event.currentTarget.files[0]);
@@ -215,7 +232,7 @@ const LLPComponent = (props: any) => {
       alert("Only one Partner can be Authorised Partner");
       return;
     }
-    
+
     values.partnerList = partnerList;
     const gstCertificatesInOtherStates: any = [];
     [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {
@@ -348,10 +365,10 @@ const LLPComponent = (props: any) => {
                       manufacture: false,
                       service: false,
                       remark: "",
-                      declarationOfAuthorisedSignatory:"",
+                      declarationOfAuthorisedSignatory: "",
                       numberOfPartners: 1,
                       ...valuesForPartners,
-                      numberOfOtherGST: 0,
+                      numberOfOtherGST: 1,
                       ...valuesOfGSTInOtherStates,
                     }
               }
@@ -486,7 +503,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         required
                         fullWidth
@@ -572,9 +589,7 @@ const LLPComponent = (props: any) => {
                     </Grid>
                   </Grid>
 
-                  {(isAdmin ||
-                    (values.principleplace &&
-                      values.principleplace !== "")) && (
+                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
                         <TextField
@@ -603,7 +618,7 @@ const LLPComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -643,7 +658,7 @@ const LLPComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -679,7 +694,7 @@ const LLPComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -741,7 +756,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalelectricityphoto"
@@ -780,7 +795,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalrentphoto"
@@ -815,7 +830,7 @@ const LLPComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalnocphoto"
@@ -1003,7 +1018,7 @@ const LLPComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "90%" }}
+                                  style={{ width: "70%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1064,7 +1079,7 @@ const LLPComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "90%" }}
+                                  style={{ width: "70%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1151,7 +1166,7 @@ const LLPComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 size="small"
                                 required
                                 fullWidth
@@ -1235,7 +1250,7 @@ const LLPComponent = (props: any) => {
                             <Grid item xs={12} sm={6}>
                               <TextField
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 margin="dense"
                                 size="small"
                                 required
@@ -1497,7 +1512,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1535,7 +1550,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         fullWidth
@@ -1572,7 +1587,7 @@ const LLPComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1641,7 +1656,7 @@ const LLPComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1677,14 +1692,12 @@ const LLPComponent = (props: any) => {
                       </Grid>
                     </Grid>
                   )}
-                  {(isAdmin ||
-                    (values.declarationOfAuthorisedSignatory &&
-                      values.declarationOfAuthorisedSignatory !== "")) && (
+                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1739,7 +1752,7 @@ const LLPComponent = (props: any) => {
                         autoComplete="numberOfOtherGST"
                         onChange={handleChange}
                         value={values.numberOfOtherGST}
-                        InputProps={{ inputProps: { min: 0, max: 10 } }}
+                        InputProps={{ inputProps: { min: 1, max: 10 } }}
                         InputLabelProps={{ shrink: true }}
                         error={
                           errors.numberOfOtherGST && touched.numberOfOtherGST
@@ -1787,7 +1800,7 @@ const LLPComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 size="small"
                                 fullWidth
                                 id={"gstAttachment" + index}
@@ -1835,7 +1848,7 @@ const LLPComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  {(isAdmin || (values.remark && values.remark !== "")) && (
+                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField
@@ -1902,6 +1915,7 @@ const LLPComponent = (props: any) => {
                             variant="contained"
                             color="primary"
                             onClick={() => {
+                              values.adminUploadedDocs = true;
                               submitForm(values, true);
                             }}
                           >

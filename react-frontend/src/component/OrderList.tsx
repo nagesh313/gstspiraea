@@ -236,7 +236,7 @@ function OrderListComponent(props: any) {
                     <TextField
                       margin="dense"
                       type="file"
-                      style={{ width: "90%" }}
+                      style={{ width: "70%" }}
                       size="small"
                       required
                       fullWidth
@@ -323,7 +323,7 @@ function OrderListComponent(props: any) {
                     <TextField
                       margin="dense"
                       type="file"
-                      style={{ width: "90%" }}
+                      style={{ width: "70%" }}
                       size="small"
                       required
                       fullWidth
@@ -410,7 +410,7 @@ function OrderListComponent(props: any) {
                     <TextField
                       margin="dense"
                       type="file"
-                      style={{ width: "90%" }}
+                      style={{ width: "70%" }}
                       size="small"
                       required
                       fullWidth
@@ -497,7 +497,7 @@ function OrderListComponent(props: any) {
                     <TextField
                       margin="dense"
                       type="file"
-                      style={{ width: "90%" }}
+                      style={{ width: "70%" }}
                       size="small"
                       required
                       fullWidth
@@ -584,7 +584,7 @@ function OrderListComponent(props: any) {
                     <TextField
                       margin="dense"
                       type="file"
-                      style={{ width: "90%" }}
+                      style={{ width: "70%" }}
                       size="small"
                       required
                       fullWidth
