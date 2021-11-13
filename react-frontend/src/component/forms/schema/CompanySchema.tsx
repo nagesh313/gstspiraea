@@ -13,27 +13,6 @@ function buildSchema() {
     commencementDate: Yup.string().required("Required"),
     hsn1: Yup.string().required("Required").min(1, "Minimum 4 characters"),
 
-    principleplace: Yup.string().when({
-      is: () => sessionStorage.getItem("role") === "Admin",
-      then: Yup.string().required("Required"),
-    }),
-    pricipleelectricityphoto: Yup.string().when({
-      is: () => sessionStorage.getItem("role") === "Admin",
-      then: Yup.string().required("Required"),
-    }),
-    priciplerentphoto: Yup.string().when({
-      is: () => sessionStorage.getItem("role") === "Admin",
-      then: Yup.string().required("Required"),
-    }),
-    priciplenocphoto: Yup.string().when({
-      is: () => sessionStorage.getItem("role") === "Admin",
-      then: Yup.string().required("Required"),
-    }),
-
-    // additionalplace: Yup.string().required("Required"),
-    // additionalelectricityphoto: Yup.string().required("Required"),
-    // additionalrentphoto: Yup.string().required("Required"),
-    // additionalnocphoto: Yup.string().required("Required"),
     branchname: Yup.string().required("Required"),
     accountnumber: Yup.string().required("Required"),
     ifsccode: Yup.string().required("Required"),

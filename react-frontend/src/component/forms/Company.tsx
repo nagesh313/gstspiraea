@@ -15,7 +15,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Visibility } from "@material-ui/icons";
+import { GetApp, Message, Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
@@ -513,13 +513,28 @@ const CompanyComponent = (props: any) => {
                         helperText={touched.panphoto && errors.panphoto}
                       />
                       {values.panphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.panphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.panphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.panphoto);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title={"File Name : " + values.panphoto}>
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                     </Grid>
                   </Grid>
@@ -579,145 +594,139 @@ const CompanyComponent = (props: any) => {
                     </Grid>
                   </Grid>
 
-                  {(isAdmin || values.adminUploadedDocs) && (
-                    <Grid container spacing={4}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          margin="dense"
-                          size="small"
-                          required
-                          fullWidth
-                          id="principleplace"
-                          label="Principal Place of Business address"
-                          name="principleplace"
-                          autoComplete="principleplace"
-                          onChange={handleChange}
-                          value={values.principleplace}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.principleplace && touched.principleplace
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.principleplace && errors.principleplace
-                          }
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          margin="dense"
-                          type="file"
-                          style={{ width: "70%" }}
-                          size="small"
-                          required
-                          fullWidth
-                          id="pricipleelectricityphoto"
-                          label="Please attach Electricity bill"
-                          name="pricipleelectricityphoto"
-                          autoComplete="pricipleelectricityphoto"
-                          onChange={(file) =>
-                            upload(
-                              file,
-                              setFieldValue,
-                              "pricipleelectricityphoto"
-                            )
-                          }
-                          // value={values.pricipleelectricityphoto}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.pricipleelectricityphoto &&
-                            touched.pricipleelectricityphoto
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.pricipleelectricityphoto &&
-                            errors.pricipleelectricityphoto
-                          }
-                        />
-                        {values.pricipleelectricityphoto && (
-                          <Visibility
-                            onClick={() => {
-                              setImageName(values.pricipleelectricityphoto);
-                              setOpen(true);
-                            }}
-                            style={{ float: "right", marginTop: "25px" }}
-                          />
-                        )}
-                        <TextField
-                          margin="dense"
-                          type="file"
-                          style={{ width: "70%" }}
-                          size="small"
-                          required
-                          fullWidth
-                          id="priciplerentphoto"
-                          label="Please attach Rent Agrement"
-                          name="priciplerentphoto"
-                          autoComplete="priciplerentphoto"
-                          onChange={(file) =>
-                            upload(file, setFieldValue, "priciplerentphoto")
-                          }
-                          // value={values.priciplerentphoto}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.priciplerentphoto &&
-                            touched.priciplerentphoto
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.priciplerentphoto &&
-                            errors.priciplerentphoto
-                          }
-                        />
-                        {values.priciplerentphoto && (
-                          <Visibility
-                            onClick={() => {
-                              setImageName(values.priciplerentphoto);
-                              setOpen(true);
-                            }}
-                            style={{ float: "right", marginTop: "25px" }}
-                          />
-                        )}
-                        <TextField
-                          margin="dense"
-                          type="file"
-                          style={{ width: "70%" }}
-                          size="small"
-                          required
-                          fullWidth
-                          id="priciplenocphoto"
-                          label="Please attach NOC if Rented"
-                          name="priciplenocphoto"
-                          autoComplete="priciplenocphoto"
-                          onChange={(file) =>
-                            upload(file, setFieldValue, "priciplenocphoto")
-                          }
-                          // value={values.priciplenocphoto}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.priciplenocphoto && touched.priciplenocphoto
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.panphoto && errors.priciplenocphoto
-                          }
-                        />
-                        {values.priciplenocphoto && (
-                          <Visibility
-                            onClick={() => {
-                              setImageName(values.priciplenocphoto);
-                              setOpen(true);
-                            }}
-                            style={{ float: "right", marginTop: "25px" }}
-                          />
-                        )}
-                      </Grid>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        size="small"
+                        required
+                        fullWidth
+                        id="principleplace"
+                        label="Principal Place of Business address"
+                        name="principleplace"
+                        autoComplete="principleplace"
+                        onChange={handleChange}
+                        value={values.principleplace}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.principleplace && touched.principleplace
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.principleplace && errors.principleplace
+                        }
+                      />
                     </Grid>
-                  )}
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        margin="dense"
+                        type="file"
+                        style={{ width: "70%" }}
+                        size="small"
+                        required
+                        fullWidth
+                        id="pricipleelectricityphoto"
+                        label="Please attach Electricity bill"
+                        name="pricipleelectricityphoto"
+                        autoComplete="pricipleelectricityphoto"
+                        onChange={(file) =>
+                          upload(
+                            file,
+                            setFieldValue,
+                            "pricipleelectricityphoto"
+                          )
+                        }
+                        // value={values.pricipleelectricityphoto}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.pricipleelectricityphoto &&
+                          touched.pricipleelectricityphoto
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.pricipleelectricityphoto &&
+                          errors.pricipleelectricityphoto
+                        }
+                      />
+                      {values.pricipleelectricityphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.pricipleelectricityphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
+                      <TextField
+                        margin="dense"
+                        type="file"
+                        style={{ width: "70%" }}
+                        size="small"
+                        required
+                        fullWidth
+                        id="priciplerentphoto"
+                        label="Please attach Rent Agrement"
+                        name="priciplerentphoto"
+                        autoComplete="priciplerentphoto"
+                        onChange={(file) =>
+                          upload(file, setFieldValue, "priciplerentphoto")
+                        }
+                        // value={values.priciplerentphoto}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.priciplerentphoto && touched.priciplerentphoto
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.priciplerentphoto && errors.priciplerentphoto
+                        }
+                      />
+                      {values.priciplerentphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.priciplerentphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
+                      <TextField
+                        margin="dense"
+                        type="file"
+                        style={{ width: "70%" }}
+                        size="small"
+                        required
+                        fullWidth
+                        id="priciplenocphoto"
+                        label="Please attach NOC if Rented"
+                        name="priciplenocphoto"
+                        autoComplete="priciplenocphoto"
+                        onChange={(file) =>
+                          upload(file, setFieldValue, "priciplenocphoto")
+                        }
+                        // value={values.priciplenocphoto}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.priciplenocphoto && touched.priciplenocphoto
+                            ? true
+                            : false
+                        }
+                        helperText={touched.panphoto && errors.priciplenocphoto}
+                      />
+                      {values.priciplenocphoto && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(values.priciplenocphoto);
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
+                        />
+                      )}
+                    </Grid>
+                  </Grid>
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -1625,53 +1634,51 @@ const CompanyComponent = (props: any) => {
                       </Grid>
                     </Grid>
                   )}
-                  {(isAdmin || values.adminUploadedDocs) && (
-                    <Grid container spacing={4}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          type="file"
-                          style={{ width: "70%" }}
-                          margin="dense"
-                          size="small"
-                          fullWidth
-                          id="declarationOfAuthorisedSignatory"
-                          label="Declaration Of Authorised Signatory"
-                          name="declarationOfAuthorisedSignatory"
-                          autoComplete="declarationOfAuthorisedSignatory"
-                          onChange={(file) =>
-                            upload(
-                              file,
-                              setFieldValue,
-                              "declarationOfAuthorisedSignatory"
-                            )
-                          }
-                          // value={values.declarationOfAuthorisedSignatory}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.declarationOfAuthorisedSignatory &&
-                            touched.declarationOfAuthorisedSignatory
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.declarationOfAuthorisedSignatory &&
-                            errors.declarationOfAuthorisedSignatory
-                          }
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        type="file"
+                        style={{ width: "70%" }}
+                        margin="dense"
+                        size="small"
+                        fullWidth
+                        id="declarationOfAuthorisedSignatory"
+                        label="Declaration Of Authorised Signatory"
+                        name="declarationOfAuthorisedSignatory"
+                        autoComplete="declarationOfAuthorisedSignatory"
+                        onChange={(file) =>
+                          upload(
+                            file,
+                            setFieldValue,
+                            "declarationOfAuthorisedSignatory"
+                          )
+                        }
+                        // value={values.declarationOfAuthorisedSignatory}
+                        InputLabelProps={{ shrink: true }}
+                        error={
+                          errors.declarationOfAuthorisedSignatory &&
+                          touched.declarationOfAuthorisedSignatory
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.declarationOfAuthorisedSignatory &&
+                          errors.declarationOfAuthorisedSignatory
+                        }
+                      />
+                      {values.declarationOfAuthorisedSignatory && (
+                        <Visibility
+                          onClick={() => {
+                            setImageName(
+                              values.declarationOfAuthorisedSignatory
+                            );
+                            setOpen(true);
+                          }}
+                          style={{ float: "right", marginTop: "25px" }}
                         />
-                        {values.declarationOfAuthorisedSignatory && (
-                          <Visibility
-                            onClick={() => {
-                              setImageName(
-                                values.declarationOfAuthorisedSignatory
-                              );
-                              setOpen(true);
-                            }}
-                            style={{ float: "right", marginTop: "25px" }}
-                          />
-                        )}
-                      </Grid>
+                      )}
                     </Grid>
-                  )}
+                  </Grid>
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -1781,7 +1788,6 @@ const CompanyComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  {(isAdmin || values.adminUploadedDocs) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField
@@ -1801,7 +1807,6 @@ const CompanyComponent = (props: any) => {
                         />
                       </Grid>
                     </Grid>
-                  )}
                   {(params.id === undefined ||
                     orderDetails?.status === "DRAFT") &&
                     sessionStorage.getItem("role") === "Customer" && (
@@ -1848,7 +1853,6 @@ const CompanyComponent = (props: any) => {
                             variant="contained"
                             color="primary"
                             onClick={() => {
-                              values.adminUploadedDocs = true;
                               submitForm(values, true);
                             }}
                           >
