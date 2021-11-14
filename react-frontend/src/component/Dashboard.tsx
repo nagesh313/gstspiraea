@@ -22,6 +22,7 @@ import React from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { secondaryRoutes } from "../routes/routes";
 import { MainListItems, SecondaryListItems } from "./ListItems";
+import { StickyFooter } from "./StickyFooter";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: any) => ({
@@ -174,7 +175,7 @@ export default function Dashboard() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
       <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
@@ -253,7 +254,7 @@ export default function Dashboard() {
             onClick={() => navigate("/#/dashboard/home")}
             style={{ cursor: "pointer" }}
           >
-            gstspiraea-ui
+            Welcome {sessionStorage.getItem("user")}
           </Typography>
           <div className={classes.grow} />
           <img
@@ -323,6 +324,7 @@ export default function Dashboard() {
             </Switch>
           </Grid>
         </Container>
+        <StickyFooter />
       </main>
     </div>
   );

@@ -15,7 +15,6 @@ import { failureToast, successToast } from "../util/util";
 const SignupSchema = Yup.object().shape({
   payplanLocation: Yup.string()
     .min(2, "Too Short!")
-    .max(10, "Too Long!")
     .required("Required"),
   payplanamount: Yup.number().required("Required"),
 });

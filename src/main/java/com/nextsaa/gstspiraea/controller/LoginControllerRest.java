@@ -53,7 +53,7 @@ public class LoginControllerRest {
     public void createRegistration(@RequestBody UserDetails user) throws ServerException {
         //Set default fields for customer registration
         user.setCreatedBy("REGISTRATION");
-        user.setRole("CUSTOMER");
+        user.setRole("Customer");
         user.setIsActive(1);
         user.setIsEmailVerified(0);
         user.setIsMobileVerified(0);
@@ -63,7 +63,7 @@ public class LoginControllerRest {
 
     @GetMapping(value = "/getAllUsers")
     public List<UserDetails> getAllUsers() {
-        //Set default fields for customer registration
+        //Set default fields for customer registrationCUSTOMER
         return userService.getAllUsers();
     }
 
