@@ -210,6 +210,14 @@ const LLPComponent = (props: any) => {
       alert("Duplicate Partner email found : " + duplicates.toString());
       return;
     }
+    const partnerListMobile = partnerList.map((p: any) => p.partnerMobile);
+    const duplicatesMobile = partnerListMobile.filter(
+      (item: any, index: any) => partnerListMobile.indexOf(item) !== index
+    );
+    if (duplicatesMobile?.length > 0) {
+      alert("Duplicate Partner Mobile No found : " + duplicates.toString());
+      return;
+    }
     const partnerListAuthorised = partnerList
       .map((p: any) => p.isAuthorisedSignatory)
       .filter((p: any) => p);
