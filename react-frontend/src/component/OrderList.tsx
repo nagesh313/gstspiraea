@@ -24,7 +24,10 @@ function OrderListComponent(props: any) {
         "/api/get-order/" + orderType + "/" + sessionStorage.getItem("user");
     } else if (sessionStorage.getItem("role") === "Agent") {
       url =
-        "/api/get-all-order/" + orderType + "/" + sessionStorage.getItem("user");
+        "/api/get-all-order/" +
+        orderType +
+        "/" +
+        sessionStorage.getItem("user");
     } else {
       url = "/api/get-all-order/" + orderType;
     }
@@ -187,9 +190,8 @@ function OrderListComponent(props: any) {
       return row.companydetailsid;
     }
   };
-  let isP0: any = sessionStorage.getItem("type");
-  isP0 = isP0 === "P0";
-  console.log(isP0);
+  // let isP0: any = sessionStorage.getItem("type");
+  // isP0 = isP0 === "P0";
   return (
     <React.Fragment>
       <DialogComponent
@@ -284,7 +286,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && !isP0 && (
+                      {row.status === "CREATED" && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"
@@ -371,7 +373,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && !isP0 && (
+                      {row.status === "CREATED" && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"
@@ -458,7 +460,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && !isP0 && (
+                      {row.status === "CREATED" && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"
@@ -545,7 +547,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && !isP0 && (
+                      {row.status === "CREATED" && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"
@@ -632,7 +634,7 @@ function OrderListComponent(props: any) {
                       >
                         View
                       </Button>
-                      {row.status === "CREATED" && !isP0 && (
+                      {row.status === "CREATED" && (
                         <Button
                           style={{ marginLeft: "10px" }}
                           variant="outlined"
