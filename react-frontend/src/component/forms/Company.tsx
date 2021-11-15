@@ -71,6 +71,12 @@ const CompanyComponent = (props: any) => {
     axios
       .get("/api/get-order/get/Company/" + id)
       .then((response: any) => {
+        const commencementDate = response.data.commencementDate?.split;
+        if (commencementDate?.length > 0) {
+          response.data.commencementDate = response.data.commencementDate?.split(
+            "T"
+          )[0];
+        }
         response.data.directorList.forEach((director: any, index: any) => {
           response.data["id" + index] = director.id;
           response.data["directorName" + index] = director.directorName;

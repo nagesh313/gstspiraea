@@ -70,6 +70,12 @@ const PartnershipComponent = (props: any) => {
     axios
       .get("/api/document/downloadFile/" + filename, { responseType: "blob" })
       .then((response: any) => {
+        const commencementDate = response.data.commencementDate?.split;
+        if (commencementDate?.length > 0) {
+          response.data.commencementDate = response.data.commencementDate?.split(
+            "T"
+          )[0];
+        }
         var element = document.createElement("a");
         var file = new Blob([response.data]);
         element.target = "_blank";

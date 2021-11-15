@@ -206,7 +206,7 @@ public class DataInsert {
                 .pannumber("AAAAA2222A")
                 .panphoto("download.jpg")
                 .composition("No")
-                .commencementDate("test")
+                .commencementDate(new Date())
                 .principleplace("test")
                 .pricipleelectricityphoto("download.jpg")
                 .priciplerentphoto("download.jpg")
@@ -478,7 +478,7 @@ public class DataInsert {
                 .pannumber("AAAAA2222A")
                 .panphoto("download.jpg")
                 .composition("No")
-                .commencementDate("test")
+                .commencementDate(new Date())
                 .principleplace("test")
                 .pricipleelectricityphoto("download.jpg")
                 .priciplerentphoto("download.jpg")
@@ -744,8 +744,8 @@ public class DataInsert {
     private String createOrder(Double amount) throws Exception {
         try {
             RazorpayClient razorpayClient = new RazorpayClient(
-                    configService.getConfigByKey("payment.razorpay.key").getConfigvalue(),
-                    configService.getConfigByKey("payment.razorpay.secret").getConfigvalue());
+                    "rzp_test_4zyGtu09Yf3TwL",
+                    "km6IezoWKidIvUHBBsFR8LPs");
             JSONObject orderRequest = new JSONObject();
 
             Double feeAmountC = amount * 100;

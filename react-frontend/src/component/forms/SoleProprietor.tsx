@@ -96,6 +96,12 @@ const SoleProprietorComponent = (props: any) => {
       .get("/api/get-order/get/Proprietorship/" + id)
       .then((response: any) => {
         // props.enqueueSnackbar("Order Rejected Successfull", successToast);
+        const commencementDate = response.data.commencementDate?.split;
+        if (commencementDate?.length > 0) {
+          response.data.commencementDate = response.data.commencementDate?.split(
+            "T"
+          )[0];
+        }
         response.data.gstCertificatesInOtherStates.forEach(
           (gst: any, index: any) => {
             response.data["id" + index] = gst.id;

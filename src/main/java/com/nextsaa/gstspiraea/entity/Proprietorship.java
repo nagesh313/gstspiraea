@@ -55,7 +55,7 @@ public class Proprietorship {
     private String composition;
 
     @Column(name = "commencementDate")
-    private String commencementDate;
+    private Date commencementDate;
 
     @Column(name = "principleplace")
     private String principleplace;

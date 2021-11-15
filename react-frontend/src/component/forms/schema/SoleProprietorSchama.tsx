@@ -11,7 +11,7 @@ function buildSchema() {
     email: Yup.string().email("Invalid").required("Required"),
     panphoto: Yup.string().required("Required"),
     composition: Yup.string().required("Required"),
-    commencementDate: Yup.string().required("Required"),
+    commencementDate: Yup.date().required("Required"),
     hsn1: Yup.string().required("Required").min(4, "Minimum 4 characters"),
     // for Admin
     // principleplace: Yup.string().required("Required"),
