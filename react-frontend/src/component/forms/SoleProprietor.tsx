@@ -8,7 +8,7 @@ import {
   MenuItem,
   Select,
   TextField,
-  Tooltip
+  Tooltip,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -568,29 +568,35 @@ const SoleProprietorComponent = (props: any) => {
                           }
                         />
                         {values.pricipleelectricityphoto && (
-							<>
-							  <Tooltip title="View">
-								<Visibility
-								  className="file-action-icon"
-								  onClick={() => {
-									setImageName(values.pricipleelectricityphoto);
-									setOpen(true);
-								  }}
-								/>
-							  </Tooltip>
-							  <Tooltip title="Download">
-								<GetApp
-								  className="file-action-icon"
-								  onClick={() => {
-									downloadReport(values.pricipleelectricityphoto);
-								  }}
-								/>
-							  </Tooltip>
-							  <Tooltip title={"File Name : " + values.pricipleelectricityphoto}>
-								<Message className="file-action-icon" />
-							  </Tooltip>
-							</>
-						)}
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.pricipleelectricityphoto);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(
+                                    values.pricipleelectricityphoto
+                                  );
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={
+                                "File Name : " + values.pricipleelectricityphoto
+                              }
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
                         <TextField
                           margin="dense"
                           type="file"
@@ -619,29 +625,31 @@ const SoleProprietorComponent = (props: any) => {
                           }
                         />
                         {values.priciplerentphoto && (
-							<>
-							  <Tooltip title="View">
-								<Visibility
-								  className="file-action-icon"
-								  onClick={() => {
-									setImageName(values.priciplerentphoto);
-									setOpen(true);
-								  }}
-								/>
-							  </Tooltip>
-							  <Tooltip title="Download">
-								<GetApp
-								  className="file-action-icon"
-								  onClick={() => {
-									downloadReport(values.priciplerentphoto);
-								  }}
-								/>
-							  </Tooltip>
-							  <Tooltip title={"File Name : " + values.priciplerentphoto}>
-								<Message className="file-action-icon" />
-							  </Tooltip>
-							</>
-						  )}
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.priciplerentphoto);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(values.priciplerentphoto);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={"File Name : " + values.priciplerentphoto}
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
                         <TextField
                           margin="dense"
                           type="file"
@@ -668,29 +676,31 @@ const SoleProprietorComponent = (props: any) => {
                           }
                         />
                         {values.priciplenocphoto && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.priciplenocphoto);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.priciplenocphoto);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.priciplenocphoto}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.priciplenocphoto);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(values.priciplenocphoto);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={"File Name : " + values.priciplenocphoto}
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
                       </Grid>
                     </Grid>
                   )}
@@ -750,29 +760,35 @@ const SoleProprietorComponent = (props: any) => {
                         }
                       />
                       {values.additionalelectricityphoto && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.additionalelectricityphoto);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.additionalelectricityphoto);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.additionalelectricityphoto}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.additionalelectricityphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(
+                                  values.additionalelectricityphoto
+                                );
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={
+                              "File Name : " + values.additionalelectricityphoto
+                            }
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
@@ -800,29 +816,31 @@ const SoleProprietorComponent = (props: any) => {
                         }
                       />
                       {values.additionalrentphoto && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.additionalrentphoto);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.additionalrentphoto);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.additionalrentphoto}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.additionalrentphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.additionalrentphoto);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={"File Name : " + values.additionalrentphoto}
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
+                      )}
                       <TextField
                         margin="dense"
                         type="file"
@@ -850,29 +868,31 @@ const SoleProprietorComponent = (props: any) => {
                         }
                       />
                       {values.additionalnocphoto && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.additionalnocphoto);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.additionalnocphoto);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.additionalnocphoto}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.additionalnocphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.additionalnocphoto);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={"File Name : " + values.additionalnocphoto}
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -953,29 +973,33 @@ const SoleProprietorComponent = (props: any) => {
                           }
                         />
                         {values.propadharphotoFront && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.propadharphotoFront);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.propadharphotoFront);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.propadharphotoFront}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.propadharphotoFront);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(values.propadharphotoFront);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={
+                                "File Name : " + values.propadharphotoFront
+                              }
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
@@ -1006,29 +1030,31 @@ const SoleProprietorComponent = (props: any) => {
                           }
                         />
                         {values.propadharphotoBack && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.propadharphotoBack);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.propadharphotoBack);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.propadharphotoBack}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.propadharphotoBack);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(values.propadharphotoBack);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={"File Name : " + values.propadharphotoBack}
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -1079,29 +1105,29 @@ const SoleProprietorComponent = (props: any) => {
                         helperText={touched.photo && errors.photo}
                       />
                       {values.photo && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.photo);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.photo);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.photo}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.photo);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.photo);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title={"File Name : " + values.photo}>
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
+                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -1285,34 +1311,38 @@ const SoleProprietorComponent = (props: any) => {
                           touched.cancelcheqphoto && errors.cancelcheqphoto
                         }
                       />
-                       {values.cancelcheqphoto && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.cancelcheqphoto);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.cancelcheqphoto);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.cancelcheqphoto}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                      {values.cancelcheqphoto && (
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.cancelcheqphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.cancelcheqphoto);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            title={"File Name : " + values.cancelcheqphoto}
+                          >
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
+                      )}
                     </Grid>
                   </Grid>
 
-                  {sessionStorage.getItem("role") !== "Admin" && (
+                  {(isAdmin ||
+                    (values.tradelicensenumber &&
+                      values.tradelicensenumber !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
                         <TextField
@@ -1365,30 +1395,32 @@ const SoleProprietorComponent = (props: any) => {
                             errors.tradelicensephoto
                           }
                         />
-                         {values.tradelicensephoto && (
-						<>
-						  <Tooltip title="View">
-							<Visibility
-							  className="file-action-icon"
-							  onClick={() => {
-								setImageName(values.tradelicensephoto);
-								setOpen(true);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title="Download">
-							<GetApp
-							  className="file-action-icon"
-							  onClick={() => {
-								downloadReport(values.tradelicensephoto);
-							  }}
-							/>
-						  </Tooltip>
-						  <Tooltip title={"File Name : " + values.tradelicensephoto}>
-							<Message className="file-action-icon" />
-						  </Tooltip>
-						</>
-						)}
+                        {values.tradelicensephoto && (
+                          <>
+                            <Tooltip title="View">
+                              <Visibility
+                                className="file-action-icon"
+                                onClick={() => {
+                                  setImageName(values.tradelicensephoto);
+                                  setOpen(true);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <GetApp
+                                className="file-action-icon"
+                                onClick={() => {
+                                  downloadReport(values.tradelicensephoto);
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip
+                              title={"File Name : " + values.tradelicensephoto}
+                            >
+                              <Message className="file-action-icon" />
+                            </Tooltip>
+                          </>
+                        )}
                       </Grid>
                     </Grid>
                   )}
@@ -1482,29 +1514,38 @@ const SoleProprietorComponent = (props: any) => {
                                 }
                               />
                               {values["gstAttachment" + index] && (
-								<>
-								  <Tooltip title="View">
-									<Visibility
-									  className="file-action-icon"
-									  onClick={() => {
-										setImageName(values["gstAttachment" + index]);
-										setOpen(true);
-									  }}
-									/>
-								  </Tooltip>
-								  <Tooltip title="Download">
-									<GetApp
-									  className="file-action-icon"
-									  onClick={() => {
-										downloadReport(values["gstAttachment" + index]);
-									  }}
-									/>
-								  </Tooltip>
-								  <Tooltip title={"File Name : " + values["gstAttachment" + index]}>
-									<Message className="file-action-icon" />
-								  </Tooltip>
-								</>
-								)}
+                                <>
+                                  <Tooltip title="View">
+                                    <Visibility
+                                      className="file-action-icon"
+                                      onClick={() => {
+                                        setImageName(
+                                          values["gstAttachment" + index]
+                                        );
+                                        setOpen(true);
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Tooltip title="Download">
+                                    <GetApp
+                                      className="file-action-icon"
+                                      onClick={() => {
+                                        downloadReport(
+                                          values["gstAttachment" + index]
+                                        );
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Tooltip
+                                    title={
+                                      "File Name : " +
+                                      values["gstAttachment" + index]
+                                    }
+                                  >
+                                    <Message className="file-action-icon" />
+                                  </Tooltip>
+                                </>
+                              )}
                             </Grid>
                           </Grid>
                         </React.Fragment>
@@ -1512,9 +1553,7 @@ const SoleProprietorComponent = (props: any) => {
                     }
                   )}
                   <Divider />
-                  {(isAdmin ||
-                    (values.remark &&
-                      values.remark !== "")) && (
+                  {(isAdmin || (values.remark && values.remark !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField

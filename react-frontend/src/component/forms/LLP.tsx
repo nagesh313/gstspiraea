@@ -1887,7 +1887,9 @@ const LLPComponent = (props: any) => {
                       )}
                     </Grid>
                   </Grid>
-                  {sessionStorage.getItem("role") !== "Admin" && (
+                  {(isAdmin ||
+                    (values.tradelicensenumber &&
+                      values.tradelicensenumber !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
                         <TextField
