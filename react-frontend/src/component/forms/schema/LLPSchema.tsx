@@ -11,7 +11,7 @@ function buildSchema() {
     panphoto: Yup.string().required("Required"),
     composition: Yup.string().required("Required"),
     commencementDate: Yup.date().required("Required"),
-    hsn1: Yup.string().required("Required").min(4, "Minimum 4 characters"),
+    hsn1: Yup.number().required("Required").min(4, "Minimum 4 characters"),
     // principleplace: Yup.string().required("Required"),
     // pricipleelectricityphoto: Yup.string().required("Required"),
     // priciplerentphoto: Yup.string().required("Required"),

@@ -1195,13 +1195,17 @@ const SoleProprietorComponent = (props: any) => {
                     </Grid>
                     <Grid item xs={6} sm={6}>
                       <TextField
+                        type="number"
                         label="1"
                         id="hsn1"
                         name="hsn1"
                         onChange={handleChange}
                         value={values.hsn1}
+                        error={errors.hsn1 && touched.hsn1 ? true : false}
+                        helperText={touched.hsn1 && errors.hsn1}
                       ></TextField>
                       <TextField
+                       type="number"
                         label="2"
                         id="hsn2"
                         name="hsn2"
@@ -1209,20 +1213,21 @@ const SoleProprietorComponent = (props: any) => {
                         value={values.hsn2}
                       ></TextField>
                       <TextField
+                       type="number"
                         label="3"
                         id="hsn3"
                         name="hsn3"
                         onChange={handleChange}
                         value={values.hsn3}
                       ></TextField>
-                      <TextField
+                      <TextField  type="number"
                         label="4"
                         id="hsn4"
                         name="hsn4"
                         onChange={handleChange}
                         value={values.hsn4}
                       ></TextField>
-                      <TextField
+                      <TextField  type="number"
                         label="5"
                         id="hsn5"
                         name="hsn5"
