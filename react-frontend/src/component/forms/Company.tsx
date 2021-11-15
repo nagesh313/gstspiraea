@@ -352,7 +352,7 @@ const CompanyComponent = (props: any) => {
                       hsn3: "",
                       hsn4: "",
                       hsn5: "",
-                      branchname: "",
+                      // branchname: "",
                       accountnumber: "",
                       ifsccode: "",
                       cancelcheqphoto: "",
@@ -1696,25 +1696,6 @@ const CompanyComponent = (props: any) => {
                   </Grid>
 
                   <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="branchname"
-                        label="Bank details associated with PAN number of business"
-                        name="branchname"
-                        autoComplete="branchname"
-                        onChange={handleChange}
-                        value={values.branchname}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.branchname && touched.branchname ? true : false
-                        }
-                        helperText={touched.branchname && errors.branchname}
-                      />
-                    </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"

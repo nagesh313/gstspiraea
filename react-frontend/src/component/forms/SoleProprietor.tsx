@@ -284,7 +284,7 @@ const SoleProprietorComponent = (props: any) => {
                       hsn3: "",
                       hsn4: "",
                       hsn5: "",
-                      branchname: "",
+                      // branchname: "",
                       accountnumber: "",
                       ifsccode: "",
                       cancelcheqphoto: "",
@@ -1205,7 +1205,7 @@ const SoleProprietorComponent = (props: any) => {
                         helperText={touched.hsn1 && errors.hsn1}
                       ></TextField>
                       <TextField
-                       type="number"
+                        type="number"
                         label="2"
                         id="hsn2"
                         name="hsn2"
@@ -1213,21 +1213,23 @@ const SoleProprietorComponent = (props: any) => {
                         value={values.hsn2}
                       ></TextField>
                       <TextField
-                       type="number"
+                        type="number"
                         label="3"
                         id="hsn3"
                         name="hsn3"
                         onChange={handleChange}
                         value={values.hsn3}
                       ></TextField>
-                      <TextField  type="number"
+                      <TextField
+                        type="number"
                         label="4"
                         id="hsn4"
                         name="hsn4"
                         onChange={handleChange}
                         value={values.hsn4}
                       ></TextField>
-                      <TextField  type="number"
+                      <TextField
+                        type="number"
                         label="5"
                         id="hsn5"
                         name="hsn5"
@@ -1281,25 +1283,6 @@ const SoleProprietorComponent = (props: any) => {
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="branchname"
-                        label="Bank details associated with PAN number of business"
-                        name="branchname"
-                        autoComplete="branchname"
-                        onChange={handleChange}
-                        value={values.branchname}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.branchname && touched.branchname ? true : false
-                        }
-                        helperText={touched.branchname && errors.branchname}
-                      />
-                    </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"

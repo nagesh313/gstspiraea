@@ -13,7 +13,7 @@ function buildSchema() {
     commencementDate: Yup.date().required("Required"),
     hsn1: Yup.number().required("Required").min(4, "Minimum 4 characters"),
 
-    branchname: Yup.string().required("Required"),
+    // branchname: Yup.string().required("Required"),
     accountnumber: Yup.string().required("Required"),
     ifsccode: Yup.string().required("Required"),
     cancelcheqphoto: Yup.string().required("Required"),

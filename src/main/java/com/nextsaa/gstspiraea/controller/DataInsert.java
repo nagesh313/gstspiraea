@@ -226,7 +226,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                .branchname("test")
+                
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -296,7 +296,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                .branchname("test")
+                
                 .accountnumber("test")
                 .ifsccode("test")
                 .cancelcheqphoto("download.jpg")
@@ -368,7 +368,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                .branchname("test")
+                
                 .accountnumber("test")
                 .ifsccode("test")
                 .cancelcheqphoto("download.jpg")
@@ -438,7 +438,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                .branchname("test")
+                
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -498,7 +498,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                .branchname("test")
+                
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -572,7 +572,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                .branchname("test")
+                
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -645,7 +645,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                .branchname("test")
+                
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -716,7 +716,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                .branchname("test")
+                
                 .accountnumber("test")
                 .ifsccode("test")
 

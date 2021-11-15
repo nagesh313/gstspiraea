@@ -20,7 +20,7 @@ function buildSchema() {
     // additionalelectricityphoto: Yup.string().required("Required"),
     // additionalrentphoto: Yup.string().required("Required"),
     // additionalnocphoto: Yup.string().required("Required"),
-    branchname: Yup.string().required("Required"),
+    // branchname: Yup.string().required("Required"),
     accountnumber: Yup.string().required("Required"),
     ifsccode: Yup.string().required("Required"),
     cancelcheqphoto: Yup.string().required("Required"),

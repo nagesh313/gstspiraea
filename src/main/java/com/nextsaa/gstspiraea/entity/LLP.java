@@ -96,8 +96,6 @@ public class LLP {
     @Column(name = "hsn5")
     private String hsn5;
 
-    @Column(name = "branchname")
-    private String branchname;
     private String accountnumber;
     private String ifsccode;
 

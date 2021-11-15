@@ -27,7 +27,7 @@ function buildSchema() {
     propadharphotoBack: Yup.string().required("Required"),
     resident_address: Yup.string().required("Required"),
     photo: Yup.string().required("Required"),
-    branchname: Yup.string().required("Required"),
+    // branchname: Yup.string().required("Required"),
     accountnumber: Yup.string().required("Required"),
     ifsccode: Yup.string().required("Required"),
     cancelcheqphoto: Yup.string().required("Required"),
