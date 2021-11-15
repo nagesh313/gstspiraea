@@ -216,6 +216,11 @@ const CompanyComponent = (props: any) => {
       return;
     }
 
+    if (!(values.trading || values.manufacture || values.service)) {
+      alert("Please select atleast one Option in Nature of Business");
+      return;
+    }
+
     values.directorList = directorList;
     const gstCertificatesInOtherStates: any = [];
     [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {

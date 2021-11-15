@@ -177,6 +177,10 @@ const SoleProprietorComponent = (props: any) => {
     }
   };
   const submitForm = (values: any, save = false) => {
+    if (!(values.trading || values.manufacture || values.service)) {
+      alert("Please select atleast one Option in Nature of Business");
+      return;
+    }
     if (props.plan) {
       values.paymentPlanLocationDetails = props.plan;
     } else if (orderDetails?.paymentPlanLocationDetails) {

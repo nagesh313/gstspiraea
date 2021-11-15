@@ -221,7 +221,10 @@ const LLPComponent = (props: any) => {
       alert("Only one Partner can be Authorised Partner");
       return;
     }
-
+    if (!(values.trading || values.manufacture || values.service)) {
+      alert("Please select atleast one Option in Nature of Business");
+      return;
+    }
     values.partnerList = partnerList;
     const gstCertificatesInOtherStates: any = [];
     [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {
