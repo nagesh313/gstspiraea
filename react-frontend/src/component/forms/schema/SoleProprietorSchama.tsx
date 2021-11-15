@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+const panRegex = /^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$/;
 const aadharRegex = /^[0-9]{4}[0-9]{4}[0-9]{4}$/;
 
 function buildSchema() {
