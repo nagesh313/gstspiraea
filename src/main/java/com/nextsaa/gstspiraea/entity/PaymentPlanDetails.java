@@ -1,13 +1,13 @@
 package com.nextsaa.gstspiraea.entity;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.persistence.*;
-
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 @Data

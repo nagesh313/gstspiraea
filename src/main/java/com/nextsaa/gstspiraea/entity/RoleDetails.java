@@ -1,116 +1,110 @@
 package com.nextsaa.gstspiraea.entity;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "role_details")
 public class RoleDetails {
 
-	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(
-			name = "UUID",
-			strategy = "org.hibernate.id.UUIDGenerator"
-	)
-	private String roleid;
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String roleid;
 
-	@Column(name = "rolename", nullable = false)
-	private String rolename;
+    @Column(name = "rolename", nullable = false)
+    private String rolename;
 
-	@Column(name = "description")
-	private String description;
-	
-	@Column(name = "createdon", nullable = false)
-	@CreationTimestamp
-	private LocalDateTime createdOn;
+    @Column(name = "description")
+    private String description;
 
-	@Column(name = "createdby", nullable = false)
-	private String createdBy;
+    @Column(name = "createdon", nullable = false)
+    @CreationTimestamp
+    private LocalDateTime createdOn;
 
-	@Column(name = "modifiedon", nullable = false)
-	@CreationTimestamp
-	private LocalDateTime modifiedOn;
+    @Column(name = "createdby", nullable = false)
+    private String createdBy;
 
-	@Column(name = "modifiedby", nullable = false)
-	private String modifiedBy;
+    @Column(name = "modifiedon", nullable = false)
+    @CreationTimestamp
+    private LocalDateTime modifiedOn;
 
-	@Column(name = "lastlogindt")
-	private Date lastLoginDate;
+    @Column(name = "modifiedby", nullable = false)
+    private String modifiedBy;
 
-	public String getRoleid() {
-		return roleid;
-	}
+    @Column(name = "lastlogindt")
+    private Date lastLoginDate;
 
-	public void setRoleid(String roleid) {
-		this.roleid = roleid;
-	}
+    public String getRoleid() {
+        return roleid;
+    }
 
-	public String getRolename() {
-		return rolename;
-	}
+    public void setRoleid(String roleid) {
+        this.roleid = roleid;
+    }
 
-	public void setRolename(String rolename) {
-		this.rolename = rolename;
-	}
+    public String getRolename() {
+        return rolename;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public LocalDateTime getCreatedOn() {
-		return createdOn;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setCreatedOn(LocalDateTime createdOn) {
-		this.createdOn = createdOn;
-	}
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
-	public LocalDateTime getModifiedOn() {
-		return modifiedOn;
-	}
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public void setModifiedOn(LocalDateTime modifiedOn) {
-		this.modifiedOn = modifiedOn;
-	}
+    public LocalDateTime getModifiedOn() {
+        return modifiedOn;
+    }
 
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
+    public void setModifiedOn(LocalDateTime modifiedOn) {
+        this.modifiedOn = modifiedOn;
+    }
 
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
 
-	public Date getLastLoginDate() {
-		return lastLoginDate;
-	}
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
 
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
 
-	
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+
 }

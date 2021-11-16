@@ -3,6 +3,7 @@ package com.nextsaa.gstspiraea.controller;
 import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.ConfigService;
+import com.nextsaa.gstspiraea.util.Utility;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
@@ -38,6 +39,8 @@ public class FormController {
     private ConfigService configService;
     @Autowired
     private GSTCertificatesInOtherStatesRepository gstCertificatesInOtherStatesRepository;
+    @Autowired
+    private Utility utility;
 
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
@@ -90,52 +93,24 @@ public class FormController {
 
     private void createOrderProprietorship(Proprietorship entity) throws Exception {
         entity.setStatus("CREATED");
-        entity.setRazorpayOrder(createOrder(
+        entity.setRazorpayOrder(utility.createOrder(
                 entity.getPaymentPlanLocationDetails().getPayplanamount()
         ));
     }
 
     private void createOrderLLP(LLP entity) throws Exception {
         entity.setStatus("CREATED");
-        entity.setRazorpayOrder(createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
     private void createOrderPartnership(Partnership entity) throws Exception {
         entity.setStatus("CREATED");
-        entity.setRazorpayOrder(createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
     private void createOrderCompany(CompanyDetails entity) throws Exception {
         entity.setStatus("CREATED");
-        entity.setRazorpayOrder(createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
     }
 
-    private String createOrder(Double amount) throws Exception {
-        try {
-            RazorpayClient razorpayClient = new RazorpayClient(
-                    configService.getConfigByKey("payment.razorpay.key").getConfigvalue(),
-                    configService.getConfigByKey("payment.razorpay.secret").getConfigvalue());
-            JSONObject orderRequest = new JSONObject();
-
-            Double feeAmountC = amount * 100;
-            Double transactionFeesC = 2 * (feeAmountC) / 100;
-            orderRequest.put("amount", feeAmountC + transactionFeesC); // amount in the smallest currency unit
-            orderRequest.put("currency", "INR");
-            orderRequest.put("receipt", generatedOrder());
-            Order order = razorpayClient.Orders.create(orderRequest);
-            return order.toString();
-
-        } catch (RazorpayException e) {
-            System.out.println(e.getMessage());
-            throw new Exception("Unable to create Razor Pay Order");
-        }
-    }
-
-    public String generatedOrder() {
-        Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
-        String datetime = ft.format(dNow);
-        System.out.println(datetime);
-        return "Order-" + datetime;
-    }
 }

@@ -3,6 +3,7 @@ package com.nextsaa.gstspiraea.controller;
 import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.ConfigService;
+import com.nextsaa.gstspiraea.util.Utility;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
@@ -18,6 +19,8 @@ import java.util.Date;
 
 @Component
 public class DataInsert {
+    @Autowired
+    Utility utility;
     @Autowired
     UserDetailsRepository userDetailsRepository;
 
@@ -42,10 +45,11 @@ public class DataInsert {
     @Autowired
     GSTCertificatesInOtherStatesRepository gstCertificatesInOtherStatesRepository;
     @Autowired
-    private ConfigService configService;
+    private ConfigRepository configRepository;
 
     @PostConstruct
     public void create() throws Exception {
+        createConfig();
         createPlan1();
         createPlan2();
         createPlan3();
@@ -60,6 +64,15 @@ public class DataInsert {
         createPartnerShipOrder1();
         createLLPOrder1();
         createCompanyOrder1();
+    }
+
+    public void createConfig() {
+        Config config1 = Config.builder().configkey("payment.razorpay.key").configvalue("rzp_test_4zyGtu09Yf3TwL").build();
+        Config config2 = Config.builder().configkey("payment.razorpay.secret").configvalue("km6IezoWKidIvUHBBsFR8LPs").build();
+        Config config3 = Config.builder().configkey("originatorEmail").configvalue("spiraea@nextsaa.com").build();
+        Config config4 = Config.builder().configkey("loginMailSubject").configvalue("Spiraea GST Login Details").build();
+        Config config5 = Config.builder().configkey("loginMailBody").configvalue("Please find your login details to use for applying GST on Spiraea").build();
+        configRepository.saveAll(Arrays.asList(config1, config2, config3, config4, config5));
     }
 
     public void createPlan1() {
@@ -226,7 +239,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                
+
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -244,7 +257,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(createOrder(new Double(10000)))
+                .razorpayOrder(utility.createOrder(new Double(10000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
                 .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
@@ -296,7 +309,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                
+
                 .accountnumber("test")
                 .ifsccode("test")
                 .cancelcheqphoto("download.jpg")
@@ -313,7 +326,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(createOrder(new Double(100000)))
+                .razorpayOrder(utility.createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
                 .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
@@ -368,7 +381,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                
+
                 .accountnumber("test")
                 .ifsccode("test")
                 .cancelcheqphoto("download.jpg")
@@ -385,7 +398,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(createOrder(new Double(100000)))
+                .razorpayOrder(utility.createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
                 .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
@@ -438,7 +451,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                
+
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -453,7 +466,7 @@ public class DataInsert {
                 .status("DRAFT")
                 .gstDocument("test")
 //                .remark("test")
-                .razorpayOrder(createOrder(new Double(100000)))
+                .razorpayOrder(utility.createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
                 .directorList(Arrays.asList(director))
                 .certificateOfIncorportation("test")
@@ -498,7 +511,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                
+
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -519,7 +532,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(createOrder(new Double(10000)))
+                .razorpayOrder(utility.createOrder(new Double(10000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
                 .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
@@ -572,7 +585,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                
+
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -590,7 +603,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(createOrder(new Double(100000)))
+                .razorpayOrder(utility.createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
                 .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
@@ -645,7 +658,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                
+
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -663,7 +676,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(createOrder(new Double(100000)))
+                .razorpayOrder(utility.createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
                 .partnerList(Arrays.asList(partner))
                 .certificateOfIncorportation("test")
@@ -716,7 +729,7 @@ public class DataInsert {
                 .hsn3("test")
                 .hsn4("test")
                 .hsn5("test")
-                
+
                 .accountnumber("test")
                 .ifsccode("test")
 
@@ -731,7 +744,7 @@ public class DataInsert {
                 .status("CREATED")
                 .gstDocument("test")
 //                .remark("test")
-                .razorpayOrder(createOrder(new Double(100000)))
+                .razorpayOrder(utility.createOrder(new Double(100000)))
                 .paymentPlanLocationDetails(paymentPlanLocationDetailsRepository.findAll().get(0))
                 .directorList(Arrays.asList(director))
                 .certificateOfIncorportation("test")
@@ -739,34 +752,5 @@ public class DataInsert {
                 .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
         companyDetailsRepository.saveAndFlush(details);
-    }
-
-    private String createOrder(Double amount) throws Exception {
-        try {
-            RazorpayClient razorpayClient = new RazorpayClient(
-                    "rzp_test_4zyGtu09Yf3TwL",
-                    "km6IezoWKidIvUHBBsFR8LPs");
-            JSONObject orderRequest = new JSONObject();
-
-            Double feeAmountC = amount * 100;
-            Double transactionFeesC = 2 * (feeAmountC) / 100;
-            orderRequest.put("amount", feeAmountC + transactionFeesC); // amount in the smallest currency unit
-            orderRequest.put("currency", "INR");
-            orderRequest.put("receipt", generatedOrder());
-            Order order = razorpayClient.Orders.create(orderRequest);
-            return order.toString();
-
-        } catch (RazorpayException e) {
-            System.out.println(e.getMessage());
-            throw new Exception("Unable to create Razor Pay Order");
-        }
-    }
-
-    public String generatedOrder() {
-        Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
-        String datetime = ft.format(dNow);
-        System.out.println(datetime);
-        return "Order-" + datetime;
     }
 }

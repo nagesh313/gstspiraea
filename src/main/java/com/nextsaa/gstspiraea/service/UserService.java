@@ -51,11 +51,13 @@ public class UserService {
             return newUser;
         }
     }
+
     public UserDetails getUserDetails(String username, String password, String role) throws AuthenticationException {
         UserDetails user = userDetailsRepository.findByLoginUserName(username);
         //passwordEncoder.encode
         return user;
     }
+
     public Boolean checkLoginDetails(String username, String password, String role) throws AuthenticationException {
         UserDetails user = userDetailsRepository.findByLoginUserName(username);
         //passwordEncoder.encode
