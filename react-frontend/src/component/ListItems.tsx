@@ -10,18 +10,18 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Queue } from "@material-ui/icons";
 import AccessibilityIcon from "@material-ui/icons/Accessibility";
-
-import ContactsIcon from "@material-ui/icons/Contacts";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import PersonIcon from "@material-ui/icons/Person";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import RecordVoiceOverIcon from "@material-ui/icons/RecordVoiceOver";
 // import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 // import LayersIcon from "@material-ui/icons/Layers";
 // import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 // import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-
 import React from "react";
 
 export const MainListItems = () => {
@@ -101,9 +101,31 @@ export const SecondaryListItems = () => {
                 href="/#/dashboard/userList"
               >
                 <ListItemIcon>
-                  <ContactsIcon />
+                  <PersonOutlineIcon />
                 </ListItemIcon>
-                <ListItemText primary="User List" />
+                <ListItemText primary="Customer List" />
+              </ListItem>
+              <ListItem
+                button
+                className={classes.nested}
+                component="a"
+                href="/#/dashboard/agentList"
+              >
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary="Agent List" />
+              </ListItem>
+              <ListItem
+                button
+                className={classes.nested}
+                component="a"
+                href="/#/dashboard/adminList"
+              >
+                <ListItemIcon>
+                  <RecordVoiceOverIcon />
+                </ListItemIcon>
+                <ListItemText primary="Admin List" />
               </ListItem>
               <ListItem
                 button

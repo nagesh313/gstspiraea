@@ -5,7 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import React from "react";
 
-export const DialogComponent = (props: any) => {
+export const ViewDocumentDialogComponent = (props: any) => {
   return (
     <div>
       <Dialog

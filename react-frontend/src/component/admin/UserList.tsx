@@ -1,14 +1,24 @@
-import { Button, MenuItem, Select, TextField } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  IconButton,
+  MenuItem,
+  Select,
+  TextField,
+  Tooltip,
+} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { Add, Delete } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
-import { failureToast, successToast } from "../util/util";
-import Title from "./Title";
+import { failureToast, successToast } from "../../util/util";
+import Title from "../Title";
+import { CreateNewUserDialog } from "./CreateNewUser";
 export function UserListComponent(props: any) {
   const [userList, setUserList] = React.useState<any>([]);
   const [agentList, setAgentList] = React.useState<any>([]);
@@ -50,17 +60,17 @@ export function UserListComponent(props: any) {
   //       props.enqueueSnackbar(reponse.error, failureToast);
   //     });
   // };
-  // const deleteAccount = (user: any) => {
-  //   axios
-  //     .get("/api/v1/admin/user/deleteUser/" + user.id)
-  //     .then((response: any) => {
-  //       props.enqueueSnackbar("User Deleted", successToast);
-  //       fetchUserList();
-  //     })
-  //     .catch((reponse: any) => {
-  //       props.enqueueSnackbar(reponse.error, failureToast);
-  //     });
-  // };
+  const deleteAccount = (user: any) => {
+    axios
+      .delete("/api/delete-user/" + user.userId)
+      .then((response: any) => {
+        props.enqueueSnackbar("User Deleted", successToast);
+        fetchUserList();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable To Delete User", failureToast);
+      });
+  };
   // const submitNewUser = (user: any) => {
   //   console.log(user);
   //   axios
@@ -86,9 +96,7 @@ export function UserListComponent(props: any) {
   };
   const updateUserAgentMapping = (user: any, loginUserName: any) => {
     axios
-      .get(
-        "/api/updateUserAgentMapping/" + user.userId + "/" + loginUserName
-      )
+      .get("/api/updateUserAgentMapping/" + user.userId + "/" + loginUserName)
       .then((response: any) => {
         props.enqueueSnackbar("User Assigned Successfully", successToast);
         fetchUserList();
@@ -101,10 +109,35 @@ export function UserListComponent(props: any) {
   useEffect(() => {
     fetchUserList();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  const [open, setOpen] = React.useState<any>(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    fetchUserList();
+  };
   return (
     <React.Fragment>
-      <Title>List of registered Users</Title>
+      <Grid container>
+        <Grid item xs={6}>
+          <Title style={{ marginTop: "20px" }}>List of Customers</Title>
+        </Grid>
+        <Grid item xs={6}>
+          <Title
+            style={{ marginTop: "20px", textAlign: "right", cursor: "pointer" }}
+          >
+            <Tooltip title="Add">
+              <Add onClick={handleOpen}></Add>
+            </Tooltip>
+            <CreateNewUserDialog
+              open={open}
+              type="Customer"
+              handleClose={handleClose}
+            ></CreateNewUserDialog>
+          </Title>
+        </Grid>
+      </Grid>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -152,14 +185,17 @@ export function UserListComponent(props: any) {
                 <TableCell>
                   <Select
                     style={{ marginLeft: "30px", marginBottom: "9px" }}
-                    value={row.assignedToAgent?row.assignedToAgent:""}
+                    value={row.assignedToAgent ? row.assignedToAgent : ""}
                     onChange={(event: any, data: any) => {
                       updateUserAgentMapping(row, event.target.value);
                     }}
                   >
                     {agentList.map((agent: any) => {
                       return (
-                        <MenuItem value={agent.loginUserName} key={agent.loginUserName}>
+                        <MenuItem
+                          value={agent.loginUserName}
+                          key={agent.loginUserName}
+                        >
                           {agent.loginUserName}
                         </MenuItem>
                       );
@@ -174,178 +210,14 @@ export function UserListComponent(props: any) {
                   >
                     Send Credentials
                   </Button>
-                  {/* {!row.enabled ? (
                   <IconButton
-                    aria-label="PlayCircleFilledIcon"
+                    aria-label="DeleteIcon"
                     onClick={() => {
-                      activateAccount(row);
+                      deleteAccount(row);
                     }}
                   >
-                    <PlayCircleFilledIcon />
+                    <Delete />
                   </IconButton>
-                ) : (
-                  <IconButton
-                    aria-label="PauseCircleFilledIcon"
-                    onClick={() => {
-                      deActivateAccount(row);
-                    }}
-                  >
-                    <PauseCircleFilledIcon />
-                  </IconButton>
-                )}
-                
-                <IconButton
-                  aria-label="DeleteIcon"
-                  onClick={() => {
-                    deleteAccount(row);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton> */}
-                </TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-      <Title style={{ marginTop: "20px" }}>List of Agents</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Email</TableCell>
-            <TableCell>User Name</TableCell>
-            <TableCell>Password</TableCell>
-            <TableCell align="center"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {userList
-            ?.filter((row: any) => {
-              return row.role === "Agent";
-            })
-            ?.map((row: any) => (
-              <TableRow key={row.userId}>
-                <TableCell>{row.userEmail}</TableCell>
-                <TableCell>
-                  <TextField
-                    autoComplete="loginUserName"
-                    name="loginUserName"
-                    fullWidth
-                    size="small"
-                    id="loginUserName"
-                    defaultValue={row.loginUserName}
-                    onChange={(event: any) => {
-                      row.loginUserName = event.target.value;
-                    }}
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    autoComplete="loginPassword"
-                    name="loginPassword"
-                    fullWidth
-                    size="small"
-                    id="loginPassword"
-                    defaultValue={row.loginPassword}
-                    onChange={(event: any) => {
-                      row.loginPassword = event.target.value;
-                    }}
-                  />
-                </TableCell>
-
-                <TableCell align="center">
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    onClick={() => sendmail(row)}
-                  >
-                    Send Credentials
-                  </Button>
-                  {/* {!row.enabled ? (
-                  <IconButton
-                    aria-label="PlayCircleFilledIcon"
-                    onClick={() => {
-                      activateAccount(row);
-                    }}
-                  >
-                    <PlayCircleFilledIcon />
-                  </IconButton>
-                ) : (
-                  <IconButton
-                    aria-label="PauseCircleFilledIcon"
-                    onClick={() => {
-                      deActivateAccount(row);
-                    }}
-                  >
-                    <PauseCircleFilledIcon />
-                  </IconButton>
-                )}
-                
-                <IconButton
-                  aria-label="DeleteIcon"
-                  onClick={() => {
-                    deleteAccount(row);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton> */}
-                </TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-      <Title style={{ marginTop: "20px" }}>List of registered Admin</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Email</TableCell>
-            <TableCell>User Name</TableCell>
-            <TableCell>Password</TableCell>
-            <TableCell align="center"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {userList
-            ?.filter((row: any) => {
-              return row.role === "Admin";
-            })
-            ?.map((row: any) => (
-              <TableRow key={row.userId}>
-                <TableCell>{row.userEmail}</TableCell>
-                <TableCell>
-                  <TextField
-                    autoComplete="loginUserName"
-                    name="loginUserName"
-                    fullWidth
-                    size="small"
-                    id="loginUserName"
-                    defaultValue={row.loginUserName}
-                    onChange={(event: any) => {
-                      row.loginUserName = event.target.value;
-                    }}
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    autoComplete="loginPassword"
-                    name="loginPassword"
-                    fullWidth
-                    size="small"
-                    id="loginPassword"
-                    defaultValue={row.loginPassword}
-                    onChange={(event: any) => {
-                      row.loginPassword = event.target.value;
-                    }}
-                  />
-                </TableCell>
-
-                <TableCell align="center">
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    onClick={() => sendmail(row)}
-                  >
-                    Send Credentials
-                  </Button>
                   {/* {!row.enabled ? (
                   <IconButton
                     aria-label="PlayCircleFilledIcon"

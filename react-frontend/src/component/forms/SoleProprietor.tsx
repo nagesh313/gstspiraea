@@ -20,7 +20,7 @@ import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
-import { DialogComponent } from "../Dialog";
+import { ViewDocumentDialogComponent } from "../ViewDocumentDialog";
 import { schema } from "./schema/SoleProprietorSchama";
 import { Visibility, GetApp, Message } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
@@ -238,7 +238,7 @@ const SoleProprietorComponent = (props: any) => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <DialogComponent
+      <ViewDocumentDialogComponent
         name={imageName}
         open={open}
         handleClickOpen={handleClickOpen}
@@ -429,6 +429,7 @@ const SoleProprietorComponent = (props: any) => {
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
+                      
                       <TextField
                         margin="dense"
                         type="file"
@@ -436,6 +437,7 @@ const SoleProprietorComponent = (props: any) => {
                         size="small"
                         required
                         fullWidth
+                        variant="outlined"
                         id="panphoto"
                         label="Please attach PAN card copy"
                         name="panphoto"

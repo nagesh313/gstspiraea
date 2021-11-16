@@ -15,8 +15,8 @@ import WorkIcon from "@material-ui/icons/Work";
 import axios from "axios";
 import clsx from "clsx";
 import React, { useEffect } from "react";
-import { ProgressBar } from "./admin/Progres";
-import Title from "./Title";
+import { ProgressBar } from "./Progres";
+import Title from "../Title";
 // function preventDefault(event: any) {
 //   event.preventDefault();
 // }

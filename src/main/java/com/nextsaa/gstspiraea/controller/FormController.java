@@ -1,18 +1,15 @@
 package com.nextsaa.gstspiraea.controller;
 
-import com.nextsaa.gstspiraea.entity.CompanyDetails;
-import com.nextsaa.gstspiraea.entity.LLP;
-import com.nextsaa.gstspiraea.entity.Partnership;
-import com.nextsaa.gstspiraea.entity.Proprietorship;
+import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.ConfigService;
 import com.nextsaa.gstspiraea.util.Utility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -37,6 +34,8 @@ public class FormController {
     private GSTCertificatesInOtherStatesRepository gstCertificatesInOtherStatesRepository;
     @Autowired
     private Utility utility;
+    @Autowired
+    private StateRepository stateRepository;
 
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
@@ -116,5 +115,11 @@ public class FormController {
             entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
         }
     }
+
+    @GetMapping(value = "/state-list")
+    public List<State> getStateList() {
+        return stateRepository.findAll();
+    }
+
 
 }

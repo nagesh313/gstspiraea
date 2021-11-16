@@ -13,10 +13,10 @@ import {
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
-import { failureToast } from "../util/util";
+import { failureToast } from "../../util/util";
 import { CreateNewPlan } from "./CreateNewPlan";
+import Title from "../Title";
 import { CreateNewPlanLocationDialog } from "./CreateNewPlanLocation";
-import Title from "./Title";
 
 function Row(props: any) {
   const [open, setOpen] = React.useState<boolean>(false);

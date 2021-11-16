@@ -53,12 +53,13 @@ public class LoginControllerRest {
     public void createRegistration(@RequestBody UserDetails user) throws ServerException {
         //Set default fields for customer registration
         user.setCreatedBy("REGISTRATION");
-        user.setRole("Customer");
+        if (user.getRole() == null) {
+            user.setRole("Customer");
+        }
         user.setIsActive(1);
         user.setIsEmailVerified(0);
         user.setIsMobileVerified(0);
         userService.createUser(user);
-        System.out.print("Here");
     }
 
     @GetMapping(value = "/getAllUsers")
@@ -158,5 +159,10 @@ public class LoginControllerRest {
             return "Company";
         }
         return "GSTApplication";
+    }
+
+    @DeleteMapping("/delete-user/{userid}")
+    public void deleteUser(@PathVariable String userid) {
+        userDetailsRepository.deleteById(userid);
     }
 }

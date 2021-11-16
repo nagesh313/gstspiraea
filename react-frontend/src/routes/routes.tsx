@@ -1,12 +1,13 @@
 import AllOutIcon from "@material-ui/icons/AllOut";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import QueueIcon from "@material-ui/icons/Queue";
 import React from "react";
-import Album from "../component/Album";
-// import { BarChartComponent, ScatterPlotComponent } from "../component/charts";
-import Checkout from "../component/checkout/Checkout";
+import { AdminDashboard } from "../component/admin/AdminDashboard";
+import { AdminList } from "../component/admin/AdminList";
+import { AgentList } from "../component/admin/AgentList";
+import { PlanList } from "../component/admin/PlanList";
+import { UserList } from "../component/admin/UserList";
 import Dashboard from "../component/Dashboard";
-import { AdminDashboard } from "../component/AdminDashboard";
-import Deposits from "../component/Deposits";
 import { ForgotPassword } from "../component/ForgotPassword";
 import { ApplyForGstComponent } from "../component/forms/ApplyForGST";
 import { Company } from "../component/forms/Company";
@@ -14,14 +15,8 @@ import { LLP } from "../component/forms/LLP";
 import { Partnership } from "../component/forms/Partnership";
 import { SoleProprietor } from "../component/forms/SoleProprietor";
 import { OrderList } from "../component/OrderList";
-import Pricing from "../component/pricing";
 import { SignIn } from "../component/SignIn";
 import { SignUp } from "../component/SignUp";
-import { UserList } from "../component/UserList";
-import { PlanList } from "../component/PlanList";
-import QueueIcon from "@material-ui/icons/Queue";
-import { UploadGSTDocum } from "../component/UploadGSTDashboard";
-
 export const dashboardRoutes = [
   {
     path: "/signin",
@@ -59,35 +54,6 @@ export const dashboardRoutes = [
     component: <Dashboard></Dashboard>,
     layout: "/admin",
   },
-  // {
-  //   path: "/dashboard/sole-proprietor",
-  //   name: "/dashboard/sole-proprietor",
-  //   icon: <AssignmentIndIcon></AssignmentIndIcon>,
-  //   component: <SolePropreietor></SolePropreietor>,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/dashboard/partnership",
-  //   name: "/dashboard/partnership",
-  //   icon: <AllOutIcon></AllOutIcon>,
-  //   component: <Checkout></Checkout>,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/dashboard/llp",
-  //   name: "/dashboard/llp",
-  //   icon: <LLP></LLP>,
-  //   component: <Checkout></Checkout>,
-  //   layout: "/admin",
-  // },
-
-  {
-    path: "/dashboard/checkout",
-    name: "/dashboard/checkout",
-    icon: <AllOutIcon></AllOutIcon>,
-    component: <Checkout></Checkout>,
-    layout: "/admin",
-  },
   {
     path: "/",
     name: "Sign In",
@@ -102,13 +68,6 @@ export const secondaryRoutes = [
     name: "/dashboard/home",
     icon: <AllOutIcon></AllOutIcon>,
     component: <AdminDashboard></AdminDashboard>,
-    layout: "/dashboard/home",
-  },
-  {
-    path: "/dashboard/upload-gst-document",
-    name: "/dashboard/home",
-    icon: <AllOutIcon></AllOutIcon>,
-    component: <UploadGSTDocum></UploadGSTDocum>,
     layout: "/dashboard/home",
   },
   {
@@ -143,81 +102,25 @@ export const secondaryRoutes = [
     component: <Company></Company>,
   },
   {
-    path: "/dashboard/checkout",
-    name: "/dashboard/checkout",
-    icon: <AllOutIcon></AllOutIcon>,
-    component: <Checkout></Checkout>,
-    layout: "/admin",
-  },
-  // {
-  //   path: "/dashboard/home",
-  //   name: "/dashboard/home",
-  //   icon: <AllOutIcon></AllOutIcon>,
-  //   component: (
-  //     <React.Fragment>
-  //       {/* <ScatterPlotComponent></ScatterPlotComponent>
-  //       <BarChartComponent></BarChartComponent> */}
-  //     </React.Fragment>
-  //   ),
-  //   layout: "/dashboard/home",
-  // },
-  // {
-  //   path: "/dashboard/BulkRNATasks",
-  //   name: "/dashboard/BulkRNATasks",
-  //   icon: <AllOutIcon></AllOutIcon>,
-  //   component: <BulkRNATasks></BulkRNATasks>,
-  //   layout: "/dashboard/BulkRNATasks",
-  // },
-  // {
-  //   path: "/dashboard/BulkRNAWorkflow",
-  //   name: "/dashboard/BulkRNAWorkflow",
-  //   icon: <AllOutIcon></AllOutIcon>,
-  //   component: <BulkRNAWorkflow></BulkRNAWorkflow>,
-  //   layout: "/dashboard/BulkRNAWorkflow",
-  // },
-  // {
-  //   path: "/dashboard/BulkRNAWorkflowResult/:id",
-  //   component: <BulkRNAWorkflowResult></BulkRNAWorkflowResult>,
-  // },
-  // {
-  //   path: "/dashboard/charts",
-  //   name: "/dashboard/checkout",
-  //   icon: <AllOutIcon></AllOutIcon>,
-  //   component: (
-  //     <React.Fragment>
-  //       <ScatterPlotComponent></ScatterPlotComponent>
-  //       <BarChartComponent></BarChartComponent>
-  //     </React.Fragment>
-  //   ),
-  //   layout: "/dashboard/checkout",
-  // },
-  {
-    path: "/dashboard/pricing",
-    name: "/dashboard/pricing",
-    icon: <AllOutIcon></AllOutIcon>,
-    component: <Pricing></Pricing>,
-    layout: "/dashboard/pricing",
-  },
-  {
-    path: "/dashboard/album",
-    name: "/dashboard/album",
-    icon: <AllOutIcon></AllOutIcon>,
-    component: <Album></Album>,
-    layout: "/dashboard/album",
-  },
-  {
-    path: "/dashboard/deposits",
-    name: "/dashboard/deposits",
-    icon: <AllOutIcon></AllOutIcon>,
-    component: <Deposits></Deposits>,
-    layout: "/dashboard/deposits",
-  },
-  {
     path: "/dashboard/userlist",
     name: "/dashboard/userlist",
     icon: <AllOutIcon></AllOutIcon>,
     component: <UserList></UserList>,
     layout: "/dashboard/userlist",
+  },
+  {
+    path: "/dashboard/agentlist",
+    name: "/dashboard/agentlist",
+    icon: <AllOutIcon></AllOutIcon>,
+    component: <AgentList></AgentList>,
+    layout: "/dashboard/agentlist",
+  },
+  {
+    path: "/dashboard/adminlist",
+    name: "/dashboard/adminlist",
+    icon: <AllOutIcon></AllOutIcon>,
+    component: <AdminList></AdminList>,
+    layout: "/dashboard/adminlist",
   },
   {
     path: "/dashboard/planlist",

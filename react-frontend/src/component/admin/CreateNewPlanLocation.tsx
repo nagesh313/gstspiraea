@@ -10,42 +10,40 @@ import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
 import React from "react";
 import * as Yup from "yup";
-import { failureToast, successToast } from "../util/util";
+import { failureToast, successToast } from "../../util/util";
 
-const PlanSchema = Yup.object().shape({
-  payplanname: Yup.string()
+const SignupSchema = Yup.object().shape({
+  payplanLocation: Yup.string()
     .min(2, "Too Short!")
-    .max(50, "Too Long!")
     .required("Required"),
-  remarks: Yup.string()
-    .min(2, "Too Short!")
-    .max(100, "Too Long!")
-    .required("Required"),
+  payplanamount: Yup.number().required("Required"),
 });
 
-const CreateNewPlanComponent = (props: any) => {
+const CreateNewPlanLocationDialogComponent = (props: any) => {
   const submit = (values: any) => {
     axios
-      .post("/api/plan", { ...values })
+      .post("/api/plan-location/" + props.plan.id, values)
       .then((response: any) => {
-        props.enqueueSnackbar("Plan Added successfully", successToast);
+        props.enqueueSnackbar("Plan Location Added successfully", successToast);
         props.handleClose(true);
         props.fetchPlanList();
       })
       .catch((reponse: any) => {
-        props.enqueueSnackbar("Unable To Add Plan", failureToast);
+        props.enqueueSnackbar("Unable to Add Location ", failureToast);
       });
   };
   return (
     <div>
       <Dialog open={props.open} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Create New Plan Form</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          Create New Plan Location
+        </DialogTitle>
         <Formik
           initialValues={{
-            payplanname: "",
-            remarks: "",
+            payplanLocation: "",
+            payplanamount: "",
           }}
-          validationSchema={PlanSchema}
+          validationSchema={SignupSchema}
           onSubmit={(values: any) => {
             submit(values);
           }}
@@ -53,38 +51,47 @@ const CreateNewPlanComponent = (props: any) => {
           {({ errors, touched, values, handleChange }) => (
             <Form noValidate>
               <DialogContent style={{ paddingTop: "10px" }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
+                <Grid container spacing={2} justifyContent="center">
+                  <Grid item xs={12} sm={6}>
                     <TextField
-                      autoComplete="payplanname"
-                      name="payplanname"
+                      autoComplete="payplanLocation"
+                      name="payplanLocation"
                       variant="outlined"
                       fullWidth
                       size="small"
-                      id="payplanname"
-                      label="Plan Name"
+                      id="payplanLocation"
+                      label="Payplan Location"
                       autoFocus
                       onChange={handleChange}
-                      value={values.payplanname}
+                      value={values.payplanLocation}
                       error={
-                        errors.payplanname && touched.payplanname ? true : false
+                        errors.payplanLocation && touched.payplanLocation
+                          ? true
+                          : false
                       }
-                      helperText={touched.payplanname && errors.payplanname}
+                      helperText={
+                        touched.payplanLocation && errors.payplanLocation
+                      }
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} sm={6}>
                     <TextField
                       variant="outlined"
                       fullWidth
+                      type="number"
                       size="small"
-                      id="remarks"
-                      label="Remarks"
-                      name="remarks"
-                      autoComplete="remarks"
+                      id="payplanamount"
+                      label="Pay Plan Amount"
+                      name="payplanamount"
+                      autoComplete="payplanamount"
                       onChange={handleChange}
-                      value={values.remarks}
-                      error={errors.remarks && touched.remarks ? true : false}
-                      helperText={touched.remarks && errors.remarks}
+                      value={values.payplanamount}
+                      error={
+                        errors.payplanamount && touched.payplanamount
+                          ? true
+                          : false
+                      }
+                      helperText={touched.payplanamount && errors.payplanamount}
                     />
                   </Grid>
                 </Grid>
@@ -108,4 +115,6 @@ const CreateNewPlanComponent = (props: any) => {
     </div>
   );
 };
-export const CreateNewPlan = withSnackbar(CreateNewPlanComponent);
+export const CreateNewPlanLocationDialog = withSnackbar(
+  CreateNewPlanLocationDialogComponent
+);

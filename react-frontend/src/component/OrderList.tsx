@@ -16,7 +16,7 @@ import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { failureToast, successToast } from "../util/util";
-import { DialogComponent } from "./Dialog";
+import { ViewDocumentDialogComponent } from "./ViewDocumentDialog";
 import Title from "./Title";
 
 function OrderListComponent(props: any) {
@@ -220,7 +220,7 @@ function OrderListComponent(props: any) {
 
   return (
     <React.Fragment>
-      <DialogComponent
+      <ViewDocumentDialogComponent
         name={imageName}
         open={open}
         handleClickOpen={handleClickOpen}
@@ -250,7 +250,7 @@ function OrderListComponent(props: any) {
               <TableCell>Trade Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
-              {role === "Admin" && <TableCell>Amount</TableCell>}
+              {/* {role === "Admin" && <TableCell>Amount</TableCell>} */}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -263,7 +263,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.tradeName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
-                {role === "Admin" && (
+                {/* {role === "Admin" && (
                   <TableCell>
                     <TextField
                       margin="dense"
@@ -286,7 +286,7 @@ function OrderListComponent(props: any) {
                       />
                     </Tooltip>
                   </TableCell>
-                )}
+                )} */}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
@@ -363,7 +363,7 @@ function OrderListComponent(props: any) {
               <TableCell>Trade Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
-              {role === "Admin" && <TableCell>Amount</TableCell>}
+              {/* {role === "Admin" && <TableCell>Amount</TableCell>} */}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -375,7 +375,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.tradeName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
-                {role === "Admin" && (
+                {/* {role === "Admin" && (
                   <TableCell>
                     <TextField
                       margin="dense"
@@ -399,7 +399,7 @@ function OrderListComponent(props: any) {
                       />
                     </Tooltip>
                   </TableCell>
-                )}
+                )} */}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
@@ -476,7 +476,7 @@ function OrderListComponent(props: any) {
               <TableCell>Firm Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
-              {role === "Admin" && <TableCell>Amount</TableCell>}
+              {/* {role === "Admin" && <TableCell>Amount</TableCell>} */}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -488,7 +488,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.firmName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
-                {role === "Admin" && (
+                {/* {role === "Admin" && (
                   <TableCell>
                     <TextField
                       margin="dense"
@@ -511,7 +511,7 @@ function OrderListComponent(props: any) {
                       />
                     </Tooltip>
                   </TableCell>
-                )}
+                )} */}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
@@ -588,7 +588,7 @@ function OrderListComponent(props: any) {
               <TableCell>Firm Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
-              {role === "Admin" && <TableCell>Amount</TableCell>}
+              {/* {role === "Admin" && <TableCell>Amount</TableCell>} */}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -600,7 +600,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.firmName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
-                {role === "Admin" && (
+                {/* {role === "Admin" && (
                   <TableCell>
                     <TextField
                       margin="dense"
@@ -624,7 +624,7 @@ function OrderListComponent(props: any) {
                       />
                     </Tooltip>
                   </TableCell>
-                )}
+                )} */}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
