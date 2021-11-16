@@ -85,7 +85,6 @@ function Row(props: any) {
                 {row.payplanLocation.map((historyRow: any) => (
                   <TableRow key={historyRow.id}>
                     <TableCell component="th" scope="row">
-                      {historyRow.id + "     - "}
                       {historyRow.payplanLocation}
                     </TableCell>
                     <TableCell>{historyRow.payplanamount}</TableCell>
