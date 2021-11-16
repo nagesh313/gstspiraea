@@ -2109,54 +2109,48 @@ const CompanyComponent = (props: any) => {
                         </Grid>
                       </Grid>
                     )}
-                  {sessionStorage.getItem("role") !== "Customer" && (
-                    <>
-                      <Grid
-                        container
-                        spacing={3}
-                        style={{ textAlign: "center" }}
+                  <Grid container spacing={3} style={{ textAlign: "center" }}>
+                    <Grid item xs={12}>
+                      <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          submitForm(values, true);
+                        }}
                       >
-                        <Grid item xs={12}>
-                          <Button
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              submitForm(values, true);
-                            }}
-                          >
-                            Save & Update
-                          </Button>
-                          {orderDetails?.status === "CREATED" && (
-                            <>
-                              <Button
-                                style={{ marginLeft: "10px" }}
-                                type="button"
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {
-                                  approve();
-                                }}
-                              >
-                                Approve
-                              </Button>
-                              <Button
-                                style={{ marginLeft: "10px" }}
-                                type="button"
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {
-                                  reject();
-                                }}
-                              >
-                                Reject
-                              </Button>
-                            </>
-                          )}
-                        </Grid>
-                      </Grid>
-                    </>
-                  )}
+                        Save & Update
+                      </Button>
+                      {sessionStorage.getItem("role") !== "Customer" &&
+                        (orderDetails?.status === "CREATED" ||
+                          orderDetails?.status === "PAID") && (
+                          <>
+                            <Button
+                              style={{ marginLeft: "10px" }}
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                approve();
+                              }}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              style={{ marginLeft: "10px" }}
+                              type="button"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                reject();
+                              }}
+                            >
+                              Reject
+                            </Button>
+                          </>
+                        )}
+                    </Grid>
+                  </Grid>
                 </Form>
               )}
             </Formik>

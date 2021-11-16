@@ -1,22 +1,18 @@
 package com.nextsaa.gstspiraea.controller;
 
-import com.nextsaa.gstspiraea.entity.*;
+import com.nextsaa.gstspiraea.entity.CompanyDetails;
+import com.nextsaa.gstspiraea.entity.LLP;
+import com.nextsaa.gstspiraea.entity.Partnership;
+import com.nextsaa.gstspiraea.entity.Proprietorship;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.ConfigService;
 import com.nextsaa.gstspiraea.util.Utility;
-import com.razorpay.Order;
-import com.razorpay.RazorpayClient;
-import com.razorpay.RazorpayException;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/api")
@@ -92,25 +88,33 @@ public class FormController {
     }
 
     private void createOrderProprietorship(Proprietorship entity) throws Exception {
-        entity.setStatus("CREATED");
-        entity.setRazorpayOrder(utility.createOrder(
-                entity.getPaymentPlanLocationDetails().getPayplanamount()
-        ));
+        if (!entity.getStatus().equals("PAID")) {
+            entity.setStatus("CREATED");
+            entity.setRazorpayOrder(utility.createOrder(
+                    entity.getPaymentPlanLocationDetails().getPayplanamount()
+            ));
+        }
     }
 
     private void createOrderLLP(LLP entity) throws Exception {
-        entity.setStatus("CREATED");
-        entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        if (!entity.getStatus().equals("PAID")) {
+            entity.setStatus("CREATED");
+            entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        }
     }
 
     private void createOrderPartnership(Partnership entity) throws Exception {
-        entity.setStatus("CREATED");
-        entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        if (!entity.getStatus().equals("PAID")) {
+            entity.setStatus("CREATED");
+            entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        }
     }
 
     private void createOrderCompany(CompanyDetails entity) throws Exception {
-        entity.setStatus("CREATED");
-        entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        if (!entity.getStatus().equals("PAID")) {
+            entity.setStatus("CREATED");
+            entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+        }
     }
 
 }
