@@ -62,7 +62,7 @@ public class PaymentPlanDataController {
         Optional<PaymentPlanDetails> plan = paymentPlanDetailsRepository.findById(planId);
         if (plan.isPresent()) {
             PaymentPlanDetails planDetails = plan.get();
-            List<PaymentPlanLocationDetails> updatedList = planDetails.getPayplanLocation().stream().filter(planLocationDetails -> id.equals(planLocationDetails.getId())).collect(Collectors.toList());
+            List<PaymentPlanLocationDetails> updatedList = planDetails.getPayplanLocation().stream().filter(planLocationDetails -> !id.equals(planLocationDetails.getId())).collect(Collectors.toList());
             planDetails.setPayplanLocation(updatedList);
             paymentPlanDetailsRepository.save(planDetails);
         }

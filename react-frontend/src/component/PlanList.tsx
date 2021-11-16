@@ -8,7 +8,7 @@ import {
   Add,
   Delete,
   KeyboardArrowDownOutlined,
-  KeyboardArrowUpOutlined
+  KeyboardArrowUpOutlined,
 } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
@@ -17,34 +17,7 @@ import { failureToast } from "../util/util";
 import { CreateNewPlan } from "./CreateNewPlan";
 import { CreateNewPlanLocationDialog } from "./CreateNewPlanLocation";
 import Title from "./Title";
-export function PlanListComponent(props: any) {
-  const [planList, setPlanList] = React.useState<any>([]);
-  // const [open, setOpen] = React.useState<boolean>(false);
 
-  const fetchPlanList = () => {
-    axios
-      .get("/api/plan-list")
-      .then((response: any) => {
-        setPlanList(response.data);
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar(reponse.error, failureToast);
-      });
-  };
-  useEffect(() => {
-    fetchPlanList();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return (
-    <React.Fragment>
-      <Title>List of registered Plans</Title>
-      <CollapsibleTable
-        list={planList}
-        fetchPlanList={fetchPlanList}
-      ></CollapsibleTable>
-    </React.Fragment>
-  );
-}
 function Row(props: any) {
   const [open, setOpen] = React.useState<boolean>(false);
 
@@ -52,7 +25,9 @@ function Row(props: any) {
   const handleDeletePlan = (row: any) => {
     axios
       .delete("/api/plan/" + row.id)
-      .then((response: any) => {})
+      .then((response: any) => {
+        props.fetchPlanList();
+      })
       .catch((reponse: any) => {
         // props.enqueueSnackbar(reponse.error, failureToast);
       });
@@ -60,7 +35,9 @@ function Row(props: any) {
   const handleDeletePlanLocation = (plan: any, planLocation: any) => {
     axios
       .delete("/api/plan-location/" + plan.id + "/" + planLocation.id)
-      .then((response: any) => {})
+      .then((response: any) => {
+        props.fetchPlanList();
+      })
       .catch((reponse: any) => {
         // props.enqueueSnackbar(reponse.error, failureToast);
       });
@@ -108,6 +85,7 @@ function Row(props: any) {
                 {row.payplanLocation.map((historyRow: any) => (
                   <TableRow key={historyRow.id}>
                     <TableCell component="th" scope="row">
+                      {historyRow.id + "     - "}
                       {historyRow.payplanLocation}
                     </TableCell>
                     <TableCell>{historyRow.payplanamount}</TableCell>
@@ -130,7 +108,23 @@ function Row(props: any) {
     </React.Fragment>
   );
 }
-export default function CollapsibleTable(props: any) {
+export const PlanListComponent = (props: any) => {
+  const [planList, setPlanList] = React.useState<any>([]);
+  // const [open, setOpen] = React.useState<boolean>(false);
+  const fetchPlanList = () => {
+    axios
+      .get("/api/plan-list")
+      .then((response: any) => {
+        setPlanList(response.data);
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar(reponse.error, failureToast);
+      });
+  };
+  useEffect(() => {
+    fetchPlanList();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const [open, setOpen] = React.useState<boolean>(false);
   const [openLocation, setOpenLocation] = React.useState<boolean>(false);
   const [plan, setPlan] = React.useState<any>();
@@ -155,48 +149,52 @@ export default function CollapsibleTable(props: any) {
     setOpenLocation(false);
   };
   return (
-    <TableContainer component={Paper}>
-      <CreateNewPlan
-        open={open}
-        handleClose={handleModalClose}
-        fetchPlanList={props.fetchPlanList}
-      ></CreateNewPlan>
-      <CreateNewPlanLocationDialog
-        fetchPlanList={props.fetchPlanList}
-        open={openLocation}
-        plan={plan}
-        handleClose={handleModalLocationClose}
-      ></CreateNewPlanLocationDialog>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell align="left">
-              <b>Particulars</b>
-            </TableCell>
-            <TableCell align="left">
-              <b>Remarks</b>
-            </TableCell>
-            <TableCell align="left">
-              <IconButton>
-                <Add onClick={handleModalOpen}></Add>
-              </IconButton>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.list.map((row: any) => (
-            <Row
-              key={row.id}
-              row={row}
-              openLocation={openLocation}
-              openLocationModal={openLocationModal}
-              handleModalLocationClose={handleModalLocationClose}
-            />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <Title>List of registered Plans</Title>
+      <TableContainer component={Paper}>
+        <CreateNewPlan
+          open={open}
+          handleClose={handleModalClose}
+          fetchPlanList={fetchPlanList}
+        ></CreateNewPlan>
+        <CreateNewPlanLocationDialog
+          fetchPlanList={fetchPlanList}
+          open={openLocation}
+          plan={plan}
+          handleClose={handleModalLocationClose}
+        ></CreateNewPlanLocationDialog>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell align="left">
+                <b>Particulars</b>
+              </TableCell>
+              <TableCell align="left">
+                <b>Remarks</b>
+              </TableCell>
+              <TableCell align="left">
+                <IconButton>
+                  <Add onClick={handleModalOpen}></Add>
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {planList.map((row: any) => (
+              <Row
+                key={row.id}
+                row={row}
+                fetchPlanList={fetchPlanList}
+                openLocation={openLocation}
+                openLocationModal={openLocationModal}
+                handleModalLocationClose={handleModalLocationClose}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
-}
+};
 export const PlanList = withSnackbar(PlanListComponent);
