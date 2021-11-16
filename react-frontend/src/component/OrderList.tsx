@@ -84,18 +84,14 @@ function OrderListComponent(props: any) {
       image: "/spiraea-logo-bw-web-1.png",
       order_id: razor.id,
       handler: async function (response: any) {
-        let id: any = "";
-        if (row.proprietorshipid) {
-          id = row.proprietorshipid;
-        } else if (row.partnershipid) {
-          id = row.partnershipid;
-        } else if (row.llpid) {
-          id = row.llpid;
-        } else if (row.companydetailsid) {
-          id = row.companydetailsid;
-        }
         axios
-          .get("/api/get-order/" + orderType + "/" + id + "/PAID/")
+          .get(
+            "/api/get-order/" +
+              orderTypeText(row) +
+              "/" +
+              orderTypeId(row) +
+              "/PAID/"
+          )
           .then((response: any) => {
             props.enqueueSnackbar("Order Successfully", successToast);
             fetchOrderList();
@@ -104,7 +100,6 @@ function OrderListComponent(props: any) {
             props.enqueueSnackbar("Order Was not paid", failureToast);
           });
         console.log(response);
-        // alert(result.data.msg);
       },
       theme: {
         color: "#61dafb",
@@ -129,18 +124,15 @@ function OrderListComponent(props: any) {
       })
       .then((response: any) => {
         const documentUrl = response.data;
-        let id: any = "";
-        if (orderType === "Proprietorship") {
-          id = row.proprietorshipid;
-        } else if (orderType === "Partnership") {
-          id = row.partnershipid;
-        } else if (orderType === "LLP") {
-          id = row.llpid;
-        } else if (orderType === "Company") {
-          id = row.companydetailsid;
-        }
         axios
-          .get("/api/get-order/gst/" + orderType + "/" + id + "/" + documentUrl)
+          .get(
+            "/api/get-order/gst/" +
+              orderTypeText(row) +
+              "/" +
+              orderTypeId(row) +
+              "/" +
+              documentUrl
+          )
           .then((response: any) => {
             props.enqueueSnackbar(
               "Document Uploaded Successfully",
@@ -197,7 +189,7 @@ function OrderListComponent(props: any) {
       if (row.razorpayOrder) {
         const json: any = JSON.parse(row.razorpayOrder);
         row.amount = json?.amount;
-        return json?.amount;
+        return json?.amount/100;
       }
     } catch (e: any) {}
   };
