@@ -8,17 +8,19 @@ import com.nextsaa.gstspiraea.repository.CompanyDetailsRepository;
 import com.nextsaa.gstspiraea.repository.LLPRepostiory;
 import com.nextsaa.gstspiraea.repository.PartnershipRepository;
 import com.nextsaa.gstspiraea.repository.ProprietorshipRepostiory;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/get-order")
@@ -177,10 +179,74 @@ public class OrderController {
                     companyDetailsRepository.save(object);
                 }
                 break;
-
-
         }
     }
 
+    @GetMapping(value = "/update-order-amount/{type}/{id}/{amount}")
+    public void updateOrderAmount(@PathVariable String type, @PathVariable String id, @PathVariable Double amount) throws Exception {
+        RazorpayClient razorpayClient = new RazorpayClient(
+                "rzp_test_4zyGtu09Yf3TwL",
+                "km6IezoWKidIvUHBBsFR8LPs");
+        switch (type) {
+            case "Proprietorship":
+                Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
+                if (entity1.isPresent()) {
+                    Proprietorship object = entity1.get();
+                    object.setRazorpayOrder(createOrder(amount));
+                    proprietorshipRepostiory.save(object);
+                }
+                break;
+            case "Partnership":
+                Optional<Partnership> entity2 = partnershipRepository.findById(id);
+                if (entity2.isPresent()) {
+                    Partnership object = entity2.get();
+                    object.setRazorpayOrder(createOrder(amount));
+                    partnershipRepository.save(object);
+                }
+                break;
+            case "LLP":
+                Optional<LLP> entity3 = llpRepostiory.findById(id);
+                if (entity3.isPresent()) {
+                    LLP object = entity3.get();
+                    object.setRazorpayOrder(createOrder(amount));
+                    llpRepostiory.save(object);
+                }
+                break;
+            case "Company":
+                Optional<CompanyDetails> entity4 = companyDetailsRepository.findById(id);
+                if (entity4.isPresent()) {
+                    CompanyDetails object = entity4.get();
+                    object.setRazorpayOrder(createOrder(amount));
+                    companyDetailsRepository.save(object);
+                }
+                break;
+        }
+    }
 
+    private String createOrder(Double amount) throws Exception {
+        try {
+            RazorpayClient razorpayClient = new RazorpayClient(
+                    "rzp_test_4zyGtu09Yf3TwL",
+                    "km6IezoWKidIvUHBBsFR8LPs");
+            JSONObject orderRequest = new JSONObject();
+            Double feeAmountC = amount * 100;
+            orderRequest.put("amount", feeAmountC); // amount in the smallest currency unit
+            orderRequest.put("currency", "INR");
+            orderRequest.put("receipt", generatedOrder());
+            Order order = razorpayClient.Orders.create(orderRequest);
+            return order.toString();
+
+        } catch (RazorpayException e) {
+            System.out.println(e.getMessage());
+            throw new Exception("Unable to create Razor Pay Order");
+        }
+    }
+
+    public String generatedOrder() {
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
+        String datetime = ft.format(dNow);
+        System.out.println(datetime);
+        return "Order-" + datetime;
+    }
 }

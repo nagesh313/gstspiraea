@@ -4,7 +4,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Visibility } from "@material-ui/icons";
+import { Visibility, Publish } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
@@ -192,6 +192,34 @@ function OrderListComponent(props: any) {
   };
   // let isP0: any = sessionStorage.getItem("type");
   // isP0 = isP0 === "P0";
+  const getOrderAmount = (row: any) => {
+    try {
+      if (row.razorpayOrder) {
+        const json: any = JSON.parse(row.razorpayOrder);
+        row.amount = json?.amount;
+        return json?.amount;
+      }
+    } catch (e: any) {}
+  };
+  const saveAmount = (row: any) => {
+    let url = "";
+    url =
+      "/api/get-order/update-order-amount/" +
+      orderTypeText(row) +
+      "/" +
+      orderTypeId(row) +
+      "/" +
+      row.amount;
+    axios
+      .get(url)
+      .then((response: any) => {
+        fetchOrderList();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Failed to Update the order", failureToast);
+      });
+  };
+
   return (
     <React.Fragment>
       <DialogComponent
@@ -224,6 +252,7 @@ function OrderListComponent(props: any) {
               <TableCell>Trade Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              {role === "Admin" && <TableCell>Amount</TableCell>}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -236,6 +265,29 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.tradeName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                {role === "Admin" && (
+                  <TableCell>
+                    <TextField
+                      margin="dense"
+                      style={{ width: "70%" }}
+                      size="small"
+                      defaultValue={getOrderAmount(row)}
+                      fullWidth
+                      label="Amount"
+                      onChange={(event: any) =>
+                        (row.amount = event.currentTarget.value)
+                      }
+                      InputLabelProps={{ shrink: true }}
+                    />
+
+                    <Publish
+                      onClick={(event: any) => {
+                        saveAmount(row);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  </TableCell>
+                )}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
@@ -312,6 +364,7 @@ function OrderListComponent(props: any) {
               <TableCell>Trade Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              {role === "Admin" && <TableCell>Amount</TableCell>}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -323,6 +376,29 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.tradeName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                {role === "Admin" && (
+                  <TableCell>
+                    <TextField
+                      margin="dense"
+                      style={{ width: "70%" }}
+                      size="small"
+                      defaultValue={getOrderAmount(row)}
+                      fullWidth
+                      label="Amount"
+                      onChange={(event: any) =>
+                        (row.amount = event.currentTarget.value)
+                      }
+                      InputLabelProps={{ shrink: true }}
+                    />
+
+                    <Publish
+                      onClick={(event: any) => {
+                        saveAmount(row);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  </TableCell>
+                )}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
@@ -399,6 +475,7 @@ function OrderListComponent(props: any) {
               <TableCell>Firm Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              {role === "Admin" && <TableCell>Amount</TableCell>}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -410,6 +487,29 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.firmName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                {role === "Admin" && (
+                  <TableCell>
+                    <TextField
+                      margin="dense"
+                      style={{ width: "70%" }}
+                      size="small"
+                      defaultValue={getOrderAmount(row)}
+                      fullWidth
+                      label="Amount"
+                      onChange={(event: any) =>
+                        (row.amount = event.currentTarget.value)
+                      }
+                      InputLabelProps={{ shrink: true }}
+                    />
+
+                    <Publish
+                      onClick={(event: any) => {
+                        saveAmount(row);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  </TableCell>
+                )}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
@@ -486,6 +586,7 @@ function OrderListComponent(props: any) {
               <TableCell>Firm Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              {role === "Admin" && <TableCell>Amount</TableCell>}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -497,6 +598,29 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.firmName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                {role === "Admin" && (
+                  <TableCell>
+                    <TextField
+                      margin="dense"
+                      style={{ width: "70%" }}
+                      size="small"
+                      defaultValue={getOrderAmount(row)}
+                      fullWidth
+                      label="Amount"
+                      onChange={(event: any) =>
+                        (row.amount = event.currentTarget.value)
+                      }
+                      InputLabelProps={{ shrink: true }}
+                    />
+
+                    <Publish
+                      onClick={(event: any) => {
+                        saveAmount(row);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  </TableCell>
+                )}{" "}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
@@ -573,6 +697,7 @@ function OrderListComponent(props: any) {
               <TableCell>Firm Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
+              {role === "Admin" && <TableCell>Amount</TableCell>}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -584,6 +709,29 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.firmName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
+                {role === "Admin" && (
+                  <TableCell>
+                    <TextField
+                      margin="dense"
+                      style={{ width: "70%" }}
+                      size="small"
+                      defaultValue={getOrderAmount(row)}
+                      fullWidth
+                      label="Amount"
+                      onChange={(event: any) =>
+                        (row.amount = event.currentTarget.value)
+                      }
+                      InputLabelProps={{ shrink: true }}
+                    />
+
+                    <Publish
+                      onClick={(event: any) => {
+                        saveAmount(row);
+                      }}
+                      style={{ float: "right" }}
+                    />
+                  </TableCell>
+                )}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
