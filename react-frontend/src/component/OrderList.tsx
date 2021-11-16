@@ -1,4 +1,10 @@
-import { Button, MenuItem, Select, TextField } from "@material-ui/core";
+import {
+  Button,
+  MenuItem,
+  Select,
+  TextField,
+  Tooltip,
+} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -189,7 +195,7 @@ function OrderListComponent(props: any) {
       if (row.razorpayOrder) {
         const json: any = JSON.parse(row.razorpayOrder);
         row.amount = json?.amount;
-        return json?.amount/100;
+        return json?.amount / 100;
       }
     } catch (e: any) {}
   };
@@ -271,13 +277,14 @@ function OrderListComponent(props: any) {
                       }
                       InputLabelProps={{ shrink: true }}
                     />
-
-                    <Publish
-                      onClick={(event: any) => {
-                        saveAmount(row);
-                      }}
-                      style={{ float: "right" }}
-                    />
+                    <Tooltip title="Update Amount">
+                      <Publish
+                        onClick={(event: any) => {
+                          saveAmount(row);
+                        }}
+                        style={{ float: "right" }}
+                      />
+                    </Tooltip>
                   </TableCell>
                 )}
                 <TableCell>
@@ -383,12 +390,14 @@ function OrderListComponent(props: any) {
                       InputLabelProps={{ shrink: true }}
                     />
 
-                    <Publish
-                      onClick={(event: any) => {
-                        saveAmount(row);
-                      }}
-                      style={{ float: "right" }}
-                    />
+                    <Tooltip title="Update Amount">
+                      <Publish
+                        onClick={(event: any) => {
+                          saveAmount(row);
+                        }}
+                        style={{ float: "right" }}
+                      />
+                    </Tooltip>
                   </TableCell>
                 )}
                 <TableCell>
@@ -493,13 +502,14 @@ function OrderListComponent(props: any) {
                       }
                       InputLabelProps={{ shrink: true }}
                     />
-
-                    <Publish
-                      onClick={(event: any) => {
-                        saveAmount(row);
-                      }}
-                      style={{ float: "right" }}
-                    />
+                    <Tooltip title="Update Amount">
+                      <Publish
+                        onClick={(event: any) => {
+                          saveAmount(row);
+                        }}
+                        style={{ float: "right" }}
+                      />
+                    </Tooltip>
                   </TableCell>
                 )}
                 <TableCell>
@@ -605,14 +615,16 @@ function OrderListComponent(props: any) {
                       InputLabelProps={{ shrink: true }}
                     />
 
-                    <Publish
-                      onClick={(event: any) => {
-                        saveAmount(row);
-                      }}
-                      style={{ float: "right" }}
-                    />
+                    <Tooltip title="Update Amount">
+                      <Publish
+                        onClick={(event: any) => {
+                          saveAmount(row);
+                        }}
+                        style={{ float: "right" }}
+                      />
+                    </Tooltip>
                   </TableCell>
-                )}{" "}
+                )}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField
@@ -716,12 +728,14 @@ function OrderListComponent(props: any) {
                       InputLabelProps={{ shrink: true }}
                     />
 
-                    <Publish
-                      onClick={(event: any) => {
-                        saveAmount(row);
-                      }}
-                      style={{ float: "right" }}
-                    />
+                    <Tooltip title="Update Amount">
+                      <Publish
+                        onClick={(event: any) => {
+                          saveAmount(row);
+                        }}
+                        style={{ float: "right" }}
+                      />
+                    </Tooltip>
                   </TableCell>
                 )}
                 <TableCell>
