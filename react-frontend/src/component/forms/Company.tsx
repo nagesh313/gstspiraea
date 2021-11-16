@@ -504,7 +504,7 @@ const CompanyComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         required
                         fullWidth
@@ -636,7 +636,7 @@ const CompanyComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -697,7 +697,7 @@ const CompanyComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -750,7 +750,7 @@ const CompanyComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -828,7 +828,7 @@ const CompanyComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalelectricityphoto"
@@ -888,7 +888,7 @@ const CompanyComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalrentphoto"
@@ -940,7 +940,7 @@ const CompanyComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalnocphoto"
@@ -1172,7 +1172,7 @@ const CompanyComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "90%" }}
+                                  style={{ width: "70%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1258,7 +1258,7 @@ const CompanyComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "90%" }}
+                                  style={{ width: "70%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1373,7 +1373,7 @@ const CompanyComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 size="small"
                                 required
                                 fullWidth
@@ -1479,7 +1479,7 @@ const CompanyComponent = (props: any) => {
                             <Grid item xs={12} sm={6}>
                               <TextField
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 margin="dense"
                                 size="small"
                                 required
@@ -1699,7 +1699,7 @@ const CompanyComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1754,7 +1754,7 @@ const CompanyComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1825,7 +1825,7 @@ const CompanyComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1885,7 +1885,7 @@ const CompanyComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1988,7 +1988,7 @@ const CompanyComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 size="small"
                                 fullWidth
                                 id={"gstAttachment" + index}

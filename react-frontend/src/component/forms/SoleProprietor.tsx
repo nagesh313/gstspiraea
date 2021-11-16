@@ -432,7 +432,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         required
                         fullWidth
@@ -452,13 +452,28 @@ const SoleProprietorComponent = (props: any) => {
                         helperText={touched.panphoto && errors.panphoto}
                       />
                       {values.panphoto && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.panphoto);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
+                        <>
+                          <Tooltip title="View">
+                            <Visibility
+                              className="file-action-icon"
+                              onClick={() => {
+                                setImageName(values.panphoto);
+                                setOpen(true);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <GetApp
+                              className="file-action-icon"
+                              onClick={() => {
+                                downloadReport(values.panphoto);
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title={"File Name : " + values.panphoto}>
+                            <Message className="file-action-icon" />
+                          </Tooltip>
+                        </>
                       )}
                     </Grid>
                   </Grid>
@@ -549,7 +564,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -610,7 +625,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -663,7 +678,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -742,7 +757,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalelectricityphoto"
@@ -802,7 +817,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalrentphoto"
@@ -854,7 +869,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         fullWidth
                         id="additionalnocphoto"
@@ -958,7 +973,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -1015,7 +1030,7 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           size="small"
                           required
                           fullWidth
@@ -1098,7 +1113,7 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         size="small"
                         required
                         fullWidth
@@ -1286,7 +1301,7 @@ const SoleProprietorComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "90%" }}
+                        style={{ width: "70%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1369,7 +1384,7 @@ const SoleProprietorComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "90%" }}
+                          style={{ width: "70%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1484,7 +1499,7 @@ const SoleProprietorComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "90%" }}
+                                style={{ width: "70%" }}
                                 size="small"
                                 fullWidth
                                 id={"gstAttachment" + index}
