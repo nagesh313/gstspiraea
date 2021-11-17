@@ -80,7 +80,7 @@ public class DataInsert {
         List<State> stateList = new ArrayList();
 
         Arrays.stream(states).map(state ->
-                new State(state, 11000)
+                new State(null, state, 11000)
         ).collect(Collectors.toList());
         stateRepository.saveAll(stateList);
     }
