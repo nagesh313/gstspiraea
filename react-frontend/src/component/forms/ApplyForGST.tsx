@@ -72,8 +72,19 @@ export const ApplyForGstComponent = () => {
         // props.enqueueSnackbar(reponse.error, failureToast);
       });
   };
+  const fetchStateList = () => {
+    axios
+      .get("/api/state-list")
+      .then((response: any) => {
+        setPlanLocationList(response.data);
+      })
+      .catch((reponse: any) => {
+        // props.enqueueSnackbar(reponse.error, failureToast);
+      });
+  };
   useEffect(() => {
     fetchPlanList();
+    fetchStateList();
     const name = sessionStorage.getItem("user");
     setName(name);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -135,7 +146,7 @@ export const ApplyForGstComponent = () => {
                   style={{ marginTop: "16px" }}
                   id="demo-simple-select-helper"
                   onChange={(event: any, data: any) => {
-                    setPlanLocationList(data?.props?.value?.payplanLocation);
+                    // setPlanLocationList(data?.props?.value?.payplanLocation);
                     setPlan(data?.props?.value);
                   }}
                 >
@@ -163,7 +174,7 @@ export const ApplyForGstComponent = () => {
                 >
                   {planLocationList.map((plan: any) => {
                     return (
-                      <MenuItem value={plan}>{plan.payplanLocation}</MenuItem>
+                      <MenuItem value={plan}>{plan.name}</MenuItem>
                     );
                   })}
                 </Select>

@@ -25,3 +25,7 @@ input[type='file'] {
 .filepond--file-info-sub{
   display: none ;
 }
+.MuiMenu-list{
+  max-height: 30vh;
+}
+

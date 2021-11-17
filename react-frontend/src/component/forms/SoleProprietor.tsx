@@ -310,7 +310,6 @@ const SoleProprietorComponent = (props: any) => {
               {({ errors, touched, values, handleChange, setFieldValue }) => (
                 // obj: any
                 <Form noValidate>
-                  {JSON.stringify(errors)}
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
