@@ -183,10 +183,14 @@ const SoleProprietorComponent = (props: any) => {
       return;
     }
     if (props.plan) {
-      values.paymentPlanLocationDetails = props.plan;
-    } else if (orderDetails?.paymentPlanLocationDetails) {
-      values.paymentPlanLocationDetails =
-        orderDetails?.paymentPlanLocationDetails;
+      values.paymentPlanDetailsId = props.plan.id;
+    } else if (orderDetails?.paymentPlanDetailsId) {
+      values.paymentPlanDetailsId = orderDetails?.paymentPlanDetailsId;
+    }
+    if (props.location) {
+      values.location = props.location;
+    } else if (orderDetails?.location) {
+      values.location = orderDetails?.location;
     }
     const gstCertificatesInOtherStates: any = [];
     [...Array(values.numberOfOtherGST)].forEach((value: any, index: any) => {

@@ -61,6 +61,8 @@ export const ApplyForGstComponent = () => {
   const [plan, setPlan] = React.useState<any>("");
   const [planLocationList, setPlanLocationList] = React.useState<any>([]);
   const [planLocation, setPlanLocation] = React.useState<any>("");
+  const [location, setLocation] = React.useState<any>("");
+
   const [dropdown, setDropdown] = React.useState("");
   const fetchPlanList = () => {
     axios
@@ -170,12 +172,11 @@ export const ApplyForGstComponent = () => {
                   id="demo-simple-select-helper"
                   onChange={(event: any, data: any) => {
                     setPlanLocation(data?.props?.value);
+                    setLocation(data.props.children);
                   }}
                 >
                   {planLocationList.map((plan: any) => {
-                    return (
-                      <MenuItem value={plan}>{plan.name}</MenuItem>
-                    );
+                    return <MenuItem value={plan}>{plan.name}</MenuItem>;
                   })}
                 </Select>
               </FormControl>
@@ -193,20 +194,24 @@ export const ApplyForGstComponent = () => {
           plan !== "" &&
           planLocation !== "" &&
           dropdown === "Proprietorship" && (
-            <SoleProprietor plan={planLocation} />
+            <SoleProprietor plan={plan} location={location} />
           )}
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&
-          dropdown === "Partnership" && <Partnership plan={planLocation} />}
+          dropdown === "Partnership" && (
+            <Partnership plan={plan} location={location} />
+          )}
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&
-          dropdown === "LLP" && <LLP plan={planLocation} />}
+          dropdown === "LLP" && <LLP plan={plan} location={location} />}
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&
-          dropdown === "Company" && <Company plan={planLocation} />}
+          dropdown === "Company" && (
+            <Company plan={plan} location={location} />
+          )}
       </main>
     </React.Fragment>
   );

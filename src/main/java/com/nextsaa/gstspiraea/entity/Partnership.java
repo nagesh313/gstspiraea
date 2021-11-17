@@ -132,8 +132,6 @@ public class Partnership {
     private boolean manufacture;
     private boolean service;
     private String razorpayOrder;
-    @OneToOne
-    private PaymentPlanLocationDetails paymentPlanLocationDetails;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Partner> partnerList;
     private String certificateOfIncorportation;
@@ -141,5 +139,8 @@ public class Partnership {
     private String declarationOfAuthorisedSignatory;
     @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
+    private String location;
+    private String paymentPlanDetailsId;
+    private Double amount;
 
 }

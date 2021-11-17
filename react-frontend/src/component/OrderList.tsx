@@ -2,22 +2,21 @@ import {
   Button,
   MenuItem,
   Select,
-  TextField,
-  Tooltip,
+  TextField
 } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Visibility, Publish } from "@material-ui/icons";
+import { Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { failureToast, successToast } from "../util/util";
-import { ViewDocumentDialogComponent } from "./ViewDocumentDialog";
 import Title from "./Title";
+import { ViewDocumentDialogComponent } from "./ViewDocumentDialog";
 
 function OrderListComponent(props: any) {
   const [orderList, setOrderList] = React.useState<any>([]);
@@ -190,33 +189,33 @@ function OrderListComponent(props: any) {
   };
   // let isP0: any = sessionStorage.getItem("type");
   // isP0 = isP0 === "P0";
-  const getOrderAmount = (row: any) => {
-    try {
-      if (row.razorpayOrder) {
-        const json: any = JSON.parse(row.razorpayOrder);
-        row.amount = json?.amount;
-        return json?.amount / 100;
-      }
-    } catch (e: any) {}
-  };
-  const saveAmount = (row: any) => {
-    let url = "";
-    url =
-      "/api/get-order/update-order-amount/" +
-      orderTypeText(row) +
-      "/" +
-      orderTypeId(row) +
-      "/" +
-      row.amount;
-    axios
-      .get(url)
-      .then((response: any) => {
-        fetchOrderList();
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar("Failed to Update the order", failureToast);
-      });
-  };
+  // const getOrderAmount = (row: any) => {
+  //   try {
+  //     if (row.razorpayOrder) {
+  //       const json: any = JSON.parse(row.razorpayOrder);
+  //       row.amount = json?.amount;
+  //       return json?.amount / 100;
+  //     }
+  //   } catch (e: any) {}
+  // };
+  // const saveAmount = (row: any) => {
+  //   let url = "";
+  //   url =
+  //     "/api/get-order/update-order-amount/" +
+  //     orderTypeText(row) +
+  //     "/" +
+  //     orderTypeId(row) +
+  //     "/" +
+  //     row.amount;
+  //   axios
+  //     .get(url)
+  //     .then((response: any) => {
+  //       fetchOrderList();
+  //     })
+  //     .catch((reponse: any) => {
+  //       props.enqueueSnackbar("Failed to Update the order", failureToast);
+  //     });
+  // };
 
   return (
     <React.Fragment>
@@ -701,7 +700,7 @@ function OrderListComponent(props: any) {
               <TableCell>Firm Name</TableCell>
               <TableCell>Legal Business Name</TableCell>
               <TableCell>Status</TableCell>
-              {role === "Admin" && <TableCell>Amount</TableCell>}
+              {/* {role === "Admin" && <TableCell>Amount</TableCell>} */}
               <TableCell>GST Doc</TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
@@ -713,7 +712,7 @@ function OrderListComponent(props: any) {
                 <TableCell>{row.firmName}</TableCell>
                 <TableCell>{row.legalbusinessName}</TableCell>
                 <TableCell>{row.status}</TableCell>
-                {role === "Admin" && (
+                {/* {role === "Admin" && (
                   <TableCell>
                     <TextField
                       margin="dense"
@@ -737,7 +736,7 @@ function OrderListComponent(props: any) {
                       />
                     </Tooltip>
                   </TableCell>
-                )}
+                )} */}
                 <TableCell>
                   {(role === "Admin" || role === "Agent") && (
                     <TextField

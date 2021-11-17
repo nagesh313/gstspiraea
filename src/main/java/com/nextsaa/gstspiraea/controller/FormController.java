@@ -36,6 +36,8 @@ public class FormController {
     private Utility utility;
     @Autowired
     private StateRepository stateRepository;
+    @Autowired
+    private PaymentPlanDetailsRepository paymentPlanDetailsRepository;
 
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
@@ -90,8 +92,21 @@ public class FormController {
         if (!entity.getStatus().equals("PAID")) {
             entity.setStatus("CREATED");
             //Add logic to find the amount here
+            Double amount = Double.valueOf(11000);
+            Optional<PaymentPlanDetails> plan = paymentPlanDetailsRepository.findById(entity.getPaymentPlanDetailsId());
+            if (plan.isPresent()) {
+                Optional<PaymentPlanLocationDetails> selectedPlan = plan.get().getPayplanLocation().stream().filter(paymentPlanLocationDetails -> paymentPlanLocationDetails.getPayplanLocation().equals(entity.getLocation())).findAny();
+                if (selectedPlan.isPresent()) {
+                    amount = selectedPlan.get().getPayplanamount();
+                }
+            } else {
+                Optional<State> state = stateRepository.findByName(entity.getLocation());
+                if (state.isPresent()) {
+                    amount = new Double(state.get().getAmount());
+                }
+            }
             entity.setRazorpayOrder(utility.createOrder(
-                    entity.getPaymentPlanLocationDetails().getPayplanamount()
+                    amount
             ));
         }
     }
@@ -99,21 +114,69 @@ public class FormController {
     private void createOrderLLP(LLP entity) throws Exception {
         if (!entity.getStatus().equals("PAID")) {
             entity.setStatus("CREATED");
-            entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+            //Add logic to find the amount here
+            Double amount = Double.valueOf(11000);
+            Optional<PaymentPlanDetails> plan = paymentPlanDetailsRepository.findById(entity.getPaymentPlanDetailsId());
+            if (plan.isPresent()) {
+                Optional<PaymentPlanLocationDetails> selectedPlan = plan.get().getPayplanLocation().stream().filter(paymentPlanLocationDetails -> paymentPlanLocationDetails.getPayplanLocation().equals(entity.getLocation())).findAny();
+                if (selectedPlan.isPresent()) {
+                    amount = selectedPlan.get().getPayplanamount();
+                }
+            } else {
+                Optional<State> state = stateRepository.findByName(entity.getLocation());
+                if (state.isPresent()) {
+                    amount = new Double(state.get().getAmount());
+                }
+            }
+            entity.setRazorpayOrder(utility.createOrder(
+                    amount
+            ));
         }
     }
 
     private void createOrderPartnership(Partnership entity) throws Exception {
         if (!entity.getStatus().equals("PAID")) {
             entity.setStatus("CREATED");
-            entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+            //Add logic to find the amount here
+            Double amount = Double.valueOf(11000);
+            Optional<PaymentPlanDetails> plan = paymentPlanDetailsRepository.findById(entity.getPaymentPlanDetailsId());
+            if (plan.isPresent()) {
+                Optional<PaymentPlanLocationDetails> selectedPlan = plan.get().getPayplanLocation().stream().filter(paymentPlanLocationDetails -> paymentPlanLocationDetails.getPayplanLocation().equals(entity.getLocation())).findAny();
+                if (selectedPlan.isPresent()) {
+                    amount = selectedPlan.get().getPayplanamount();
+                }
+            } else {
+                Optional<State> state = stateRepository.findByName(entity.getLocation());
+                if (state.isPresent()) {
+                    amount = new Double(state.get().getAmount());
+                }
+            }
+            entity.setRazorpayOrder(utility.createOrder(
+                    amount
+            ));
         }
     }
 
     private void createOrderCompany(CompanyDetails entity) throws Exception {
         if (!entity.getStatus().equals("PAID")) {
             entity.setStatus("CREATED");
-            entity.setRazorpayOrder(utility.createOrder(entity.getPaymentPlanLocationDetails().getPayplanamount()));
+            //Add logic to find the amount here
+            Double amount = Double.valueOf(11000);
+            Optional<PaymentPlanDetails> plan = paymentPlanDetailsRepository.findById(entity.getPaymentPlanDetailsId());
+            if (plan.isPresent()) {
+                Optional<PaymentPlanLocationDetails> selectedPlan = plan.get().getPayplanLocation().stream().filter(paymentPlanLocationDetails -> paymentPlanLocationDetails.getPayplanLocation().equals(entity.getLocation())).findAny();
+                if (selectedPlan.isPresent()) {
+                    amount = selectedPlan.get().getPayplanamount();
+                }
+            } else {
+                Optional<State> state = stateRepository.findByName(entity.getLocation());
+                if (state.isPresent()) {
+                    amount = new Double(state.get().getAmount());
+                }
+            }
+            entity.setRazorpayOrder(utility.createOrder(
+                    amount
+            ));
         }
     }
 

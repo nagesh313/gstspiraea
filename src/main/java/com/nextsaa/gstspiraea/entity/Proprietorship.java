@@ -134,9 +134,11 @@ public class Proprietorship {
     private boolean manufacture;
     private boolean service;
     private String razorpayOrder;
-    @OneToOne
-    private PaymentPlanLocationDetails paymentPlanLocationDetails;
+    //    @OneToOne
+//    private PaymentPlanLocationDetails paymentPlanLocationDetails;
     @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
-
+    private String paymentPlanDetailsId;
+    private String location;
+    private Double amount;
 }

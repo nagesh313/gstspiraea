@@ -183,46 +183,46 @@ public class OrderController {
         }
     }
 
-    @GetMapping(value = "/update-order-amount/{type}/{id}/{amount}")
-    public void updateOrderAmount(@PathVariable String type, @PathVariable String id, @PathVariable Double amount) throws Exception {
-        RazorpayClient razorpayClient = new RazorpayClient(
-                "rzp_test_4zyGtu09Yf3TwL",
-                "km6IezoWKidIvUHBBsFR8LPs");
-        switch (type) {
-            case "Proprietorship":
-                Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
-                if (entity1.isPresent()) {
-                    Proprietorship object = entity1.get();
-                    object.setRazorpayOrder(utility.createOrder(amount));
-                    proprietorshipRepostiory.save(object);
-                }
-                break;
-            case "Partnership":
-                Optional<Partnership> entity2 = partnershipRepository.findById(id);
-                if (entity2.isPresent()) {
-                    Partnership object = entity2.get();
-                    object.setRazorpayOrder(utility.createOrder(amount));
-                    partnershipRepository.save(object);
-                }
-                break;
-            case "LLP":
-                Optional<LLP> entity3 = llpRepostiory.findById(id);
-                if (entity3.isPresent()) {
-                    LLP object = entity3.get();
-                    object.setRazorpayOrder(utility.createOrder(amount));
-                    llpRepostiory.save(object);
-                }
-                break;
-            case "Company":
-                Optional<CompanyDetails> entity4 = companyDetailsRepository.findById(id);
-                if (entity4.isPresent()) {
-                    CompanyDetails object = entity4.get();
-                    object.setRazorpayOrder(utility.createOrder(amount));
-                    companyDetailsRepository.save(object);
-                }
-                break;
-        }
-    }
+//    @GetMapping(value = "/update-order-amount/{type}/{id}/{amount}")
+//    public void updateOrderAmount(@PathVariable String type, @PathVariable String id, @PathVariable Double amount) throws Exception {
+//        RazorpayClient razorpayClient = new RazorpayClient(
+//                "rzp_test_4zyGtu09Yf3TwL",
+//                "km6IezoWKidIvUHBBsFR8LPs");
+//        switch (type) {
+//            case "Proprietorship":
+//                Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
+//                if (entity1.isPresent()) {
+//                    Proprietorship object = entity1.get();
+//                    object.setRazorpayOrder(utility.createOrder(amount));
+//                    proprietorshipRepostiory.save(object);
+//                }
+//                break;
+//            case "Partnership":
+//                Optional<Partnership> entity2 = partnershipRepository.findById(id);
+//                if (entity2.isPresent()) {
+//                    Partnership object = entity2.get();
+//                    object.setRazorpayOrder(utility.createOrder(amount));
+//                    partnershipRepository.save(object);
+//                }
+//                break;
+//            case "LLP":
+//                Optional<LLP> entity3 = llpRepostiory.findById(id);
+//                if (entity3.isPresent()) {
+//                    LLP object = entity3.get();
+//                    object.setRazorpayOrder(utility.createOrder(amount));
+//                    llpRepostiory.save(object);
+//                }
+//                break;
+//            case "Company":
+//                Optional<CompanyDetails> entity4 = companyDetailsRepository.findById(id);
+//                if (entity4.isPresent()) {
+//                    CompanyDetails object = entity4.get();
+//                    object.setRazorpayOrder(utility.createOrder(amount));
+//                    companyDetailsRepository.save(object);
+//                }
+//                break;
+//        }
+//    }
 
 
 }

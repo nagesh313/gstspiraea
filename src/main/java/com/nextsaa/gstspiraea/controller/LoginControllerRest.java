@@ -99,7 +99,6 @@ public class LoginControllerRest {
         Long approved = proprietorshipRepostiory.countByStatusAndCreatedOnGreaterThan("APPROVED", ld) + partnershipRepository.countByStatusAndCreatedOnGreaterThan("APPROVED", ld) + llpRepostiory.countByStatusAndCreatedOnGreaterThan("APPROVED", ld) + companyDetailsRepository.countByStatusAndCreatedOnGreaterThan("APPROVED", ld);
         Long pending = proprietorshipRepostiory.countByStatusAndCreatedOnGreaterThan("CREATED", ld) + partnershipRepository.countByStatusAndCreatedOnGreaterThan("CREATED", ld) + llpRepostiory.countByStatusAndCreatedOnGreaterThan("CREATED", ld) + companyDetailsRepository.countByStatusAndCreatedOnGreaterThan("CREATED", ld);
         Long rejected = proprietorshipRepostiory.countByStatusAndCreatedOnGreaterThan("REJECTED", ld) + partnershipRepository.countByStatusAndCreatedOnGreaterThan("REJECTED", ld) + llpRepostiory.countByStatusAndCreatedOnGreaterThan("REJECTED", ld) + companyDetailsRepository.countByStatusAndCreatedOnGreaterThan("REJECTED", ld);
-        System.out.println(ld); // 2017-08-20 (2 days later according to ISO)
         Long approvedPercentage;
         Long pendingPercentage;
         Long rejectedPercentage;
@@ -118,16 +117,16 @@ public class LoginControllerRest {
         List<LLP> list3 = llpRepostiory.findAllByStatusAndCreatedOnGreaterThan("PAID", LocalDate.now().atStartOfDay());
         List<CompanyDetails> list4 = companyDetailsRepository.findAllByStatusAndCreatedOnGreaterThan("PAID", LocalDate.now().atStartOfDay());
         Double sum1 = list1.stream()
-                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
+                .mapToDouble(o -> o.getAmount())
                 .sum();
         Double sum2 = list2.stream()
-                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
+                .mapToDouble(o -> o.getAmount())
                 .sum();
         Double sum3 = list3.stream()
-                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
+                .mapToDouble(o -> o.getAmount())
                 .sum();
         Double sum4 = list4.stream()
-                .mapToDouble(o -> o.getPaymentPlanLocationDetails().getPayplanamount())
+                .mapToDouble(o -> o.getAmount())
                 .sum();
         Double todaysBusiness = sum1 + sum2 + sum3 + sum4;
         todaysBusiness = todaysBusiness + todaysBusiness * 2 / 100;

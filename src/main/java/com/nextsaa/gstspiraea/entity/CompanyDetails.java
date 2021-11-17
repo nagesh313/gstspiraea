@@ -77,12 +77,13 @@ public class CompanyDetails {
     @Column(name = "remark")
     private String remark;
     private String razorpayOrder;
-    @OneToOne
-    private PaymentPlanLocationDetails paymentPlanLocationDetails;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Director> directorList;
     private String certificateOfIncorportation;
     private String declarationOfAuthorisedSignatory;
     @OneToMany(cascade = CascadeType.ALL)
     private List<GSTCertificatesInOtherStates> gstCertificatesInOtherStates;
+    private String location;
+    private String paymentPlanDetailsId;
+    private Double amount;
 }
