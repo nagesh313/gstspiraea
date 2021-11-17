@@ -237,7 +237,7 @@ const SoleProprietorComponent = (props: any) => {
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
   return (
-    <span className="apply-for-gst">
+    < >
       <CssBaseline />
       <ViewDocumentDialogComponent
         name={imageName}
@@ -1630,7 +1630,7 @@ const SoleProprietorComponent = (props: any) => {
           </React.Fragment>
         </Paper>
       </main>
-    </span>
+    </ >
   );
 };
 export const SoleProprietor = withSnackbar(SoleProprietorComponent);
