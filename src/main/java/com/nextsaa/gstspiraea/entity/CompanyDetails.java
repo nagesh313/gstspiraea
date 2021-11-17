@@ -46,11 +46,11 @@ public class CompanyDetails {
     private String additionalelectricityphoto;
     private String additionalrentphoto;
     private String additionalnocphoto;
-    private String hsn1;
-    private String hsn2;
-    private String hsn3;
-    private String hsn4;
-    private String hsn5;
+    private int hsn1;
+    private int hsn2;
+    private int hsn3;
+    private int hsn4;
+    private int hsn5;
     private String accountnumber;
     private String ifsccode;
     private String cancelcheqphoto;

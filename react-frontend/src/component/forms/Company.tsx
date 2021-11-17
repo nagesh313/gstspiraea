@@ -2128,7 +2128,11 @@ const CompanyComponent = (props: any) => {
                   {sessionStorage.getItem("role") !== "Customer" &&
                     (orderDetails?.status === "CREATED" ||
                       orderDetails?.status === "PAID") && (
-                      <Grid container style={{ marginLeft: "5px" }}>
+                      <Grid
+                        container
+                        justifyContent="center"
+                        style={{ marginTop: "10px" }}
+                      >
                         <Button
                           style={{ marginLeft: "10px" }}
                           type="button"

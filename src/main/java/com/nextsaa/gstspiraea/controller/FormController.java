@@ -89,6 +89,7 @@ public class FormController {
     private void createOrderProprietorship(Proprietorship entity) throws Exception {
         if (!entity.getStatus().equals("PAID")) {
             entity.setStatus("CREATED");
+            //Add logic to find the amount here
             entity.setRazorpayOrder(utility.createOrder(
                     entity.getPaymentPlanLocationDetails().getPayplanamount()
             ));

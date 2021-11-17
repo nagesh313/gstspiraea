@@ -82,19 +82,19 @@ public class LLP {
     private String additionalnocphoto;
 
     @Column(name = "hsn1")
-    private String hsn1;
+    private int hsn1;
 
     @Column(name = "hsn2")
-    private String hsn2;
+    private int hsn2;
 
     @Column(name = "hsn3")
-    private String hsn3;
+    private int hsn3;
 
     @Column(name = "hsn4")
-    private String hsn4;
+    private int hsn4;
 
     @Column(name = "hsn5")
-    private String hsn5;
+    private int hsn5;
 
     private String accountnumber;
     private String ifsccode;

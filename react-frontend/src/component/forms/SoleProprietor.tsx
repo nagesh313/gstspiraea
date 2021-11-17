@@ -237,7 +237,7 @@ const SoleProprietorComponent = (props: any) => {
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
   return (
-    < >
+    <>
       <CssBaseline />
       <ViewDocumentDialogComponent
         name={imageName}
@@ -1599,7 +1599,11 @@ const SoleProprietorComponent = (props: any) => {
                   {sessionStorage.getItem("role") !== "Customer" &&
                     (orderDetails?.status === "CREATED" ||
                       orderDetails?.status === "PAID") && (
-                      <Grid container style={{ marginLeft: "5px" }}>
+                      <Grid
+                        container
+                        justifyContent="center"
+                        style={{ marginTop: "10px" }}
+                      >
                         <Button
                           style={{ marginLeft: "10px" }}
                           type="button"
@@ -1630,7 +1634,7 @@ const SoleProprietorComponent = (props: any) => {
           </React.Fragment>
         </Paper>
       </main>
-    </ >
+    </>
   );
 };
 export const SoleProprietor = withSnackbar(SoleProprietorComponent);
