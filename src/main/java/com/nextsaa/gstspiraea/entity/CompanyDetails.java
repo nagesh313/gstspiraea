@@ -58,11 +58,11 @@ public class CompanyDetails {
     private String tradelicensephoto;
     private boolean isActive;
 
-    @Column(name = "createdon", nullable = false)
+    @Column(name = "createdon")
     @CreationTimestamp
     private LocalDateTime createdOn;
 
-    @Column(name = "createdby", nullable = false)
+    @Column(name = "createdby")
     private String createdBy;
 
     @CreationTimestamp

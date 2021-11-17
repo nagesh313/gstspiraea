@@ -14,6 +14,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { GetApp, Message, Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
@@ -21,8 +22,8 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { ViewDocumentDialogComponent } from "../ViewDocumentDialog";
+import { FileUpload } from "./filepond";
 import { schema } from "./schema/SoleProprietorSchama";
-import { Visibility, GetApp, Message } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -236,7 +237,7 @@ const SoleProprietorComponent = (props: any) => {
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
   return (
-    <React.Fragment>
+    <span className="apply-for-gst">
       <CssBaseline />
       <ViewDocumentDialogComponent
         name={imageName}
@@ -309,6 +310,7 @@ const SoleProprietorComponent = (props: any) => {
               {({ errors, touched, values, handleChange, setFieldValue }) => (
                 // obj: any
                 <Form noValidate>
+                  {JSON.stringify(errors)}
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -428,55 +430,16 @@ const SoleProprietorComponent = (props: any) => {
                         helperText={touched.pannumber && errors.pannumber}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        style={{ width: "70%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        variant="outlined"
-                        id="panphoto"
-                        label="Please attach PAN card copy"
-                        name="panphoto"
-                        autoComplete="panphoto"
-                        // onChange={handleChange}
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "panphoto")
-                        }
-                        // value={values.panphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.panphoto && touched.panphoto ? true : false
-                        }
-                        helperText={touched.panphoto && errors.panphoto}
+                    <Grid item xs={12} sm={6} style={{ padding: "0px" }}>
+                      <FileUpload
+                        onaddfile={upload}
+                        fieldName={"panphoto"}
+                        field={values.panphoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
                       />
-                      {values.panphoto && (
-                        <>
-                          <Tooltip title="View">
-                            <Visibility
-                              className="file-action-icon"
-                              onClick={() => {
-                                setImageName(values.panphoto);
-                                setOpen(true);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title="Download">
-                            <GetApp
-                              className="file-action-icon"
-                              onClick={() => {
-                                downloadReport(values.panphoto);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title={"File Name : " + values.panphoto}>
-                            <Message className="file-action-icon" />
-                          </Tooltip>
-                        </>
-                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -566,7 +529,8 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           size="small"
                           required
                           fullWidth
@@ -627,7 +591,8 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           size="small"
                           required
                           fullWidth
@@ -680,7 +645,8 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           size="small"
                           required
                           fullWidth
@@ -759,7 +725,8 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         size="small"
                         fullWidth
                         id="additionalelectricityphoto"
@@ -819,7 +786,8 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         size="small"
                         fullWidth
                         id="additionalrentphoto"
@@ -871,7 +839,8 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         size="small"
                         fullWidth
                         id="additionalnocphoto"
@@ -975,7 +944,8 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           size="small"
                           required
                           fullWidth
@@ -1032,7 +1002,8 @@ const SoleProprietorComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           size="small"
                           required
                           fullWidth
@@ -1115,7 +1086,8 @@ const SoleProprietorComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         size="small"
                         required
                         fullWidth
@@ -1303,7 +1275,8 @@ const SoleProprietorComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1386,7 +1359,8 @@ const SoleProprietorComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1501,7 +1475,8 @@ const SoleProprietorComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "70%" }}
+                                variant="outlined"
+                                style={{ width: "80%" }}
                                 size="small"
                                 fullWidth
                                 id={"gstAttachment" + index}
@@ -1589,10 +1564,10 @@ const SoleProprietorComponent = (props: any) => {
                       </Grid>
                     </Grid>
                   )}
-                  {(params.id === undefined ||
-                    orderDetails?.status === "DRAFT") &&
-                    sessionStorage.getItem("role") === "Customer" && (
-                      <Grid container spacing={2}>
+                  <Grid container spacing={2} justifyContent="center">
+                    {sessionStorage.getItem("role") === "Customer" &&
+                      (orderDetails?.status === "DRAFT" ||
+                        params.id === undefined) && (
                         <Grid item xs={6}>
                           <Button
                             type="button"
@@ -1605,72 +1580,58 @@ const SoleProprietorComponent = (props: any) => {
                               submitForm(values, true);
                             }}
                           >
-                            Save
+                            Save as Draft
                           </Button>
                         </Grid>
-                        <Grid item xs={6}>
-                          <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            style={{ marginTop: "10px" }}
-                            // className={classes.submit}
-                          >
-                            Submit
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    )}
-                  <Grid container spacing={3} style={{ textAlign: "center" }}>
-                    <Grid item xs={12}>
+                      )}
+                    <Grid item xs={6}>
                       <Button
-                        type="button"
+                        type="submit"
+                        fullWidth
                         variant="contained"
                         color="primary"
-                        onClick={() => {
-                          submitForm(values, true);
-                        }}
+                        style={{ marginTop: "10px" }}
+                        // className={classes.submit}
                       >
-                        Save & Update
+                        Submit
                       </Button>
-                      {sessionStorage.getItem("role") !== "Customer" &&
-                        (orderDetails?.status === "CREATED" ||
-                          orderDetails?.status === "PAID") && (
-                          <>
-                            <Button
-                              style={{ marginLeft: "10px" }}
-                              type="button"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                approve();
-                              }}
-                            >
-                              Approve
-                            </Button>
-                            <Button
-                              style={{ marginLeft: "10px" }}
-                              type="button"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                reject();
-                              }}
-                            >
-                              Reject
-                            </Button>
-                          </>
-                        )}
                     </Grid>
                   </Grid>
+                  {sessionStorage.getItem("role") !== "Customer" &&
+                    (orderDetails?.status === "CREATED" ||
+                      orderDetails?.status === "PAID") && (
+                      <Grid container style={{ marginLeft: "5px" }}>
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          type="button"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => {
+                            approve();
+                          }}
+                        >
+                          Approve
+                        </Button>
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          type="button"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => {
+                            reject();
+                          }}
+                        >
+                          Reject
+                        </Button>
+                      </Grid>
+                    )}
                 </Form>
               )}
             </Formik>
           </React.Fragment>
         </Paper>
       </main>
-    </React.Fragment>
+    </span>
   );
 };
 export const SoleProprietor = withSnackbar(SoleProprietorComponent);

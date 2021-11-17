@@ -21,7 +21,7 @@
 }
 .file-action-icon{
   float: right !important;
-  margin-Top: 30px !important;
+  margin-Top: 20px !important;
   padding: 0 !important;
   color: rgba(0, 0, 0, 0.87) !important;
   width: .8em !important;
@@ -29,3 +29,13 @@
   margin-right: 4px;
   cursor: pointer;
 }
+input[type="file"]{
+  font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 7px;
+}
+
+.apply-for-gst fieldset{
+  border: unset;
+}
+

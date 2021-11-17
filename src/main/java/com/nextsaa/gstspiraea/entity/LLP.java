@@ -30,25 +30,25 @@ public class LLP {
     )
     private String llpid;
 
-    @Column(name = "firmName", nullable = false)
+    @Column(name = "firmName")
     private String firmName;
 
     @Column(name = "legalbusinessName")
     private String legalbusinessName;
 
-    @Column(name = "tradeName", nullable = false)
+    @Column(name = "tradeName")
     private String tradeName;
 
-    @Column(name = "mobile", nullable = false)
+    @Column(name = "mobile")
     private String mobile;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "pannumber", nullable = false)
+    @Column(name = "pannumber")
     private String pannumber;
 
-    @Column(name = "panphoto", nullable = false)
+    @Column(name = "panphoto")
     private String panphoto;
 
     @Column(name = "composition")
@@ -111,11 +111,11 @@ public class LLP {
     @Column(name = "isactive")
     private boolean isActive;
 
-    @Column(name = "createdon", nullable = false)
+    @Column(name = "createdon")
     @CreationTimestamp
     private LocalDateTime createdOn;
 
-    @Column(name = "createdby", nullable = false)
+    @Column(name = "createdby")
     private String createdBy;
 
     @Column(name = "modifiedon")

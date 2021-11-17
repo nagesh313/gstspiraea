@@ -140,7 +140,11 @@ export const ApplyForGstComponent = () => {
                   }}
                 >
                   {planList.map((plan: any) => {
-                    return <MenuItem value={plan} key={plan.id}>{plan.payplanname}</MenuItem>;
+                    return (
+                      <MenuItem value={plan} key={plan.id}>
+                        {plan.payplanname}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
               </FormControl>
@@ -177,7 +181,9 @@ export const ApplyForGstComponent = () => {
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&
-          dropdown === "Proprietorship" && <SoleProprietor plan={planLocation} />}
+          dropdown === "Proprietorship" && (
+            <SoleProprietor plan={planLocation} />
+          )}
         {name !== "" &&
           plan !== "" &&
           planLocation !== "" &&

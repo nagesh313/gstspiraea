@@ -97,7 +97,7 @@ const CreateNewUserDialogComponent = (props: any) => {
                     variant="outlined"
                     fullWidth
                     id="businessName"
-                    label="Business Name"
+                    label="Name"
                     autoFocus
                     onChange={handleChange}
                     value={values.businessName}

@@ -15,3 +15,13 @@ code {
 input[type='file'] {
   color: rgba(0, 0, 0, 0);
 }
+.filepond--hopper{
+  margin-bottom: 0px;
+  height: 60px;
+}
+.filepond--credits{
+  display: none;
+}
+.filepond--file-info-sub{
+  display: none ;
+}

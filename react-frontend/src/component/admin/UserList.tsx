@@ -4,21 +4,19 @@ import {
   IconButton,
   MenuItem,
   Select,
-  TextField,
-  Tooltip,
+  TextField
 } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Add, Delete } from "@material-ui/icons";
+import { Delete } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { failureToast, successToast } from "../../util/util";
 import Title from "../Title";
-import { CreateNewUserDialog } from "./CreateNewUser";
 export function UserListComponent(props: any) {
   const [userList, setUserList] = React.useState<any>([]);
   const [agentList, setAgentList] = React.useState<any>([]);
@@ -109,14 +107,14 @@ export function UserListComponent(props: any) {
   useEffect(() => {
     fetchUserList();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const [open, setOpen] = React.useState<any>(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-    fetchUserList();
-  };
+  // const [open, setOpen] = React.useState<any>(false);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  //   fetchUserList();
+  // };
   return (
     <React.Fragment>
       <Grid container>
@@ -127,14 +125,14 @@ export function UserListComponent(props: any) {
           <Title
             style={{ marginTop: "20px", textAlign: "right", cursor: "pointer" }}
           >
-            <Tooltip title="Add">
+            {/* <Tooltip title="Add">
               <Add onClick={handleOpen}></Add>
             </Tooltip>
             <CreateNewUserDialog
               open={open}
               type="Customer"
               handleClose={handleClose}
-            ></CreateNewUserDialog>
+            ></CreateNewUserDialog> */}
           </Title>
         </Grid>
       </Grid>

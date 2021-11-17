@@ -28,37 +28,24 @@ public class Proprietorship {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private String proprietorshipid;
-
-    @Column(name = "personName", nullable = false)
+    @Column(name = "personName")
     private String personName;
-
     @Column(name = "legalbusinessName")
     private String legalbusinessName;
-
-    @Column(name = "tradeName", nullable = false)
+    @Column(name = "tradeName")
     private String tradeName;
-
-    @Column(name = "mobile", nullable = false)
+    @Column(name = "mobile")
     private String mobile;
-
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
-
-    @Column(name = "pannumber", nullable = false)
     private String pannumber;
-
-    @Column(name = "panphoto", nullable = false)
     private String panphoto;
-
     @Column(name = "composition")
     private String composition;
-
     @Column(name = "commencementDate")
     private Date commencementDate;
-
     @Column(name = "principleplace")
     private String principleplace;
-
     @Column(name = "pricipleelectricityphoto")
     private String pricipleelectricityphoto;
 
@@ -123,7 +110,7 @@ public class Proprietorship {
     @Column(name = "isactive")
     private boolean isActive;
 
-    @Column(name = "createdon", nullable = false)
+    @Column(name = "createdon")
     @CreationTimestamp
     private LocalDateTime createdOn = LocalDateTime.now();
 

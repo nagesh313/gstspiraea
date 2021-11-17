@@ -504,7 +504,8 @@ const CompanyComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         size="small"
                         required
                         fullWidth
@@ -636,7 +637,8 @@ const CompanyComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           size="small"
                           required
                           fullWidth
@@ -697,7 +699,8 @@ const CompanyComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           size="small"
                           required
                           fullWidth
@@ -750,7 +753,8 @@ const CompanyComponent = (props: any) => {
                         <TextField
                           margin="dense"
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           size="small"
                           required
                           fullWidth
@@ -828,7 +832,8 @@ const CompanyComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         size="small"
                         fullWidth
                         id="additionalelectricityphoto"
@@ -888,7 +893,8 @@ const CompanyComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         size="small"
                         fullWidth
                         id="additionalrentphoto"
@@ -940,7 +946,8 @@ const CompanyComponent = (props: any) => {
                       <TextField
                         margin="dense"
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         size="small"
                         fullWidth
                         id="additionalnocphoto"
@@ -1172,7 +1179,8 @@ const CompanyComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "70%" }}
+                                  variant="outlined"
+                                  style={{ width: "80%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1258,7 +1266,8 @@ const CompanyComponent = (props: any) => {
                                 <TextField
                                   margin="dense"
                                   type="file"
-                                  style={{ width: "70%" }}
+                                  variant="outlined"
+                                  style={{ width: "80%" }}
                                   size="small"
                                   required
                                   fullWidth
@@ -1373,7 +1382,8 @@ const CompanyComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "70%" }}
+                                variant="outlined"
+                                style={{ width: "80%" }}
                                 size="small"
                                 required
                                 fullWidth
@@ -1479,7 +1489,8 @@ const CompanyComponent = (props: any) => {
                             <Grid item xs={12} sm={6}>
                               <TextField
                                 type="file"
-                                style={{ width: "70%" }}
+                                variant="outlined"
+                                style={{ width: "80%" }}
                                 margin="dense"
                                 size="small"
                                 required
@@ -1699,7 +1710,8 @@ const CompanyComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1754,7 +1766,8 @@ const CompanyComponent = (props: any) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         type="file"
-                        style={{ width: "70%" }}
+                        variant="outlined"
+                        style={{ width: "80%" }}
                         margin="dense"
                         size="small"
                         required
@@ -1825,7 +1838,8 @@ const CompanyComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1885,7 +1899,8 @@ const CompanyComponent = (props: any) => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                           type="file"
-                          style={{ width: "70%" }}
+                          variant="outlined"
+                          style={{ width: "80%" }}
                           margin="dense"
                           size="small"
                           fullWidth
@@ -1988,7 +2003,8 @@ const CompanyComponent = (props: any) => {
                               <TextField
                                 margin="dense"
                                 type="file"
-                                style={{ width: "70%" }}
+                                variant="outlined"
+                                style={{ width: "80%" }}
                                 size="small"
                                 fullWidth
                                 id={"gstAttachment" + index}
@@ -2076,10 +2092,10 @@ const CompanyComponent = (props: any) => {
                       </Grid>
                     </Grid>
                   )}
-                  {(params.id === undefined ||
-                    orderDetails?.status === "DRAFT") &&
-                    sessionStorage.getItem("role") === "Customer" && (
-                      <Grid container spacing={2}>
+                  <Grid container spacing={2} justifyContent="center">
+                    {sessionStorage.getItem("role") === "Customer" &&
+                      (orderDetails?.status === "DRAFT" ||
+                        params.id === undefined) && (
                         <Grid item xs={6}>
                           <Button
                             type="button"
@@ -2092,65 +2108,51 @@ const CompanyComponent = (props: any) => {
                               submitForm(values, true);
                             }}
                           >
-                            Save
+                            Save as Draft
                           </Button>
                         </Grid>
-                        <Grid item xs={6}>
-                          <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            style={{ marginTop: "10px" }}
-                            // className={classes.submit}
-                          >
-                            Submit
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    )}
-                  <Grid container spacing={3} style={{ textAlign: "center" }}>
-                    <Grid item xs={12}>
+                      )}
+                    <Grid item xs={6}>
                       <Button
-                        type="button"
+                        type="submit"
+                        fullWidth
                         variant="contained"
                         color="primary"
-                        onClick={() => {
-                          submitForm(values, true);
-                        }}
+                        style={{ marginTop: "10px" }}
+                        // className={classes.submit}
                       >
-                        Save & Update
+                        Submit
                       </Button>
-                      {sessionStorage.getItem("role") !== "Customer" &&
-                        (orderDetails?.status === "CREATED" ||
-                          orderDetails?.status === "PAID") && (
-                          <>
-                            <Button
-                              style={{ marginLeft: "10px" }}
-                              type="button"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                approve();
-                              }}
-                            >
-                              Approve
-                            </Button>
-                            <Button
-                              style={{ marginLeft: "10px" }}
-                              type="button"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                reject();
-                              }}
-                            >
-                              Reject
-                            </Button>
-                          </>
-                        )}
                     </Grid>
                   </Grid>
+                  {sessionStorage.getItem("role") !== "Customer" &&
+                    (orderDetails?.status === "CREATED" ||
+                      orderDetails?.status === "PAID") && (
+                      <Grid container style={{ marginLeft: "5px" }}>
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          type="button"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => {
+                            approve();
+                          }}
+                        >
+                          Approve
+                        </Button>
+                        <Button
+                          style={{ marginLeft: "10px" }}
+                          type="button"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => {
+                            reject();
+                          }}
+                        >
+                          Reject
+                        </Button>
+                      </Grid>
+                    )}
                 </Form>
               )}
             </Formik>
