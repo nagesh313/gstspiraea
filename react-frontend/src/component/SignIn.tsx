@@ -174,7 +174,7 @@ export function SignInComponent(props: any) {
                     </Button>
                     <Grid container>
                       <Grid item xs>
-                        <Link href="#/forgot-loginPassword" variant="body2">
+                        <Link href="#/forgot-password" variant="body2">
                           Forgot Password?
                         </Link>
                         {/* TODO feature */}

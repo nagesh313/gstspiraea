@@ -84,6 +84,11 @@ public class LoginControllerRest {
         userService.updateLoginDetails(user);
     }
 
+    @GetMapping("/forgot-password/{email}")
+    public void forgotPassword(@PathVariable String email) {
+        userService.resendCredentials(email);
+    }
+
     @GetMapping("/get-admin-dashboard")
     public Map<String, Object> getAdminDashboard() {
         LocalDateTime ld = LocalDate.now().atStartOfDay(); // Friday as original date

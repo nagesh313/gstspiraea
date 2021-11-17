@@ -13,6 +13,7 @@ import javax.naming.AuthenticationException;
 import java.rmi.ServerException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -100,5 +101,22 @@ public class UserService {
         user.setModifiedOn(LocalDateTime.now());
         user.setModifiedBy("ADMIN");
         return userDetailsRepository.save(user);
+    }
+
+    public void resendCredentials(String email) {
+        Optional<UserDetails> userDetails = userDetailsRepository.findByUserEmail(email);
+        if (userDetails.isPresent()) {
+            UserDetails userDetailsDTO = userDetails.get();
+            try {
+                SimpleMailMessage msg = new SimpleMailMessage();
+                msg.setTo(userDetailsDTO.getUserEmail());
+                msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
+                msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
+                msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue() + "\n UserName: " + userDetailsDTO.getLoginUserName() + "\n Password: " + userDetailsDTO.getLoginPassword());
+                javaMailSender.send(msg);
+            } catch (Exception e) {
+                System.out.println("Unable to send mail");
+            }
+        }
     }
 }

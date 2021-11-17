@@ -34,11 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const SignupSchema = Yup.object().shape({
-  userEmail: Yup.string().email("Invalid userEmail").required("Required"),
-  mobile: Yup.string()
-    .min(2, "Too Short!")
-    .max(10, "Too Long!")
-    .required("Required"),
+  userEmail: Yup.string().email("Invalid Email").required("Required"),
 });
 export function ForgotPasswordComponent(props: any) {
   const classes = useStyles();
@@ -48,10 +44,10 @@ export function ForgotPasswordComponent(props: any) {
   }
   const signUpSubmit = (values: any) => {
     axios
-      .post("/api/createRegistrationPost", values)
+      .get("/api/forgot-password/" + values.userEmail)
       .then((response: any) => {
         console.log(response);
-        props.enqueueSnackbar(response.message, successToast);
+        props.enqueueSnackbar("Credentials sent on the registered mail", successToast);
         navigateToLogin();
       })
       .catch((reponse: any) => {
@@ -63,9 +59,6 @@ export function ForgotPasswordComponent(props: any) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
         <img
           alt=""
           src="/spiraea-logo-bw-web-1.png"
@@ -103,26 +96,6 @@ export function ForgotPasswordComponent(props: any) {
                     helperText={touched.userEmail && errors.userEmail}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="mobile"
-                    label="Mobile Number"
-                    name="mobile"
-                    onChange={handleChange}
-                    value={values.mobile}
-                    error={errors.mobile && touched.mobile ? true : false}
-                    helperText={touched.mobile && errors.mobile}
-                  />
-                </Grid>
-                {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via userEmail."
-              />
-            </Grid> */}
               </Grid>
               <Button
                 type="submit"
@@ -131,7 +104,7 @@ export function ForgotPasswordComponent(props: any) {
                 color="primary"
                 className={classes.submit}
               >
-                Send reset Link
+                Request
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>

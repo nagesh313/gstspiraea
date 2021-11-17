@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nextsaa.gstspiraea.entity.UserDetails;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, String
     boolean existsByUserEmail(String userEmail);
 
     UserDetails findByLoginUserName(String username);
+
+    Optional<UserDetails> findByUserEmail(String email);
 
     List<UserDetails> findAllByAssignedToAgent(String agentLoginName);
 
