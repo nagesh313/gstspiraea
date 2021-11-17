@@ -13,6 +13,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { failureToast, successToast } from "../util/util";
+import { StickyFooter } from "./StickyFooter";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -117,6 +118,7 @@ export function ForgotPasswordComponent(props: any) {
           )}
         </Formik>
       </div>
+      <StickyFooter />
     </Container>
   );
 }

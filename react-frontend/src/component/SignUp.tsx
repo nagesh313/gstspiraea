@@ -14,6 +14,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { failureToast, successToast } from "../util/util";
+import { StickyFooter } from "./StickyFooter";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,9 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const SignupSchema = Yup.object().shape({
-  businessName: Yup.string()
-    .min(2, "Too Short!")
-    .required("Required"),
+  businessName: Yup.string().min(2, "Too Short!").required("Required"),
   vendorType: Yup.string().required("Required"),
   userEmail: Yup.string().email("Invalid userEmail").required("Required"),
   mobile: Yup.string().required("Required"),
@@ -62,131 +61,138 @@ export function SignUpComponent(props: any) {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <img
-          alt=""
-          src="/spiraea-logo-bw-web-1.png"
-          style={{ height: "50px", backgroundColor: "#3F51B5" }}
-        />
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <Formik
-          initialValues={{
-            businessName: "",
-            vendorType: "P0",
-            userEmail: "",
-            mobile: "",
-          }}
-          validationSchema={SignupSchema}
-          onSubmit={(values: any) => {
-            signUpSubmit(values);
-          }}
-        >
-          {({ errors, touched, values, handleChange, setFieldValue }) => (
-            // obj: any
-            <Form className={classes.form} noValidate>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={12}>
-                  <TextField
-                    autoComplete="businessName"
-                    required
-                    name="businessName"
-                    variant="outlined"
-                    fullWidth
-                    id="businessName"
-                    label="Business Name"
-                    autoFocus
-                    onChange={handleChange}
-                    value={values.businessName}
-                    error={
-                      errors.businessName && touched.businessName ? true : false
-                    }
-                    helperText={touched.businessName && errors.businessName}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
-                      Vendor Type
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-helper-label"
+    <>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <img
+            alt=""
+            src="/spiraea-logo-bw-web-1.png"
+            style={{ height: "50px", backgroundColor: "#3F51B5" }}
+          />
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Formik
+            initialValues={{
+              businessName: "",
+              vendorType: "P0",
+              userEmail: "",
+              mobile: "",
+            }}
+            validationSchema={SignupSchema}
+            onSubmit={(values: any) => {
+              signUpSubmit(values);
+            }}
+          >
+            {({ errors, touched, values, handleChange, setFieldValue }) => (
+              // obj: any
+              <Form className={classes.form} noValidate>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={12}>
+                    <TextField
+                      autoComplete="businessName"
+                      required
+                      name="businessName"
+                      variant="outlined"
                       fullWidth
-                      id="demo-simple-select-helper"
-                      value={values.vendorType}
+                      id="businessName"
+                      label="Business Name"
+                      autoFocus
+                      onChange={handleChange}
+                      value={values.businessName}
                       error={
-                        errors.vendorType && touched.vendorType ? true : false
+                        errors.businessName && touched.businessName
+                          ? true
+                          : false
                       }
-                      onChange={(event: any, data: any) => {
-                        setFieldValue("vendorType", data?.props?.children);
-                      }}
-                    >
-                      <MenuItem value={"P0"}>P0</MenuItem>
-                      <MenuItem value={"P1"}>P1</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="userEmail"
-                    label="Email Address"
-                    name="userEmail"
-                    autoComplete="userEmail"
-                    onChange={handleChange}
-                    value={values.userEmail}
-                    error={errors.userEmail && touched.userEmail ? true : false}
-                    helperText={touched.userEmail && errors.userEmail}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    type="number"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="mobile"
-                    label="Mobile Number"
-                    name="mobile"
-                    onChange={handleChange}
-                    value={values.mobile}
-                    error={errors.mobile && touched.mobile ? true : false}
-                    helperText={touched.mobile && errors.mobile}
-                  />
-                </Grid>
-                {/* <Grid item xs={12}>
+                      helperText={touched.businessName && errors.businessName}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Vendor Type
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-helper-label"
+                        fullWidth
+                        id="demo-simple-select-helper"
+                        value={values.vendorType}
+                        error={
+                          errors.vendorType && touched.vendorType ? true : false
+                        }
+                        onChange={(event: any, data: any) => {
+                          setFieldValue("vendorType", data?.props?.children);
+                        }}
+                      >
+                        <MenuItem value={"P0"}>P0</MenuItem>
+                        <MenuItem value={"P1"}>P1</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="userEmail"
+                      label="Email Address"
+                      name="userEmail"
+                      autoComplete="userEmail"
+                      onChange={handleChange}
+                      value={values.userEmail}
+                      error={
+                        errors.userEmail && touched.userEmail ? true : false
+                      }
+                      helperText={touched.userEmail && errors.userEmail}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      type="number"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="mobile"
+                      label="Mobile Number"
+                      name="mobile"
+                      onChange={handleChange}
+                      value={values.mobile}
+                      error={errors.mobile && touched.mobile ? true : false}
+                      helperText={touched.mobile && errors.mobile}
+                    />
+                  </Grid>
+                  {/* <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via userEmail."
               />
             </Grid> */}
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Sign Up
-              </Button>
-              <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link href="/#/signIn" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
                 </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </Container>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Sign Up
+                </Button>
+                <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <Link href="/#/signIn" variant="body2">
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </Container>
+      <StickyFooter />
+    </>
   );
 }
 export const SignUp = withSnackbar(SignUpComponent);
