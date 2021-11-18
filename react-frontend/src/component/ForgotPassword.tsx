@@ -48,7 +48,10 @@ export function ForgotPasswordComponent(props: any) {
       .get("/api/forgot-password/" + values.userEmail)
       .then((response: any) => {
         console.log(response);
-        props.enqueueSnackbar("Credentials sent on the registered mail", successToast);
+        props.enqueueSnackbar(
+          "Credentials sent on the registered mail",
+          successToast
+        );
         navigateToLogin();
       })
       .catch((reponse: any) => {
@@ -57,69 +60,73 @@ export function ForgotPasswordComponent(props: any) {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <img
-          alt=""
-          src="/spiraea-logo-bw-web-1.png"
-          style={{ height: "50px", backgroundColor: "#3F51B5" }}
-        />
-        <Typography component="h1" variant="h5">
-          Forgot password
-        </Typography>
-        <Formik
-          initialValues={{
-            userEmail: "",
-            mobile: "",
-          }}
-          validationSchema={SignupSchema}
-          onSubmit={(values: any) => {
-            signUpSubmit(values);
-          }}
-        >
-          {({ errors, touched, values, handleChange, setFieldValue }) => (
-            // obj: any
-            <Form className={classes.form} noValidate>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="userEmail"
-                    label="Email Address"
-                    name="userEmail"
-                    autoComplete="userEmail"
-                    onChange={handleChange}
-                    value={values.userEmail}
-                    error={errors.userEmail && touched.userEmail ? true : false}
-                    helperText={touched.userEmail && errors.userEmail}
-                  />
+    <>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <img
+            alt=""
+            src="/spiraea-logo-bw-web-1.png"
+            style={{ height: "50px", backgroundColor: "#3F51B5" }}
+          />
+          <Typography component="h1" variant="h5">
+            Forgot password
+          </Typography>
+          <Formik
+            initialValues={{
+              userEmail: "",
+              mobile: "",
+            }}
+            validationSchema={SignupSchema}
+            onSubmit={(values: any) => {
+              signUpSubmit(values);
+            }}
+          >
+            {({ errors, touched, values, handleChange, setFieldValue }) => (
+              // obj: any
+              <Form className={classes.form} noValidate>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="userEmail"
+                      label="Email Address"
+                      name="userEmail"
+                      autoComplete="userEmail"
+                      onChange={handleChange}
+                      value={values.userEmail}
+                      error={
+                        errors.userEmail && touched.userEmail ? true : false
+                      }
+                      helperText={touched.userEmail && errors.userEmail}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Request
-              </Button>
-              <Grid container justify="flex-end">
-                <Grid item>
-                  <Link href="/#/signIn" variant="body2">
-                    Back to Sign in
-                  </Link>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Request
+                </Button>
+                <Grid container justify="flex-end">
+                  <Grid item>
+                    <Link href="/#/signIn" variant="body2">
+                      Back to Sign in
+                    </Link>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </Container>
       <StickyFooter />
-    </Container>
+    </>
   );
 }
 export const ForgotPassword = withSnackbar(ForgotPasswordComponent);

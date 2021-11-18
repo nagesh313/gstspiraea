@@ -90,7 +90,10 @@ public class UserService {
             msg.setTo(userDetailsDTO.getUserEmail());
             msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
             msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
-            msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue() + "\n UserName: " + userDetailsDTO.getLoginUserName() + "\n Password: " + userDetailsDTO.getLoginPassword());
+            msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue()
+                    + "\n Role: " + userDetailsDTO.getRole()
+                    + "\n UserName: " + userDetailsDTO.getLoginUserName()
+                    + "\n Password: " + userDetailsDTO.getLoginPassword());
             javaMailSender.send(msg);
         } catch (Exception e) {
             System.out.println("Unable to send mail");
@@ -112,7 +115,10 @@ public class UserService {
                 msg.setTo(userDetailsDTO.getUserEmail());
                 msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
                 msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
-                msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue() + "\n UserName: " + userDetailsDTO.getLoginUserName() + "\n Password: " + userDetailsDTO.getLoginPassword());
+                msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue()
+                        + "\n Role: " + userDetailsDTO.getRole()
+                        + "\n UserName: " + userDetailsDTO.getLoginUserName()
+                        + "\n Password: " + userDetailsDTO.getLoginPassword());
                 javaMailSender.send(msg);
             } catch (Exception e) {
                 System.out.println("Unable to send mail");
