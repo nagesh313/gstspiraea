@@ -36,7 +36,6 @@ public class FileStorageService {
         Date dNow = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
         String datetime = ft.format(dNow);
-        System.out.println(datetime);
         return datetime;
     }
 

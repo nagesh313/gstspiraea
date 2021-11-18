@@ -33,18 +33,25 @@ export function FileUpload(props: any) {
   ];
   return (
     <>
-      <Grid container>
+      <Grid container spacing={3}>
         <Grid item xs={10}>
+          {/* {props.field}
+          {props.error ? "Error" : ""} */}
           <FilePond
             labelFileSizeNotAvailable=""
             files={props.field ? files : null}
             allowReorder={false}
             allowMultiple={false}
             maxFiles={1}
-            // onremovefile={() => {
-            //   debugger;
-            //   props.setFieldValue(props.fieldName, null);
-            // }}
+            onremovefile={(fileName: any, filea: any) => {
+              if(fileName?.length===0){
+                debugger;
+              }
+              console.log(fileName);
+              console.log(filea);
+              
+              // props.setFieldValue(props.fieldName, null);
+            }}
             server={{
               process: {
                 url: "/api/document/uploadFile",
@@ -60,14 +67,12 @@ export function FileUpload(props: any) {
             }}
             name="file"
             labelIdle={
-              "Drag & Drop your " +
-              title +
-              ' or <span class="filepond--label-action">Browse</span>'
+              title + ' or <span class="filepond--label-action">Browse</span>'
             }
           />
         </Grid>
         <Grid item xs={2}>
-          {props.field && (
+          {!isNaN(props.field) && props.field && (
             <div>
               <Tooltip title="View">
                 <Visibility
@@ -90,7 +95,6 @@ export function FileUpload(props: any) {
           )}
         </Grid>
       </Grid>
-      <div className="FileUpload" style={{ width: "80%" }}></div>
     </>
   );
 }

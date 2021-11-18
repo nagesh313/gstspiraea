@@ -92,6 +92,8 @@ public class DataInsert {
         configRepository.saveAll(Arrays.asList(config1, config2, config3, config4, config5));
     }
 
+    PaymentPlanDetails plan;
+
     public void createPlan1() {
         PaymentPlanDetails plan1 = new PaymentPlanDetails();
         plan1.setPayplanname("Place of Business (Rent Agreement) + GST registration");
@@ -105,6 +107,7 @@ public class DataInsert {
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
         paymentPlanDetailsRepository.saveAndFlush(plan1);
+        plan = plan1;
     }
 
     public void createPlan2() {
@@ -273,7 +276,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(utility.createOrder(new Double(10000)))
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(10000)))
                 .amount(new Double(10000))
                 .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
@@ -342,7 +345,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(utility.createOrder(new Double(18000)))
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
                 .amount(new Double(18000))
                 .location("Kolkata")
                 .partnerList(Arrays.asList(partner))
@@ -415,7 +418,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(utility.createOrder(new Double(18000)))
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
                 .amount(new Double(18000))
                 .location("Kolkata")
                 .partnerList(Arrays.asList(partner))
@@ -484,7 +487,7 @@ public class DataInsert {
                 .status("DRAFT")
                 .gstDocument("test")
 //                .remark("test")
-                .razorpayOrder(utility.createOrder(new Double(18000)))
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
                 .amount(new Double(18000))
                 .location("Kolkata")
                 .directorList(Arrays.asList(director))
@@ -551,7 +554,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(utility.createOrder(new Double(10000)))
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(10000)))
                 .amount(Double.valueOf(10000))
                 .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
                 .build();
@@ -622,7 +625,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(utility.createOrder(new Double(18000)))
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
                 .amount(new Double(18000))
                 .location("Kolkata")
                 .partnerList(Arrays.asList(partner))
@@ -696,7 +699,7 @@ public class DataInsert {
                 .trading(true)
                 .manufacture(true)
                 .service(true)
-                .razorpayOrder(utility.createOrder(new Double(18000)))
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
                 .amount(new Double(18000))
                 .location("Kolkata")
                 .partnerList(Arrays.asList(partner))
@@ -765,7 +768,7 @@ public class DataInsert {
                 .status("CREATED")
                 .gstDocument("test")
 //                .remark("test")
-                .razorpayOrder(utility.createOrder(new Double(18000)))
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
                 .amount(new Double(18000))
                 .location("Kolkata")
                 .directorList(Arrays.asList(director))

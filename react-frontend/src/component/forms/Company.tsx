@@ -9,13 +9,11 @@ import {
   MenuItem,
   Select,
   TextField,
-  Tooltip,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Visibility, GetApp, Message } from "@material-ui/icons";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
@@ -23,6 +21,7 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { ViewDocumentDialogComponent } from "../ViewDocumentDialog";
+import { FileUpload } from "./filepond";
 import { schema } from "./schema/CompanySchema";
 
 const useStyles = makeStyles((theme) => ({
@@ -501,53 +500,15 @@ const CompanyComponent = (props: any) => {
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        variant="outlined"
-                        style={{ width: "80%" }}
-                        size="small"
-                        required
-                        fullWidth
-                        id="panphoto"
-                        label="Please attach PAN card copy"
-                        name="panphoto"
-                        autoComplete="panphoto"
-                        // onChange={handleChange}
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "panphoto")
-                        }
-                        // value={values.panphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.panphoto && touched.panphoto ? true : false
-                        }
-                        helperText={touched.panphoto && errors.panphoto}
+                      <FileUpload
+                        onaddfile={upload}
+                        fieldName={"panphoto"}
+                        field={values.panphoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
                       />
-                      {values.panphoto && (
-                        <>
-                          <Tooltip title="View">
-                            <Visibility
-                              className="file-action-icon"
-                              onClick={() => {
-                                setImageName(values.panphoto);
-                                setOpen(true);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title="Download">
-                            <GetApp
-                              className="file-action-icon"
-                              onClick={() => {
-                                downloadReport(values.panphoto);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title={"File Name : " + values.panphoto}>
-                            <Message className="file-action-icon" />
-                          </Tooltip>
-                        </>
-                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -634,174 +595,33 @@ const CompanyComponent = (props: any) => {
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>
-                        <TextField
-                          margin="dense"
-                          type="file"
-                          variant="outlined"
-                          style={{ width: "80%" }}
-                          size="small"
-                          required
-                          fullWidth
-                          id="pricipleelectricityphoto"
-                          label="Please attach Electricity bill"
-                          name="pricipleelectricityphoto"
-                          autoComplete="pricipleelectricityphoto"
-                          onChange={(file) =>
-                            upload(
-                              file,
-                              setFieldValue,
-                              "pricipleelectricityphoto"
-                            )
-                          }
-                          // value={values.pricipleelectricityphoto}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.pricipleelectricityphoto &&
-                            touched.pricipleelectricityphoto
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.pricipleelectricityphoto &&
-                            errors.pricipleelectricityphoto
-                          }
+                        <FileUpload
+                          onaddfile={upload}
+                          fieldName={"pricipleelectricityphoto"}
+                          field={values.pricipleelectricityphoto}
+                          downloadReport={downloadReport}
+                          setImageName={setImageName}
+                          setOpen={setOpen}
+                          setFieldValue={setFieldValue}
                         />
-                        {values.pricipleelectricityphoto && (
-                          <>
-                            <Tooltip title="View">
-                              <Visibility
-                                className="file-action-icon"
-                                onClick={() => {
-                                  setImageName(values.pricipleelectricityphoto);
-                                  setOpen(true);
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="Download">
-                              <GetApp
-                                className="file-action-icon"
-                                onClick={() => {
-                                  downloadReport(
-                                    values.pricipleelectricityphoto
-                                  );
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip
-                              title={
-                                "File Name : " + values.pricipleelectricityphoto
-                              }
-                            >
-                              <Message className="file-action-icon" />
-                            </Tooltip>
-                          </>
-                        )}
-                        <TextField
-                          margin="dense"
-                          type="file"
-                          variant="outlined"
-                          style={{ width: "80%" }}
-                          size="small"
-                          required
-                          fullWidth
-                          id="priciplerentphoto"
-                          label="Please attach Rent Agrement"
-                          name="priciplerentphoto"
-                          autoComplete="priciplerentphoto"
-                          onChange={(file) =>
-                            upload(file, setFieldValue, "priciplerentphoto")
-                          }
-                          // value={values.priciplerentphoto}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.priciplerentphoto &&
-                            touched.priciplerentphoto
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.priciplerentphoto &&
-                            errors.priciplerentphoto
-                          }
+                        <FileUpload
+                          onaddfile={upload}
+                          fieldName={"priciplerentphoto"}
+                          field={values.priciplerentphoto}
+                          downloadReport={downloadReport}
+                          setImageName={setImageName}
+                          setOpen={setOpen}
+                          setFieldValue={setFieldValue}
                         />
-                        {values.priciplerentphoto && (
-                          <>
-                            <Tooltip title="View">
-                              <Visibility
-                                className="file-action-icon"
-                                onClick={() => {
-                                  setImageName(values.priciplerentphoto);
-                                  setOpen(true);
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="Download">
-                              <GetApp
-                                className="file-action-icon"
-                                onClick={() => {
-                                  downloadReport(values.priciplerentphoto);
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip
-                              title={"File Name : " + values.priciplerentphoto}
-                            >
-                              <Message className="file-action-icon" />
-                            </Tooltip>
-                          </>
-                        )}
-                        <TextField
-                          margin="dense"
-                          type="file"
-                          variant="outlined"
-                          style={{ width: "80%" }}
-                          size="small"
-                          required
-                          fullWidth
-                          id="priciplenocphoto"
-                          label="Please attach NOC if Rented"
-                          name="priciplenocphoto"
-                          autoComplete="priciplenocphoto"
-                          onChange={(file) =>
-                            upload(file, setFieldValue, "priciplenocphoto")
-                          }
-                          // value={values.priciplenocphoto}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.priciplenocphoto && touched.priciplenocphoto
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.priciplenocphoto && errors.priciplenocphoto
-                          }
+                        <FileUpload
+                          onaddfile={upload}
+                          fieldName={"priciplenocphoto"}
+                          field={values.priciplenocphoto}
+                          downloadReport={downloadReport}
+                          setImageName={setImageName}
+                          setOpen={setOpen}
+                          setFieldValue={setFieldValue}
                         />
-                        {values.priciplenocphoto && (
-                          <>
-                            <Tooltip title="View">
-                              <Visibility
-                                className="file-action-icon"
-                                onClick={() => {
-                                  setImageName(values.priciplenocphoto);
-                                  setOpen(true);
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="Download">
-                              <GetApp
-                                className="file-action-icon"
-                                onClick={() => {
-                                  downloadReport(values.priciplenocphoto);
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip
-                              title={"File Name : " + values.priciplenocphoto}
-                            >
-                              <Message className="file-action-icon" />
-                            </Tooltip>
-                          </>
-                        )}
                       </Grid>
                     </Grid>
                   )}
@@ -829,173 +649,33 @@ const CompanyComponent = (props: any) => {
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        variant="outlined"
-                        style={{ width: "80%" }}
-                        size="small"
-                        fullWidth
-                        id="additionalelectricityphoto"
-                        label="Please attach Electricity bill"
-                        name="additionalelectricityphoto"
-                        autoComplete="additionalelectricityphoto"
-                        onChange={(file) =>
-                          upload(
-                            file,
-                            setFieldValue,
-                            "additionalelectricityphoto"
-                          )
-                        }
-                        // value={values.additionalelectricityphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.additionalelectricityphoto &&
-                          touched.additionalelectricityphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.additionalelectricityphoto &&
-                          errors.additionalelectricityphoto
-                        }
+                      <FileUpload
+                        onaddfile={upload}
+                        fieldName={"additionalelectricityphoto"}
+                        field={values.additionalelectricityphoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
                       />
-                      {values.additionalelectricityphoto && (
-                        <>
-                          <Tooltip title="View">
-                            <Visibility
-                              className="file-action-icon"
-                              onClick={() => {
-                                setImageName(values.additionalelectricityphoto);
-                                setOpen(true);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title="Download">
-                            <GetApp
-                              className="file-action-icon"
-                              onClick={() => {
-                                downloadReport(
-                                  values.additionalelectricityphoto
-                                );
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip
-                            title={
-                              "File Name : " + values.additionalelectricityphoto
-                            }
-                          >
-                            <Message className="file-action-icon" />
-                          </Tooltip>
-                        </>
-                      )}
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        variant="outlined"
-                        style={{ width: "80%" }}
-                        size="small"
-                        fullWidth
-                        id="additionalrentphoto"
-                        label="Please attach Rent Agrement"
-                        name="additionalrentphoto"
-                        autoComplete="additionalrentphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "additionalrentphoto")
-                        }
-                        // value={values.additionalrentphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.additionalrentphoto &&
-                          touched.additionalrentphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.additionalrentphoto &&
-                          errors.additionalrentphoto
-                        }
+                      <FileUpload
+                        onaddfile={upload}
+                        fieldName={"additionalrentphoto"}
+                        field={values.additionalrentphoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
                       />
-                      {values.additionalrentphoto && (
-                        <>
-                          <Tooltip title="View">
-                            <Visibility
-                              className="file-action-icon"
-                              onClick={() => {
-                                setImageName(values.additionalrentphoto);
-                                setOpen(true);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title="Download">
-                            <GetApp
-                              className="file-action-icon"
-                              onClick={() => {
-                                downloadReport(values.additionalrentphoto);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip
-                            title={"File Name : " + values.additionalrentphoto}
-                          >
-                            <Message className="file-action-icon" />
-                          </Tooltip>
-                        </>
-                      )}
-                      <TextField
-                        margin="dense"
-                        type="file"
-                        variant="outlined"
-                        style={{ width: "80%" }}
-                        size="small"
-                        fullWidth
-                        id="additionalnocphoto"
-                        label="Please attach NOC if Rented"
-                        name="additionalnocphoto"
-                        autoComplete="additionalnocphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "additionalnocphoto")
-                        }
-                        // value={values.additionalnocphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.additionalnocphoto &&
-                          touched.additionalnocphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.additionalnocphoto &&
-                          errors.additionalnocphoto
-                        }
+                      <FileUpload
+                        onaddfile={upload}
+                        fieldName={"additionalnocphoto"}
+                        field={values.additionalnocphoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
                       />
-                      {values.additionalnocphoto && (
-                        <>
-                          <Tooltip title="View">
-                            <Visibility
-                              className="file-action-icon"
-                              onClick={() => {
-                                setImageName(values.additionalnocphoto);
-                                setOpen(true);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title="Download">
-                            <GetApp
-                              className="file-action-icon"
-                              onClick={() => {
-                                downloadReport(values.additionalnocphoto);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip
-                            title={"File Name : " + values.additionalnocphoto}
-                          >
-                            <Message className="file-action-icon" />
-                          </Tooltip>
-                        </>
-                      )}
                     </Grid>
                   </Grid>
 
@@ -1176,178 +856,36 @@ const CompanyComponent = (props: any) => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Grid item xs={12}>
-                                <TextField
-                                  margin="dense"
-                                  type="file"
-                                  variant="outlined"
-                                  style={{ width: "80%" }}
-                                  size="small"
-                                  required
-                                  fullWidth
-                                  id={"directorAadharPhotoCopyFront" + index}
-                                  label="Please attach Front Aadhar copy"
-                                  name={"directorAadharPhotoCopyFront" + index}
-                                  autoComplete={
+                                <FileUpload
+                                  onaddfile={upload}
+                                  fieldName={
                                     "directorAadharPhotoCopyFront" + index
                                   }
-                                  onChange={(file) =>
-                                    upload(
-                                      file,
-                                      setFieldValue,
-                                      "directorAadharPhotoCopyFront" + index
-                                    )
+                                  field={
+                                    values["directorAadharPhotoCopyFront"] +
+                                    index
                                   }
-                                  // value={values.directorAadharPhotoCopyFront}
-                                  InputLabelProps={{ shrink: true }}
-                                  error={
-                                    errors[
-                                      "directorAadharPhotoCopyFront" + index
-                                    ] &&
-                                    touched[
-                                      "directorAadharPhotoCopyFront" + index
-                                    ]
-                                      ? true
-                                      : false
-                                  }
-                                  helperText={
-                                    touched[
-                                      "directorAadharPhotoCopyFront" + index
-                                    ] &&
-                                    errors[
-                                      "directorAadharPhotoCopyFront" + index
-                                    ]
-                                  }
+                                  downloadReport={downloadReport}
+                                  setImageName={setImageName}
+                                  setOpen={setOpen}
+                                  setFieldValue={setFieldValue}
                                 />
-                                {values[
-                                  "directorAadharPhotoCopyFront" + index
-                                ] && (
-                                  <>
-                                    <Tooltip title="View">
-                                      <Visibility
-                                        className="file-action-icon"
-                                        onClick={() => {
-                                          setImageName(
-                                            values[
-                                              "directorAadharPhotoCopyFront" +
-                                                index
-                                            ]
-                                          );
-                                          setOpen(true);
-                                        }}
-                                      />
-                                    </Tooltip>
-                                    <Tooltip title="Download">
-                                      <GetApp
-                                        className="file-action-icon"
-                                        onClick={() => {
-                                          downloadReport(
-                                            values[
-                                              "directorAadharPhotoCopyFront" +
-                                                index
-                                            ]
-                                          );
-                                        }}
-                                      />
-                                    </Tooltip>
-                                    <Tooltip
-                                      title={
-                                        "File Name : " +
-                                        values[
-                                          "directorAadharPhotoCopyFront" + index
-                                        ]
-                                      }
-                                    >
-                                      <Message className="file-action-icon" />
-                                    </Tooltip>
-                                  </>
-                                )}
                               </Grid>
                               <Grid item xs={12}>
-                                <TextField
-                                  margin="dense"
-                                  type="file"
-                                  variant="outlined"
-                                  style={{ width: "80%" }}
-                                  size="small"
-                                  required
-                                  fullWidth
-                                  id={"directorAadharPhotoCopyBack" + index}
-                                  label="Please attach Back Aadhar copy"
-                                  name={"directorAadharPhotoCopyBack" + index}
-                                  autoComplete={
+                                <FileUpload
+                                  onaddfile={upload}
+                                  fieldName={
                                     "directorAadharPhotoCopyBack" + index
                                   }
-                                  onChange={(file) =>
-                                    upload(
-                                      file,
-                                      setFieldValue,
-                                      "directorAadharPhotoCopyBack" + index
-                                    )
+                                  field={
+                                    values["directorAadharPhotoCopyBack"] +
+                                    index
                                   }
-                                  // value={values.directorAadharPhotoCopyBack}
-                                  InputLabelProps={{ shrink: true }}
-                                  error={
-                                    errors[
-                                      "directorAadharPhotoCopyBack" + index
-                                    ] &&
-                                    touched[
-                                      "directorAadharPhotoCopyBack" + index
-                                    ]
-                                      ? true
-                                      : false
-                                  }
-                                  helperText={
-                                    touched[
-                                      "directorAadharPhotoCopyBack" + index
-                                    ] &&
-                                    errors[
-                                      "directorAadharPhotoCopyBack" + index
-                                    ]
-                                  }
+                                  downloadReport={downloadReport}
+                                  setImageName={setImageName}
+                                  setOpen={setOpen}
+                                  setFieldValue={setFieldValue}
                                 />
-                                {values[
-                                  "directorAadharPhotoCopyBack" + index
-                                ] && (
-                                  <>
-                                    <Tooltip title="View">
-                                      <Visibility
-                                        className="file-action-icon"
-                                        onClick={() => {
-                                          setImageName(
-                                            values[
-                                              "directorAadharPhotoCopyBack" +
-                                                index
-                                            ]
-                                          );
-                                          setOpen(true);
-                                        }}
-                                      />
-                                    </Tooltip>
-                                    <Tooltip title="Download">
-                                      <GetApp
-                                        className="file-action-icon"
-                                        onClick={() => {
-                                          downloadReport(
-                                            values[
-                                              "directorAadharPhotoCopyBack" +
-                                                index
-                                            ]
-                                          );
-                                        }}
-                                      />
-                                    </Tooltip>
-                                    <Tooltip
-                                      title={
-                                        "File Name : " +
-                                        values[
-                                          "directorAadharPhotoCopyBack" + index
-                                        ]
-                                      }
-                                    >
-                                      <Message className="file-action-icon" />
-                                    </Tooltip>
-                                  </>
-                                )}
                               </Grid>
                             </Grid>
                           </Grid>
@@ -1379,71 +917,15 @@ const CompanyComponent = (props: any) => {
                               />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                              <TextField
-                                margin="dense"
-                                type="file"
-                                variant="outlined"
-                                style={{ width: "80%" }}
-                                size="small"
-                                required
-                                fullWidth
-                                id={"pannumberCopy" + index}
-                                label="Please attach PAN copy"
-                                name={"pannumberCopy" + index}
-                                autoComplete={"pannumberCopy" + index}
-                                onChange={(file) =>
-                                  upload(
-                                    file,
-                                    setFieldValue,
-                                    "pannumberCopy" + index
-                                  )
-                                }
-                                // value={values.pannumberCopy}
-                                InputLabelProps={{ shrink: true }}
-                                error={
-                                  errors["pannumberCopy" + index] &&
-                                  touched["pannumberCopy" + index]
-                                    ? true
-                                    : false
-                                }
-                                helperText={
-                                  touched["pannumberCopy" + index] &&
-                                  errors["pannumberCopy" + index]
-                                }
+                              <FileUpload
+                                onaddfile={upload}
+                                fieldName={"pannumberCopy" + index}
+                                field={values["pannumberCopy"] + index}
+                                downloadReport={downloadReport}
+                                setImageName={setImageName}
+                                setOpen={setOpen}
+                                setFieldValue={setFieldValue}
                               />
-                              {values["pannumberCopy" + index] && (
-                                <>
-                                  <Tooltip title="View">
-                                    <Visibility
-                                      className="file-action-icon"
-                                      onClick={() => {
-                                        setImageName(
-                                          values["pannumberCopy" + index]
-                                        );
-                                        setOpen(true);
-                                      }}
-                                    />
-                                  </Tooltip>
-                                  <Tooltip title="Download">
-                                    <GetApp
-                                      className="file-action-icon"
-                                      onClick={() => {
-                                        downloadReport(
-                                          values["pannumberCopy" + index]
-                                        );
-                                      }}
-                                    />
-                                  </Tooltip>
-                                  <Tooltip
-                                    title={
-                                      "File Name : " +
-                                      values["pannumberCopy" + index]
-                                    }
-                                  >
-                                    <Message className="file-action-icon" />
-                                  </Tooltip>
-                                </>
-                              )}
                             </Grid>
                           </Grid>
 
@@ -1487,74 +969,15 @@ const CompanyComponent = (props: any) => {
                           </Grid>
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
-                              <TextField
-                                type="file"
-                                variant="outlined"
-                                style={{ width: "80%" }}
-                                margin="dense"
-                                size="small"
-                                required
-                                fullWidth
-                                id={"directorPhoto" + index}
-                                label={
-                                  "Passport Size Photo of Director " +
-                                  (index + 1)
-                                }
-                                name={"directorPhoto" + index}
-                                autoComplete={"directorPhoto" + index}
-                                onChange={(file) =>
-                                  upload(
-                                    file,
-                                    setFieldValue,
-                                    "directorPhoto" + index
-                                  )
-                                }
-                                // value={values.directorPhoto}
-                                InputLabelProps={{ shrink: true }}
-                                error={
-                                  errors["directorPhoto" + index] &&
-                                  touched["directorPhoto" + index]
-                                    ? true
-                                    : false
-                                }
-                                helperText={
-                                  touched["directorPhoto" + index] &&
-                                  errors["directorPhoto" + index]
-                                }
+                              <FileUpload
+                                onaddfile={upload}
+                                fieldName={"directorPhoto" + index}
+                                field={values["directorPhoto"] + index}
+                                downloadReport={downloadReport}
+                                setImageName={setImageName}
+                                setOpen={setOpen}
+                                setFieldValue={setFieldValue}
                               />
-                              {values["directorPhoto" + index] && (
-                                <>
-                                  <Tooltip title="View">
-                                    <Visibility
-                                      className="file-action-icon"
-                                      onClick={() => {
-                                        setImageName(
-                                          values["directorPhoto" + index]
-                                        );
-                                        setOpen(true);
-                                      }}
-                                    />
-                                  </Tooltip>
-                                  <Tooltip title="Download">
-                                    <GetApp
-                                      className="file-action-icon"
-                                      onClick={() => {
-                                        downloadReport(
-                                          values["directorPhoto" + index]
-                                        );
-                                      }}
-                                    />
-                                  </Tooltip>
-                                  <Tooltip
-                                    title={
-                                      "File Name : " +
-                                      values["directorPhoto" + index]
-                                    }
-                                  >
-                                    <Message className="file-action-icon" />
-                                  </Tooltip>
-                                </>
-                              )}
                             </Grid>
                           </Grid>
                         </React.Fragment>
@@ -1708,103 +1131,28 @@ const CompanyComponent = (props: any) => {
 
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        variant="outlined"
-                        style={{ width: "80%" }}
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="cancelcheqphoto"
-                        label="Attach Cancel cheque"
-                        name="cancelcheqphoto"
-                        autoComplete="cancelcheqphoto"
-                        onChange={(file) =>
-                          upload(file, setFieldValue, "cancelcheqphoto")
-                        }
-                        // value={values.cancelcheqphoto}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.cancelcheqphoto && touched.cancelcheqphoto
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.cancelcheqphoto && errors.cancelcheqphoto
-                        }
+                      <FileUpload
+                        onaddfile={upload}
+                        fieldName={"cancelcheqphoto"}
+                        field={values.cancelcheqphoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
                       />
-                      {values.cancelcheqphoto && (
-                        <>
-                          <Tooltip title="View">
-                            <Visibility
-                              className="file-action-icon"
-                              onClick={() => {
-                                setImageName(values.cancelcheqphoto);
-                                setOpen(true);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title="Download">
-                            <GetApp
-                              className="file-action-icon"
-                              onClick={() => {
-                                downloadReport(values.cancelcheqphoto);
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip
-                            title={"File Name : " + values.cancelcheqphoto}
-                          >
-                            <Message className="file-action-icon" />
-                          </Tooltip>
-                        </>
-                      )}
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
-                      <TextField
-                        type="file"
-                        variant="outlined"
-                        style={{ width: "80%" }}
-                        margin="dense"
-                        size="small"
-                        required
-                        fullWidth
-                        id="certificateOfIncorportation"
-                        label="Certificate Of Incorportation"
-                        name="certificateOfIncorportation"
-                        autoComplete="certificateOfIncorportation"
-                        onChange={(file) =>
-                          upload(
-                            file,
-                            setFieldValue,
-                            "certificateOfIncorportation"
-                          )
-                        }
-                        // value={values.certificateOfIncorportation}
-                        InputLabelProps={{ shrink: true }}
-                        error={
-                          errors.certificateOfIncorportation &&
-                          touched.certificateOfIncorportation
-                            ? true
-                            : false
-                        }
-                        helperText={
-                          touched.certificateOfIncorportation &&
-                          errors.certificateOfIncorportation
-                        }
+                      <FileUpload
+                        onaddfile={upload}
+                        fieldName={"certificateOfIncorportation"}
+                        field={values.certificateOfIncorportation}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
                       />
-                      {values.certificateOfIncorportation && (
-                        <Visibility
-                          onClick={() => {
-                            setImageName(values.certificateOfIncorportation);
-                            setOpen(true);
-                          }}
-                          style={{ float: "right", marginTop: "25px" }}
-                        />
-                      )}
                     </Grid>
                   </Grid>
                   {(isAdmin ||
@@ -1836,59 +1184,15 @@ const CompanyComponent = (props: any) => {
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>
-                        <TextField
-                          type="file"
-                          variant="outlined"
-                          style={{ width: "80%" }}
-                          margin="dense"
-                          size="small"
-                          fullWidth
-                          id="tradelicensephoto"
-                          label="Attach trade license"
-                          name="tradelicensephoto"
-                          autoComplete="tradelicensephoto"
-                          onChange={(file) =>
-                            upload(file, setFieldValue, "tradelicensephoto")
-                          }
-                          // value={values.tradelicensephoto}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.tradelicensephoto &&
-                            touched.tradelicensephoto
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.tradelicensephoto &&
-                            errors.tradelicensephoto
-                          }
+                        <FileUpload
+                          onaddfile={upload}
+                          fieldName={"tradelicensephoto"}
+                          field={values.tradelicensephoto}
+                          downloadReport={downloadReport}
+                          setImageName={setImageName}
+                          setOpen={setOpen}
+                          setFieldValue={setFieldValue}
                         />
-                        {values.tradelicensephoto && (
-                          <>
-                            <Tooltip title="View">
-                              <Visibility
-                                className="file-action-icon"
-                                onClick={() => {
-                                  setImageName(values.tradelicensephoto);
-                                  setOpen(true);
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="Download">
-                              <GetApp
-                                className="file-action-icon"
-                                onClick={() => {
-                                  downloadReport(values.tradelicensephoto);
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip
-                              title={"File Name : " + values.tradelicensephoto}
-                            >
-                              <Message className="file-action-icon" />
-                            </Tooltip>
-                          </>
-                        )}
                       </Grid>
                     </Grid>
                   )}
@@ -1897,48 +1201,15 @@ const CompanyComponent = (props: any) => {
                       values.declarationOfAuthorisedSignatory !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
-                        <TextField
-                          type="file"
-                          variant="outlined"
-                          style={{ width: "80%" }}
-                          margin="dense"
-                          size="small"
-                          fullWidth
-                          id="declarationOfAuthorisedSignatory"
-                          label="Declaration Of Authorised Signatory"
-                          name="declarationOfAuthorisedSignatory"
-                          autoComplete="declarationOfAuthorisedSignatory"
-                          onChange={(file) =>
-                            upload(
-                              file,
-                              setFieldValue,
-                              "declarationOfAuthorisedSignatory"
-                            )
-                          }
-                          // value={values.declarationOfAuthorisedSignatory}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.declarationOfAuthorisedSignatory &&
-                            touched.declarationOfAuthorisedSignatory
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.declarationOfAuthorisedSignatory &&
-                            errors.declarationOfAuthorisedSignatory
-                          }
+                        <FileUpload
+                          onaddfile={upload}
+                          fieldName={"declarationOfAuthorisedSignatory"}
+                          field={values.declarationOfAuthorisedSignatory}
+                          downloadReport={downloadReport}
+                          setImageName={setImageName}
+                          setOpen={setOpen}
+                          setFieldValue={setFieldValue}
                         />
-                        {values.declarationOfAuthorisedSignatory && (
-                          <Visibility
-                            onClick={() => {
-                              setImageName(
-                                values.declarationOfAuthorisedSignatory
-                              );
-                              setOpen(true);
-                            }}
-                            style={{ float: "right", marginTop: "25px" }}
-                          />
-                        )}
                       </Grid>
                     </Grid>
                   )}
@@ -1973,7 +1244,6 @@ const CompanyComponent = (props: any) => {
                     (num: any, index: any) => {
                       return (
                         <React.Fragment key={index}>
-                          <Divider />
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
@@ -2000,77 +1270,21 @@ const CompanyComponent = (props: any) => {
                               />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                              <TextField
-                                margin="dense"
-                                type="file"
-                                variant="outlined"
-                                style={{ width: "80%" }}
-                                size="small"
-                                fullWidth
-                                id={"gstAttachment" + index}
-                                label="Please attach GST Copy"
-                                name={"gstAttachment" + index}
-                                autoComplete={"gstAttachment" + index}
-                                onChange={(file) =>
-                                  upload(
-                                    file,
-                                    setFieldValue,
-                                    "gstAttachment" + index
-                                  )
-                                }
-                                // value={values.gstAttachment}
-                                InputLabelProps={{ shrink: true }}
-                                error={
-                                  errors["gstAttachment" + index] &&
-                                  touched["gstAttachment" + index]
-                                    ? true
-                                    : false
-                                }
-                                helperText={
-                                  touched["gstAttachment" + index] &&
-                                  errors["gstAttachment" + index]
-                                }
+                              <FileUpload
+                                onaddfile={upload}
+                                fieldName={"gstAttachment" + index}
+                                field={values["gstAttachment"] + index}
+                                downloadReport={downloadReport}
+                                setImageName={setImageName}
+                                setOpen={setOpen}
+                                setFieldValue={setFieldValue}
                               />
-                              {values["gstAttachment" + index] && (
-                                <>
-                                  <Tooltip title="View">
-                                    <Visibility
-                                      className="file-action-icon"
-                                      onClick={() => {
-                                        setImageName(
-                                          values["gstAttachment" + index]
-                                        );
-                                        setOpen(true);
-                                      }}
-                                    />
-                                  </Tooltip>
-                                  <Tooltip title="Download">
-                                    <GetApp
-                                      className="file-action-icon"
-                                      onClick={() => {
-                                        downloadReport(
-                                          values["gstAttachment" + index]
-                                        );
-                                      }}
-                                    />
-                                  </Tooltip>
-                                  <Tooltip
-                                    title={
-                                      "File Name : " +
-                                      values["gstAttachment" + index]
-                                    }
-                                  >
-                                    <Message className="file-action-icon" />
-                                  </Tooltip>
-                                </>
-                              )}
                             </Grid>
                           </Grid>
                         </React.Fragment>
                       );
                     }
                   )}
-                  <Divider />
                   {(isAdmin || (values.remark && values.remark !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>

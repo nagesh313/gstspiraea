@@ -29,3 +29,27 @@ input[type='file'] {
   max-height: 30vh;
 }
 
+.filepond--drop-label{
+  padding: 0;
+}
+.filepond--panel-top{
+  background-color: white;
+  color: black;
+}
+.filepond--panel-center{
+  background-color: white;
+}
+.filepond--panel-bottom{
+  background-color: white;
+}
+.filepond--file-info-main{
+  color: black;
+}
+.filepond--file,.filepond--drop-label{
+  border: 1px solid #f0f0f0;
+
+}
+
+.filepond--root .filepond--drop-label{
+  min-height: 3em;
+}
