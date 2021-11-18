@@ -22,7 +22,7 @@
   /* bottom: 0; */
   width: 100%;
   bottom: 0;
-  z-index: 11111;
+  z-index: 1400;
 }
 .file-action-icon{
   float: right !important;
