@@ -1,18 +1,17 @@
 package com.nextsaa.gstspiraea.entity;
 
-import java.time.LocalDateTime;
-
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "companydetails")
@@ -20,6 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Where(clause = "isActive='true'")
 public class CompanyDetails {
 
     @Id
@@ -56,8 +56,8 @@ public class CompanyDetails {
     private String cancelcheqphoto;
     private String tradelicensenumber;
     private String tradelicensephoto;
-    private boolean isActive;
-
+    @Column(name = "isactive")
+    private boolean isActive = true;
     @Column(name = "createdon")
     @CreationTimestamp
     private LocalDateTime createdOn;

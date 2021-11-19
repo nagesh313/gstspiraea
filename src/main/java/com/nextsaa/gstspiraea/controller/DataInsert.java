@@ -2,17 +2,11 @@ package com.nextsaa.gstspiraea.controller;
 
 import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
-import com.nextsaa.gstspiraea.service.ConfigService;
 import com.nextsaa.gstspiraea.util.Utility;
-import com.razorpay.Order;
-import com.razorpay.RazorpayClient;
-import com.razorpay.RazorpayException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,6 +64,10 @@ public class DataInsert {
         createPartnerShipOrder1();
         createLLPOrder1();
         createCompanyOrder1();
+        createInactiveProprietorshipOrder1();
+        createInactivePartnerShipOrder1();
+        createInactiveLLPOrder1();
+        createInactiveCompanyOrder1();
     }
 
     public void createStates() {
@@ -775,6 +773,291 @@ public class DataInsert {
                 .certificateOfIncorportation("test")
                 .declarationOfAuthorisedSignatory("test")
                 .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
+                .build();
+        companyDetailsRepository.saveAndFlush(details);
+    }
+
+    public void createInactiveProprietorshipOrder1() throws Exception {
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+
+        Proprietorship proprietorship = Proprietorship.builder()
+                .personName("test")
+                .legalbusinessName("test")
+                .tradeName("test")
+                .mobile("test")
+                .email("test@test.com")
+                .pannumber("AAAAA2222A")
+                .panphoto("download.jpg")
+                .composition("No")
+                .commencementDate(new Date())
+                .principleplace("test")
+                .pricipleelectricityphoto("download.jpg")
+                .priciplerentphoto("download.jpg")
+                .priciplenocphoto("download.jpg")
+                .additionalplace("test")
+                .additionalelectricityphoto("download.jpg")
+                .additionalrentphoto("download.jpg")
+                .additionalnocphoto("download.jpg")
+                .propfatherName("test")
+                .propadharnumber("111111111111")
+                .propadharphotoFront("download.jpg")
+                .propadharphotoBack("download.jpg")
+                .resident_address("test")
+                .photo("download.jpg")
+                .hsn1(12345)
+                .hsn2(12345)
+                .hsn3(12345)
+                .hsn4(12345)
+                .hsn5(12345)
+
+                .accountnumber("test")
+                .ifsccode("test")
+
+                .accountnumber("test")
+                .ifsccode("test")
+
+                .cancelcheqphoto("download.jpg")
+                .tradelicensenumber("test")
+                .tradelicensephoto("download.jpg")
+                .location("Kolkata")
+                .createdOn(LocalDateTime.now())
+                .createdBy("user1")
+                .modifiedOn(LocalDateTime.now())
+                .modifiedBy("Admin")
+                .status("CREATED")
+                .gstDocument("test")
+//                .remark("test")
+                .trading(true)
+                .manufacture(true)
+                .service(true)
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(10000)))
+                .amount(Double.valueOf(10000))
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
+                .isActive(false)
+                .build();
+        proprietorshipRepostiory.saveAndFlush(proprietorship);
+    }
+
+    public void createInactivePartnerShipOrder1() throws Exception {
+        Partner partner = Partner.builder()
+                .partnerName("test")
+                .partnerFatherName("test")
+                .partnerAadharNo("111111111111")
+                .partnerAadharPhotoCopyFront("test")
+                .partnerAadharPhotoCopyBack("test")
+                .pannumber("AAAAA2222A")
+                .pannumberCopy("test")
+                .partnerResidentialAddress("test")
+                .partnerPhoto("test")
+                .partnerMobile("test")
+                .partnerEmail("test@test.com")
+
+                .build();
+
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+
+
+        Partnership partnership = Partnership.builder()
+                .partnershipid("test")
+                .firmName("test")
+                .legalbusinessName("test")
+                .tradeName("test")
+                .mobile("test")
+                .email("test@test.com")
+                .pannumber("AAAAA2222A")
+                .panphoto("download.jpg")
+                .composition("No")
+                .commencementDate(new Date())
+                .principleplace("test")
+                .pricipleelectricityphoto("download.jpg")
+                .priciplerentphoto("download.jpg")
+                .priciplenocphoto("download.jpg")
+                .additionalplace("test")
+                .additionalelectricityphoto("download.jpg")
+                .additionalrentphoto("download.jpg")
+                .additionalnocphoto("download.jpg")
+                .hsn1(12345)
+                .hsn2(12345)
+                .hsn3(12345)
+                .hsn4(12345)
+                .hsn5(12345)
+
+                .accountnumber("test")
+                .ifsccode("test")
+
+                .cancelcheqphoto("download.jpg")
+                .tradelicensenumber("test")
+                .tradelicensephoto("download.jpg")
+                .location("Kolkata")
+                .createdOn(LocalDateTime.now())
+                .createdBy("user1")
+                .modifiedOn(LocalDateTime.now())
+                .modifiedBy("Admin")
+                .status("CREATED")
+                .gstDocument("test")
+//                .remark("test")
+                .trading(true)
+                .manufacture(true)
+                .service(true)
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
+                .amount(new Double(18000))
+                .location("Kolkata")
+                .partnerList(Arrays.asList(partner))
+                .certificateOfIncorportation("test")
+                .partnershipDeed("test")
+                .declarationOfAuthorisedSignatory("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
+                .isActive(false)
+                .build();
+        partnershipRepository.saveAndFlush(partnership);
+    }
+
+    public void createInactiveLLPOrder1() throws Exception {
+        Partner partner = Partner.builder()
+                .partnerName("test")
+                .partnerFatherName("test")
+                .partnerAadharNo("111111111111")
+                .partnerAadharPhotoCopyFront("test")
+                .partnerAadharPhotoCopyBack("test")
+                .pannumber("AAAAA2222A")
+                .pannumberCopy("test")
+                .partnerResidentialAddress("test")
+                .partnerPhoto("test")
+                .partnerMobile("test")
+                .partnerEmail("test@test.com")
+
+                .build();
+
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+
+        LLP llp = LLP.builder()
+                .firmName("test")
+                .legalbusinessName("test")
+                .tradeName("test")
+                .mobile("test")
+                .email("test@test.com")
+                .pannumber("AAAAA2222A")
+                .panphoto("download.jpg")
+                .composition("No")
+                .commencementDate(new Date())
+                .principleplace("test")
+                .pricipleelectricityphoto("download.jpg")
+                .priciplerentphoto("download.jpg")
+                .priciplenocphoto("download.jpg")
+                .additionalplace("test")
+                .additionalelectricityphoto("download.jpg")
+                .additionalrentphoto("download.jpg")
+                .additionalnocphoto("download.jpg")
+                .hsn1(12345)
+                .hsn2(12345)
+                .hsn3(12345)
+                .hsn4(12345)
+                .hsn5(12345)
+
+                .accountnumber("test")
+                .ifsccode("test")
+
+                .cancelcheqphoto("download.jpg")
+                .tradelicensenumber("test")
+                .tradelicensephoto("download.jpg")
+                .location("Kolkata")
+                .createdOn(LocalDateTime.now())
+                .createdBy("user2")
+                .modifiedOn(LocalDateTime.now())
+                .modifiedBy("test")
+                .status("CREATED")
+                .gstDocument("test")
+//                .remark("test")
+                .trading(true)
+                .manufacture(true)
+                .service(true)
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
+                .amount(new Double(18000))
+                .location("Kolkata")
+                .partnerList(Arrays.asList(partner))
+                .certificateOfIncorportation("test")
+                .partnershipDeed("test")
+                .declarationOfAuthorisedSignatory("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
+                .isActive(false)
+                .build();
+        llpRepostiory.saveAndFlush(llp);
+    }
+
+    public void createInactiveCompanyOrder1() throws Exception {
+        Director director = Director.builder()
+                .directorName("test")
+                .directorDin("test")
+                .directorFatherName("test")
+                .directorAadharNo("111111111111")
+                .directorAadharPhotoCopyFront("test")
+                .directorAadharPhotoCopyBack("test")
+                .pannumber("AAAAA2222S")
+                .pannumberCopy("test")
+                .directorResidentialAddress("test")
+                .directorPhoto("test")
+                .build();
+
+        GSTCertificatesInOtherStates gstCertificatesInOtherStates = GSTCertificatesInOtherStates.builder()
+                .gstNumber("test")
+                .gstAttachment("test")
+                .build();
+
+        CompanyDetails details = CompanyDetails.builder()
+                .firmName("test")
+                .legalbusinessName("test")
+                .tradeName("test")
+                .mobile("test")
+                .email("test@test.com")
+                .pannumber("AAAAA2222A")
+                .panphoto("download.jpg")
+                .composition("No")
+                .commencementDate(new Date())
+                .principleplace("test")
+                .pricipleelectricityphoto("download.jpg")
+                .priciplerentphoto("download.jpg")
+                .priciplenocphoto("download.jpg")
+                .additionalplace("test")
+                .additionalelectricityphoto("download.jpg")
+                .additionalrentphoto("download.jpg")
+                .additionalnocphoto("download.jpg")
+                .hsn1(12345)
+                .hsn2(12345)
+                .hsn3(12345)
+                .hsn4(12345)
+                .hsn5(12345)
+
+                .accountnumber("test")
+                .ifsccode("test")
+
+                .cancelcheqphoto("download.jpg")
+                .tradelicensenumber("test")
+                .tradelicensephoto("download.jpg")
+                .location("Kolkata")
+                .createdOn(LocalDateTime.now())
+                .createdBy("user2")
+                .modifiedOn(LocalDateTime.now())
+                .modifiedBy("Admin")
+                .status("CREATED")
+                .gstDocument("test")
+//                .remark("test")
+                .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
+                .amount(new Double(18000))
+                .location("Kolkata")
+                .directorList(Arrays.asList(director))
+                .certificateOfIncorportation("test")
+                .declarationOfAuthorisedSignatory("test")
+                .gstCertificatesInOtherStates(Arrays.asList(gstCertificatesInOtherStates))
+                .isActive(false)
                 .build();
         companyDetailsRepository.saveAndFlush(details);
     }

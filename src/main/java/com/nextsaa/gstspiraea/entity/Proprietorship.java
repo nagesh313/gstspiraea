@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Where(clause = "isActive='true'")
 public class Proprietorship {
 
     @Id
@@ -108,7 +110,7 @@ public class Proprietorship {
     private String tradelicensephoto;
 
     @Column(name = "isactive")
-    private boolean isActive;
+    private boolean isActive = true;
 
     @Column(name = "createdon")
     @CreationTimestamp
