@@ -21,7 +21,7 @@ import { useHistory } from "react-router-dom";
 export function AdminListComponent(props: any) {
   const history = useHistory();
   const role = sessionStorage.getItem("role");
-  if (role !== "admin") {
+  if (role !== "Admin") {
     history.push("/dashboard/order-list");
   }
   const [adminList, setAdminList] = React.useState<any>([]);

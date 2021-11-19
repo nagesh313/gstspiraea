@@ -15,7 +15,7 @@ import { CreateNewUserDialog } from "./CreateNewUser";
 export function AgentListComponent(props: any) {
   const history = useHistory();
   const role = sessionStorage.getItem("role");
-  if (role !== "admin") {
+  if (role !== "Admin") {
     history.push("/dashboard/order-list");
   }
   const [agentList, setAgentList] = React.useState<any>([]);

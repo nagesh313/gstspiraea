@@ -111,7 +111,7 @@ function Row(props: any) {
 export const PlanListComponent = (props: any) => {
   const history = useHistory();
   const role = sessionStorage.getItem("role");
-  if (role !== "admin") {
+  if (role !== "Admin") {
     history.push("/dashboard/order-list");
   }
   const [planList, setPlanList] = React.useState<any>([]);
