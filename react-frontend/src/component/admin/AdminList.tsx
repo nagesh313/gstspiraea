@@ -17,7 +17,13 @@ import React, { useEffect } from "react";
 import { failureToast, successToast } from "../../util/util";
 import Title from "../Title";
 import { CreateNewUserDialog } from "./CreateNewUser";
+import { useHistory } from "react-router-dom";
 export function AdminListComponent(props: any) {
+  const history = useHistory();
+  const role = sessionStorage.getItem("role");
+  if (role !== "admin") {
+    history.push("/dashboard/order-list");
+  }
   const [adminList, setAdminList] = React.useState<any>([]);
 
   const fetchUserList = () => {
