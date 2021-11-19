@@ -221,7 +221,11 @@ export default function Dashboard() {
       </MenuItem>
     </Menu>
   );
-  // const role = sessionStorage.getItem("role");
+  const role = sessionStorage.getItem("role");
+  const user = sessionStorage.getItem("user");
+  if (role === null || user === null) {
+    history.push("/signIn");
+  }
   // const admin = role === "Admin";
   const navigate = (url: string) => {
     history.push(url);
