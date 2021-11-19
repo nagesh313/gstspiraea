@@ -4,7 +4,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  Paper
+  Paper,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -15,8 +15,10 @@ import WorkIcon from "@material-ui/icons/Work";
 import axios from "axios";
 import clsx from "clsx";
 import React, { useEffect } from "react";
-import { ProgressBar } from "./Progres";
+import { useHistory } from "react-router-dom";
 import Title from "../Title";
+import { ProgressBar } from "./Progres";
+
 // function preventDefault(event: any) {
 //   event.preventDefault();
 // }
@@ -38,6 +40,11 @@ const useStyles = makeStyles((theme) => ({
 
 export const AdminDashboard = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const role = sessionStorage.getItem("role");
+  if (role !== "admin") {
+    history.push("/dashboard/order-list");
+  }
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const [dashboardData, setDashboardData] = React.useState<any>({});
 
@@ -66,7 +73,7 @@ export const AdminDashboard = () => {
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper} style={{ textAlign: "center" }}>
             <Typography component="div" variant="h4">
-             <img src="currency-inr.png" alt=""/> 
+              <img src="currency-inr.png" alt="" />
             </Typography>
             <Typography component="p" variant="h4">
               {dashboardData.todaysBusiness}

@@ -16,6 +16,7 @@ import React, { useEffect } from "react";
 import { failureToast } from "../../util/util";
 import { CreateNewPlan } from "./CreateNewPlan";
 import Title from "../Title";
+import { useHistory } from "react-router-dom";
 import { CreateNewPlanLocationDialog } from "./CreateNewPlanLocation";
 
 function Row(props: any) {
@@ -108,6 +109,11 @@ function Row(props: any) {
   );
 }
 export const PlanListComponent = (props: any) => {
+  const history = useHistory();
+  const role = sessionStorage.getItem("role");
+  if (role !== "admin") {
+    history.push("/dashboard/order-list");
+  }
   const [planList, setPlanList] = React.useState<any>([]);
   // const [open, setOpen] = React.useState<boolean>(false);
   const fetchPlanList = () => {

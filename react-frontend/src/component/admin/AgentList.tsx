@@ -10,8 +10,14 @@ import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { failureToast, successToast } from "../../util/util";
 import Title from "../Title";
+import { useHistory } from "react-router-dom";
 import { CreateNewUserDialog } from "./CreateNewUser";
 export function AgentListComponent(props: any) {
+  const history = useHistory();
+  const role = sessionStorage.getItem("role");
+  if (role !== "admin") {
+    history.push("/dashboard/order-list");
+  }
   const [agentList, setAgentList] = React.useState<any>([]);
   const fetchUserList = () => {
     axios
