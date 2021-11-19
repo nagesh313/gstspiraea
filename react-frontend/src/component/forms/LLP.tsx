@@ -525,7 +525,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="PAN Card"
                       />
                     </Grid>
                   </Grid>

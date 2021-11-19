@@ -736,7 +736,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Proprietor Photo"
                       />
                     </Grid>
                   </Grid>
