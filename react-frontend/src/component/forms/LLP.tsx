@@ -525,6 +525,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -620,6 +621,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                         <FileUpload
                           onaddfile={upload}
@@ -629,6 +631,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                         <FileUpload
                           onaddfile={upload}
@@ -638,6 +641,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                     </Grid>
@@ -675,6 +679,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -684,6 +689,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -693,6 +699,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -853,13 +860,15 @@ const LLPComponent = (props: any) => {
                                     "partnerAadharPhotoCopyFront" + index
                                   }
                                   field={
-                                    values["partnerAadharPhotoCopyFront"] +
-                                    index
+                                    values[
+                                      "partnerAadharPhotoCopyFront" + index
+                                    ]
                                   }
                                   downloadReport={downloadReport}
                                   setImageName={setImageName}
                                   setOpen={setOpen}
                                   setFieldValue={setFieldValue}
+                                  title=""
                                 />
                               </Grid>
                               <Grid item xs={12}>
@@ -869,12 +878,13 @@ const LLPComponent = (props: any) => {
                                     "partnerAadharPhotoCopyBack" + index
                                   }
                                   field={
-                                    values["partnerAadharPhotoCopyBack"] + index
+                                    values["partnerAadharPhotoCopyBack" + index]
                                   }
                                   downloadReport={downloadReport}
                                   setImageName={setImageName}
                                   setOpen={setOpen}
                                   setFieldValue={setFieldValue}
+                                  title=""
                                 />
                               </Grid>
                             </Grid>
@@ -909,11 +919,12 @@ const LLPComponent = (props: any) => {
                               <FileUpload
                                 onaddfile={upload}
                                 fieldName={"pannumberCopy" + index}
-                                field={values["pannumberCopy"] + index}
+                                field={values["pannumberCopy" + index]}
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
+                                title=""
                               />
                             </Grid>
                           </Grid>
@@ -958,11 +969,12 @@ const LLPComponent = (props: any) => {
                               <FileUpload
                                 onaddfile={upload}
                                 fieldName={"partnerPhoto" + index}
-                                field={values["partnerPhoto"] + index}
+                                field={values["partnerPhoto" + index]}
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
+                                title=""
                               />
                             </Grid>
                           </Grid>
@@ -1177,6 +1189,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -1190,6 +1203,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -1203,6 +1217,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -1243,6 +1258,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                     </Grid>
@@ -1260,6 +1276,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                     </Grid>
@@ -1324,11 +1341,12 @@ const LLPComponent = (props: any) => {
                               <FileUpload
                                 onaddfile={upload}
                                 fieldName={"gstAttachment" + index}
-                                field={values["gstAttachment"] + index}
+                                field={values["gstAttachment" + index]}
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
+                                title=""
                               />
                             </Grid>
                           </Grid>

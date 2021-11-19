@@ -16,21 +16,22 @@
   display: none;
 }
 .footer {
+  background-color: #3F51B5;
   margin-top:calc(5% + 60px);
   bottom: 0;
   position: fixed;
   /* bottom: 0; */
   width: 100%;
   bottom: 0;
-  z-index: 1400;
+  z-index: 1300;
 }
 .file-action-icon{
   float: right !important;
-  margin-Top: 20px !important;
+  margin-Top: 40px !important;
   padding: 0 !important;
   color: rgba(0, 0, 0, 0.87) !important;
-  width: .8em !important;
-  height: .8em !important;
+  width: 20px !important;
+  height: 20px !important;
   margin-right: 4px;
   cursor: pointer;
 }

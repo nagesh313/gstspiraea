@@ -47,9 +47,13 @@ input[type='file'] {
 }
 .filepond--file,.filepond--drop-label{
   border: 1px solid #f0f0f0;
-
 }
 
 .filepond--root .filepond--drop-label{
-  min-height: 3em;
+  min-height: 2.5em;
+  margin-bottom: "0px";
+}
+.filepond--root{
+  min-height: 2.5em;
+  margin-bottom: "0px";
 }

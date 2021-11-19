@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     padding: theme.spacing(3, 2),
     marginTop: "auto",
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor:"#3F51B5",
     opacity:1
   },
 }));
@@ -26,11 +26,10 @@ export const StickyFooter = () => {
 
   return (
     <div className={"footer"}>
-      <CssBaseline />
       <footer className={classes.footer}>
         <Grid container>
           <Grid item xs={6} style={{ textAlign: "center" }}>
-            <Typography variant="body1">
+            <Typography variant="body1" style={{color:"white"}}>
               Copyright © 2021 Spiraea. All Rights Reserved (A){" "}
             </Typography>
           </Grid>

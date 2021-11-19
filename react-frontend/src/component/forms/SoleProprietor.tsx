@@ -1,7 +1,6 @@
 import {
   Button,
   Checkbox,
-  Divider,
   FormControlLabel,
   Grid,
   InputLabel,
@@ -440,6 +439,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title="Pan Photo"
                         error={
                           errors.panphoto && touched.panphoto ? true : false
                         }
@@ -538,6 +538,13 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
+                          error={
+                            errors.pricipleelectricityphoto &&
+                            touched.pricipleelectricityphoto
+                              ? true
+                              : false
+                          }
                         />
                         <FileUpload
                           onaddfile={upload}
@@ -547,6 +554,7 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                         <FileUpload
                           onaddfile={upload}
@@ -556,6 +564,7 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                     </Grid>
@@ -593,6 +602,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -602,6 +612,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -611,6 +622,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -672,6 +684,7 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -683,6 +696,7 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                     </Grid>
@@ -722,6 +736,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -877,6 +892,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -918,6 +934,7 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                     </Grid>
@@ -954,7 +971,6 @@ const SoleProprietorComponent = (props: any) => {
                     (num: any, index: any) => {
                       return (
                         <React.Fragment key={index}>
-                          <Divider />
                           <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                               <TextField
@@ -989,6 +1005,13 @@ const SoleProprietorComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
+                                title={"Gst Attachment " + (index + 1)}
+                                error={
+                                  errors["gstAttachment" + index] &&
+                                  touched["gstAttachment" + index]
+                                    ? true
+                                    : false
+                                }
                               />
                             </Grid>
                           </Grid>

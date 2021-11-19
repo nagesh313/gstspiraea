@@ -2,7 +2,6 @@ import { Grid, Tooltip } from "@material-ui/core";
 import { GetApp, Visibility } from "@material-ui/icons";
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
-import React from "react";
 // Import React FilePond
 import { FilePond } from "react-filepond";
 
@@ -21,11 +20,11 @@ export function FileUpload(props: any) {
       );
     }
   };
-  const title = props.fieldName;
-  console.log(props.field);
+  // const title = props.fieldName;
+
   const files: any = [
     {
-      source: props.field,
+      source: stripAndShowFileName(props.field),
       options: {
         type: "local",
       },
@@ -33,46 +32,54 @@ export function FileUpload(props: any) {
   ];
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         <Grid item xs={10}>
-          {/* {props.field}
-          {props.error ? "Error" : ""} */}
+          {props.title}
           <FilePond
             labelFileSizeNotAvailable=""
             files={props.field ? files : null}
             allowReorder={false}
             allowMultiple={false}
             maxFiles={1}
-            onremovefile={(fileName: any, filea: any) => {
-              if(fileName?.length===0){
-                debugger;
-              }
-              console.log(fileName);
-              console.log(filea);
-              
-              // props.setFieldValue(props.fieldName, null);
+            onupdatefiles={(filea: any) => {
+              console.log("onupdatefiles");
+              if (filea.length === 0) {
+                props.setFieldValue(props.fieldName, null);
+              } 
+              // else if (
+              //   filea.length > 0 &&
+              //   filea[0]?.file?.size > 100000 &&
+              //   props?.fieldName?.includes("partnerPhoto")
+              // ) {
+              //   alert("Partner photo is too big");
+              //   props.setFieldValue(props.fieldName, null);
+              // }
             }}
             server={{
               process: {
                 url: "/api/document/uploadFile",
                 onload: (response: any) => {
-                  props.setFieldValue(
-                    props.fieldName,
-                    stripAndShowFileName(response)
-                  );
+                  // props.upload(props.field, response.key);
+                  // return response.key;
                   console.log(response);
-                  return response.key;
+                  props.setFieldValue(props.fieldName, response);
+                  return stripAndShowFileName(response);
                 },
               },
             }}
             name="file"
-            labelIdle={
-              title + ' or <span class="filepond--label-action">Browse</span>'
-            }
+            labelIdle={'<span class="filepond--label-action">Browse</span>'}
           />
+          {props.error ? (
+            <span className="MuiFormHelperText-root Mui-error Mui-required MuiFormHelperText-marginDense">
+              Required
+            </span>
+          ) : (
+            ""
+          )}
         </Grid>
-        <Grid item xs={2}>
-          {!isNaN(props.field) && props.field && (
+        <Grid item xs={2} style={{ padding: "0px" }}>
+          {props.field && (
             <div>
               <Tooltip title="View">
                 <Visibility

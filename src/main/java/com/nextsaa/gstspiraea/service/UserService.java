@@ -90,10 +90,26 @@ public class UserService {
             msg.setTo(userDetailsDTO.getUserEmail());
             msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
             msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
-            msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue()
-                    + "\n Role: " + userDetailsDTO.getRole()
-                    + "\n UserName: " + userDetailsDTO.getLoginUserName()
-                    + "\n Password: " + userDetailsDTO.getLoginPassword());
+            msg.setText(
+                    "Dear " + userDetailsDTO.getBusinessName() + " ,\n\n"
+                            + "Welcome to Spiraea Services !!\n"
+                            + "We’re pleased to onboard " + userDetailsDTO.getBusinessName() + " on our portal. SPIRAEA has partnered with "
+                            + "Flipkart to assist its vendors for GST Registrations PAN INDIA.\n\n"
+                            + "You have successfully been registered on our platform to upload documents for GST" +
+                            "Registrations. Please find below your user id & password for login.\n\n"
+                            + "\n Role: " + userDetailsDTO.getRole()
+                            + "\n UserName: " + userDetailsDTO.getLoginUserName()
+                            + "\n Password: " + userDetailsDTO.getLoginPassword()
+                            + "\nLink for Login : https://app-gstspiraea.herokuapp.com"
+                            + "We want to take this opportunity to thank you for selecting Spiraea as your preferred " +
+                            "partner. In case of any concerns, you can reach out to SPIRAEA HELPDESK at +91 7829930300.\n\n" +
+                            "You can also reach out to SPIRAEA for our other service offerings (PAN INDIA) : \n" +
+                            "1) Book Keeping &amp; Accounting\n" +
+                            "2) GST Compliance &amp; Advisory \n" +
+                            "3) Income Tax Return Filing &amp; Advisory \n" +
+                            "4) Department hearing &amp; related matters.\n\n\n"
+                            + "http://www.spiraea.in/"
+            );
             javaMailSender.send(msg);
         } catch (Exception e) {
             System.out.println("Unable to send mail");
@@ -115,10 +131,26 @@ public class UserService {
                 msg.setTo(userDetailsDTO.getUserEmail());
                 msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
                 msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
-                msg.setText(configService.getConfigByKey("loginMailBody").getConfigvalue()
-                        + "\n Role: " + userDetailsDTO.getRole()
-                        + "\n UserName: " + userDetailsDTO.getLoginUserName()
-                        + "\n Password: " + userDetailsDTO.getLoginPassword());
+                msg.setText(
+                        "Dear " + userDetailsDTO.getBusinessName() + " ,\n\n"
+                                + "Welcome to Spiraea Services !!\n"
+                                + "We’re pleased to onboard " + userDetailsDTO.getBusinessName() + " on our portal. SPIRAEA has partnered with "
+                                + "Flipkart to assist its vendors for GST Registrations PAN INDIA.\n\n"
+                                + "You have successfully been registered on our platform to upload documents for GST" +
+                                "Registrations. Please find below your user id & password for login.\n\n"
+                                + "\n Role: " + userDetailsDTO.getRole()
+                                + "\n UserName: " + userDetailsDTO.getLoginUserName()
+                                + "\n Password: " + userDetailsDTO.getLoginPassword()
+                                + "\nLink for Login : https://app-gstspiraea.herokuapp.com"
+                                + "We want to take this opportunity to thank you for selecting Spiraea as your preferred " +
+                                "partner. In case of any concerns, you can reach out to SPIRAEA HELPDESK at +91 7829930300.\n\n" +
+                                "You can also reach out to SPIRAEA for our other service offerings (PAN INDIA) : \n" +
+                                "1) Book Keeping &amp; Accounting\n" +
+                                "2) GST Compliance &amp; Advisory \n" +
+                                "3) Income Tax Return Filing &amp; Advisory \n" +
+                                "4) Department hearing &amp; related matters.\n\n\n"
+                                + "http://www.spiraea.in/"
+                );
                 javaMailSender.send(msg);
             } catch (Exception e) {
                 System.out.println("Unable to send mail");

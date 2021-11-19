@@ -508,6 +508,10 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title="PAN Photo"
+                        error={
+                          errors.panphoto && touched.panphoto ? true : false
+                        }
                       />
                     </Grid>
                   </Grid>
@@ -603,24 +607,44 @@ const CompanyComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title="Priciple Electricity Photo"
+                          error={
+                            errors.pricipleelectricityphoto &&
+                            touched.pricipleelectricityphoto
+                              ? true
+                              : false
+                          }
                         />
                         <FileUpload
                           onaddfile={upload}
-                          fieldName={"priciplerentphoto"}
+                          fieldName={"Priciple Rent Photo"}
                           field={values.priciplerentphoto}
                           downloadReport={downloadReport}
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
+                          error={
+                            errors.priciplerentphoto &&
+                            touched.priciplerentphoto
+                              ? true
+                              : false
+                          }
                         />
                         <FileUpload
                           onaddfile={upload}
-                          fieldName={"priciplenocphoto"}
+                          fieldName={"Priciple NOC Photo"}
                           field={values.priciplenocphoto}
                           downloadReport={downloadReport}
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
+                          error={
+                            errors.priciplenocphoto && touched.priciplenocphoto
+                              ? true
+                              : false
+                          }
                         />
                       </Grid>
                     </Grid>
@@ -657,6 +681,13 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
+                        error={
+                          errors.additionalelectricityphoto &&
+                          touched.additionalelectricityphoto
+                            ? true
+                            : false
+                        }
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -666,6 +697,13 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
+                        error={
+                          errors.additionalrentphoto &&
+                          touched.additionalrentphoto
+                            ? true
+                            : false
+                        }
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -675,6 +713,13 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
+                        error={
+                          errors.additionalnocphoto &&
+                          touched.additionalnocphoto
+                            ? true
+                            : false
+                        }
                       />
                     </Grid>
                   </Grid>
@@ -862,13 +907,25 @@ const CompanyComponent = (props: any) => {
                                     "directorAadharPhotoCopyFront" + index
                                   }
                                   field={
-                                    values["directorAadharPhotoCopyFront"] +
-                                    index
+                                    values[
+                                      "directorAadharPhotoCopyFront" + index
+                                    ]
                                   }
                                   downloadReport={downloadReport}
                                   setImageName={setImageName}
                                   setOpen={setOpen}
                                   setFieldValue={setFieldValue}
+                                  title=""
+                                  error={
+                                    errors[
+                                      "directorAadharPhotoCopyFront" + index
+                                    ] &&
+                                    touched[
+                                      "directorAadharPhotoCopyFront" + index
+                                    ]
+                                      ? true
+                                      : false
+                                  }
                                 />
                               </Grid>
                               <Grid item xs={12}>
@@ -878,13 +935,25 @@ const CompanyComponent = (props: any) => {
                                     "directorAadharPhotoCopyBack" + index
                                   }
                                   field={
-                                    values["directorAadharPhotoCopyBack"] +
-                                    index
+                                    values[
+                                      "directorAadharPhotoCopyBack" + index
+                                    ]
                                   }
                                   downloadReport={downloadReport}
                                   setImageName={setImageName}
                                   setOpen={setOpen}
                                   setFieldValue={setFieldValue}
+                                  title=""
+                                  error={
+                                    errors[
+                                      "directorAadharPhotoCopyBack" + index
+                                    ] &&
+                                    touched[
+                                      "directorAadharPhotoCopyBack" + index
+                                    ]
+                                      ? true
+                                      : false
+                                  }
                                 />
                               </Grid>
                             </Grid>
@@ -920,11 +989,12 @@ const CompanyComponent = (props: any) => {
                               <FileUpload
                                 onaddfile={upload}
                                 fieldName={"pannumberCopy" + index}
-                                field={values["pannumberCopy"] + index}
+                                field={values["pannumberCopy" + index]}
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
+                                title=""
                               />
                             </Grid>
                           </Grid>
@@ -972,11 +1042,12 @@ const CompanyComponent = (props: any) => {
                               <FileUpload
                                 onaddfile={upload}
                                 fieldName={"directorPhoto" + index}
-                                field={values["directorPhoto"] + index}
+                                field={values["directorPhoto" + index]}
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
+                                title=""
                               />
                             </Grid>
                           </Grid>
@@ -1139,6 +1210,7 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -1152,6 +1224,7 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
+                        title=""
                       />
                     </Grid>
                   </Grid>
@@ -1192,6 +1265,7 @@ const CompanyComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                     </Grid>
@@ -1209,6 +1283,7 @@ const CompanyComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
+                          title=""
                         />
                       </Grid>
                     </Grid>
@@ -1273,11 +1348,12 @@ const CompanyComponent = (props: any) => {
                               <FileUpload
                                 onaddfile={upload}
                                 fieldName={"gstAttachment" + index}
-                                field={values["gstAttachment"] + index}
+                                field={values["gstAttachment" + index]}
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
+                                title=""
                               />
                             </Grid>
                           </Grid>

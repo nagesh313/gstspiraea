@@ -16,7 +16,11 @@ export const ViewDocumentDialogComponent = (props: any) => {
       >
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <img src={"/api/document/downloadFile/" + props.name} alt="" />
+            <img
+              src={"/api/document/downloadFile/" + props.name}
+              alt=""
+              style={{ height: "50vh" }}
+            />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
