@@ -621,7 +621,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Priciple Electricity Bill"
                         />
                         <FileUpload
                           onaddfile={upload}
@@ -631,7 +631,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Priciple Rent Agreement"
                         />
                         <FileUpload
                           onaddfile={upload}
@@ -641,7 +641,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Priciple NOC format"
                         />
                       </Grid>
                     </Grid>
@@ -679,7 +679,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Additional Electricity Bill"
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -689,7 +689,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Additional Rent Agreement"
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -699,7 +699,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Additional NOC Agreement"
                       />
                     </Grid>
                   </Grid>
@@ -884,7 +884,9 @@ const LLPComponent = (props: any) => {
                                   setImageName={setImageName}
                                   setOpen={setOpen}
                                   setFieldValue={setFieldValue}
-                                  title=""
+                                  title={
+                                    "Partner " + (index + 1) + " Adhar Back"
+                                  }
                                 />
                               </Grid>
                             </Grid>
