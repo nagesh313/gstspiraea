@@ -27,6 +27,7 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
+    minWidth: "700px",
     display: "flex",
   },
   grow: {
@@ -50,8 +51,9 @@ const useStyles = makeStyles((theme: any) => ({
     }),
   },
   appBarShift: {
+    width: "100%",
     marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    // width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -234,7 +236,7 @@ export default function Dashboard() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="absolute"
+        position="fixed"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>

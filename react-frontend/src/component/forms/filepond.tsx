@@ -4,6 +4,7 @@ import { GetApp, Visibility } from "@material-ui/icons";
 import "filepond/dist/filepond.min.css";
 // Import React FilePond
 import { FilePond } from "react-filepond";
+import React from "react";
 
 // Import the Image EXIF Orientation and Image Preview plugins
 // Note: These need to be installed separately
