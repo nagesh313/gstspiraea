@@ -531,31 +531,25 @@ const SoleProprietorComponent = (props: any) => {
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <FileUpload
-                          onaddfile={upload}
-                          fieldName={"pricipleelectricityphoto"}
-                          field={values.pricipleelectricityphoto}
-                          downloadReport={downloadReport}
-                          setImageName={setImageName}
-                          setOpen={setOpen}
-                          setFieldValue={setFieldValue}
-                          title=""
-                          error={
-                            errors.pricipleelectricityphoto &&
-                            touched.pricipleelectricityphoto
-                              ? true
-                              : false
-                          }
-                        />
+                        onaddfile={upload}
+                        fieldName={"pricipleelectricityphoto"}
+                        field={values.pricipleelectricityphoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
+                        title="Priciple Electricity Bill"                        
+                      />
                         <FileUpload
-                          onaddfile={upload}
-                          fieldName={"priciplerentphoto"}
-                          field={values.priciplerentphoto}
-                          downloadReport={downloadReport}
-                          setImageName={setImageName}
-                          setOpen={setOpen}
-                          setFieldValue={setFieldValue}
-                          title=""
-                        />
+                        onaddfile={upload}
+                        fieldName={"priciplerentphoto"}
+                        field={values.priciplerentphoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
+                        title="Priciple Rent Agreement"                        
+                      />
                         <FileUpload
                           onaddfile={upload}
                           fieldName={"priciplenocphoto"}
@@ -564,7 +558,7 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Priciple NOC"
                         />
                       </Grid>
                     </Grid>
@@ -602,7 +596,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Additional Electricity Bill"
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -612,7 +606,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Additional Rent Agreement"
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -622,7 +616,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Additional NOC"
                       />
                     </Grid>
                   </Grid>
@@ -684,7 +678,10 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Proprietor Adhar Front"
+						error={
+                          errors.propadharphotoFront && touched.propadharphotoFront ? true : false
+                        }
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -696,7 +693,10 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Proprietor Adhar Back"
+						error={
+                          errors.propadharphotoBack && touched.propadharphotoBack ? true : false
+                        }
                         />
                       </Grid>
                     </Grid>
@@ -892,7 +892,7 @@ const SoleProprietorComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Cancel Cheque Photo"
                       />
                     </Grid>
                   </Grid>
@@ -934,7 +934,7 @@ const SoleProprietorComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Trade License Photo"
                         />
                       </Grid>
                     </Grid>

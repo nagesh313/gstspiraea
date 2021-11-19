@@ -527,7 +527,8 @@ const PartnershipComponent = (props: any) => {
                         downloadReport={downloadReport}
                         setImageName={setImageName}
                         setOpen={setOpen}
-                        setFieldValue={setFieldValue} title=""
+                        setFieldValue={setFieldValue} 
+						title="PAN Card Photo"
                       />
                     </Grid>
                   </Grid>
@@ -631,7 +632,8 @@ const PartnershipComponent = (props: any) => {
                           downloadReport={downloadReport}
                           setImageName={setImageName}
                           setOpen={setOpen}
-                          setFieldValue={setFieldValue} title=""
+                          setFieldValue={setFieldValue} 
+						  title="Priciple Rent Agreement"
                         />
                         <FileUpload
                           onaddfile={upload}
@@ -640,7 +642,8 @@ const PartnershipComponent = (props: any) => {
                           downloadReport={downloadReport}
                           setImageName={setImageName}
                           setOpen={setOpen}
-                          setFieldValue={setFieldValue} title=""
+                          setFieldValue={setFieldValue} 
+						  title="Principle NOC"
                         />
                       </Grid>
                     </Grid>
@@ -677,7 +680,8 @@ const PartnershipComponent = (props: any) => {
                         downloadReport={downloadReport}
                         setImageName={setImageName}
                         setOpen={setOpen}
-                        setFieldValue={setFieldValue} title=""
+                        setFieldValue={setFieldValue}
+						title="Additional Electricity Bill"
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -686,7 +690,8 @@ const PartnershipComponent = (props: any) => {
                         downloadReport={downloadReport}
                         setImageName={setImageName}
                         setOpen={setOpen}
-                        setFieldValue={setFieldValue} title=""
+                        setFieldValue={setFieldValue} 
+						title="Additional Rent Agreement"
                       />
                       <FileUpload
                         onaddfile={upload}
@@ -695,7 +700,7 @@ const PartnershipComponent = (props: any) => {
                         downloadReport={downloadReport}
                         setImageName={setImageName}
                         setOpen={setOpen}
-                        setFieldValue={setFieldValue} title=""
+                        setFieldValue={setFieldValue} title="Additional NOC"
                       />
                     </Grid>
                   </Grid>
@@ -863,7 +868,7 @@ const PartnershipComponent = (props: any) => {
                                   downloadReport={downloadReport}
                                   setImageName={setImageName}
                                   setOpen={setOpen}
-                                  setFieldValue={setFieldValue} title=""
+                                  setFieldValue={setFieldValue} title="Partner" +index+1 + " Adhar Front"
                                 />
                               </Grid>
                               <Grid item xs={12}>
@@ -878,7 +883,7 @@ const PartnershipComponent = (props: any) => {
                                   downloadReport={downloadReport}
                                   setImageName={setImageName}
                                   setOpen={setOpen}
-                                  setFieldValue={setFieldValue} title=""
+                                  setFieldValue={setFieldValue} title="Partner" +index+1 + " Adhar Back"
                                 />
                               </Grid>
                             </Grid>
@@ -918,7 +923,7 @@ const PartnershipComponent = (props: any) => {
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
-                                setFieldValue={setFieldValue} title=""
+                                setFieldValue={setFieldValue} title="Partner" +index+1 + " PAN Card"
                               />
                             </Grid>
                           </Grid>
@@ -967,7 +972,7 @@ const PartnershipComponent = (props: any) => {
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
-                                setFieldValue={setFieldValue} title=""
+                                setFieldValue={setFieldValue} "Partner" +index+1 + " Photo"
                               />
                             </Grid>
                           </Grid>
@@ -1180,7 +1185,7 @@ const PartnershipComponent = (props: any) => {
                         downloadReport={downloadReport}
                         setImageName={setImageName}
                         setOpen={setOpen}
-                        setFieldValue={setFieldValue} title=""
+                        setFieldValue={setFieldValue} "Cancelled Cheque"
                       />
                     </Grid>
                   </Grid>
@@ -1194,7 +1199,7 @@ const PartnershipComponent = (props: any) => {
                         downloadReport={downloadReport}
                         setImageName={setImageName}
                         setOpen={setOpen}
-                        setFieldValue={setFieldValue} title=""
+                        setFieldValue={setFieldValue} title="Partnership Deed"
                       />
                     </Grid>
                   </Grid>
@@ -1234,7 +1239,7 @@ const PartnershipComponent = (props: any) => {
                           downloadReport={downloadReport}
                           setImageName={setImageName}
                           setOpen={setOpen}
-                          setFieldValue={setFieldValue} title=""
+                          setFieldValue={setFieldValue} title="Trade License Photo"
                         />
                       </Grid>
                     </Grid>
@@ -1374,7 +1379,7 @@ const PartnershipComponent = (props: any) => {
                                 downloadReport={downloadReport}
                                 setImageName={setImageName}
                                 setOpen={setOpen}
-                                setFieldValue={setFieldValue} title=""
+                                setFieldValue={setFieldValue} title=" GST" + index + 1
                               />
                             </Grid>
                           </Grid>
