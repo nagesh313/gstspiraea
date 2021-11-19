@@ -21,4 +21,5 @@ public class PaymentPlanLocationDetails {
     private String id;
     private String payplanLocation;
     private Double payplanamount;
+    private boolean canDelete = true;
 }
