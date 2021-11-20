@@ -237,6 +237,7 @@ const SoleProprietorComponent = (props: any) => {
     valuesOfGSTInOtherStates["gstAttachment" + index] = "";
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
+  const isAgent = sessionStorage.getItem("role") === "Agent";
   return (
     <>
       <CssBaseline />
@@ -265,6 +266,7 @@ const SoleProprietorComponent = (props: any) => {
                       email: "",
                       pannumber: "",
                       panphoto: "",
+                      soleProprietorPhoto:"",
                       composition: "No",
                       commencementDate: date,
                       principleplace: "",
@@ -392,6 +394,18 @@ const SoleProprietorComponent = (props: any) => {
                         helperText={touched.mobile && errors.mobile}
                       />
                     </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <FileUpload
+                        onaddfile={upload}
+                        fieldName={"soleProprietorPhoto"}
+                        field={values.soleProprietorPhoto}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
+                        title="Proprietor Photo"
+                      />
+                    </Grid>
                   </Grid>
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
@@ -503,6 +517,7 @@ const SoleProprietorComponent = (props: any) => {
                   </Grid>
 
                   {(isAdmin ||
+                    isAgent ||
                     (values.principleplace &&
                       values.principleplace !== "")) && (
                     <Grid container spacing={4}>
@@ -531,25 +546,25 @@ const SoleProprietorComponent = (props: any) => {
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <FileUpload
-                        onaddfile={upload}
-                        fieldName={"pricipleelectricityphoto"}
-                        field={values.pricipleelectricityphoto}
-                        downloadReport={downloadReport}
-                        setImageName={setImageName}
-                        setOpen={setOpen}
-                        setFieldValue={setFieldValue}
-                        title="Priciple Electricity Bill"                        
-                      />
+                          onaddfile={upload}
+                          fieldName={"pricipleelectricityphoto"}
+                          field={values.pricipleelectricityphoto}
+                          downloadReport={downloadReport}
+                          setImageName={setImageName}
+                          setOpen={setOpen}
+                          setFieldValue={setFieldValue}
+                          title="Priciple Electricity Bill"
+                        />
                         <FileUpload
-                        onaddfile={upload}
-                        fieldName={"priciplerentphoto"}
-                        field={values.priciplerentphoto}
-                        downloadReport={downloadReport}
-                        setImageName={setImageName}
-                        setOpen={setOpen}
-                        setFieldValue={setFieldValue}
-                        title="Priciple Rent Agreement"                        
-                      />
+                          onaddfile={upload}
+                          fieldName={"priciplerentphoto"}
+                          field={values.priciplerentphoto}
+                          downloadReport={downloadReport}
+                          setImageName={setImageName}
+                          setOpen={setOpen}
+                          setFieldValue={setFieldValue}
+                          title="Priciple Rent Agreement"
+                        />
                         <FileUpload
                           onaddfile={upload}
                           fieldName={"priciplenocphoto"}
@@ -679,9 +694,12 @@ const SoleProprietorComponent = (props: any) => {
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
                           title="Proprietor Adhar Front"
-						error={
-                          errors.propadharphotoFront && touched.propadharphotoFront ? true : false
-                        }
+                          error={
+                            errors.propadharphotoFront &&
+                            touched.propadharphotoFront
+                              ? true
+                              : false
+                          }
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -694,9 +712,12 @@ const SoleProprietorComponent = (props: any) => {
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
                           title="Proprietor Adhar Back"
-						error={
-                          errors.propadharphotoBack && touched.propadharphotoBack ? true : false
-                        }
+                          error={
+                            errors.propadharphotoBack &&
+                            touched.propadharphotoBack
+                              ? true
+                              : false
+                          }
                         />
                       </Grid>
                     </Grid>
@@ -898,6 +919,7 @@ const SoleProprietorComponent = (props: any) => {
                   </Grid>
 
                   {(isAdmin ||
+                    isAgent ||
                     (values.tradelicensenumber &&
                       values.tradelicensenumber !== "")) && (
                     <Grid container spacing={4}>
@@ -1019,7 +1041,9 @@ const SoleProprietorComponent = (props: any) => {
                       );
                     }
                   )}
-                  {(isAdmin || (values.remark && values.remark !== "")) && (
+                  {(isAdmin ||
+                    isAgent ||
+                    (values.remark && values.remark !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField

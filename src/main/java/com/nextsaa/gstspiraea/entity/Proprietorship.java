@@ -40,6 +40,7 @@ public class Proprietorship {
     private String email;
     private String pannumber;
     private String panphoto;
+    private String soleProprietorPhoto;
     @Column(name = "composition")
     private String composition;
     @Column(name = "commencementDate")
