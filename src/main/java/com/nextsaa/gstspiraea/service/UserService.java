@@ -100,14 +100,16 @@ public class UserService {
                             + "\n Role: " + userDetailsDTO.getRole()
                             + "\n UserName: " + userDetailsDTO.getLoginUserName()
                             + "\n Password: " + userDetailsDTO.getLoginPassword()
-                            + "\nLink for Login : https://app-gstspiraea.herokuapp.com"
+                            + "\nLink for Login : https://app-gstspiraea.herokuapp.com\n"
                             + "We want to take this opportunity to thank you for selecting Spiraea as your preferred " +
                             "partner. In case of any concerns, you can reach out to SPIRAEA HELPDESK at +91 7829930300.\n\n" +
                             "You can also reach out to SPIRAEA for our other service offerings (PAN INDIA) : \n" +
-                            "1) Book Keeping &amp; Accounting\n" +
-                            "2) GST Compliance &amp; Advisory \n" +
-                            "3) Income Tax Return Filing &amp; Advisory \n" +
-                            "4) Department hearing &amp; related matters.\n\n\n"
+                            "1) Book Keeping & Accounting\n" +
+                            "2) GST Compliance & Advisory \n" +
+                            "3) Income Tax Return Filing & Advisory \n" +
+                            "4) Department hearing & related matters.\n\n\n"
+                            + "Regards,\n"
+                            + "Spiraea Team\n"
                             + "http://www.spiraea.in/"
             );
             javaMailSender.send(msg);
@@ -141,14 +143,16 @@ public class UserService {
                                 + "\n Role: " + userDetailsDTO.getRole()
                                 + "\n UserName: " + userDetailsDTO.getLoginUserName()
                                 + "\n Password: " + userDetailsDTO.getLoginPassword()
-                                + "\nLink for Login : https://app-gstspiraea.herokuapp.com"
+                                + "\nLink for Login : https://app-gstspiraea.herokuapp.com\n"
                                 + "We want to take this opportunity to thank you for selecting Spiraea as your preferred " +
                                 "partner. In case of any concerns, you can reach out to SPIRAEA HELPDESK at +91 7829930300.\n\n" +
                                 "You can also reach out to SPIRAEA for our other service offerings (PAN INDIA) : \n" +
-                                "1) Book Keeping &amp; Accounting\n" +
-                                "2) GST Compliance &amp; Advisory \n" +
-                                "3) Income Tax Return Filing &amp; Advisory \n" +
-                                "4) Department hearing &amp; related matters.\n\n\n"
+                                "1) Book Keeping & Accounting\n" +
+                                "2) GST Compliance & Advisory \n" +
+                                "3) Income Tax Return Filing & Advisory \n" +
+                                "4) Department hearing & related matters.\n\n\n"
+                                + "Regards,\n"
+                                + "Spiraea Team\n"
                                 + "http://www.spiraea.in/"
                 );
                 javaMailSender.send(msg);
