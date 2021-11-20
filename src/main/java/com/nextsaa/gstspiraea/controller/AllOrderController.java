@@ -51,25 +51,64 @@ public class AllOrderController {
     }
 
     @GetMapping(value = {"/Proprietorship", "/Proprietorship/{agentLoginName}"})
-    public List<Proprietorship> getAllProprietorship(@PathVariable(required = false) String agentLoginName) {
-        return proprietorshipRepostiory.findAll();
+    public List<Object> getAllProprietorship(@PathVariable(required = false) String agentLoginName) {
+        if (agentLoginName != null) {
+            List<UserDetails> userList = userDetailsRepository.findAllByAssignedToAgent(agentLoginName);
+            List<Object> response = new ArrayList<>();
+            response.addAll(proprietorshipRepostiory.findAllByCreatedByIn(userList.stream().map(UserDetails::getLoginUserName).collect(Collectors.toList())));
+            return response;
+        } else {
+            List<Object> response = new ArrayList<>();
+            response.addAll(proprietorshipRepostiory.findAll());
+            return response;
+        }
 
     }
 
     @GetMapping(value = {"/Partnership/", "/Partnership/{agentLoginName}"})
-    public List<Partnership> getAllPartnership(@PathVariable(required = false) String agentLoginName) {
-        return partnershipRepository.findAll();
+    public List<Object> getAllPartnership(@PathVariable(required = false) String agentLoginName) {
+        if (agentLoginName != null) {
+            List<UserDetails> userList = userDetailsRepository.findAllByAssignedToAgent(agentLoginName);
+            List<Object> response = new ArrayList<>();
+            response.addAll(partnershipRepository.findAllByCreatedByIn(userList.stream().map(UserDetails::getLoginUserName).collect(Collectors.toList())));
+            return response;
+        } else {
+            List<Object> response = new ArrayList<>();
+            response.addAll(proprietorshipRepostiory.findAll());
+            response.addAll(partnershipRepository.findAll());
+            response.addAll(llpRepostiory.findAll());
+            response.addAll(companyDetailsRepository.findAll());
+            return response;
+        }
     }
 
     @GetMapping(value = {"/LLP", "/LLP/{agentLoginName}"})
-    public List<LLP> getAllLLP(@PathVariable(required = false) String agentLoginName) {
-        return llpRepostiory.findAll();
+    public List<Object> getAllLLP(@PathVariable(required = false) String agentLoginName) {
+        if (agentLoginName != null) {
+            List<UserDetails> userList = userDetailsRepository.findAllByAssignedToAgent(agentLoginName);
+            List<Object> response = new ArrayList<>();
+            response.addAll(llpRepostiory.findAllByCreatedByIn(userList.stream().map(UserDetails::getLoginUserName).collect(Collectors.toList())));
+            return response;
+        } else {
+            List<Object> response = new ArrayList<>();
+            response.addAll(llpRepostiory.findAll());
+            return response;
+        }
 
     }
 
     @GetMapping(value = {"/Company", "/Company/{agentLoginName}"})
-    public List<CompanyDetails> getAllCompany(@PathVariable(required = false) String agentLoginName) {
-        return companyDetailsRepository.findAll();
+    public List<Object> getAllCompany(@PathVariable(required = false) String agentLoginName) {
+        if (agentLoginName != null) {
+            List<UserDetails> userList = userDetailsRepository.findAllByAssignedToAgent(agentLoginName);
+            List<Object> response = new ArrayList<>();
+            response.addAll(companyDetailsRepository.findAllByCreatedByIn(userList.stream().map(UserDetails::getLoginUserName).collect(Collectors.toList())));
+            return response;
+        } else {
+            List<Object> response = new ArrayList<>();
+            response.addAll(companyDetailsRepository.findAll());
+            return response;
+        }
 
     }
 }
