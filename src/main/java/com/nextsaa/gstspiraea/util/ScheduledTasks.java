@@ -30,7 +30,6 @@ public class ScheduledTasks {
 
     @Scheduled(fixedRate = 86400000)
     public void archiveRecords() {
-        proprietorshipRepostiory
         log.info("The time is now {}", dateFormat.format(new Date()));
     }
 }

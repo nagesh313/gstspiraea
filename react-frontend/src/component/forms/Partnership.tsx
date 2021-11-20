@@ -9,7 +9,6 @@ import {
   MenuItem,
   Select,
   TextField,
-  Tooltip,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -22,9 +21,8 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { ViewDocumentDialogComponent } from "../ViewDocumentDialog";
-import { schema } from "./schema/PartnerSchema";
-import { Visibility, GetApp, Message } from "@material-ui/icons";
 import { FileUpload } from "./filepond";
+import { schema } from "./schema/PartnerSchema";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -876,12 +874,16 @@ const PartnershipComponent = (props: any) => {
                                   title={
                                     "Partner " + (index + 1) + " Adhar Front"
                                   }
-								error={
-                                  errors["partnerAadharPhotoCopyFront" + index] &&
-                                  touched["partnerAadharPhotoCopyFront" + index]
-                                    ? true
-                                    : false
-                                }
+                                  error={
+                                    errors[
+                                      "partnerAadharPhotoCopyFront" + index
+                                    ] &&
+                                    touched[
+                                      "partnerAadharPhotoCopyFront" + index
+                                    ]
+                                      ? true
+                                      : false
+                                  }
                                 />
                               </Grid>
                               <Grid item xs={12}>
@@ -900,12 +902,16 @@ const PartnershipComponent = (props: any) => {
                                   title={
                                     "Partner " + (index + 1) + " Adhar Back"
                                   }
-								error={
-                                  errors["partnerAadharPhotoCopyBack" + index] &&
-                                  touched["partnerAadharPhotoCopyBack" + index]
-                                    ? true
-                                    : false
-                                }
+                                  error={
+                                    errors[
+                                      "partnerAadharPhotoCopyBack" + index
+                                    ] &&
+                                    touched[
+                                      "partnerAadharPhotoCopyBack" + index
+                                    ]
+                                      ? true
+                                      : false
+                                  }
                                 />
                               </Grid>
                             </Grid>
@@ -946,10 +952,8 @@ const PartnershipComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title={
-									"Partner " + (index + 1) + " PAN Card"
-									}
-								error={
+                                title={"Partner " + (index + 1) + " PAN Card"}
+                                error={
                                   errors["pannumber" + index] &&
                                   touched["pannumber" + index]
                                     ? true
@@ -1004,16 +1008,13 @@ const PartnershipComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title={
-								"Partner " + (index + 1) + " Photo"
-								}
-								error={
+                                title={"Partner " + (index + 1) + " Photo"}
+                                error={
                                   errors["partnerPhoto" + index] &&
                                   touched["partnerPhoto" + index]
                                     ? true
                                     : false
                                 }
-								
                               />
                             </Grid>
                           </Grid>
@@ -1228,8 +1229,10 @@ const PartnershipComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="Cancelled Cheque"
-						error={
-                          errors.cancelcheqphoto && touched.cancelcheqphoto ? true : false
+                        error={
+                          errors.cancelcheqphoto && touched.cancelcheqphoto
+                            ? true
+                            : false
                         }
                       />
                     </Grid>
@@ -1246,8 +1249,10 @@ const PartnershipComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="Partnership Deed"
-						error={
-                          errors.partnershipDeed && touched.partnershipDeed ? true : false
+                        error={
+                          errors.partnershipDeed && touched.partnershipDeed
+                            ? true
+                            : false
                         }
                       />
                     </Grid>
@@ -1302,18 +1307,21 @@ const PartnershipComponent = (props: any) => {
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
                         <FileUpload
-                        onaddfile={upload}
-                        fieldName={"declarationOfAuthorisedSignatory"}
-                        field={values.declarationOfAuthorisedSignatory}
-                        downloadReport={downloadReport}
-                        setImageName={setImageName}
-                        setOpen={setOpen}
-                        setFieldValue={setFieldValue}
-                        title="Declaration Of Authorised Signatory"
-						error={
-                          errors.declarationOfAuthorisedSignatory && touched.declarationOfAuthorisedSignatory ? true : false
-                        }                        
-                      />
+                          onaddfile={upload}
+                          fieldName={"declarationOfAuthorisedSignatory"}
+                          field={values.declarationOfAuthorisedSignatory}
+                          downloadReport={downloadReport}
+                          setImageName={setImageName}
+                          setOpen={setOpen}
+                          setFieldValue={setFieldValue}
+                          title="Declaration Of Authorised Signatory"
+                          error={
+                            errors.declarationOfAuthorisedSignatory &&
+                            touched.declarationOfAuthorisedSignatory
+                              ? true
+                              : false
+                          }
+                        />
                       </Grid>
                     </Grid>
                   )}
@@ -1381,9 +1389,7 @@ const PartnershipComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title={
-									"GST " + (index + 1)+" Document"
-								}
+                                title={"GST " + (index + 1) + " Document"}
                               />
                             </Grid>
                           </Grid>

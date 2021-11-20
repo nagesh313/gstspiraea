@@ -266,7 +266,7 @@ const SoleProprietorComponent = (props: any) => {
                       email: "",
                       pannumber: "",
                       panphoto: "",
-                      soleProprietorPhoto:"",
+                      soleProprietorPhoto: "",
                       composition: "No",
                       commencementDate: date,
                       principleplace: "",
@@ -395,7 +395,7 @@ const SoleProprietorComponent = (props: any) => {
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <FileUpload
+                    <FileUpload
                         onaddfile={upload}
                         fieldName={"soleProprietorPhoto"}
                         field={values.soleProprietorPhoto}
@@ -404,6 +404,9 @@ const SoleProprietorComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="Proprietor Photo"
+                        error={
+                          errors.soleProprietorPhoto && touched.soleProprietorPhoto ? true : false
+                        }
                       />
                     </Grid>
                   </Grid>
@@ -758,11 +761,7 @@ const SoleProprietorComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="Proprietor Photo"
-						error={
-                          errors.photo && touched.photo
-                            ? true
-                            : false
-                        }
+                        error={errors.photo && touched.photo ? true : false}
                       />
                     </Grid>
                   </Grid>

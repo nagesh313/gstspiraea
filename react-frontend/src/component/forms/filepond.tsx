@@ -46,7 +46,7 @@ export function FileUpload(props: any) {
               console.log("onupdatefiles");
               if (filea.length === 0) {
                 props.setFieldValue(props.fieldName, null);
-              } 
+              }
               // else if (
               //   filea.length > 0 &&
               //   filea[0]?.file?.size > 100000 &&
@@ -72,7 +72,10 @@ export function FileUpload(props: any) {
             labelIdle={'<span class="filepond--label-action">Browse</span>'}
           />
           {props.error ? (
-            <span className="MuiFormHelperText-root Mui-error Mui-required MuiFormHelperText-marginDense">
+            <span
+              className="MuiFormHelperText-root Mui-error Mui-required MuiFormHelperText-marginDense"
+              style={{ color: "red" }}
+            >
               Required
             </span>
           ) : (
