@@ -737,6 +737,11 @@ const SoleProprietorComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="Proprietor Photo"
+						error={
+                          errors.photo && touched.photo
+                            ? true
+                            : false
+                        }
                       />
                     </Grid>
                   </Grid>

@@ -874,6 +874,12 @@ const PartnershipComponent = (props: any) => {
                                   title={
                                     "Partner " + (index + 1) + " Adhar Front"
                                   }
+								error={
+                                  errors["partnerAadharPhotoCopyFront" + index] &&
+                                  touched["partnerAadharPhotoCopyFront" + index]
+                                    ? true
+                                    : false
+                                }
                                 />
                               </Grid>
                               <Grid item xs={12}>
@@ -892,6 +898,12 @@ const PartnershipComponent = (props: any) => {
                                   title={
                                     "Partner " + (index + 1) + " Adhar Back"
                                   }
+								error={
+                                  errors["partnerAadharPhotoCopyBack" + index] &&
+                                  touched["partnerAadharPhotoCopyBack" + index]
+                                    ? true
+                                    : false
+                                }
                                 />
                               </Grid>
                             </Grid>
@@ -932,7 +944,15 @@ const PartnershipComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title={"Partner " + (index + 1) + " PAN Card"}
+                                title={
+									"Partner " + (index + 1) + " PAN Card"
+									}
+								error={
+                                  errors["pannumber" + index] &&
+                                  touched["pannumber" + index]
+                                    ? true
+                                    : false
+                                }
                               />
                             </Grid>
                           </Grid>
@@ -982,7 +1002,16 @@ const PartnershipComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title={"Partner " + (index + 1) + " Photo"}
+                                title={
+								"Partner " + (index + 1) + " Photo"
+								}
+								error={
+                                  errors["partnerPhoto" + index] &&
+                                  touched["partnerPhoto" + index]
+                                    ? true
+                                    : false
+                                }
+								
                               />
                             </Grid>
                           </Grid>
@@ -1197,6 +1226,9 @@ const PartnershipComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="Cancelled Cheque"
+						error={
+                          errors.cancelcheqphoto && touched.cancelcheqphoto ? true : false
+                        }
                       />
                     </Grid>
                   </Grid>
@@ -1212,6 +1244,9 @@ const PartnershipComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="Partnership Deed"
+						error={
+                          errors.partnershipDeed && touched.partnershipDeed ? true : false
+                        }
                       />
                     </Grid>
                   </Grid>
@@ -1262,70 +1297,19 @@ const PartnershipComponent = (props: any) => {
                       values.declarationOfAuthorisedSignatory !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6}>
-                        <TextField
-                          type="file"
-                          variant="outlined"
-                          style={{ width: "80%" }}
-                          margin="dense"
-                          size="small"
-                          fullWidth
-                          id="declarationOfAuthorisedSignatory"
-                          label="Declaration Of Authorised Signatory"
-                          name="declarationOfAuthorisedSignatory"
-                          autoComplete="declarationOfAuthorisedSignatory"
-                          onChange={(file) =>
-                            upload(
-                              file,
-                              setFieldValue,
-                              "declarationOfAuthorisedSignatory"
-                            )
-                          }
-                          // value={values.declarationOfAuthorisedSignatory}
-                          InputLabelProps={{ shrink: true }}
-                          error={
-                            errors.declarationOfAuthorisedSignatory &&
-                            touched.declarationOfAuthorisedSignatory
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            touched.declarationOfAuthorisedSignatory &&
-                            errors.declarationOfAuthorisedSignatory
-                          }
-                        />
-                        {values.declarationOfAuthorisedSignatory && (
-                          <>
-                            <Tooltip title="View">
-                              <Visibility
-                                className="file-action-icon"
-                                onClick={() => {
-                                  setImageName(
-                                    values.declarationOfAuthorisedSignatory
-                                  );
-                                  setOpen(true);
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="Download">
-                              <GetApp
-                                className="file-action-icon"
-                                onClick={() => {
-                                  downloadReport(
-                                    values.declarationOfAuthorisedSignatory
-                                  );
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip
-                              title={
-                                "File Name : " +
-                                values.declarationOfAuthorisedSignatory
-                              }
-                            >
-                              <Message className="file-action-icon" />
-                            </Tooltip>
-                          </>
-                        )}
+                        <FileUpload
+                        onaddfile={upload}
+                        fieldName={"declarationOfAuthorisedSignatory"}
+                        field={values.declarationOfAuthorisedSignatory}
+                        downloadReport={downloadReport}
+                        setImageName={setImageName}
+                        setOpen={setOpen}
+                        setFieldValue={setFieldValue}
+                        title="Declaration Of Authorised Signatory"
+						error={
+                          errors.declarationOfAuthorisedSignatory && touched.declarationOfAuthorisedSignatory ? true : false
+                        }                        
+                      />
                       </Grid>
                     </Grid>
                   )}
@@ -1393,7 +1377,9 @@ const PartnershipComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title={"GST " + (index + 1)}
+                                title={
+									"GST " + (index + 1)+" Document"
+								}
                               />
                             </Grid>
                           </Grid>

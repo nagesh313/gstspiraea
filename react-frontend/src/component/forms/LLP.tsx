@@ -526,6 +526,10 @@ const LLPComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="PAN Card"
+	error={
+                          errors.pannumber && touched.pannumber ? true : false
+                        }
+                        helperText={touched.pannumber && errors.pannumber}
                       />
                     </Grid>
                   </Grid>
