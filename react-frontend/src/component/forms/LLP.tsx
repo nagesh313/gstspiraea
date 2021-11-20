@@ -323,7 +323,7 @@ const LLPComponent = (props: any) => {
     valuesOfGSTInOtherStates["gstAttachment" + index] = "";
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
-  console.log(schema);
+  const isAgent = sessionStorage.getItem("role") === "Agent";
   return (
     <React.Fragment>
       <CssBaseline />
@@ -590,6 +590,7 @@ const LLPComponent = (props: any) => {
                   </Grid>
 
                   {(isAdmin ||
+                    isAgent ||
                     (values.principleplace &&
                       values.principleplace !== "")) && (
                     <Grid container spacing={4}>
@@ -1228,6 +1229,7 @@ const LLPComponent = (props: any) => {
                     </Grid>
                   </Grid>
                   {(isAdmin ||
+                    isAgent ||
                     (values.tradelicensenumber &&
                       values.tradelicensenumber !== "")) && (
                     <Grid container spacing={4}>
@@ -1270,6 +1272,7 @@ const LLPComponent = (props: any) => {
                     </Grid>
                   )}
                   {(isAdmin ||
+                    isAgent ||
                     (values.declarationOfAuthorisedSignatory &&
                       values.declarationOfAuthorisedSignatory !== "")) && (
                     <Grid container spacing={4}>
@@ -1360,7 +1363,9 @@ const LLPComponent = (props: any) => {
                       );
                     }
                   )}
-                  {(isAdmin || (values.remark && values.remark !== "")) && (
+                  {(isAdmin ||
+                    isAgent ||
+                    (values.remark && values.remark !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField

@@ -1,4 +1,10 @@
-import { Collapse, IconButton, Paper, TableContainer } from "@material-ui/core";
+import {
+  Collapse,
+  IconButton,
+  Paper,
+  TableContainer,
+  TextField,
+} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -18,10 +24,22 @@ import { CreateNewPlan } from "./CreateNewPlan";
 import Title from "../Title";
 import { useHistory } from "react-router-dom";
 import { CreateNewPlanLocationDialog } from "./CreateNewPlanLocation";
-
-function Row(props: any) {
+import PublishIcon from "@material-ui/icons/Publish";
+function RowComponent(props: any) {
   const [open, setOpen] = React.useState<boolean>(false);
-
+  const updatePlanLocationAmount = (id: any, ref: any) => {
+    axios
+      .get("/api/update-plan-location-amount/" + id + "/" + ref.current.value)
+      .then((response: any) => {
+        props.fetchPlanList();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar(
+          "Error updating the location amount",
+          failureToast
+        );
+      });
+  };
   const row = props.row;
   const handleDeletePlan = (row: any) => {
     axios
@@ -40,6 +58,7 @@ function Row(props: any) {
         props.fetchPlanList();
       })
       .catch((reponse: any) => {
+        props.enqueueSnackbar(reponse?.message, failureToast);
         // props.enqueueSnackbar(reponse.error, failureToast);
       });
   };
@@ -83,23 +102,41 @@ function Row(props: any) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {row.payplanLocation.map((historyRow: any) => (
-                  <TableRow key={historyRow.id}>
-                    <TableCell component="th" scope="row">
-                      {historyRow.payplanLocation}
-                    </TableCell>
-                    <TableCell>{historyRow.payplanamount}</TableCell>
-                    <TableCell align="left">
-                      <IconButton>
-                        <Delete
+                {row.payplanLocation.map((historyRow: any) => {
+                  const ref = React.createRef();
+                  return (
+                    <TableRow key={historyRow.id}>
+                      <TableCell component="th" scope="row">
+                        {historyRow.payplanLocation}
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          inputRef={ref}
+                          style={{ padding: "10px" }}
+                          size="small"
+                          defaultValue={historyRow.payplanamount}
+                          type="number"
+                        />
+                        <PublishIcon
+                          style={{ marginTop: "10px", cursor: "pointer" }}
+                          titleAccess="Save Amount"
                           onClick={() =>
-                            handleDeletePlanLocation(row, historyRow)
+                            updatePlanLocationAmount(historyRow.id, ref)
                           }
-                        ></Delete>
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                        ></PublishIcon>
+                      </TableCell>
+                      <TableCell align="left">
+                        <IconButton>
+                          <Delete
+                            onClick={() =>
+                              handleDeletePlanLocation(row.id, historyRow)
+                            }
+                          ></Delete>
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </Collapse>
@@ -108,6 +145,7 @@ function Row(props: any) {
     </React.Fragment>
   );
 }
+const Row = withSnackbar(RowComponent);
 export const PlanListComponent = (props: any) => {
   const history = useHistory();
   const role = sessionStorage.getItem("role");
@@ -116,6 +154,7 @@ export const PlanListComponent = (props: any) => {
   }
   const [planList, setPlanList] = React.useState<any>([]);
   // const [open, setOpen] = React.useState<boolean>(false);
+
   const fetchPlanList = () => {
     axios
       .get("/api/plan-list")

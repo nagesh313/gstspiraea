@@ -327,6 +327,7 @@ const PartnershipComponent = (props: any) => {
     valuesOfGSTInOtherStates["gstAttachment" + index] = "";
   });
   const isAdmin = sessionStorage.getItem("role") === "Admin";
+  const isAgent = sessionStorage.getItem("role") === "Agent";
   console.log(schema);
   return (
     <React.Fragment>
@@ -589,6 +590,7 @@ const PartnershipComponent = (props: any) => {
                   </Grid>
 
                   {(isAdmin ||
+                    isAgent ||
                     (values.principleplace &&
                       values.principleplace !== "")) && (
                     <Grid container spacing={4}>
@@ -1251,6 +1253,7 @@ const PartnershipComponent = (props: any) => {
                     </Grid>
                   </Grid>
                   {(isAdmin ||
+                    isAgent ||
                     (values.tradelicensenumber &&
                       values.tradelicensenumber !== "")) && (
                     <Grid container spacing={4}>
@@ -1293,6 +1296,7 @@ const PartnershipComponent = (props: any) => {
                     </Grid>
                   )}
                   {(isAdmin ||
+                    isAgent ||
                     (values.declarationOfAuthorisedSignatory &&
                       values.declarationOfAuthorisedSignatory !== "")) && (
                     <Grid container spacing={4}>
@@ -1387,7 +1391,9 @@ const PartnershipComponent = (props: any) => {
                       );
                     }
                   )}
-                  {(isAdmin || (values.remark && values.remark !== "")) && (
+                  {(isAdmin ||
+                    isAgent ||
+                    (values.remark && values.remark !== "")) && (
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <TextField

@@ -97,11 +97,13 @@ public class DataInsert {
         plan1.setPayplanname("Place of Business (Rent Agreement) + GST registration");
         plan1.setRemarks("11 months rent agreement.");
         PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
-        p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
+        p1.setPayplanLocation("All Except Below");
         p1.setPayplanamount(11000D);
+        p1.setCanDelete(false);
         PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
         p2.setPayplanLocation("Kolkata");
         p2.setPayplanamount(18000D);
+        p2.setCanDelete(false);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
         paymentPlanDetailsRepository.saveAndFlush(plan1);
@@ -113,11 +115,13 @@ public class DataInsert {
         plan1.setPayplanname("Place of Business (Rent Agreement) Only");
         plan1.setRemarks("11 months rent agreement.");
         PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
-        p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
+        p1.setPayplanLocation("All Except Below");
         p1.setPayplanamount(10000D);
+        p1.setCanDelete(false);
         PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
         p2.setPayplanLocation("Kolkata");
         p2.setPayplanamount(12000D);
+        p2.setCanDelete(false);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
         paymentPlanDetailsRepository.saveAndFlush(plan1);
@@ -128,11 +132,13 @@ public class DataInsert {
         plan1.setPayplanname("GST Registration Only");
         plan1.setRemarks("Gumasta / Shop establishment license is not included in this");
         PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
-        p1.setPayplanLocation("Mumbai / Bangalore / Delhi NCR/ Hyderabad");
+        p1.setPayplanLocation("All Except Below");
         p1.setPayplanamount(2500D);
+        p1.setCanDelete(false);
         PaymentPlanLocationDetails p2 = new PaymentPlanLocationDetails();
         p2.setPayplanLocation("Kolkata");
         p2.setPayplanamount(5000D);
+        p2.setCanDelete(false);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1, p2));
         plan1.setPayplanLocation(Arrays.asList(p1, p2));
         paymentPlanDetailsRepository.saveAndFlush(plan1);
@@ -145,6 +151,7 @@ public class DataInsert {
         PaymentPlanLocationDetails p1 = new PaymentPlanLocationDetails();
         p1.setPayplanLocation("Kolkata");
         p1.setPayplanamount(3000D);
+        p1.setCanDelete(false);
         paymentPlanLocationDetailsRepository.saveAll(Arrays.asList(p1));
         plan4.setPayplanLocation(Arrays.asList(p1));
         paymentPlanDetailsRepository.saveAndFlush(plan4);
@@ -269,7 +276,7 @@ public class DataInsert {
                 .modifiedOn(LocalDateTime.now())
                 .modifiedBy("Admin")
                 .status("DRAFT")
-                .gstDocument("test")
+                .gstDocument("download.jpg")
 //                .remark("test")
                 .trading(true)
                 .manufacture(true)
@@ -338,7 +345,7 @@ public class DataInsert {
                 .modifiedOn(LocalDateTime.now())
                 .modifiedBy("Admin")
                 .status("DRAFT")
-                .gstDocument("test")
+                .gstDocument("download.jpg")
 //                .remark("test")
                 .trading(true)
                 .manufacture(true)
@@ -411,7 +418,7 @@ public class DataInsert {
                 .modifiedOn(LocalDateTime.now())
                 .modifiedBy("test")
                 .status("DRAFT")
-                .gstDocument("test")
+                .gstDocument("download.jpg")
 //                .remark("test")
                 .trading(true)
                 .manufacture(true)
@@ -483,7 +490,7 @@ public class DataInsert {
                 .modifiedOn(LocalDateTime.now())
                 .modifiedBy("Admin")
                 .status("DRAFT")
-                .gstDocument("test")
+                .gstDocument("download.jpg")
 //                .remark("test")
                 .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
                 .amount(new Double(18000))
@@ -547,7 +554,7 @@ public class DataInsert {
                 .modifiedOn(LocalDateTime.now())
                 .modifiedBy("Admin")
                 .status("CREATED")
-                .gstDocument("test")
+                .gstDocument("download.jpg")
 //                .remark("test")
                 .trading(true)
                 .manufacture(true)
@@ -618,7 +625,7 @@ public class DataInsert {
                 .modifiedOn(LocalDateTime.now())
                 .modifiedBy("Admin")
                 .status("CREATED")
-                .gstDocument("test")
+                .gstDocument("download.jpg")
 //                .remark("test")
                 .trading(true)
                 .manufacture(true)
@@ -692,7 +699,7 @@ public class DataInsert {
                 .modifiedOn(LocalDateTime.now())
                 .modifiedBy("test")
                 .status("CREATED")
-                .gstDocument("test")
+                .gstDocument("download.jpg")
 //                .remark("test")
                 .trading(true)
                 .manufacture(true)
@@ -764,7 +771,7 @@ public class DataInsert {
                 .modifiedOn(LocalDateTime.now())
                 .modifiedBy("Admin")
                 .status("CREATED")
-                .gstDocument("test")
+                .gstDocument("download.jpg")
 //                .remark("test")
                 .paymentPlanDetailsId(plan.getId()).razorpayOrder(utility.createOrder(new Double(18000)))
                 .amount(new Double(18000))

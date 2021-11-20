@@ -10,6 +10,7 @@ function buildSchema() {
     mobile: Yup.string().required("Required"),
     email: Yup.string().email("Invalid").required("Required"),
     panphoto: Yup.string().required("Required"),
+    soleProprietorPhoto: Yup.string().required("Required"),
     composition: Yup.string().required("Required"),
     commencementDate: Yup.date().required("Required"),
     hsn1: Yup.number().required("Required").min(1000, "Minimum 4 characters"),
