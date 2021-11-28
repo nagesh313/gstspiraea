@@ -16,9 +16,9 @@ import axios from "axios";
 import { Form, Formik } from "formik";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import * as Yup from "yup";
-import { failureToast } from "../util/util";
+import { failureToast, successToast } from "../util/util";
 import { StickyFooter } from "./StickyFooter";
 import { CustomizedTimeline } from "./TimeLine";
 const SignInSchema = Yup.object().shape({
@@ -50,10 +50,37 @@ const useStyles = makeStyles((theme) => ({
 export function SignInComponent(props: any) {
   const classes = useStyles();
   const history = useHistory();
+  const { params }: any = useRouteMatch();
 
   const sessionActive = () => {};
+  const verifyEmailFlow = () => {
+    const id = params.id;
+    if(id){
+      axios
+      .get(`/api/verify-email/${id}`)
+      .then((response: any) => {
+        props.enqueueSnackbar("Email verified successfully", successToast);
+        history.push("/")
+        // sessionStorage.setItem("role", values.role);
+        // sessionStorage.setItem("user", values.loginUserName);
+        
+        // sessionStorage.setItem("type", response.data.vendorType);
+        // if (values.role === "Customer") {
+        //   history.push("/dashboard/order-list");
+        // } else if (values.role === "Agent") {
+        //   history.push("/dashboard/order-list");
+        // } else if (values.role === "Admin") {
+        //   history.push("/dashboard/home");
+        // }
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable to verify.", failureToast);
+      });
+    }
+  };
   useEffect(() => {
     sessionActive();
+    verifyEmailFlow();
   }, []);
   const signInSubmit = (values: any) => {
     // navigateToDashboard();

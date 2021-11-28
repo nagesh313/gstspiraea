@@ -161,7 +161,7 @@ public class DataInsert {
         UserDetails admin = new UserDetails();
         admin.setFirstName("admin");
         admin.setLastName("admin");
-        admin.setUserEmail("test@gmail.com");
+        admin.setUserEmail("planning.poker.owner@gmail.com");
         admin.setMobile(1234567489D);
         admin.setGender("Male");
         admin.setRole("Admin");
@@ -203,7 +203,7 @@ public class DataInsert {
         UserDetails agent1 = new UserDetails();
         agent1.setFirstName("agent1");
         agent1.setLastName("agent1");
-        agent1.setUserEmail("test@gmail.com");
+        agent1.setUserEmail("planning.poker.owner@gmail.com");
         agent1.setMobile(1234567489D);
         agent1.setGender("Male");
         agent1.setRole("Agent");
@@ -216,7 +216,7 @@ public class DataInsert {
         UserDetails agent2 = new UserDetails();
         agent2.setFirstName("agent2");
         agent2.setLastName("agent2");
-        agent2.setUserEmail("test@gmail.com");
+        agent2.setUserEmail("planning.poker.owner@gmail.com");
         agent2.setMobile(1234567489D);
         agent2.setGender("Male");
         agent2.setRole("Agent");
@@ -240,7 +240,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
@@ -317,7 +317,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
@@ -392,7 +392,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
@@ -464,7 +464,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
@@ -520,7 +520,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg").soleProprietorPhoto("download--==211120093703113.jpg")
@@ -602,7 +602,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
@@ -678,7 +678,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
@@ -751,7 +751,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
@@ -807,7 +807,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg").soleProprietorPhoto("download--==211120093703113.jpg")
@@ -890,7 +890,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
@@ -967,7 +967,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
@@ -1041,7 +1041,7 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("nagesh3.13@gmail.com")
+                .email("planning.poker.owner@gmail.com")
                 .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")

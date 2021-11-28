@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.rmi.ServerException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,9 @@ public class FormController {
     private PaymentPlanDetailsRepository paymentPlanDetailsRepository;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailVerificationRepository emailVerificationRepository;
 
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
@@ -230,5 +234,18 @@ public class FormController {
                 break;
         }
 
+    }
+
+    @GetMapping(value = "/verify-email//{id}")
+    public void verifyEmail(@PathVariable String id,
+                            HttpServletRequest request) throws ServerException {
+
+        Optional<EmailVerification> emailVerification = emailVerificationRepository.findById(id);
+        if (emailVerification.isPresent()) {
+            EmailVerification email = emailVerification.get();
+            email.setVerified(true);
+            email.setVerifiedOn(LocalDateTime.now());
+            emailVerificationRepository.save(email);
+        }
     }
 }

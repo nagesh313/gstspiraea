@@ -434,6 +434,7 @@ const SoleProprietorComponent = (props: any) => {
                       <EmailVerification
                         id={params.id}
                         value={values.email}
+                        verificationObject ={ values.emailVerification}
                         type={"Proprietorship"}
                         subType={"Email"}
                       ></EmailVerification>

@@ -45,20 +45,27 @@ function EmailVerificationComponent(props: any) {
     }
   };
   // console.log(props.id);
+  // props.subType
+  // props.type
+  // props.value
   return (
     <>
-      {props.id && (
         <span style={{ float: "right", marginTop: "25px" }}>
-          <Cancel titleAccess="User Not Verified"></Cancel>
+        {props.id &&  !props?.verificationObject?.verified &&(
+        <>
+            {/* <Cancel titleAccess="User Not Verified"></Cancel> */}
           <Send
             titleAccess="Send Verification Mail"
             onClick={() => {
               sendVerificationMail();
             }}
-          ></Send>
-          <VerifiedUser titleAccess="User Verified"></VerifiedUser>
+          ></Send></>
+          )}
+          
+          {
+            props?.verificationObject?.verified &&
+            <VerifiedUser titleAccess="User Verified"></VerifiedUser>}
         </span>
-      )}
     </>
   );
 }
