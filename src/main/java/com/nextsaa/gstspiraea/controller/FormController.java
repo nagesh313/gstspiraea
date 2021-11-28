@@ -3,11 +3,14 @@ package com.nextsaa.gstspiraea.controller;
 import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.ConfigService;
+import com.nextsaa.gstspiraea.service.UserService;
 import com.nextsaa.gstspiraea.util.Utility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.rmi.ServerException;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +41,8 @@ public class FormController {
     private StateRepository stateRepository;
     @Autowired
     private PaymentPlanDetailsRepository paymentPlanDetailsRepository;
+    @Autowired
+    private UserService userService;
 
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
@@ -185,4 +190,45 @@ public class FormController {
         return stateRepository.findAll();
     }
 
+    @GetMapping(value = "/send-validation-mail/{type}/{subType}/{id}")
+    public void getSendValidationMail(@PathVariable String type, @PathVariable String subType, @PathVariable String id,
+                                      HttpServletRequest request) throws ServerException {
+        switch (type) {
+            case "Proprietorship":
+                Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
+                if (entity1.isPresent()) {
+                    if (subType.equals("Email")) {
+                        userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), entity1.get().getEmailVerification(), entity1.get().getEmail());
+                    } else if (subType.equals("Partner")) {
+//                        userService.sendVerificationMail(entity1.get().getEmailVerification(), entity1.get().getEmail());
+                    }
+                } else {
+                    throw new ServerException("Application not found");
+                }
+
+                break;
+            case "Partnership":
+                Optional<Partnership> entity2 = partnershipRepository.findById(id);
+                if (entity2.isPresent()) {
+                    Partnership object = entity2.get();
+                    partnershipRepository.save(object);
+                }
+                break;
+            case "LLP":
+                Optional<LLP> entity3 = llpRepostiory.findById(id);
+                if (entity3.isPresent()) {
+                    LLP object = entity3.get();
+                    llpRepostiory.save(object);
+                }
+                break;
+            case "Company":
+                Optional<CompanyDetails> entity4 = companyDetailsRepository.findById(id);
+                if (entity4.isPresent()) {
+                    CompanyDetails object = entity4.get();
+                    companyDetailsRepository.save(object);
+                }
+                break;
+        }
+
+    }
 }

@@ -32,7 +32,6 @@ export function FileUpload(props: any) {
     },
   ];
   return (
-    <>
       <Grid container spacing={2}>
         <Grid item xs={10}>
           {props.title}
@@ -43,7 +42,6 @@ export function FileUpload(props: any) {
             allowMultiple={false}
             maxFiles={1}
             onupdatefiles={(filea: any) => {
-              console.log("onupdatefiles");
               if (filea.length === 0) {
                 props.setFieldValue(props.fieldName, null);
               }
@@ -106,6 +104,5 @@ export function FileUpload(props: any) {
           )}
         </Grid>
       </Grid>
-    </>
   );
 }

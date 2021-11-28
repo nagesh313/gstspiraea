@@ -1,7 +1,9 @@
 package com.nextsaa.gstspiraea.service;
 
+import com.nextsaa.gstspiraea.entity.EmailVerification;
 import com.nextsaa.gstspiraea.entity.UserDetails;
 import com.nextsaa.gstspiraea.exceptions.DataNotFoundException;
+import com.nextsaa.gstspiraea.repository.EmailVerificationRepository;
 import com.nextsaa.gstspiraea.repository.UserDetailsRepository;
 import com.nextsaa.gstspiraea.util.ExceptionConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,9 @@ public class UserService {
 
     @Autowired
     private JavaMailSender javaMailSender;
-	
+    @Autowired
+    private EmailVerificationRepository emailVerificationRepository;
+
 	/*@Autowired ,PasswordEncoder passwordEncoder
     private final PasswordEncoder passwordEncoder;*/
 
@@ -159,6 +163,24 @@ public class UserService {
             } catch (Exception e) {
                 System.out.println("Unable to send mail");
             }
+        }
+    }
+
+    public void sendVerificationMail(String url, EmailVerification emailVerification, String email) {
+        emailVerification.setVerified(false);
+        emailVerification.setVerifiedOn(null);
+        if (url.contains("localhost")) {
+            url = "localhost:3000";
+        }
+        try {
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setTo(email);
+            msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
+            msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
+            msg.setText("http://" + url + "/#/verify-email/" + emailVerification.getId());
+            javaMailSender.send(msg);
+        } catch (Exception e) {
+            System.out.println("Unable to send mail");
         }
     }
 }

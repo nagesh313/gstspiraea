@@ -19,6 +19,7 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { ViewDocumentDialogComponent } from "../ViewDocumentDialog";
+import { EmailVerification } from "./EmailVerification";
 import { FileUpload } from "./filepond";
 import { schema } from "./schema/SoleProprietorSchama";
 const useStyles = makeStyles((theme) => ({
@@ -395,7 +396,7 @@ const SoleProprietorComponent = (props: any) => {
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                    <FileUpload
+                      <FileUpload
                         onaddfile={upload}
                         fieldName={"soleProprietorPhoto"}
                         field={values.soleProprietorPhoto}
@@ -405,14 +406,18 @@ const SoleProprietorComponent = (props: any) => {
                         setFieldValue={setFieldValue}
                         title="Proprietor Photo"
                         error={
-                          errors.soleProprietorPhoto && touched.soleProprietorPhoto ? true : false
+                          errors.soleProprietorPhoto &&
+                          touched.soleProprietorPhoto
+                            ? true
+                            : false
                         }
                       />
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={10} sm={6}>
                       <TextField
+                        style={{ maxWidth: "75%" }}
                         margin="dense"
                         size="small"
                         required
@@ -426,6 +431,12 @@ const SoleProprietorComponent = (props: any) => {
                         error={errors.email && touched.email ? true : false}
                         helperText={touched.email && errors.email}
                       />
+                      <EmailVerification
+                        id={params.id}
+                        value={values.email}
+                        type={"Proprietorship"}
+                        subType={"Email"}
+                      ></EmailVerification>
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>

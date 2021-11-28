@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -37,6 +34,9 @@ public class Partner {
     private String partnerPhoto;
     private String partnerMobile;
     private String partnerEmail;
+    @OneToOne(cascade = CascadeType.ALL)
+    private EmailVerification emailVerification;
+
     private boolean isAuthorisedSignatory = false;
 
     public boolean getIsAuthorisedSignatory() {

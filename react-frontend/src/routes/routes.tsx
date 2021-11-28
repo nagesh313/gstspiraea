@@ -17,6 +17,7 @@ import { SoleProprietor } from "../component/forms/SoleProprietor";
 import { OrderList } from "../component/OrderList";
 import { SignIn } from "../component/SignIn";
 import { SignUp } from "../component/SignUp";
+import { VerifyEmail } from "../component/VerifyEmailPage";
 export const dashboardRoutes = [
   {
     path: "/signin",
@@ -55,12 +56,19 @@ export const dashboardRoutes = [
     layout: "/admin",
   },
   {
+    path: "/verify-email/:id",
+    component: <VerifyEmail></VerifyEmail>,
+  },
+  {
     path: "/",
     name: "Sign In",
     icon: <DashboardIcon></DashboardIcon>,
     component: <SignIn></SignIn>,
     layout: "/",
   },
+
+
+  
 ];
 export const secondaryRoutes = [
   {
