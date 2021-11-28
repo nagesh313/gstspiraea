@@ -40,6 +40,8 @@ public class Proprietorship {
     private String mobile;
     @Column(name = "email")
     private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    private EmailVerification emailVerification;
     private String pannumber;
     private String panphoto;
     private String soleProprietorPhoto;

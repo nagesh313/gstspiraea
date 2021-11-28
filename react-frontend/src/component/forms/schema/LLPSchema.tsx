@@ -90,24 +90,20 @@ function buildSchema() {
       is: (numberOfPartners: number) => numberOfPartners >= index + 1,
       then: Yup.string().required("Required"),
     });
-    shape["partnerEmail" + index] = Yup.string().email("Invalid").when("numberOfPartners", {
-      is: (numberOfPartners: number) => numberOfPartners >= index + 1,
-      then: Yup.string().email("Invalid").required("Required"),
+    shape["partnerEmail" + index] = Yup.string()
+      .email("Invalid")
+      .when("numberOfPartners", {
+        is: (numberOfPartners: number) => numberOfPartners >= index + 1,
+        then: Yup.string().email("Invalid").required("Required"),
+      });
+    shape["gstNumber" + index] = Yup.string().when("numberOfOtherGST", {
+      is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
+      then: Yup.string().required("Required"),
     });
-    shape["gstNumber" + index] = Yup.string().when(
-      "numberOfOtherGST",
-      {
-        is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
-        then: Yup.string().required("Required"),
-      }
-    );
-    shape["gstAttachment" + index] = Yup.string().when(
-      "numberOfOtherGST",
-      {
-        is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
-        then: Yup.string().required("Required"),
-      }
-    );
+    shape["gstAttachment" + index] = Yup.string().when("numberOfOtherGST", {
+      is: (numberOfOtherGST: number) => numberOfOtherGST >= index + 1,
+      then: Yup.string().required("Required"),
+    });
   });
   return Yup.object().shape(shape);
 }

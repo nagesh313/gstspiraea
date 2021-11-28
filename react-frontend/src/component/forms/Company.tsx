@@ -21,6 +21,7 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { ViewDocumentDialogComponent } from "../ViewDocumentDialog";
+import { EmailVerification } from "./EmailVerification";
 import { FileUpload } from "./filepond";
 import { schema } from "./schema/CompanySchema";
 
@@ -470,6 +471,7 @@ const CompanyComponent = (props: any) => {
                         size="small"
                         required
                         fullWidth
+                        style={{ maxWidth: "90%" }}
                         id="email"
                         label="Email ID"
                         name="email"
@@ -479,6 +481,13 @@ const CompanyComponent = (props: any) => {
                         error={errors.email && touched.email ? true : false}
                         helperText={touched.email && errors.email}
                       />
+                      <EmailVerification
+                        id={params.id}
+                        value={values.email}
+                        verificationObject={values.emailVerification}
+                        type={"Company"}
+                        subType={"Email"}
+                      ></EmailVerification>
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>

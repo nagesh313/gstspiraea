@@ -3,11 +3,15 @@ package com.nextsaa.gstspiraea.controller;
 import com.nextsaa.gstspiraea.entity.*;
 import com.nextsaa.gstspiraea.repository.*;
 import com.nextsaa.gstspiraea.service.ConfigService;
+import com.nextsaa.gstspiraea.service.UserService;
 import com.nextsaa.gstspiraea.util.Utility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.rmi.ServerException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +42,11 @@ public class FormController {
     private StateRepository stateRepository;
     @Autowired
     private PaymentPlanDetailsRepository paymentPlanDetailsRepository;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private EmailVerificationRepository emailVerificationRepository;
 
     @PostMapping(value = "/save-submit-proprietorship")
     public void saveSubmitProprietorship(@RequestBody Proprietorship entity) throws Exception {
@@ -185,4 +194,79 @@ public class FormController {
         return stateRepository.findAll();
     }
 
+    @GetMapping(value = "/send-validation-mail/{type}/{subType}/{id}")
+    public void getSendValidationMail(@PathVariable String type, @PathVariable String subType, @PathVariable String id,
+                                      HttpServletRequest request) throws ServerException {
+        switch (type) {
+            case "Proprietorship":
+                Optional<Proprietorship> entity1 = proprietorshipRepostiory.findById(id);
+                if (entity1.isPresent()) {
+                    if (subType.equals("Email")) {
+                        userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), entity1.get().getEmailVerification(), entity1.get().getEmail());
+                    } else if (subType.equals("Partner")) {
+//                        userService.sendVerificationMail(entity1.get().getEmailVerification(), entity1.get().getEmail());
+                    }
+                } else {
+                    throw new ServerException("Application not found");
+                }
+
+                break;
+            case "Partnership":
+                Optional<Partnership> entity2 = partnershipRepository.findById(id);
+                if (entity2.isPresent()) {
+                    Partnership object = entity2.get();
+                    if (subType.equals("Email")) {
+                        userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), entity2.get().getEmailVerification(), entity2.get().getEmail());
+                    } else if (subType.equals("Partner")) {
+                        Optional<Partner> email = object.getPartnerList().stream().filter(partner -> partner.getEmailVerification().getId().equals(id)).findFirst();
+                        if (email.isPresent()) {
+                            userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), email.get().getEmailVerification(), email.get().getPartnerEmail());
+                        }
+                    }
+                }
+                break;
+            case "LLP":
+                Optional<LLP> entity3 = llpRepostiory.findById(id);
+                if (entity3.isPresent()) {
+                    LLP object = entity3.get();
+                    if (subType.equals("Email")) {
+                        userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), entity3.get().getEmailVerification(), entity3.get().getEmail());
+                    } else if (subType.equals("Partner")) {
+                        Optional<Partner> email = object.getPartnerList().stream().filter(partner -> partner.getEmailVerification().getId().equals(id)).findFirst();
+                        if (email.isPresent()) {
+                            userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), email.get().getEmailVerification(), email.get().getPartnerEmail());
+                        }
+                    }
+                }
+                break;
+            case "Company":
+                Optional<CompanyDetails> entity4 = companyDetailsRepository.findById(id);
+                if (entity4.isPresent()) {
+                    CompanyDetails object = entity4.get();
+                    if (subType.equals("Email")) {
+                        userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), entity4.get().getEmailVerification(), entity4.get().getEmail());
+                    } else if (subType.equals("Director")) {
+//                        Optional<Partner> email = object.getDirectorList().stream().filter(director -> director.get().getId().equals(id)).findFirst();
+//                        if (email.isPresent()) {
+//                            userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), email.get().getEmailVerification(), email.get().getPartnerEmail());
+//                        }
+                    }
+                }
+                break;
+        }
+
+    }
+
+    @GetMapping(value = "/verify-email//{id}")
+    public void verifyEmail(@PathVariable String id,
+                            HttpServletRequest request) throws ServerException {
+
+        Optional<EmailVerification> emailVerification = emailVerificationRepository.findById(id);
+        if (emailVerification.isPresent()) {
+            EmailVerification email = emailVerification.get();
+            email.setVerified(true);
+            email.setVerifiedOn(LocalDateTime.now());
+            emailVerificationRepository.save(email);
+        }
+    }
 }

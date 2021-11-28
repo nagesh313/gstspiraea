@@ -1,14 +1,20 @@
 package com.nextsaa.gstspiraea.service;
 
+import com.nextsaa.gstspiraea.entity.EmailVerification;
 import com.nextsaa.gstspiraea.entity.UserDetails;
 import com.nextsaa.gstspiraea.exceptions.DataNotFoundException;
+import com.nextsaa.gstspiraea.repository.EmailVerificationRepository;
 import com.nextsaa.gstspiraea.repository.UserDetailsRepository;
 import com.nextsaa.gstspiraea.util.ExceptionConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.naming.AuthenticationException;
 import java.rmi.ServerException;
 import java.time.LocalDateTime;
@@ -26,7 +32,9 @@ public class UserService {
 
     @Autowired
     private JavaMailSender javaMailSender;
-	
+    @Autowired
+    private EmailVerificationRepository emailVerificationRepository;
+
 	/*@Autowired ,PasswordEncoder passwordEncoder
     private final PasswordEncoder passwordEncoder;*/
 
@@ -159,6 +167,28 @@ public class UserService {
             } catch (Exception e) {
                 System.out.println("Unable to send mail");
             }
+        }
+    }
+
+    public void sendVerificationMail(String url, EmailVerification emailVerification, String email) {
+        emailVerification.setVerified(false);
+        emailVerification.setVerifiedOn(null);
+        if (url.contains("localhost")) {
+            url = "localhost:3000";
+        }
+        try {
+            MimeMessage msg = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
+            msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
+            String body = "Dear User," +
+                    ",<br/>" +
+                    " <a href='" + "http://" + url + "/#/verify-email/" + emailVerification.getId() + "'>Please Click on this link to Verify your email</a>";
+            msg.setText(body, "UTF-8", "html");
+            javaMailSender.send(msg);
+        } catch (Exception e) {
+            System.out.println("Unable to send mail");
         }
     }
 }

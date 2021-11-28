@@ -55,12 +55,26 @@ export const dashboardRoutes = [
     layout: "/admin",
   },
   {
+    path: "/verify-email/:id",
+    component: <SignIn></SignIn>,
+  },
+  {
     path: "/",
     name: "Sign In",
     icon: <DashboardIcon></DashboardIcon>,
     component: <SignIn></SignIn>,
     layout: "/",
   },
+  {
+    path: "/",
+    name: "Sign In",
+    icon: <DashboardIcon></DashboardIcon>,
+    component: <SignIn></SignIn>,
+    layout: "/",
+  },
+
+
+  
 ];
 export const secondaryRoutes = [
   {

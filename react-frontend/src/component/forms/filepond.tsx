@@ -32,80 +32,77 @@ export function FileUpload(props: any) {
     },
   ];
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid item xs={10}>
-          {props.title}
-          <FilePond
-            labelFileSizeNotAvailable=""
-            files={props.field ? files : null}
-            allowReorder={false}
-            allowMultiple={false}
-            maxFiles={1}
-            onupdatefiles={(filea: any) => {
-              console.log("onupdatefiles");
-              if (filea.length === 0) {
-                props.setFieldValue(props.fieldName, null);
-              }
-              // else if (
-              //   filea.length > 0 &&
-              //   filea[0]?.file?.size > 100000 &&
-              //   props?.fieldName?.includes("partnerPhoto")
-              // ) {
-              //   alert("Partner photo is too big");
-              //   props.setFieldValue(props.fieldName, null);
-              // }
-            }}
-            server={{
-              process: {
-                url: "/api/document/uploadFile",
-                onload: (response: any) => {
-                  // props.upload(props.field, response.key);
-                  // return response.key;
-                  console.log(response);
-                  props.setFieldValue(props.fieldName, response);
-                  return stripAndShowFileName(response);
-                },
+    <Grid container spacing={2}>
+      <Grid item xs={10}>
+        {props.title}
+        <FilePond
+          labelFileSizeNotAvailable=""
+          files={props.field ? files : null}
+          allowReorder={false}
+          allowMultiple={false}
+          maxFiles={1}
+          onupdatefiles={(filea: any) => {
+            if (filea.length === 0) {
+              props.setFieldValue(props.fieldName, null);
+            }
+            // else if (
+            //   filea.length > 0 &&
+            //   filea[0]?.file?.size > 100000 &&
+            //   props?.fieldName?.includes("partnerPhoto")
+            // ) {
+            //   alert("Partner photo is too big");
+            //   props.setFieldValue(props.fieldName, null);
+            // }
+          }}
+          server={{
+            process: {
+              url: "/api/document/uploadFile",
+              onload: (response: any) => {
+                // props.upload(props.field, response.key);
+                // return response.key;
+                console.log(response);
+                props.setFieldValue(props.fieldName, response);
+                return stripAndShowFileName(response);
               },
-            }}
-            name="file"
-            labelIdle={'<span class="filepond--label-action">Browse</span>'}
-          />
-          {props.error ? (
-            <span
-              className="MuiFormHelperText-root Mui-error Mui-required MuiFormHelperText-marginDense"
-              style={{ color: "red" }}
-            >
-              Required
-            </span>
-          ) : (
-            ""
-          )}
-        </Grid>
-        <Grid item xs={2} style={{ padding: "0px" }}>
-          {props.field && (
-            <div>
-              <Tooltip title="View">
-                <Visibility
-                  className="file-action-icon"
-                  onClick={() => {
-                    props.setImageName(props.field);
-                    props.setOpen(true);
-                  }}
-                />
-              </Tooltip>
-              <Tooltip title="Download">
-                <GetApp
-                  className="file-action-icon"
-                  onClick={() => {
-                    props.downloadReport(props.field);
-                  }}
-                />
-              </Tooltip>
-            </div>
-          )}
-        </Grid>
+            },
+          }}
+          name="file"
+          labelIdle={'<span class="filepond--label-action">Browse</span>'}
+        />
+        {props.error ? (
+          <span
+            className="MuiFormHelperText-root Mui-error Mui-required MuiFormHelperText-marginDense"
+            style={{ color: "red" }}
+          >
+            Required
+          </span>
+        ) : (
+          ""
+        )}
       </Grid>
-    </>
+      <Grid item xs={2} style={{ padding: "0px" }}>
+        {props.field && (
+          <div>
+            <Tooltip title="View">
+              <Visibility
+                className="file-action-icon"
+                onClick={() => {
+                  props.setImageName(props.field);
+                  props.setOpen(true);
+                }}
+              />
+            </Tooltip>
+            <Tooltip title="Download">
+              <GetApp
+                className="file-action-icon"
+                onClick={() => {
+                  props.downloadReport(props.field);
+                }}
+              />
+            </Tooltip>
+          </div>
+        )}
+      </Grid>
+    </Grid>
   );
 }

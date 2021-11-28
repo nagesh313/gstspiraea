@@ -240,7 +240,9 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg").soleProprietorPhoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -266,7 +268,6 @@ public class DataInsert {
                 .hsn5(12345)
                 .accountnumber("test")
                 .ifsccode("test")
-
                 .cancelcheqphoto("download--==211120093703113.jpg")
                 .tradelicensenumber("test")
                 .tradelicensephoto("download--==211120093703113.jpg")
@@ -300,7 +301,8 @@ public class DataInsert {
                 .partnerResidentialAddress("test")
                 .partnerPhoto("test")
                 .partnerMobile("test")
-                .partnerEmail("test@test.com")
+                .partnerEmail("nagesh@gmail.com")
+                .emailVerification(new EmailVerification())
 
                 .build();
 
@@ -315,7 +317,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -374,7 +377,8 @@ public class DataInsert {
                 .partnerResidentialAddress("test")
                 .partnerPhoto("test")
                 .partnerMobile("test")
-                .partnerEmail("test@test.com")
+                .partnerEmail("nagesh@gmail.com")
+                .emailVerification(new EmailVerification())
 
                 .build();
 
@@ -388,7 +392,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -459,7 +464,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -514,7 +520,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg").soleProprietorPhoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -578,7 +585,8 @@ public class DataInsert {
                 .partnerResidentialAddress("test")
                 .partnerPhoto("test")
                 .partnerMobile("test")
-                .partnerEmail("test@test.com")
+                .partnerEmail("nagesh@gmail.com")
+                .emailVerification(new EmailVerification())
 
                 .build();
 
@@ -594,7 +602,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -654,7 +663,8 @@ public class DataInsert {
                 .partnerResidentialAddress("test")
                 .partnerPhoto("test")
                 .partnerMobile("test")
-                .partnerEmail("test@test.com")
+                .partnerEmail("nagesh@gmail.com")
+                .emailVerification(new EmailVerification())
 
                 .build();
 
@@ -668,7 +678,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -740,7 +751,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -795,7 +807,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg").soleProprietorPhoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -860,7 +873,8 @@ public class DataInsert {
                 .partnerResidentialAddress("test")
                 .partnerPhoto("test")
                 .partnerMobile("test")
-                .partnerEmail("test@test.com")
+                .partnerEmail("nagesh@gmail.com")
+                .emailVerification(new EmailVerification())
 
                 .build();
 
@@ -876,7 +890,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -937,7 +952,8 @@ public class DataInsert {
                 .partnerResidentialAddress("test")
                 .partnerPhoto("test")
                 .partnerMobile("test")
-                .partnerEmail("test@test.com")
+                .partnerEmail("nagesh@gmail.com")
+                .emailVerification(new EmailVerification())
 
                 .build();
 
@@ -951,7 +967,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")
@@ -1024,7 +1041,8 @@ public class DataInsert {
                 .legalbusinessName("test")
                 .tradeName("test")
                 .mobile("test")
-                .email("test@test.com")
+                .email("test@gmail.com")
+                .emailVerification(new EmailVerification())
                 .pannumber("AAAAA2222A")
                 .panphoto("download--==211120093703113.jpg")
                 .composition("No")

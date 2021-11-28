@@ -44,6 +44,8 @@ public class LLP {
 
     @Column(name = "email")
     private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    private EmailVerification emailVerification;
 
     @Column(name = "pannumber")
     private String pannumber;
