@@ -1,11 +1,4 @@
-import { Grid, Tooltip } from "@material-ui/core";
-import {
-  GetApp,
-  Visibility,
-  Send,
-  VerifiedUser,
-  Cancel,
-} from "@material-ui/icons";
+import { Send, VerifiedUser } from "@material-ui/icons";
 import axios from "axios";
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
@@ -50,22 +43,26 @@ function EmailVerificationComponent(props: any) {
   // props.value
   return (
     <>
-        <span style={{ float: "right", marginTop: "25px" }}>
-        {props.id &&  !props?.verificationObject?.verified &&(
-        <>
-            {/* <Cancel titleAccess="User Not Verified"></Cancel> */}
-          <Send
-            titleAccess="Send Verification Mail"
-            onClick={() => {
-              sendVerificationMail();
-            }}
-          ></Send></>
-          )}
-          
-          {
-            props?.verificationObject?.verified &&
-            <VerifiedUser titleAccess="User Verified"></VerifiedUser>}
-        </span>
+      <span style={{ float: "right", marginTop: "25px" }}>
+        {props.id && !props?.verificationObject?.verified && (
+          <>
+            <Send
+              titleAccess="Send Verification Mail"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                sendVerificationMail();
+              }}
+            ></Send>
+          </>
+        )}
+
+        {props?.verificationObject?.verified && (
+          <VerifiedUser
+            titleAccess="User Verified"
+            style={{ color: "green", cursor: "pointer" }}
+          ></VerifiedUser>
+        )}
+      </span>
     </>
   );
 }

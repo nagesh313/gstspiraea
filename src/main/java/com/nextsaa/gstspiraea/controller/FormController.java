@@ -215,21 +215,42 @@ public class FormController {
                 Optional<Partnership> entity2 = partnershipRepository.findById(id);
                 if (entity2.isPresent()) {
                     Partnership object = entity2.get();
-                    partnershipRepository.save(object);
+                    if (subType.equals("Email")) {
+                        userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), entity2.get().getEmailVerification(), entity2.get().getEmail());
+                    } else if (subType.equals("Partner")) {
+                        Optional<Partner> email = object.getPartnerList().stream().filter(partner -> partner.getEmailVerification().getId().equals(id)).findFirst();
+                        if (email.isPresent()) {
+                            userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), email.get().getEmailVerification(), email.get().getPartnerEmail());
+                        }
+                    }
                 }
                 break;
             case "LLP":
                 Optional<LLP> entity3 = llpRepostiory.findById(id);
                 if (entity3.isPresent()) {
                     LLP object = entity3.get();
-                    llpRepostiory.save(object);
+                    if (subType.equals("Email")) {
+                        userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), entity3.get().getEmailVerification(), entity3.get().getEmail());
+                    } else if (subType.equals("Partner")) {
+                        Optional<Partner> email = object.getPartnerList().stream().filter(partner -> partner.getEmailVerification().getId().equals(id)).findFirst();
+                        if (email.isPresent()) {
+                            userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), email.get().getEmailVerification(), email.get().getPartnerEmail());
+                        }
+                    }
                 }
                 break;
             case "Company":
                 Optional<CompanyDetails> entity4 = companyDetailsRepository.findById(id);
                 if (entity4.isPresent()) {
                     CompanyDetails object = entity4.get();
-                    companyDetailsRepository.save(object);
+                    if (subType.equals("Email")) {
+                        userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), entity4.get().getEmailVerification(), entity4.get().getEmail());
+                    } else if (subType.equals("Director")) {
+//                        Optional<Partner> email = object.getDirectorList().stream().filter(director -> director.get().getId().equals(id)).findFirst();
+//                        if (email.isPresent()) {
+//                            userService.sendVerificationMail(request.getServerName() + ":" + request.getServerPort(), email.get().getEmailVerification(), email.get().getPartnerEmail());
+//                        }
+                    }
                 }
                 break;
         }

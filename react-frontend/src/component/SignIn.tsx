@@ -55,33 +55,33 @@ export function SignInComponent(props: any) {
   const sessionActive = () => {};
   const verifyEmailFlow = () => {
     const id = params.id;
-    if(id){
+    if (id) {
       axios
-      .get(`/api/verify-email/${id}`)
-      .then((response: any) => {
-        props.enqueueSnackbar("Email verified successfully", successToast);
-        history.push("/")
-        // sessionStorage.setItem("role", values.role);
-        // sessionStorage.setItem("user", values.loginUserName);
-        
-        // sessionStorage.setItem("type", response.data.vendorType);
-        // if (values.role === "Customer") {
-        //   history.push("/dashboard/order-list");
-        // } else if (values.role === "Agent") {
-        //   history.push("/dashboard/order-list");
-        // } else if (values.role === "Admin") {
-        //   history.push("/dashboard/home");
-        // }
-      })
-      .catch((reponse: any) => {
-        props.enqueueSnackbar("Unable to verify.", failureToast);
-      });
+        .get(`/api/verify-email/${id}`)
+        .then((response: any) => {
+          props.enqueueSnackbar("Email verified successfully", successToast);
+          history.push("/");
+          // sessionStorage.setItem("role", values.role);
+          // sessionStorage.setItem("user", values.loginUserName);
+
+          // sessionStorage.setItem("type", response.data.vendorType);
+          // if (values.role === "Customer") {
+          //   history.push("/dashboard/order-list");
+          // } else if (values.role === "Agent") {
+          //   history.push("/dashboard/order-list");
+          // } else if (values.role === "Admin") {
+          //   history.push("/dashboard/home");
+          // }
+        })
+        .catch((reponse: any) => {
+          props.enqueueSnackbar("Unable to verify.", failureToast);
+        });
     }
   };
   useEffect(() => {
     sessionActive();
     verifyEmailFlow();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const signInSubmit = (values: any) => {
     // navigateToDashboard();
     axios

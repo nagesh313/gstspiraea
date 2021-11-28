@@ -9,8 +9,12 @@ import com.nextsaa.gstspiraea.util.ExceptionConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.naming.AuthenticationException;
 import java.rmi.ServerException;
 import java.time.LocalDateTime;
@@ -173,11 +177,15 @@ public class UserService {
             url = "localhost:3000";
         }
         try {
-            SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setTo(email);
+            MimeMessage msg = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
             msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
             msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
-            msg.setText("http://" + url + "/#/verify-email/" + emailVerification.getId());
+            String body = "Dear User," +
+                    ",<br/>" +
+                    " <a href='" + "http://" + url + "/#/verify-email/" + emailVerification.getId() + "'>Please Click on this link to Verify your email</a>";
+            msg.setText(body, "UTF-8", "html");
             javaMailSender.send(msg);
         } catch (Exception e) {
             System.out.println("Unable to send mail");

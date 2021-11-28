@@ -417,11 +417,11 @@ const SoleProprietorComponent = (props: any) => {
                   <Grid container spacing={4}>
                     <Grid item xs={10} sm={6}>
                       <TextField
-                        style={{ maxWidth: "75%" }}
                         margin="dense"
                         size="small"
                         required
                         fullWidth
+                        style={{ maxWidth: "90%" }}
                         id="email"
                         label="Email ID"
                         name="email"
@@ -434,7 +434,7 @@ const SoleProprietorComponent = (props: any) => {
                       <EmailVerification
                         id={params.id}
                         value={values.email}
-                        verificationObject ={ values.emailVerification}
+                        verificationObject={values.emailVerification}
                         type={"Proprietorship"}
                         subType={"Email"}
                       ></EmailVerification>

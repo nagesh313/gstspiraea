@@ -21,6 +21,7 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { failureToast, successToast } from "../../util/util";
 import { ViewDocumentDialogComponent } from "../ViewDocumentDialog";
+import { EmailVerification } from "./EmailVerification";
 import { FileUpload } from "./filepond";
 import { schema } from "./schema/LLPSchema";
 const useStyles = makeStyles((theme) => ({
@@ -486,6 +487,7 @@ const LLPComponent = (props: any) => {
                         size="small"
                         required
                         fullWidth
+                        style={{ maxWidth: "90%" }}
                         id="email"
                         label="Email ID"
                         name="email"
@@ -495,6 +497,13 @@ const LLPComponent = (props: any) => {
                         error={errors.email && touched.email ? true : false}
                         helperText={touched.email && errors.email}
                       />
+                      <EmailVerification
+                        id={params.id}
+                        value={values.email}
+                        verificationObject={values.emailVerification}
+                        type={"LLP"}
+                        subType={"Email"}
+                      ></EmailVerification>
                     </Grid>
                   </Grid>
                   <Grid container spacing={4}>
@@ -526,7 +535,7 @@ const LLPComponent = (props: any) => {
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
                         title="PAN Card"
-	error={
+                        error={
                           errors.pannumber && touched.pannumber ? true : false
                         }
                         helperText={touched.pannumber && errors.pannumber}
@@ -1017,6 +1026,7 @@ const LLPComponent = (props: any) => {
                                 margin="dense"
                                 size="small"
                                 required
+                                style={{ maxWidth: "90%" }}
                                 fullWidth
                                 id={"partnerEmail" + index}
                                 label={"Email of Partner " + (index + 1)}
@@ -1036,8 +1046,15 @@ const LLPComponent = (props: any) => {
                                   errors["partnerEmail" + index]
                                 }
                               />
+                              <EmailVerification
+                                id={params.id}
+                                value={values.email}
+                                verificationObject={values.emailVerification}
+                                type={"LLP"}
+                                subType={"Partner"}
+                              ></EmailVerification>
                             </Grid>
-                          </Grid>{" "}
+                          </Grid>
                         </React.Fragment>
                       );
                     }
