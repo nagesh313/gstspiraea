@@ -17,9 +17,13 @@ import java.util.Optional;
 
 @Repository
 public interface ProprietorshipRepostiory extends JpaRepository<Proprietorship, String> {
+
     List<Proprietorship> findAllByCreatedBy(String user);
 
     List<Proprietorship> findAllByCreatedByIn(List<String> user);
+    List<Proprietorship> findAllByProprietorshipidLikeOrTradeNameLikeOrLegalbusinessNameLike(String searchText1, String searchText2, String searchText3);
+
+    List<Proprietorship> findAllByCreatedByInAndProprietorshipidLikeOrTradeNameLikeOrLegalbusinessNameLike(List<String> user, String searchText1, String searchText2, String searchText3);
 
     long countByStatus(String status);
 

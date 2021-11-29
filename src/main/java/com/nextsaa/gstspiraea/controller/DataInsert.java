@@ -170,6 +170,7 @@ public class DataInsert {
         admin.setModifiedOn(LocalDateTime.now());
         admin.setCreatedBy("admin");
         admin.setCreatedOn(LocalDateTime.now());
+        admin.setBusinessName("Test");
         userDetailsRepository.saveAndFlush(admin);
         UserDetails user1 = new UserDetails();
         user1.setFirstName("user1");
@@ -183,7 +184,7 @@ public class DataInsert {
         user1.setModifiedOn(LocalDateTime.now());
         user1.setCreatedBy("admin");
         user1.setCreatedOn(LocalDateTime.now());
-        user1.setVendorType("P0");
+        user1.setBusinessName("Test");
         userDetailsRepository.saveAndFlush(user1);
         UserDetails user2 = new UserDetails();
         user2.setFirstName("user2");
@@ -198,6 +199,7 @@ public class DataInsert {
         user2.setCreatedBy("admin");
         user2.setCreatedOn(LocalDateTime.now());
         user2.setVendorType("P1");
+        user1.setBusinessName("Test");
         userDetailsRepository.saveAndFlush(user2);
 
         UserDetails agent1 = new UserDetails();
@@ -212,6 +214,7 @@ public class DataInsert {
         agent1.setModifiedOn(LocalDateTime.now());
         agent1.setCreatedBy("admin");
         agent1.setCreatedOn(LocalDateTime.now());
+        user1.setBusinessName("Test");
         userDetailsRepository.saveAndFlush(agent1);
         UserDetails agent2 = new UserDetails();
         agent2.setFirstName("agent2");
@@ -225,6 +228,7 @@ public class DataInsert {
         agent2.setModifiedOn(LocalDateTime.now());
         agent2.setCreatedBy("admin");
         agent2.setCreatedOn(LocalDateTime.now());
+        user1.setBusinessName("Test");
         userDetailsRepository.saveAndFlush(agent2);
     }
 

@@ -28,7 +28,10 @@ export const StickyFooter = () => {
       <footer className={classes.footer}>
         <Grid container>
           <Grid item xs={6} style={{ textAlign: "center" }}>
-            <Typography variant="body1" style={{color:"white"}}>
+            <Typography
+              variant="body1"
+              style={{ color: "white", margin: "auto" }}
+            >
               Copyright © 2021 Spiraea. All Rights Reserved (A){" "}
             </Typography>
           </Grid>
@@ -37,7 +40,7 @@ export const StickyFooter = () => {
               <img
                 src="/NextSAA-Logo1.png"
                 alt=""
-                style={{ height: "70px" }}
+                style={{ height: "30px" }}
               ></img>
             </Typography>
           </Grid>

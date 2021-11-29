@@ -1,15 +1,19 @@
 import {
   Button,
+  Grid,
+  IconButton,
+  Input,
   MenuItem,
+  OutlinedInput,
   Select,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Visibility } from "@material-ui/icons";
+import { Search, Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
@@ -36,8 +40,16 @@ function OrderListComponent(props: any) {
     } else {
       url = "/api/get-all-order/" + orderType;
     }
+    let params = {};
+    if (searchText && searchText != "") {
+      params = {
+        params: {
+          searchText: `%${searchText}%`,
+        },
+      };
+    }
     axios
-      .get(url)
+      .get(url, params)
       .then((response: any) => {
         setOrderList(response.data);
       })
@@ -187,6 +199,42 @@ function OrderListComponent(props: any) {
       return row.companydetailsid;
     }
   };
+  const search = () => {
+    fetchOrderList();
+    // let formData = new FormData();
+    // formData.append("file", event.currentTarget.files[0]);
+    // axios
+    //   .post("/api/document/uploadFile", formData, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((response: any) => {
+    //     const documentUrl = response.data;
+    //     axios
+    //       .get(
+    //         "/api/get-order/gst/" +
+    //           orderTypeText(row) +
+    //           "/" +
+    //           orderTypeId(row) +
+    //           "/" +
+    //           documentUrl
+    //       )
+    //       .then((response: any) => {
+    //         props.enqueueSnackbar(
+    //           "Document Uploaded Successfully",
+    //           successToast
+    //         );
+    //       })
+    //       .catch((reponse: any) => {
+    //         props.enqueueSnackbar(reponse.message, failureToast);
+    //         event.target.value = "";
+    //       });
+    //   })
+    //   .catch((reponse: any) => {
+    //     props.enqueueSnackbar("Failed to upload the Document", failureToast);
+    //   });
+  };
   // let isP0: any = sessionStorage.getItem("type");
   // isP0 = isP0 === "P0";
   // const getOrderAmount = (row: any) => {
@@ -216,7 +264,11 @@ function OrderListComponent(props: any) {
   //       props.enqueueSnackbar("Failed to Update the order", failureToast);
   //     });
   // };
+  const [searchText, setSearchText] = React.useState<any>();
 
+  const handleChange = () => (event: any) => {
+    setSearchText(event.target.value);
+  };
   return (
     <React.Fragment>
       <ViewDocumentDialogComponent
@@ -225,11 +277,12 @@ function OrderListComponent(props: any) {
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />
-      <Title>Application List</Title>
+      <Title>Application List</Title>{" "}
       <Select
         style={{ marginLeft: "30px", marginBottom: "9px" }}
         defaultValue="All"
         onChange={(event: any, data: any) => {
+          setSearchText("");
           // setSelectedSample(data.props.children);
           setOrderType(data?.props?.value);
         }}
@@ -240,6 +293,31 @@ function OrderListComponent(props: any) {
         <MenuItem value={"LLP"}>LLP</MenuItem>
         <MenuItem value={"Company"}>Company</MenuItem>
       </Select>
+      {orderType !== "All" && (
+        <div>
+          <Input
+            id="standard-adornment-amount"
+            style={{ marginLeft: "10vw" }}
+            placeholder="Search"
+            value={searchText}
+            onChange={handleChange()}
+            endAdornment={
+              <IconButton style={{ padding: "0" }}>
+                <Search
+                  onClick={() => {
+                    search();
+                  }}
+                ></Search>
+              </IconButton>
+            }
+          />
+          {/* <OutlinedInput  />
+     
+            aria-label="search"
+            style={{ marginTop: "10px" }}
+          ></IconButton> */}
+        </div>
+      )}
       {orderType === "All" && (
         <Table size="small">
           <TableHead>

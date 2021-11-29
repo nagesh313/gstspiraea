@@ -1,12 +1,9 @@
 package com.nextsaa.gstspiraea.repository;
 
 import com.nextsaa.gstspiraea.entity.LLP;
-import com.nextsaa.gstspiraea.entity.Partnership;
-import com.nextsaa.gstspiraea.entity.Proprietorship;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,4 +21,8 @@ public interface LLPRepostiory extends JpaRepository<LLP, String> {
     List<LLP> findAllByStatusAndCreatedOnGreaterThan(String status, LocalDateTime today);
 
     long countByCreatedOnGreaterThan(LocalDateTime today);
+    List<LLP> findAllByLlpidLikeOrTradeNameLikeOrLegalbusinessNameLike(String searchText1, String searchText2, String searchText3);
+
+    List<LLP> findAllByCreatedByInAndLlpidLikeOrTradeNameLikeOrLegalbusinessNameLike(List<String> user, String searchText1, String searchText2, String searchText3);
+
 }

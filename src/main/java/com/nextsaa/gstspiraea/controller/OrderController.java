@@ -9,17 +9,11 @@ import com.nextsaa.gstspiraea.repository.LLPRepostiory;
 import com.nextsaa.gstspiraea.repository.PartnershipRepository;
 import com.nextsaa.gstspiraea.repository.ProprietorshipRepostiory;
 import com.nextsaa.gstspiraea.util.Utility;
-import com.razorpay.RazorpayClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/get-order")
@@ -47,24 +41,57 @@ public class OrderController {
     }
 
     @GetMapping(value = "/Proprietorship/{user}")
-    public List<Proprietorship> getAllProprietorship(@PathVariable String user) {
-        return proprietorshipRepostiory.findAllByCreatedBy(user);
+    public List<Proprietorship> getAllProprietorship(@PathVariable String user, @RequestParam Map<String, String> params) {
+        System.out.println(params);
+        if (params != null && params.size() > 0) {
+            return proprietorshipRepostiory.findAllByCreatedByInAndProprietorshipidLikeOrTradeNameLikeOrLegalbusinessNameLike(
+                    Arrays.asList(user),
+                    params.get("searchText"),
+                    params.get("searchText"),
+                    params.get("searchText"));
+        } else {
+            return proprietorshipRepostiory.findAllByCreatedBy(user);
+        }
     }
 
     @GetMapping(value = "/Partnership/{user}")
-    public List<Partnership> getAllPartnership(@PathVariable String user) {
-        return partnershipRepository.findAllByCreatedBy(user);
+    public List<Partnership> getAllPartnership(@PathVariable String user, @RequestParam Map<String, String> params) {
+        if (params != null && params.size() > 0) {
+            return partnershipRepository.findAllByCreatedByInAndPartnershipidLikeOrTradeNameLikeOrLegalbusinessNameLike(
+                    Arrays.asList(user),
+                    params.get("searchText"),
+                    params.get("searchText"),
+                    params.get("searchText"));
+        } else {
+            return partnershipRepository.findAllByCreatedBy(user);
+        }
     }
 
     @GetMapping(value = "/LLP/{user}")
-    public List<LLP> getAllLLP(@PathVariable String user) {
-        return llpRepostiory.findAllByCreatedBy(user);
+    public List<LLP> getAllLLP(@PathVariable String user, @RequestParam Map<String, String> params) {
+        if (params != null && params.size() > 0) {
+            return llpRepostiory.findAllByCreatedByInAndLlpidLikeOrTradeNameLikeOrLegalbusinessNameLike(
+                    Arrays.asList(user),
+                    params.get("searchText"),
+                    params.get("searchText"),
+                    params.get("searchText"));
+        } else {
+            return llpRepostiory.findAllByCreatedBy(user);
+        }
 
     }
 
     @GetMapping(value = "/Company/{user}")
-    public List<CompanyDetails> getAllCompany(@PathVariable String user) {
-        return companyDetailsRepository.findAllByCreatedBy(user);
+    public List<CompanyDetails> getAllCompany(@PathVariable String user, @RequestParam Map<String, String> params) {
+        if (params != null && params.size() > 0) {
+            return companyDetailsRepository.findAllByCreatedByInAndCompanydetailsidLikeOrTradeNameLikeOrLegalbusinessNameLike(
+                    Arrays.asList(user),
+                    params.get("searchText"),
+                    params.get("searchText"),
+                    params.get("searchText"));
+        } else {
+            return companyDetailsRepository.findAllByCreatedBy(user);
+        }
     }
 
     @GetMapping(value = "/get/Proprietorship/{id}")
