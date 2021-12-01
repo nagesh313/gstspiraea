@@ -421,7 +421,7 @@ const SoleProprietorComponent = (props: any) => {
                         size="small"
                         required
                         fullWidth
-                        style={{ maxWidth: "90%" }}
+                        style={{ maxWidth: "80%" }}
                         id="email"
                         label="Email ID"
                         name="email"

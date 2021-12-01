@@ -176,6 +176,7 @@ public class UserService {
         if (url.contains("localhost")) {
             url = "localhost:3000";
         }
+        
         try {
             MimeMessage msg = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(msg, true);
@@ -183,8 +184,12 @@ public class UserService {
             msg.setFrom(configService.getConfigByKey("originatorEmail").getConfigvalue());
             msg.setSubject(configService.getConfigByKey("loginMailSubject").getConfigvalue());
             String body = "Dear User," +
-                    ",<br/>" +
-                    " <a href='" + "http://" + url + "/#/verify-email/" + emailVerification.getId() + "'>Please Click on this link to Verify your email</a>";
+                    "<br/>" +
+                    " <a href='" + "http://" + url + "/#/verify-email/" + emailVerification.getId() + "'>Please Click on this link to Verify your email</a>"
+                    + "\n\n\n"
+                    + "Regards,\n"
+                    + "Spiraea Team\n"
+                    + "http://www.spiraea.in/";
             msg.setText(body, "UTF-8", "html");
             javaMailSender.send(msg);
         } catch (Exception e) {

@@ -44,7 +44,7 @@ function EmailVerificationComponent(props: any) {
   return (
     <>
       <span style={{ float: "right", marginTop: "25px" }}>
-        {props.id && !props?.verificationObject?.verified && (
+        {props.id && (
           <>
             <Send
               titleAccess="Send Verification Mail"

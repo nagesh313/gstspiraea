@@ -1,10 +1,8 @@
 import {
   Button,
-  Grid,
   IconButton,
   Input,
   MenuItem,
-  OutlinedInput,
   Select,
   TextField,
 } from "@material-ui/core";
@@ -41,7 +39,7 @@ function OrderListComponent(props: any) {
       url = "/api/get-all-order/" + orderType;
     }
     let params = {};
-    if (searchText && searchText != "") {
+    if (searchText && searchText !== "") {
       params = {
         params: {
           searchText: `%${searchText}%`,

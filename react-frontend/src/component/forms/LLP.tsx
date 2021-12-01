@@ -487,7 +487,7 @@ const LLPComponent = (props: any) => {
                         size="small"
                         required
                         fullWidth
-                        style={{ maxWidth: "90%" }}
+                        style={{ maxWidth: "80%" }}
                         id="email"
                         label="Email ID"
                         name="email"
@@ -1026,7 +1026,7 @@ const LLPComponent = (props: any) => {
                                 margin="dense"
                                 size="small"
                                 required
-                                style={{ maxWidth: "90%" }}
+                                style={{ maxWidth: "80%" }}
                                 fullWidth
                                 id={"partnerEmail" + index}
                                 label={"Email of Partner " + (index + 1)}
