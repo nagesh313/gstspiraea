@@ -29,3 +29,10 @@ deploy:
     skip_cleanup: true
     on:
       all_branches: true
+  - provider: releases
+    api_key: $GITHUB_OAUTH_TOKEN
+    skip_cleanup: true
+    on:
+      tags: true
+    file: "target/gstspiraea.jar"
+    skip_cleanup: true
