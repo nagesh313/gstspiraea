@@ -35,4 +35,3 @@ deploy:
     on:
       tags: true
     file: "target/gstspiraea.jar"
-    skip_cleanup: true
