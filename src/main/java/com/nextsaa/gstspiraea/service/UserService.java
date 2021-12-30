@@ -108,7 +108,7 @@ public class UserService {
                             + "\n Role: " + userDetailsDTO.getRole()
                             + "\n UserName: " + userDetailsDTO.getLoginUserName()
                             + "\n Password: " + userDetailsDTO.getLoginPassword()
-                            + "\nLink for Login : https://app-gstspiraea.herokuapp.com\n"
+                            + "\nLink for Login : http://ec2-13-235-23-193.ap-south-1.compute.amazonaws.com:8084\n"
                             + "We want to take this opportunity to thank you for selecting Spiraea as your preferred " +
                             "partner. In case of any concerns, you can reach out to SPIRAEA HELPDESK at +91 7829930300.\n\n" +
                             "You can also reach out to SPIRAEA for our other service offerings (PAN INDIA) : \n" +
@@ -151,7 +151,7 @@ public class UserService {
                                 + "\n Role: " + userDetailsDTO.getRole()
                                 + "\n UserName: " + userDetailsDTO.getLoginUserName()
                                 + "\n Password: " + userDetailsDTO.getLoginPassword()
-                                + "\nLink for Login : https://app-gstspiraea.herokuapp.com\n"
+                                + "\nLink for Login : http://ec2-13-235-23-193.ap-south-1.compute.amazonaws.com:8084\n"
                                 + "We want to take this opportunity to thank you for selecting Spiraea as your preferred " +
                                 "partner. In case of any concerns, you can reach out to SPIRAEA HELPDESK at +91 7829930300.\n\n" +
                                 "You can also reach out to SPIRAEA for our other service offerings (PAN INDIA) : \n" +

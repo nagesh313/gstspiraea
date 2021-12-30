@@ -1,4 +1,10 @@
-import { Button, Grid, IconButton, TextField, Tooltip } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  IconButton,
+  TextField,
+  Tooltip,
+} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -78,6 +84,19 @@ export function AgentListComponent(props: any) {
   //     });
   // };
   const sendmail = (user: any) => {
+    if (
+      user.loginUserName === undefined ||
+      user.loginUserName === null ||
+      user.loginUserName === "" ||
+      user.loginPassword === undefined ||
+      user.loginPassword === null ||
+      user.loginPassword === ""
+    ) {
+      alert(
+        "Please make sure you have a valid username and password before you send the credentials."
+      );
+      return;
+    }
     axios
       .post("/api/generateLoginDetails", user)
       .then((response: any) => {

@@ -74,6 +74,19 @@ export function AdminListComponent(props: any) {
   };
 
   const sendmail = (user: any) => {
+    if (
+      user.loginUserName === undefined ||
+      user.loginUserName === null ||
+      user.loginUserName === "" ||
+      user.loginPassword === undefined ||
+      user.loginPassword === null ||
+      user.loginPassword === ""
+    ) {
+      alert(
+        "Please make sure you have a valid username and password before you send the credentials."
+      );
+      return;
+    }
     axios
       .post("/api/generateLoginDetails", user)
       .then((response: any) => {
