@@ -19,7 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Where(clause = "isActive='true'")
+@Where(clause = "isActive='1'")
 public class CompanyDetails {
 
     @Id

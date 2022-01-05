@@ -46,7 +46,7 @@ public class DataInsert {
     @Autowired
     private StateRepository stateRepository;
 
-    @PostConstruct
+    
     public void create() throws Exception {
         createStates();
         createConfig();

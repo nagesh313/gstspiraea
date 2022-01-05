@@ -34,6 +34,7 @@ public class OrderController {
     public List<Object> getAll(@PathVariable String user) {
         List<Object> response = new ArrayList<>();
         response.addAll(proprietorshipRepostiory.findAllByCreatedBy(user));
+        System.out.println(response.size());
         response.addAll(partnershipRepository.findAllByCreatedBy(user));
         response.addAll(llpRepostiory.findAllByCreatedBy(user));
         response.addAll(companyDetailsRepository.findAllByCreatedBy(user));
