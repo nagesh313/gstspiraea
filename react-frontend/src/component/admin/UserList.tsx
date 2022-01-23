@@ -25,6 +25,8 @@ export function UserListComponent(props: any) {
     history.push("/dashboard/order-list");
   }
   const [userList, setUserList] = React.useState<any>([]);
+  const [searchQuery, setSearchQuery] = React.useState<any>("");
+
   const [agentList, setAgentList] = React.useState<any>([]);
   // const [open, setOpen] = React.useState<boolean>(false);
 
@@ -137,22 +139,21 @@ export function UserListComponent(props: any) {
   return (
     <React.Fragment>
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <Title style={{ marginTop: "20px" }}>List of Customers</Title>
         </Grid>
-        <Grid item xs={6}>
-          <Title
-            style={{ marginTop: "20px", textAlign: "right", cursor: "pointer" }}
-          >
-            {/* <Tooltip title="Add">
-              <Add onClick={handleOpen}></Add>
-            </Tooltip>
-            <CreateNewUserDialog
-              open={open}
-              type="Customer"
-              handleClose={handleClose}
-            ></CreateNewUserDialog> */}
-          </Title>
+        <Grid item xs={5} style={{ textAlign: "right" }}>
+          <TextField
+            margin="dense"
+            type="text"
+            size="small"
+            label="Search"
+            onChange={(text: any) => {
+              setSearchQuery(text.target.value);
+            }}
+            // value={values.pricipleelectricityphoto}
+            // InputLabelProps={{ shrink: true }}
+          />
         </Grid>
       </Grid>
       <Table size="small">
@@ -169,6 +170,14 @@ export function UserListComponent(props: any) {
           {userList
             ?.filter((row: any) => {
               return row.role === "Customer";
+            })
+            ?.filter((row: any) => {
+              return (
+                searchQuery === "" ||
+                row.role.includes(searchQuery) ||
+                row.userEmail.includes(searchQuery) ||
+                row.loginUserName.includes(searchQuery)
+              );
             })
             ?.map((row: any) => (
               <TableRow key={row.userId}>

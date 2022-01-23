@@ -19,6 +19,9 @@ import { useHistory } from "react-router-dom";
 import { failureToast, successToast } from "../util/util";
 import Title from "./Title";
 import { ViewDocumentDialogComponent } from "./ViewDocumentDialog";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import XlsxPopulate from "xlsx-populate";
+import { saveAs } from "file-saver";
 
 function OrderListComponent(props: any) {
   const [orderList, setOrderList] = React.useState<any>([]);
@@ -267,6 +270,102 @@ function OrderListComponent(props: any) {
   const handleChange = () => (event: any) => {
     setSearchText(event.target.value);
   };
+  const download = () => {
+    saveAsExcel();
+  };
+  function getSheetData(data: any, header: any) {
+    // var fields = Object.keys(data[0]);
+    var sheetData = data.map(function (row: any) {
+      return header.map(function (fieldName:any) {
+        return row[fieldName] ? row[fieldName] : "";
+      });
+    });
+    sheetData.unshift(header);
+    debugger;
+    return sheetData;
+  }
+  async function saveAsExcel() {
+    console.log(orderList);
+    let header = [
+      "proprietorshipid",
+      "partnershipid",
+      "companydetailsid",
+      "llpid",
+      "personName",
+      "legalbusinessName",
+      "tradeName",
+      "mobile",
+      "email",
+      // "emailVerification",
+      "pannumber",
+      "panphoto",
+      "soleProprietorPhoto",
+      "composition",
+      "commencementDate",
+      "principleplace",
+      "pricipleelectricityphoto",
+      "priciplerentphoto",
+      "priciplenocphoto",
+      "additionalplace",
+      "additionalelectricityphoto",
+      "additionalrentphoto",
+      "additionalnocphoto",
+      "propfatherName",
+      "propadharnumber",
+      "propadharphotoFront",
+      "propadharphotoBack",
+      "resident_address",
+      "photo",
+      "hsn1",
+      "hsn2",
+      "hsn3",
+      "hsn4",
+      "hsn5",
+      "accountnumber",
+      "ifsccode",
+      "cancelcheqphoto",
+      "tradelicensenumber",
+      "tradelicensephoto",
+      "createdOn",
+      "createdBy",
+      "modifiedOn",
+      "modifiedBy",
+      "status",
+      "gstDocument",
+      "remark",
+      "trading",
+      "manufacture",
+      "service",
+      "razorpayOrder",
+      "gstCertificatesInOtherStates",
+      "paymentPlanDetailsId",
+      "location",
+      "amount",
+      "active",
+      "firmName",
+      // "partnerList",
+      "certificateOfIncorportation",
+      "partnershipDeed",
+      "declarationOfAuthorisedSignatory",
+      // "directorList",
+    ];
+
+    XlsxPopulate.fromBlankAsync().then(async (workbook: any) => {
+      const sheet1 = workbook.sheet(0);
+      const sheetData = getSheetData(orderList, header);
+      // const totalColumns = sheetData[0].length;
+
+      sheet1.cell("A1").value(sheetData);
+      // const range = sheet1.usedRange();
+      // const endColumn = String.fromCharCode(64 + totalColumns);
+      sheet1.row(1).style("bold", true);
+      // sheet1.range("A1:" + endColumn + "1").style("fill", "BFBFBF");
+      // range.style("border", true);
+      return workbook.outputAsync().then((res: any) => {
+        saveAs(res, "file.xlsx");
+      });
+    });
+  }
   return (
     <React.Fragment>
       <ViewDocumentDialogComponent
@@ -275,7 +374,7 @@ function OrderListComponent(props: any) {
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />
-      <Title>Application List</Title>{" "}
+      <Title>Application List</Title>
       <Select
         style={{ marginLeft: "30px", marginBottom: "9px" }}
         defaultValue="All"
@@ -316,6 +415,9 @@ function OrderListComponent(props: any) {
           ></IconButton> */}
         </div>
       )}
+      <IconButton onClick={download}>
+        <GetAppIcon></GetAppIcon>
+      </IconButton>
       {orderType === "All" && (
         <Table size="small">
           <TableHead>
