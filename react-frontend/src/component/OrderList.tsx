@@ -337,7 +337,7 @@ function OrderListComponent(props: any) {
       "manufacture",
       "service",
       "razorpayOrder",
-      "gstCertificatesInOtherStates",
+      // "gstCertificatesInOtherStates",
       "paymentPlanDetailsId",
       "location",
       "amount",
