@@ -5,13 +5,14 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Search, Visibility } from "@material-ui/icons";
+import { GetApp, Search, Visibility } from "@material-ui/icons";
 import axios from "axios";
 import { withSnackbar } from "notistack";
 import React, { useEffect } from "react";
@@ -166,6 +167,22 @@ function OrderListComponent(props: any) {
         props.enqueueSnackbar("Failed to upload the Document", failureToast);
       });
   };
+  const downloadReport = (filename: any) => {
+    axios
+      .get("/api/document/downloadFile/" + filename, { responseType: "blob" })
+      .then((response: any) => {
+        var element = document.createElement("a");
+        var file = new Blob([response.data]);
+        element.target = "_blank";
+        element.download = filename;
+        element.href = URL.createObjectURL(file);
+        element.click();
+        element.remove();
+      })
+      .catch((reponse: any) => {
+        props.enqueueSnackbar("Unable To Download", failureToast);
+      });
+  };
   const role = sessionStorage.getItem("role");
   const [imageName, setImageName] = React.useState<any>();
   const [open, setOpen] = React.useState(false);
@@ -276,7 +293,7 @@ function OrderListComponent(props: any) {
   function getSheetData(data: any, header: any) {
     // var fields = Object.keys(data[0]);
     var sheetData = data.map(function (row: any) {
-      return header.map(function (fieldName:any) {
+      return header.map(function (fieldName: any) {
         return row[fieldName] ? row[fieldName] : "";
       });
     });
@@ -469,24 +486,31 @@ function OrderListComponent(props: any) {
                     <TextField
                       margin="dense"
                       type="file"
-                      style={{ width: "70%" }}
+                      style={{ width: "60%" }}
                       size="small"
                       required
                       fullWidth
-                      label="Attach GST Doc"
                       onChange={(file: any) => upload(file, row)}
                       // value={values.pricipleelectricityphoto}
                       InputLabelProps={{ shrink: true }}
                     />
                   )}
                   {row.gstDocument && row.gstDocument !== "" && (
-                    <Visibility
-                      onClick={() => {
-                        setImageName(row.gstDocument);
-                        setOpen(true);
-                      }}
-                      style={{ float: "right" }}
-                    />
+                    <>
+                      <GetApp
+                        style={{ marginTop: "10px" }}
+                        onClick={() => {
+                          downloadReport(row.gstDocument);
+                        }}
+                      />
+                      <Visibility
+                        onClick={() => {
+                          setImageName(row.gstDocument);
+                          setOpen(true);
+                        }}
+                        style={{ marginTop: "10px" }}
+                      />
+                    </>
                   )}
                 </TableCell>
                 <TableCell align="center">

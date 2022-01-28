@@ -21,6 +21,9 @@ import { useHistory } from "react-router-dom";
 export function UserListComponent(props: any) {
   const history = useHistory();
   const role = sessionStorage.getItem("role");
+  if (role === null) {
+    window.location.href = "/";
+  }
   if (role !== "Admin") {
     history.push("/dashboard/order-list");
   }

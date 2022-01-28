@@ -42,9 +42,13 @@ export const AdminDashboard = () => {
   const classes = useStyles();
   const history = useHistory();
   const role = sessionStorage.getItem("role");
+  if (role === null) {
+    window.location.href = "/";
+  }
   if (role !== "Admin") {
     history.push("/dashboard/order-list");
   }
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const [dashboardData, setDashboardData] = React.useState<any>({});
 

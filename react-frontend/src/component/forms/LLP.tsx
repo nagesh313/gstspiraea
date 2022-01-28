@@ -882,7 +882,7 @@ const LLPComponent = (props: any) => {
                                   setImageName={setImageName}
                                   setOpen={setOpen}
                                   setFieldValue={setFieldValue}
-                                  title=""
+                                  title="Partner Aadhar Copy Front"
                                 />
                               </Grid>
                               <Grid item xs={12}>
@@ -940,7 +940,7 @@ const LLPComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title=""
+                                title="PAN copy"
                               />
                             </Grid>
                           </Grid>
@@ -990,7 +990,7 @@ const LLPComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title=""
+                                title="Partner Photo"
                               />
                             </Grid>
                           </Grid>
@@ -1213,7 +1213,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Cancel Cheque Photo"
                       />
                     </Grid>
                   </Grid>
@@ -1227,7 +1227,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Partnership Deed Photo"
                       />
                     </Grid>
                   </Grid>
@@ -1241,7 +1241,7 @@ const LLPComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="certificate Of Incorportation Copy"
                       />
                     </Grid>
                   </Grid>
@@ -1283,7 +1283,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Trade license photo"
                         />
                       </Grid>
                     </Grid>
@@ -1302,7 +1302,7 @@ const LLPComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Declaration Of Authorised Signatory"
                         />
                       </Grid>
                     </Grid>
@@ -1372,7 +1372,7 @@ const LLPComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title=""
+                                title="GST Attachment"
                               />
                             </Grid>
                           </Grid>

@@ -149,6 +149,9 @@ const Row = withSnackbar(RowComponent);
 export const PlanListComponent = (props: any) => {
   const history = useHistory();
   const role = sessionStorage.getItem("role");
+  if (role === null) {
+    history.push("#/signin");
+  }
   if (role !== "Admin") {
     history.push("/dashboard/order-list");
   }

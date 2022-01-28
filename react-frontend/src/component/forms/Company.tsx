@@ -634,7 +634,7 @@ const CompanyComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Priciple Rent Photo"
                           error={
                             errors.priciplerentphoto &&
                             touched.priciplerentphoto
@@ -650,7 +650,7 @@ const CompanyComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Priciple NOC Photo"
                           error={
                             errors.priciplenocphoto && touched.priciplenocphoto
                               ? true
@@ -692,7 +692,7 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Electricity photo"
                         error={
                           errors.additionalelectricityphoto &&
                           touched.additionalelectricityphoto
@@ -708,7 +708,7 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Rent photo"
                         error={
                           errors.additionalrentphoto &&
                           touched.additionalrentphoto
@@ -724,7 +724,7 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="NOC photo"
                         error={
                           errors.additionalnocphoto &&
                           touched.additionalnocphoto
@@ -926,7 +926,7 @@ const CompanyComponent = (props: any) => {
                                   setImageName={setImageName}
                                   setOpen={setOpen}
                                   setFieldValue={setFieldValue}
-                                  title=""
+                                  title="Director Aadhar Copy Front"
                                   error={
                                     errors[
                                       "directorAadharPhotoCopyFront" + index
@@ -954,7 +954,7 @@ const CompanyComponent = (props: any) => {
                                   setImageName={setImageName}
                                   setOpen={setOpen}
                                   setFieldValue={setFieldValue}
-                                  title=""
+                                  title={"Director Aadhar Copy Back"}
                                   error={
                                     errors[
                                       "directorAadharPhotoCopyBack" + index
@@ -1005,7 +1005,7 @@ const CompanyComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title=""
+                                title={"PAN Copy"}
                               />
                             </Grid>
                           </Grid>
@@ -1058,7 +1058,7 @@ const CompanyComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title=""
+                                title={"Director Photo " + (index + 1)}
                               />
                             </Grid>
                           </Grid>
@@ -1221,7 +1221,7 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Cancel Cheque photo"
                       />
                     </Grid>
                   </Grid>
@@ -1235,7 +1235,7 @@ const CompanyComponent = (props: any) => {
                         setImageName={setImageName}
                         setOpen={setOpen}
                         setFieldValue={setFieldValue}
-                        title=""
+                        title="Certificate Of Incorportation"
                       />
                     </Grid>
                   </Grid>
@@ -1277,7 +1277,7 @@ const CompanyComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Trade license photo"
                         />
                       </Grid>
                     </Grid>
@@ -1296,7 +1296,7 @@ const CompanyComponent = (props: any) => {
                           setImageName={setImageName}
                           setOpen={setOpen}
                           setFieldValue={setFieldValue}
-                          title=""
+                          title="Declaration Of Authorised Signatory"
                         />
                       </Grid>
                     </Grid>
@@ -1366,7 +1366,7 @@ const CompanyComponent = (props: any) => {
                                 setImageName={setImageName}
                                 setOpen={setOpen}
                                 setFieldValue={setFieldValue}
-                                title=""
+                                title="GST Attachment"
                               />
                             </Grid>
                           </Grid>

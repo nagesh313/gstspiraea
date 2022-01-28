@@ -21,6 +21,9 @@ import { CreateNewUserDialog } from "./CreateNewUser";
 export function AgentListComponent(props: any) {
   const history = useHistory();
   const role = sessionStorage.getItem("role");
+  if (role === null) {
+    window.location.href = "/";
+  }
   if (role !== "Admin") {
     history.push("/dashboard/order-list");
   }
